@@ -3,13 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herse Turismo - Tu próxima aventura</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Herse Turismo - Tu próxima aventura te espera</title>
+
+    <!-- ✅ SEO Meta Tags -->
+    <meta name="description" content="Herse Turismo - Agencia de viajes en La Plata. Paquetes a Argentina, Brasil, Caribe, Europa y más. Precios mayoristas, soporte 24/7.">
+    <meta name="robots" content="index, follow">
+
+    <!-- ✅ Open Graph (para compartir en redes sociales) -->
+    <meta property="og:title" content="Herse Turismo - Tu próxima aventura te espera">
+    <meta property="og:description" content="Paquetes de viaje a todo el mundo con precios mayoristas. La Plata, Buenos Aires.">
+    <meta property="og:image" content="assets/logo-web.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_AR">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23004A8F'/><text y='72' x='12' font-size='70'>✈️</text></svg>">
 </head>
 <body>
 
+    <!-- =============================================
+         NAVBAR
+    ============================================= -->
     <header class="navbar">
         <div class="container nav-container">
             <div class="logo">
@@ -19,174 +39,255 @@
                 <ul class="nav-links">
                     <li><a href="#inicio" class="active">INICIO</a></li>
                     <li><a href="#ofertas">DESTACADOS</a></li>
+                    <li><a href="#blog">BLOG</a></li>
                     <li><a href="#contacto">CONTACTO</a></li>
                 </ul>
             </nav>
-            <a href="https://wa.me/5491100000000" class="btn-primary" target="_blank">Cotizar Viaje</a>
+            <a href="https://wa.me/5491100000000?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank" rel="noopener">
+                <i class="fab fa-whatsapp"></i> Cotizar Viaje
+            </a>
+            <!-- ✅ Hamburger para mobile -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#inicio" onclick="closeMobileMenu()">🏠 Inicio</a>
+            <a href="#ofertas" onclick="closeMobileMenu()">✈️ Destacados</a>
+            <a href="#blog" onclick="closeMobileMenu()">📝 Blog</a>
+            <a href="#contacto" onclick="closeMobileMenu()">📞 Contacto</a>
+            <a href="https://wa.me/5491100000000?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank">
+                <i class="fab fa-whatsapp"></i> Cotizar por WhatsApp
+            </a>
         </div>
     </header>
 
+    <!-- =============================================
+         HERO
+    ============================================= -->
     <section id="inicio" class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Descubrí el mundo con <span class="text-orange">Herse</span></h1>
-            <p>Nuestro mapa lleva tu próximo destino</p>
-            <div class="hero-buttons">
-                <a href="#ofertas" class="btn-primary">Ver Ofertas</a>
+            <p>Tu próxima aventura empieza con una consulta</p>
+            <!-- ✅ Botones de consulta rápida -->
+            <div class="hero-search">
+                <button class="hero-search-btn" onclick="scrollToSection('argentina')">
+                    <i class="fas fa-flag"></i> <span>Argentina</span>
+                </button>
+                <button class="hero-search-btn" onclick="scrollToSection('caribe')">
+                    <i class="fas fa-umbrella-beach"></i> <span>Caribe</span>
+                </button>
+                <button class="hero-search-btn" onclick="scrollToSection('europa')">
+                    <i class="fas fa-landmark"></i> <span>Europa</span>
+                </button>
+                <button class="hero-search-btn" onclick="scrollToSection('norteAmerica')">
+                    <i class="fas fa-city"></i> <span>Norte América</span>
+                </button>
             </div>
         </div>
     </section>
 
-    <div class="container" id="ofertas" style="margin-top: 60px;">
-
-        <div style="text-align: center; margin-bottom: 40px;">
-            <h2 class="section-title" style="font-size: 2.5rem; justify-content: center;">
-                <i class=" text-orange"></i> DESTACADOS
-            </h2>
+    <!-- =============================================
+         SECCIÓN DESTACADOS (filtros)
+    ============================================= -->
+    <div class="container" id="ofertas">
+        <div class="destacados-header">
+            <h2>DESTACADOS</h2>
+            <p>Elegí tu destino y consultanos sin compromiso</p>
         </div>
-
         <div class="region-filter">
-            <a href="#argentina" class="region-btn"><i class="fas fa-flag"></i> Argentina</a>
-            <a href="#brasil" class="region-btn"><i class="fas fa-sun"></i> Brasil</a>
-            <a href="#caribe" class="region-btn"><i class="fas fa-umbrella-beach"></i> Caribe</a>
-            <a href="#europa" class="region-btn"><i class="fas fa-landmark"></i> Europa</a>
-            <a href="#africa" class="region-btn"><i class="fas fa-globe-africa"></i> Africa</a>
-            <a href="#oceania" class="region-btn"><i class="fas fa-water"></i> Oceania</a>
-            <a href="#norteAmerica" class="region-btn"><i class="fas fa-city"></i> Norte America</a>
+            <a href="#argentina" class="region-btn" onclick="setActive(this)"><i class="fas fa-flag"></i> Argentina</a>
+            <a href="#brasil" class="region-btn" onclick="setActive(this)"><i class="fas fa-sun"></i> Brasil</a>
+            <a href="#caribe" class="region-btn" onclick="setActive(this)"><i class="fas fa-umbrella-beach"></i> Caribe</a>
+            <a href="#europa" class="region-btn" onclick="setActive(this)"><i class="fas fa-landmark"></i> Europa</a>
+            <a href="#africa" class="region-btn" onclick="setActive(this)"><i class="fas fa-globe-africa"></i> África</a>
+            <a href="#oceania" class="region-btn" onclick="setActive(this)"><i class="fas fa-water"></i> Oceanía</a>
+            <a href="#norteAmerica" class="region-btn" onclick="setActive(this)"><i class="fas fa-city"></i> Norte América</a>
         </div>
     </div>
 
+    <!-- =============================================
+         SECCIONES POR REGIÓN
+    ============================================= -->
     <section id="argentina" class="destination-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Argentina</h2>
             </div>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" onclick="scrollTrack('track-arg', -1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn prev-btn" onclick="scrollTrack('track-arg', -1)" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track-arg"></div>
-                <button class="nav-btn next-btn" onclick="scrollTrack('track-arg', 1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn next-btn" onclick="scrollTrack('track-arg', 1)" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <section id="brasil" class="destination-section bg-light">
+    <section id="brasil" class="destination-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Brasil</h2>
-            </div>
+            <div class="section-header"><h2 class="section-title">Brasil</h2></div>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" onclick="scrollTrack('track-brasil', -1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn prev-btn" onclick="scrollTrack('track-brasil', -1)" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track-brasil"></div>
-                <button class="nav-btn next-btn" onclick="scrollTrack('track-brasil', 1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn next-btn" onclick="scrollTrack('track-brasil', 1)" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
     <section id="caribe" class="destination-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Caribe</h2>
-            </div>
+            <div class="section-header"><h2 class="section-title">Caribe</h2></div>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" onclick="scrollTrack('track-caribe', -1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn prev-btn" onclick="scrollTrack('track-caribe', -1)" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track-caribe"></div>
-                <button class="nav-btn next-btn" onclick="scrollTrack('track-caribe', 1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn next-btn" onclick="scrollTrack('track-caribe', 1)" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <section id="europa" class="destination-section bg-light">
+    <section id="europa" class="destination-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Europa</h2>
-            </div>
+            <div class="section-header"><h2 class="section-title">Europa</h2></div>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" onclick="scrollTrack('track-europa', -1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn prev-btn" onclick="scrollTrack('track-europa', -1)" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track-europa"></div>
-                <button class="nav-btn next-btn" onclick="scrollTrack('track-europa', 1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn next-btn" onclick="scrollTrack('track-europa', 1)" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
     <section id="africa" class="destination-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Africa</h2>
-            </div>
+            <div class="section-header"><h2 class="section-title">África</h2></div>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" onclick="scrollTrack('track-africa', -1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn prev-btn" onclick="scrollTrack('track-africa', -1)" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track-africa"></div>
-                <button class="nav-btn next-btn" onclick="scrollTrack('track-africa', 1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn next-btn" onclick="scrollTrack('track-africa', 1)" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
-    <section id="oceania" class="destination-section bg-light">
+    <section id="oceania" class="destination-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Oceania</h2>
-            </div>
+            <div class="section-header"><h2 class="section-title">Oceanía</h2></div>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" onclick="scrollTrack('track-oceania', -1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn prev-btn" onclick="scrollTrack('track-oceania', -1)" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track-oceania"></div>
-                <button class="nav-btn next-btn" onclick="scrollTrack('track-oceania', 1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn next-btn" onclick="scrollTrack('track-oceania', 1)" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
     <section id="norteAmerica" class="destination-section">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Norte America</h2>
-            </div>
+            <div class="section-header"><h2 class="section-title">Norte América</h2></div>
             <div class="carousel-wrapper">
-                <button class="nav-btn prev-btn" onclick="scrollTrack('track-norte', -1)"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn prev-btn" onclick="scrollTrack('track-norte', -1)" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="track-norte"></div>
-                <button class="nav-btn next-btn" onclick="scrollTrack('track-norte', 1)"><i class="fas fa-chevron-right"></i></button>
+                <button class="nav-btn next-btn" onclick="scrollTrack('track-norte', 1)" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
+    <!-- =============================================
+         POR QUÉ ELEGIRNOS
+    ============================================= -->
     <section id="nosotros" class="about-section">
         <div class="container">
-            <h2 class="section-title">¿Por qué elegir Herse Turismo?</h2>
-            
+            <h2 class="section-title" style="justify-content:center; margin-bottom:8px;">¿Por qué elegir Herse?</h2>
             <div class="about-grid">
                 <div class="about-card">
                     <i class="fas fa-headset icon-about text-orange"></i>
                     <h3>Soporte 24/7</h3>
-                    <p>Viaja tranquilo. Estamos conectados contigo en todo momento vía WhatsApp.</p>
+                    <p>Viajá tranquilo. Estamos conectados con vos en todo momento vía WhatsApp.</p>
                 </div>
-
                 <div class="about-card">
                     <i class="fas fa-hand-holding-usd icon-about text-blue"></i>
                     <h3>Precios Mayoristas</h3>
                     <p>Acceso directo a tarifas de operador sin intermediarios extra.</p>
                 </div>
-
                 <div class="about-card">
                     <i class="fas fa-shield-alt icon-about text-orange"></i>
                     <h3>Seguridad Total</h3>
-                    <p>Agencia habilitada. Tu dinero y tu viaje están protegidos.</p>
+                    <p>Agencia habilitada. Tu dinero y tu viaje están protegidos en todo momento.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- =============================================
+         BLOG / TIPS DE VIAJE
+    ============================================= -->
+    <section id="blog" class="blog-section">
+        <div class="container">
+            <div class="destacados-header">
+                <h2>TIPS DE VIAJE</h2>
+                <p>Consejos para que tu próxima aventura salga perfecta</p>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=70" alt="Cuándo comprar pasajes" loading="lazy">
+                        <span class="blog-tag">Ahorro</span>
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date"><i class="fas fa-calendar-alt"></i> Marzo 2026</p>
+                        <h3>¿Cuándo es el mejor momento para comprar pasajes?</h3>
+                        <p class="blog-excerpt">Anticiparte entre 2 y 6 meses puede significar un ahorro de hasta el 40%. Te contamos cómo aprovechar las mejores tarifas.</p>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Vi%20el%20tip%20sobre%20pasajes%20y%20quiero%20saber%20m%C3%A1s." target="_blank" class="blog-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1553531384-397c80973a0b?auto=format&fit=crop&w=800&q=70" alt="Qué llevar en tu valija" loading="lazy">
+                        <span class="blog-tag">Consejos</span>
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date"><i class="fas fa-calendar-alt"></i> Febrero 2026</p>
+                        <h3>La guía definitiva para armar tu valija sin olvidar nada</h3>
+                        <p class="blog-excerpt">Lista completa por destino: playa, ciudad o aventura. Qué llevar, qué dejar y cómo optimizar el espacio de tu equipaje.</p>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Vi%20el%20tip%20sobre%20valijas%20y%20quiero%20saber%20m%C3%A1s." target="_blank" class="blog-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-img-wrap">
+                        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=70" alt="Seguro de viaje" loading="lazy">
+                        <span class="blog-tag">Seguridad</span>
+                    </div>
+                    <div class="blog-content">
+                        <p class="blog-date"><i class="fas fa-calendar-alt"></i> Enero 2026</p>
+                        <h3>Por qué el seguro de viaje es la inversión más importante</h3>
+                        <p class="blog-excerpt">Una emergencia médica en el exterior puede costar miles de dólares. Te explicamos qué cubre cada plan y cuál elegir según tu destino.</p>
+                        <a href="https://wa.me/5491100000000?text=Hola!%20Vi%20el%20tip%20sobre%20seguros%20y%20quiero%20saber%20m%C3%A1s." target="_blank" class="blog-link">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- =============================================
+         FOOTER
+    ============================================= -->
     <footer id="contacto" class="footer">
         <div class="container footer-content">
             <div class="footer-col">
                 <img src="assets/logo-web.png" alt="Herse Turismo" class="footer-logo">
-                <p>Legajo 0000 - La Plata, Buenos Aires.<br>Hacemos realidad el viaje de tus sueños.</p>
+                <!-- ✅ COMPLETAR: Legajo real de la agencia -->
+                <p>Legajo 00000 · La Plata, Buenos Aires.<br>Hacemos realidad el viaje de tus sueños.</p>
             </div>
             <div class="footer-col">
                 <h4>Contacto</h4>
-                <p><i class="fas fa-envelope"></i> info@herseturismo.com</p>
-                <p><i class="fas fa-phone"></i> +54 9 11 1234 5678</p> 
+                <!-- ✅ COMPLETAR: datos reales -->
+                <div class="contact-item"><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="563f383039163e332425332223243f253b397835393b">[email&#160;protected]</a></div>
+                <div class="contact-item"><i class="fas fa-phone"></i> +54 9 11 1234-5678</div>
                 <div class="socials">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <!-- ✅ COMPLETAR: links reales a redes -->
+                    <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://wa.me/5491100000000" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -195,93 +296,103 @@
         </div>
     </footer>
 
-    <script>
-        // ⚠️ COLOCA TU NÚMERO AQUÍ
-        const miWhatsapp = "5491100000000"; 
+    <!-- ✅ Botón WhatsApp flotante -->
+    <a href="https://wa.me/5491100000000?text=Hola!%20Quiero%20consultar%20sobre%20un%20viaje." 
+       class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
+    <!-- ✅ Botón Volver Arriba -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- =============================================
+         JAVASCRIPT
+    ============================================= -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // ⚠️ REEMPLAZÁ CON TU NÚMERO REAL (formato: código país + número sin espacios)
+        const miWhatsapp = "5491100000000";
+
+        // =============================================
         // DATOS DE PAQUETES
+        // =============================================
         const paquetesData = {
             argentina: [
-                { titulo: "Mendoza Clásica", dias: "4 Días", salida: "Salidas todo el año", precio: "Tarifas", img: "https://www.mendoza.travel/wp-content/uploads/2020/02/vinedos-mendoza.jpg", detalle: "Vuelos desde Bs As / Córdoba" },
-                { titulo: "Iguazú Full", dias: "4 Días", salida: "Salidas diarias", precio: "Tarifas", img: "https://iguazuargentina.com/images/garganta-del-diablo.jpg", detalle: "Vuelos desde Ezeiza / AEP" },
-                { titulo: "Salta La Linda", dias: "5 Días", salida: "Mayo y Junio", precio: "Tarifas", img: "https://turismosalta.gov.ar/images/slider/teleferico.jpg", detalle: "Incluye excursión a Cafayate" },
-                { titulo: "Bariloche Nieve", dias: "5 Días", salida: "Temporada Invierno", precio: "Tarifas", img: "https://www.bariloche.org/images/galeria/invierno/invierno-01.jpg", detalle: "Hotel céntrico con desayuno" },
+                { titulo: "Mendoza Clásica", dias: "4 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1589909202802-8f4aadce5b48?auto=format&fit=crop&w=800", detalle: "Vuelos + Hotel + Bodega", detalle2: "Desayuno incluido" },
+                { titulo: "Cataratas del Iguazú", dias: "4 Días", salida: "Salidas diarias", precio: "Consultar", img: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=800", detalle: "Vuelos desde Ezeiza / AEP", detalle2: "Lado argentino y brasileño" },
+                { titulo: "Salta La Linda", dias: "5 Días", salida: "Mayo y Junio", precio: "Consultar", img: "https://images.unsplash.com/photo-1590587601-0eed1b6d8a22?auto=format&fit=crop&w=800", detalle: "Excursión a Cafayate", detalle2: "Incluye hotel con desayuno" },
+                { titulo: "Bariloche Nieve", dias: "5 Días", salida: "Temporada Invierno", precio: "Consultar", img: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800", detalle: "Hotel céntrico con desayuno", detalle2: "Ski pass disponible" },
             ],
             brasil: [
-                { titulo: "Río de Janeiro", dias: "7 Días", salida: "Salidas Enero/Feb", precio: "Tarifas", img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=800", detalle: "Vuelo Directo + Traslados" },
-                { titulo: "Búzios Relax", dias: "8 Días", salida: "Todo el año", precio: "Tarifas", img: "https://images.unsplash.com/photo-1543788303-662547b74823?auto=format&fit=crop&w=800", detalle: "Pousada con desayuno" },
-                { titulo: "Río de Janeiro", dias: "7 Días", salida: "Salidas Enero/Feb", precio: "Tarifas", img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=800", detalle: "Vuelo Directo + Traslados" },
-                { titulo: "Río de Janeiro", dias: "7 Días", salida: "Salidas Enero/Feb", precio: "Tarifas", img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=800", detalle: "Vuelo Directo + Traslados" },
-                { titulo: "Río de Janeiro", dias: "7 Días", salida: "Salidas Enero/Feb", precio: "Tarifas", img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=800", detalle: "Vuelo Directo + Traslados" },
+                { titulo: "Río de Janeiro", dias: "7 Días", salida: "Enero y Febrero", precio: "Consultar", img: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=800", detalle: "Vuelo directo + Traslados", detalle2: "Hotel frente al mar" },
+                { titulo: "Búzios Relax", dias: "8 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1543788303-662547b74823?auto=format&fit=crop&w=800", detalle: "Pousada con desayuno", detalle2: "Playas paradisíacas" },
+                { titulo: "Florianópolis", dias: "6 Días", salida: "Diciembre a Marzo", precio: "Consultar", img: "https://images.unsplash.com/photo-1570641963303-92ce4845ed4c?auto=format&fit=crop&w=800", detalle: "42 playas para explorar", detalle2: "Vuelo + Hotel incluidos" },
+                { titulo: "Salvador de Bahía", dias: "7 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1580157660014-5daca7b7b3da?auto=format&fit=crop&w=800", detalle: "Pelourinho + Cocomar", detalle2: "Hotel con desayuno" },
             ],
             caribe: [
-                { titulo: "Punta Cana", dias: "7 Noches", salida: "Cupos confirmados", precio: "Tarifas", img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800", detalle: "All Inclusive 24hs" },
-                { titulo: "Cancún Playa", dias: "9 Noches", salida: "Salidas todo el año", precio: "Tarifas", img: "https://images.unsplash.com/photo-1552074291-ad4df708e226?auto=format&fit=crop&w=800", detalle: "Hotel 5 estrellas" },
-                { titulo: "Punta Cana", dias: "7 Noches", salida: "Cupos confirmados", precio: "Tarifas", img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800", detalle: "All Inclusive 24hs" },
-                { titulo: "Punta Cana", dias: "7 Noches", salida: "Cupos confirmados", precio: "Tarifas", img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800", detalle: "All Inclusive 24hs" },
-                { titulo: "Punta Cana", dias: "7 Noches", salida: "Cupos confirmados", precio: "Tarifas", img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800", detalle: "All Inclusive 24hs" },
+                { titulo: "Punta Cana", dias: "7 Noches", salida: "Cupos confirmados", precio: "Consultar", img: "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800", detalle: "All Inclusive 24hs", detalle2: "Hotel 5 estrellas frente al mar" },
+                { titulo: "Cancún & Riviera Maya", dias: "9 Noches", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1552074291-ad4df708e226?auto=format&fit=crop&w=800", detalle: "Hotel 5 estrellas", detalle2: "Excursiones opcionales" },
+                { titulo: "Aruba Paraíso", dias: "8 Noches", salida: "Salidas mensuales", precio: "Consultar", img: "https://images.unsplash.com/photo-1596895111956-bf1cf0599ce5?auto=format&fit=crop&w=800", detalle: "Playas de arena blanca", detalle2: "Todo incluido disponible" },
+                { titulo: "Jamaica Tropical", dias: "7 Noches", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1561752888-f8b89b39b340?auto=format&fit=crop&w=800", detalle: "Resort frente al mar", detalle2: "Vuelo + Hotel + Traslados" },
             ],
             europa: [
-                { titulo: "Europa Soñada", dias: "15 Días", salida: "Mayo 2026", precio: "Tarifas", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800", detalle: "Madrid, París, Londres" },
-                { titulo: "Italia Total", dias: "12 Días", salida: "Septiembre", precio: "Tarifas", img: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800", detalle: "Roma, Florencia, Venecia" },
-                { titulo: "Europa Soñada", dias: "15 Días", salida: "Mayo 2026", precio: "Tarifas", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800", detalle: "Madrid, París, Londres" },
-                { titulo: "Europa Soñada", dias: "15 Días", salida: "Mayo 2026", precio: "Tarifas", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800", detalle: "Madrid, París, Londres" },
-                { titulo: "Europa Soñada", dias: "15 Días", salida: "Mayo 2026", precio: "Tarifas", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800", detalle: "Madrid, París, Londres" },
+                { titulo: "Europa Soñada", dias: "15 Días", salida: "Mayo 2026", precio: "Consultar", img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800", detalle: "Madrid · París · Londres", detalle2: "Guía en español incluido" },
+                { titulo: "Italia Total", dias: "12 Días", salida: "Septiembre", precio: "Consultar", img: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800", detalle: "Roma · Florencia · Venecia", detalle2: "Hotel 4 estrellas" },
+                { titulo: "España & Portugal", dias: "10 Días", salida: "Junio y Octubre", precio: "Consultar", img: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=800", detalle: "Madrid · Sevilla · Lisboa", detalle2: "Vuelos + Hotel + Traslados" },
+                { titulo: "Grecia & Santorini", dias: "11 Días", salida: "Julio y Agosto", precio: "Consultar", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=800", detalle: "Atenas + Islas Griegas", detalle2: "Crucero interno incluido" },
             ],
-            // === DATOS NUEVOS ===
             africa: [
-                { titulo: "Egipto Faraónico", dias: "10 Días", salida: "Salidas Grupales", precio: "Tarifas", img: "https://images.unsplash.com/photo-1539650116455-251d93d5ce81?auto=format&fit=crop&w=800", detalle: "Crucero por el Nilo" },
-                { titulo: "Safari en Kenia", dias: "7 Días", salida: "Todo el año", precio: "Tarifas", img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800", detalle: "Masai Mara y Amboseli" },
-                { titulo: "Safari en Kenia", dias: "7 Días", salida: "Todo el año", precio: "Tarifas", img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800", detalle: "Masai Mara y Amboseli" },
-                { titulo: "Safari en Kenia", dias: "7 Días", salida: "Todo el año", precio: "Tarifas", img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800", detalle: "Masai Mara y Amboseli" },
-                { titulo: "Safari en Kenia", dias: "7 Días", salida: "Todo el año", precio: "Tarifas", img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800", detalle: "Masai Mara y Amboseli" },
+                { titulo: "Egipto Faraónico", dias: "10 Días", salida: "Salidas grupales", precio: "Consultar", img: "https://images.unsplash.com/photo-1539650116455-251d93d5ce81?auto=format&fit=crop&w=800", detalle: "Crucero por el Nilo", detalle2: "Pirámides + El Cairo" },
+                { titulo: "Safari en Kenia", dias: "7 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800", detalle: "Masai Mara y Amboseli", detalle2: "Lodge en la sabana" },
+                { titulo: "Marruecos Imperial", dias: "9 Días", salida: "Primavera y Otoño", precio: "Consultar", img: "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&w=800", detalle: "Marrakech · Fez · Sahara", detalle2: "Riad tradicional incluido" },
+                { titulo: "Sudáfrica & Cape Town", dias: "12 Días", salida: "Octubre a Enero", precio: "Consultar", img: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=800", detalle: "Ciudad del Cabo + Safari", detalle2: "Vuelos + Hotel + Traslados" },
             ],
             oceania: [
-                { titulo: "Australia & Reef", dias: "14 Días", salida: "Octubre", precio: "Tarifas", img: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800", detalle: "Sydney, Cairns, Melbourne" },
-                { titulo: "Nueva Zelanda", dias: "12 Días", salida: "Noviembre", precio: "Tarifas", img: "https://images.unsplash.com/photo-1469521669194-babb45f8a8d4?auto=format&fit=crop&w=800", detalle: "Isla Norte y Sur" },
-                { titulo: "Australia & Reef", dias: "14 Días", salida: "Octubre", precio: "Tarifas", img: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800", detalle: "Sydney, Cairns, Melbourne" },
-                { titulo: "Australia & Reef", dias: "14 Días", salida: "Octubre", precio: "Tarifas", img: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800", detalle: "Sydney, Cairns, Melbourne" },
-                { titulo: "Australia & Reef", dias: "14 Días", salida: "Octubre", precio: "Tarifas", img: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800", detalle: "Sydney, Cairns, Melbourne" },
+                { titulo: "Australia & Gran Barrera", dias: "14 Días", salida: "Octubre", precio: "Consultar", img: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?auto=format&fit=crop&w=800", detalle: "Sydney · Cairns · Melbourne", detalle2: "Buceo en la Gran Barrera" },
+                { titulo: "Nueva Zelanda Épica", dias: "12 Días", salida: "Noviembre", precio: "Consultar", img: "https://images.unsplash.com/photo-1469521669194-babb45f8a8d4?auto=format&fit=crop&w=800", detalle: "Isla Norte y Sur", detalle2: "Naturaleza impresionante" },
+                { titulo: "Bali & Indonesia", dias: "10 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800", detalle: "Bali + Lombok + Gili", detalle2: "Villa con piscina incluida" },
+                { titulo: "Fiyi & Polinesia", dias: "11 Días", salida: "Mayo a Octubre", precio: "Consultar", img: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?auto=format&fit=crop&w=800", detalle: "Archipiélagos del Pacífico", detalle2: "Resort sobre el agua" },
             ],
             norteAmerica: [
-                { titulo: "Disney & Orlando", dias: "10 Días", salida: "Salidas Feb/Jul", precio: "Tarifas", img: "https://images.unsplash.com/photo-1597466599360-3b9775841aec?auto=format&fit=crop&w=800", detalle: "Parques + Compras" },
-                { titulo: "New York", dias: "7 Días", salida: "Todo el año", precio: "Tarifas", img: "https://images.unsplash.com/photo-1496442226666-8d4a0e62e6e9?auto=format&fit=crop&w=800", detalle: "Hotel en Manhattan" },
-                { titulo: "Disney & Orlando", dias: "10 Días", salida: "Salidas Feb/Jul", precio: "Tarifas", img: "https://images.unsplash.com/photo-1597466599360-3b9775841aec?auto=format&fit=crop&w=800", detalle: "Parques + Compras" },
-                { titulo: "Disney & Orlando", dias: "10 Días", salida: "Salidas Feb/Jul", precio: "Tarifas", img: "https://images.unsplash.com/photo-1597466599360-3b9775841aec?auto=format&fit=crop&w=800", detalle: "Parques + Compras" },
-                { titulo: "Disney & Orlando", dias: "10 Días", salida: "Salidas Feb/Jul", precio: "Tarifas", img: "https://images.unsplash.com/photo-1597466599360-3b9775841aec?auto=format&fit=crop&w=800", detalle: "Parques + Compras" },
+                { titulo: "Disney & Orlando", dias: "10 Días", salida: "Feb · Jul · Dic", precio: "Consultar", img: "https://images.unsplash.com/photo-1597466599360-3b9775841aec?auto=format&fit=crop&w=800", detalle: "Parques + Shopping", detalle2: "Hotel en zona Disney" },
+                { titulo: "New York City", dias: "7 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1496442226666-8d4a0e62e6e9?auto=format&fit=crop&w=800", detalle: "Hotel en Manhattan", detalle2: "Vuelo directo disponible" },
+                { titulo: "Miami & Key West", dias: "8 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800", detalle: "South Beach + Keys", detalle2: "Hotel frente al océano" },
+                { titulo: "Las Vegas & Cañón", dias: "9 Días", salida: "Todo el año", precio: "Consultar", img: "https://images.unsplash.com/photo-1581351721010-8cf859cb14a4?auto=format&fit=crop&w=800", detalle: "Strip + Gran Cañón", detalle2: "Hotel en el Strip incluido" },
             ]
         };
 
-        // FUNCIÓN RENDERIZADO (NUEVO DISEÑO CON ICONOS)
+        // =============================================
+        // RENDER CARDS
+        // =============================================
         function renderCards(trackId, data) {
             const track = document.getElementById(trackId);
-            if(!track) return;
-            
+            if (!track) return;
+
             track.innerHTML = data.map(pkg => `
-                <article class="package-card" onclick="window.open('https://wa.me/${miWhatsapp}?text=Hola, info sobre: ${pkg.titulo}', '_blank')" style="cursor: pointer;">
-                    
+                <article class="package-card"
+                    onclick="window.open('https://wa.me/${miWhatsapp}?text=Hola!%20Quiero%20info%20sobre%20el%20paquete:%20${encodeURIComponent(pkg.titulo)}', '_blank')"
+                    role="button"
+                    aria-label="Consultar paquete ${pkg.titulo}">
                     <div class="card-img-container">
-                        <img src="${pkg.img}" class="card-img" alt="${pkg.titulo}">
+                        <img src="${pkg.img}" class="card-img" alt="${pkg.titulo}" loading="lazy">
                         <div class="badge-blue">${pkg.dias} | ${pkg.salida}</div>
                     </div>
-
                     <div class="card-content">
                         <h3 class="card-title">${pkg.titulo}</h3>
-
                         <div class="icons-row">
                             <div class="icon-item"><i class="fas fa-plane"></i><span>Vuelos</span></div>
                             <div class="icon-item"><i class="fas fa-hotel"></i><span>Hotel</span></div>
                             <div class="icon-item"><i class="fas fa-bus"></i><span>Traslados</span></div>
                             <div class="icon-item"><i class="fas fa-user-nurse"></i><span>Asistencia</span></div>
                         </div>
-
                         <div class="card-bottom-layout">
                             <ul class="info-list">
                                 <li>${pkg.detalle}</li>
-                                <li>Incluye hotel con desayuno</li>
+                                <li>${pkg.detalle2}</li>
                             </ul>
                             <div class="price-block">
-                                <span class="label-consultar">Consultar</span>
+                                <span class="label-consultar">Precio</span>
                                 <span class="price-text">${pkg.precio}</span>
                             </div>
                         </div>
@@ -290,24 +401,87 @@
             `).join('');
         }
 
-        // Renderizamos TODAS las secciones
-        renderCards('track-arg', paquetesData.argentina);
-        renderCards('track-brasil', paquetesData.brasil);
-        renderCards('track-caribe', paquetesData.caribe);
-        renderCards('track-europa', paquetesData.europa);
-        // Nuevas llamadas
-        renderCards('track-africa', paquetesData.africa);
+        // Renderizamos todas las secciones
+        renderCards('track-arg',     paquetesData.argentina);
+        renderCards('track-brasil',  paquetesData.brasil);
+        renderCards('track-caribe',  paquetesData.caribe);
+        renderCards('track-europa',  paquetesData.europa);
+        renderCards('track-africa',  paquetesData.africa);
         renderCards('track-oceania', paquetesData.oceania);
-        renderCards('track-norte', paquetesData.norteAmerica);
+        renderCards('track-norte',   paquetesData.norteAmerica);
 
-        // Scroll Horizontal
+        // =============================================
+        // SCROLL CARRUSEL
+        // =============================================
         function scrollTrack(id, direction) {
             const track = document.getElementById(id);
-            const scrollAmount = 360; 
-            track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+            if (track) track.scrollBy({ left: direction * 370, behavior: 'smooth' });
         }
+
+        // =============================================
+        // ✅ BOTÓN VOLVER ARRIBA
+        // =============================================
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 400);
+        });
+
+        // =============================================
+        // ✅ HAMBURGER MENU (mobile)
+        // =============================================
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            hamburgerBtn.classList.toggle('open');
+            mobileMenu.classList.toggle('open');
+        });
+
+        function closeMobileMenu() {
+            hamburgerBtn.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+
+        // =============================================
+        // ✅ BOTONES REGIÓN ACTIVO
+        // =============================================
+        function setActive(el) {
+            document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // =============================================
+        // ✅ SCROLL HELPER para Hero buttons
+        // =============================================
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // =============================================
+        // ✅ ACTIVE REGION BTN por scroll (IntersectionObserver)
+        // =============================================
+        const sections = ['argentina','brasil','caribe','europa','africa','oceania','norteAmerica'];
+        const regionBtns = document.querySelectorAll('.region-btn');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    regionBtns.forEach(btn => {
+                        btn.classList.toggle('active', btn.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
     </script>
-    
+
+    <!-- Voiceflow Chat Widget -->
     <script type="text/javascript">
       (function(d, t) {
           var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -318,7 +492,9 @@
               versionID: 'production'
             });
           }
-          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+          v.type = "text/javascript";
+          s.parentNode.insertBefore(v, s);
       })(document, 'script');
     </script>
 
