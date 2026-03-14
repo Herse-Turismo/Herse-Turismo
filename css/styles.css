@@ -257,16 +257,6 @@ img { max-width: 100%; display: block; }
 /* =============================================
    VOLVER ARRIBA
 ============================================= */
-.back-to-top {
-    position: fixed; bottom: 100px; right: 28px;
-    width: 46px; height: 46px; border-radius: 50%;
-    background: var(--blue); color: white; border: none; cursor: pointer; font-size: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 15px rgba(0,74,143,0.35); z-index: 9998; transition: all 0.3s;
-    opacity: 0; pointer-events: none; transform: translateY(10px);
-}
-.back-to-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
-.back-to-top:hover { background: var(--orange); transform: translateY(-3px); }
 
 /* =============================================
    RESPONSIVE
@@ -294,7 +284,6 @@ img { max-width: 100%; display: block; }
     .footer-content { grid-template-columns: 1fr; gap: 25px; }
     .whatsapp-float { width: 52px; height: 52px; font-size: 1.5rem; bottom: 20px; left: 20px; }
     .whatsapp-float::before { display: none; }
-    .back-to-top { bottom: 100px; right: 16px; width: 40px; height: 40px; font-size: 0.85rem; }
 }
 
 @media (max-width: 480px) {
