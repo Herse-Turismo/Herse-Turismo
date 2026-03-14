@@ -173,9 +173,6 @@ img { max-width: 100%; display: block; }
     text-align: center; box-shadow: var(--shadow); border: 1px solid #eee; transition: 0.3s;
 }
 .porque-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
-.porque-card--featured { background: var(--blue); color: white; border-color: var(--blue); }
-.porque-card--featured h3 { color: white; }
-.porque-card--featured p { color: rgba(255,255,255,0.8); }
 
 .porque-icon-wrap {
     width: 72px; height: 72px; border-radius: 50%;
@@ -183,7 +180,7 @@ img { max-width: 100%; display: block; }
     font-size: 1.8rem; margin: 0 auto 22px;
 }
 .porque-icon-wrap.orange { background: rgba(247,148,29,0.12); color: var(--orange); }
-.porque-icon-wrap.blue { background: rgba(255,255,255,0.15); color: var(--orange); }
+.porque-icon-wrap.blue { background: rgba(0,74,143,0.1); color: var(--blue); }
 .porque-card h3 { font-size: 1.25rem; font-weight: 800; color: var(--text); margin-bottom: 12px; }
 .porque-card p { font-size: 0.93rem; color: var(--muted); line-height: 1.7; }
 
@@ -238,7 +235,7 @@ img { max-width: 100%; display: block; }
    FOOTER
 ============================================= */
 .footer { background-color: var(--blue); color: var(--white); padding-top: 60px; }
-.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; padding-bottom: 40px; }
+.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 60px; padding-bottom: 40px; }
 .footer-logo { background: white; padding: 10px; border-radius: 10px; margin-bottom: 18px; max-width: 140px; }
 .footer-col p { font-size: 0.92rem; opacity: 0.8; line-height: 1.7; }
 .footer-col h4 { margin-bottom: 18px; font-size: 1.1rem; color: var(--orange); font-weight: 800; }
@@ -328,7 +325,7 @@ img { max-width: 100%; display: block; }
                     <li><a href="#contacto">CONTACTO</a></li>
                 </ul>
             </nav>
-            <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank" rel="noopener">
+            <a href="https://wa.me/5491100000000?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank" rel="noopener">
                 <i class="fab fa-whatsapp"></i> Cotizar Viaje
             </a>
             <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
@@ -339,7 +336,7 @@ img { max-width: 100%; display: block; }
             <a href="#inicio" onclick="closeMobileMenu()">🏠 Inicio</a>
             <a href="#nosotros" onclick="closeMobileMenu()">👥 Nosotros</a>
             <a href="#contacto" onclick="closeMobileMenu()">📞 Contacto</a>
-            <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank">
+            <a href="https://wa.me/5491100000000?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank">
                 <i class="fab fa-whatsapp"></i> Cotizar por WhatsApp
             </a>
         </div>
@@ -351,7 +348,7 @@ img { max-width: 100%; display: block; }
         <div class="hero-content">
             <p class="hero-eyebrow">Agencia de viajes · La Plata, Buenos Aires</p>
             <h1>Descubrí el mundo con <span class="text-orange">Herse</span></h1>
-            <p class="hero-sub">Diseñamos el viaje de tus sueños con atención personalizada, las mejores opciones y soporte en todo momento.</p>
+            <p class="hero-sub">Diseñamos el viaje de tus sueños con atención personalizada, precios mayoristas y soporte en todo momento.</p>
             <div class="hero-buttons">
                 <a href="#consulta" class="btn-primary btn-large">Cotizá tu viaje</a>
                 <a href="#nosotros" class="btn-ghost">Conocé más</a>
@@ -373,7 +370,7 @@ img { max-width: 100%; display: block; }
     <div class="stats-strip">
         <div class="container stats-grid">
             <div class="stat-item">
-                <span class="stat-number">200+</span>
+                <span class="stat-number">50+</span>
                 <span class="stat-label">Destinos disponibles</span>
             </div>
             <div class="stat-item">
@@ -444,12 +441,12 @@ img { max-width: 100%; display: block; }
                     <h3>Soporte 24/7</h3>
                     <p>Viajá tranquilo. Estamos conectados con vos en todo momento vía WhatsApp, desde que reservás hasta que volvés a casa.</p>
                 </div>
-                <div class="porque-card porque-card--featured">
+                <div class="porque-card">
                     <div class="porque-icon-wrap blue">
-                        <i class="fas fa-hand-holding-usd"></i>
+                        <i class="fas fa-globe"></i>
                     </div>
-                    <h3>Precios Mayoristas</h3>
-                    <p>Acceso directo a tarifas de operador sin intermediarios extra. El mejor precio del mercado, garantizado.</p>
+                    <h3>Multidestinos</h3>
+                    <p>Argentina, Caribe, Europa, Brasil y mucho más. Armamos tu viaje a cualquier destino del mundo con las mejores tarifas mayoristas.</p>
                 </div>
                 <div class="porque-card">
                     <div class="porque-icon-wrap orange">
@@ -484,18 +481,8 @@ img { max-width: 100%; display: block; }
                         <input type="text" id="nombre" placeholder="Ej: María González">
                     </div>
                     <div class="form-group">
-                        <label for="destino">¿A dónde querés ir?</label>
-                        <select id="destino">
-                            <option value="" disabled selected>Seleccioná un destino</option>
-                            <option>Caribe (Punta Cana, Cancún...)</option>
-                            <option>Europa</option>
-                            <option>Brasil</option>
-                            <option>Argentina</option>
-                            <option>Norte América (Disney, NY...)</option>
-                            <option>África</option>
-                            <option>Oceanía</option>
-                            <option>Otro destino</option>
-                        </select>
+                        <label for="destino">¿Cuál es tu próximo destino soñado?</label>
+                        <input type="text" id="destino" placeholder="Ej: Caribe, Europa, Disney...">
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -508,17 +495,8 @@ img { max-width: 100%; display: block; }
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="mes">Mes tentativo</label>
-                            <select id="mes">
-                                <option value="" disabled selected>¿Cuándo?</option>
-                                <option>Enero</option><option>Febrero</option>
-                                <option>Marzo</option><option>Abril</option>
-                                <option>Mayo</option><option>Junio</option>
-                                <option>Julio</option><option>Agosto</option>
-                                <option>Septiembre</option><option>Octubre</option>
-                                <option>Noviembre</option><option>Diciembre</option>
-                                <option>Sin fecha definida</option>
-                            </select>
+                            <label for="mes">Fecha tentativa</label>
+                            <input type="date" id="mes">
                         </div>
                     </div>
                     <div class="form-group">
@@ -538,12 +516,12 @@ img { max-width: 100%; display: block; }
         <div class="container footer-content">
             <div class="footer-col">
                 <img src="assets/logo-web.png" alt="Herse Turismo" class="footer-logo">
-                <p> · La Plata, Buenos Aires.<br>Hacemos realidad el viaje de tus sueños.</p>
+                <p>La Plata, Buenos Aires.<br>Hacemos realidad el viaje de tus sueños.</p>
             </div>
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <div class="contact-item"><i class="fas fa-envelope"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c25222a230c24293e3f2938393e253f2123622f2321">[email&#160;protected]</a></div>
-                <div class="contact-item"><i class="fas fa-phone"></i> +54 9 221 566  1704</div>
+                <div class="contact-item"><i class="fas fa-phone"></i> +54 9 221 566 1704</div>
                 <div class="contact-item"><i class="fas fa-map-marker-alt"></i> La Plata, Buenos Aires</div>
                 <div class="socials">
                     <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -567,14 +545,14 @@ img { max-width: 100%; display: block; }
     </footer>
 
     <!-- WhatsApp flotante -->
-    <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20consultar%20sobre%20un%20viaje."
+    <a href="https://wa.me/5491100000000?text=Hola!%20Quiero%20consultar%20sobre%20un%20viaje."
        class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        const miWhatsapp = "5492215661704"; // ⚠️ REEMPLAZÁ CON TU NÚMERO REAL
+        const miWhatsapp = "5491100000000"; // ⚠️ REEMPLAZÁ CON TU NÚMERO REAL
 
         // Hamburger
         const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -610,7 +588,7 @@ img { max-width: 100%; display: block; }
             const mensaje  = document.getElementById('mensaje').value.trim();
 
             if (!nombre || !destino || !mes) {
-                alert('Por favor completá tu nombre, destino y mes tentativo.');
+                alert('Por favor completá tu nombre, destino y fecha tentativa.');
                 return;
             }
 
@@ -618,7 +596,7 @@ img { max-width: 100%; display: block; }
                           `👤 Nombre: ${nombre}\n` +
                           `✈️ Destino: ${destino}\n` +
                           `👥 Personas: ${personas}\n` +
-                          `📅 Mes tentativo: ${mes}\n` +
+                          `📅 Fecha tentativa: ${mes}\n` +
                           (mensaje ? `💬 Comentario: ${mensaje}` : '');
 
             window.open(`https://wa.me/${miWhatsapp}?text=${encodeURIComponent(texto)}`, '_blank');
