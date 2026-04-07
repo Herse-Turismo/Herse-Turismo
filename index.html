@@ -519,15 +519,9 @@ a.contact-val:hover { color: var(--orange); }
                         </button>
                     </div>
                     <div class="tab-panel active" id="tab-cotizar">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="nombre">Tu nombre</label>
-                                <input type="text" id="nombre" placeholder="Ej: María González">
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono">Tu teléfono</label>
-                                <input type="tel" id="telefono" placeholder="Ej: 221 566 1704">
-                            </div>
+                        <div class="form-group">
+                            <label for="nombre">Tu nombre</label>
+                            <input type="text" id="nombre" placeholder="Ej: María González">
                         </div>
                         <div class="form-group">
                             <label for="destino">¿Cuál es tu próximo destino soñado?</label>
@@ -676,7 +670,6 @@ a.contact-val:hover { color: var(--orange); }
         // Formulario → WhatsApp
         function enviarConsulta() {
             const nombre   = document.getElementById('nombre').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
             const destino  = document.getElementById('destino').value;
             const personas = document.getElementById('personas').value;
             const mes      = document.getElementById('mes').value;
@@ -689,7 +682,6 @@ a.contact-val:hover { color: var(--orange); }
 
             const texto = `Hola! Quiero cotizar un viaje 🌍\n\n` +
                           `👤 Nombre: ${nombre}\n` +
-                          (telefono ? `📱 Teléfono: ${telefono}\n` : '') +
                           `✈️ Destino: ${destino}\n` +
                           `👥 Personas: ${personas}\n` +
                           `📅 Fecha aproximada: ${mes}\n` +
