@@ -143,10 +143,9 @@ img { max-width: 100%; display: block; }
 .nosotros-section { padding: 90px 0; background: var(--white); }
 .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
 .nosotros-img-wrap { position: relative; }
-.nosotros-img-wrap::before { content: ''; position: absolute; top: -14px; left: -14px; right: 14px; bottom: -14px; border: 3px solid rgba(247,148,29,0.35); border-radius: var(--radius); z-index: 0; pointer-events: none; }
-.nosotros-img-wrap img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--radius); position: relative; z-index: 1; }
+.nosotros-img-wrap img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--radius); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
 .nosotros-badge {
-    position: absolute; bottom: 24px; left: 24px; z-index: 2;
+    position: absolute; bottom: 24px; left: 24px;
     background: var(--orange); color: white; padding: 10px 20px; border-radius: 50px;
     font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;
     box-shadow: 0 4px 15px rgba(247,148,29,0.5);
@@ -260,7 +259,7 @@ img { max-width: 100%; display: block; }
    WHATSAPP FLOTANTE
 ============================================= */
 .whatsapp-float {
-    position: fixed; bottom: 28px; right: 28px;
+    position: fixed; bottom: 100px; right: 28px;
     width: 60px; height: 60px; border-radius: 50%;
     background: #25D366; color: white;
     display: flex; align-items: center; justify-content: center;
@@ -287,6 +286,26 @@ img { max-width: 100%; display: block; }
 .reveal-d3 { transition-delay: 0.3s; }
 
 /* =============================================
+   TABS FORMULARIO
+============================================= */
+.form-tabs { display: flex; margin-bottom: 22px; border-radius: 10px; overflow: hidden; border: 1.5px solid #e8e8e8; }
+.tab-btn { flex: 1; padding: 13px 8px; border: none; background: #f8f8f8; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; color: var(--muted); display: flex; align-items: center; justify-content: center; gap: 7px; }
+.tab-btn:first-child { border-right: 1.5px solid #e8e8e8; }
+.tab-btn.active { background: var(--blue); color: white; }
+.tab-btn:hover:not(.active) { background: #efefef; color: var(--text); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.contacto-cta-wa { display: flex; align-items: center; justify-content: center; gap: 10px; background: #25D366; color: white; padding: 15px; border-radius: 12px; font-weight: 800; font-size: 1rem; margin-bottom: 22px; transition: 0.3s; }
+.contacto-cta-wa:hover { background: #1da851; transform: translateY(-2px); }
+.contacto-cta-wa i { font-size: 1.3rem; }
+.contacto-item-info { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #f0f0f0; }
+.contacto-item-info:last-child { border-bottom: none; }
+.contacto-item-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--light-bg); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--blue); flex-shrink: 0; }
+.contacto-item-label { display: block; font-size: 0.72rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+.contact-val { font-size: 0.95rem; font-weight: 700; color: var(--text); }
+a.contact-val:hover { color: var(--orange); }
+
+/* =============================================
    RESPONSIVE
 ============================================= */
 @media (max-width: 992px) {
@@ -310,7 +329,7 @@ img { max-width: 100%; display: block; }
     .form-row { grid-template-columns: 1fr; }
     .nosotros-section, .porque-section { padding: 60px 0; }
     .footer-content { grid-template-columns: 1fr; gap: 25px; }
-    .whatsapp-float { width: 52px; height: 52px; font-size: 1.5rem; bottom: 20px; right: 20px; }
+    .whatsapp-float { width: 52px; height: 52px; font-size: 1.5rem; bottom: 90px; right: 20px; }
     .whatsapp-float::before { display: none; }
 }
 
@@ -491,43 +510,85 @@ img { max-width: 100%; display: block; }
             </div>
             <div class="consulta-form-wrap">
                 <div class="consulta-form">
-                    <h3>Cotizá tu viaje</h3>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nombre">Tu nombre</label>
-                            <input type="text" id="nombre" placeholder="Ej: María González">
+                    <div class="form-tabs">
+                        <button class="tab-btn active" onclick="switchTab('cotizar', this)">
+                            <i class="fas fa-paper-plane"></i> Te cotizamos
+                        </button>
+                        <button class="tab-btn" onclick="switchTab('contacto', this)">
+                            <i class="fas fa-phone-alt"></i> Contacto directo
+                        </button>
+                    </div>
+                    <div class="tab-panel active" id="tab-cotizar">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Tu nombre</label>
+                                <input type="text" id="nombre" placeholder="Ej: María González">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Tu teléfono</label>
+                                <input type="tel" id="telefono" placeholder="Ej: 221 566 1704">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="telefono">Tu teléfono</label>
-                            <input type="tel" id="telefono" placeholder="Ej: 221 566 1704">
+                            <label for="destino">¿Cuál es tu próximo destino soñado?</label>
+                            <input type="text" id="destino" placeholder="Ej: Caribe, Europa, Disney...">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="destino">¿Cuál es tu próximo destino soñado?</label>
-                        <input type="text" id="destino" placeholder="Ej: Caribe, Europa, Disney...">
-                    </div>
-                    <div class="form-row">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="personas">Personas</label>
+                                <select id="personas">
+                                    <option>1 persona</option>
+                                    <option>2 personas</option>
+                                    <option>3-4 personas</option>
+                                    <option>5 o más</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mes">Fecha aproximada</label>
+                                <input type="date" id="mes">
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <label for="personas">Personas</label>
-                            <select id="personas">
-                                <option>1 persona</option>
-                                <option>2 personas</option>
-                                <option>3-4 personas</option>
-                                <option>5 o más</option>
-                            </select>
+                            <label for="mensaje">¿Algo más? (opcional)</label>
+                            <textarea id="mensaje" placeholder="Ej: viaje de luna de miel, quiero all inclusive, presupuesto aproximado..."></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="mes">Fecha aproximada</label>
-                            <input type="date" id="mes">
+                        <button class="btn-submit" onclick="enviarConsulta()">
+                            <i class="fab fa-whatsapp"></i> Enviar consulta por WhatsApp
+                        </button>
+                    </div>
+                    <div class="tab-panel" id="tab-contacto">
+                        <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20consultar%20sobre%20un%20viaje." class="contacto-cta-wa" target="_blank" rel="noopener">
+                            <i class="fab fa-whatsapp"></i> Escribinos por WhatsApp
+                        </a>
+                        <div class="contacto-item-info">
+                            <div class="contacto-item-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <span class="contacto-item-label">Teléfono</span>
+                                <a href="tel:+5492215661704" class="contact-val">+54 9 221 566 1704</a>
+                            </div>
+                        </div>
+                        <div class="contacto-item-info">
+                            <div class="contacto-item-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <span class="contacto-item-label">Email</span>
+                                <a href="mailto:info@herseturismo.com" class="contact-val">info@herseturismo.com</a>
+                            </div>
+                        </div>
+                        <div class="contacto-item-info">
+                            <div class="contacto-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <span class="contacto-item-label">Ubicación</span>
+                                <span class="contact-val">La Plata, Buenos Aires</span>
+                            </div>
+                        </div>
+                        <div class="contacto-item-info">
+                            <div class="contacto-item-icon"><i class="fab fa-instagram"></i></div>
+                            <div>
+                                <span class="contacto-item-label">Instagram</span>
+                                <a href="https://www.instagram.com/herseturismo/" target="_blank" rel="noopener" class="contact-val">@herseturismo</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="mensaje">¿Algo más? (opcional)</label>
-                        <textarea id="mensaje" placeholder="Ej: viaje de luna de miel, quiero all inclusive, presupuesto aproximado..."></textarea>
-                    </div>
-                    <button class="btn-submit" onclick="enviarConsulta()">
-                        <i class="fab fa-whatsapp"></i> Enviar consulta por WhatsApp
-                    </button>
                 </div>
             </div>
         </div>
@@ -594,6 +655,14 @@ img { max-width: 100%; display: block; }
             entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
         }, { threshold: 0.12 });
         revealEls.forEach(el => revealObserver.observe(el));
+
+        // Tab switch
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
 
         // Navbar active
         const navLinks = document.querySelectorAll('.nav-links a');
