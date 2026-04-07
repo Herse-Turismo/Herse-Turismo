@@ -66,7 +66,7 @@ img { max-width: 100%; display: block; }
 /* =============================================
    NAVBAR
 ============================================= */
-.navbar { background: var(--white); padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08); }
+.navbar { background: var(--white); padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-bottom: 3px solid var(--orange); transition: box-shadow 0.3s; }
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
 .logo img { height: 65px; }
 .nav-links { display: flex; gap: 30px; }
@@ -129,11 +129,13 @@ img { max-width: 100%; display: block; }
 /* =============================================
    STATS STRIP
 ============================================= */
-.stats-strip { background: var(--blue); padding: 32px 0; }
+.stats-strip { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, #0059b3 100%); padding: 54px 0; }
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-.stat-item { color: white; }
-.stat-number { display: block; font-size: 2.2rem; font-weight: 900; color: var(--orange); line-height: 1; }
-.stat-label { font-size: 0.82rem; opacity: 0.8; font-weight: 600; margin-top: 4px; display: block; }
+.stat-item { color: white; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 18px; padding: 30px 20px; transition: all 0.3s; }
+.stat-item:hover { background: rgba(255,255,255,0.15); transform: translateY(-5px); }
+.stat-icon { font-size: 1.6rem; margin-bottom: 10px; opacity: 0.65; display: block; }
+.stat-number { display: block; font-size: 2.4rem; font-weight: 900; color: var(--orange); line-height: 1; }
+.stat-label { font-size: 0.82rem; opacity: 0.8; font-weight: 600; margin-top: 6px; display: block; }
 
 /* =============================================
    NOSOTROS
@@ -141,9 +143,10 @@ img { max-width: 100%; display: block; }
 .nosotros-section { padding: 90px 0; background: var(--white); }
 .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
 .nosotros-img-wrap { position: relative; }
-.nosotros-img-wrap img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--radius); }
+.nosotros-img-wrap::before { content: ''; position: absolute; top: -14px; left: -14px; right: 14px; bottom: -14px; border: 3px solid rgba(247,148,29,0.35); border-radius: var(--radius); z-index: 0; pointer-events: none; }
+.nosotros-img-wrap img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--radius); position: relative; z-index: 1; }
 .nosotros-badge {
-    position: absolute; bottom: 24px; left: 24px;
+    position: absolute; bottom: 24px; left: 24px; z-index: 2;
     background: var(--orange); color: white; padding: 10px 20px; border-radius: 50px;
     font-weight: 800; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;
     box-shadow: 0 4px 15px rgba(247,148,29,0.5);
@@ -151,8 +154,9 @@ img { max-width: 100%; display: block; }
 
 .section-eyebrow {
     font-size: 0.82rem; font-weight: 800; letter-spacing: 2.5px;
-    text-transform: uppercase; color: var(--orange); margin-bottom: 10px; display: block;
+    text-transform: uppercase; color: var(--orange); margin-bottom: 14px; display: inline-flex; align-items: center; gap: 10px;
 }
+.section-eyebrow::before { content: ''; width: 28px; height: 3px; background: currentColor; border-radius: 2px; flex-shrink: 0; }
 .section-eyebrow.light { color: rgba(255,255,255,0.7); }
 .section-title-plain { font-size: 2.4rem; font-weight: 900; color: var(--blue); line-height: 1.2; margin-bottom: 22px; }
 .nosotros-text p { color: var(--muted); font-size: 1rem; line-height: 1.75; }
@@ -171,7 +175,9 @@ img { max-width: 100%; display: block; }
 .porque-card {
     background: white; border-radius: var(--radius); padding: 40px 32px;
     text-align: center; box-shadow: var(--shadow); border: 1px solid #eee; transition: 0.3s;
+    border-top: 4px solid var(--orange);
 }
+.porque-grid .porque-card:nth-child(2) { border-top-color: var(--blue); }
 .porque-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
 
 .porque-icon-wrap {
@@ -254,7 +260,7 @@ img { max-width: 100%; display: block; }
    WHATSAPP FLOTANTE
 ============================================= */
 .whatsapp-float {
-    position: fixed; bottom: 28px; left: 28px;
+    position: fixed; bottom: 28px; right: 28px;
     width: 60px; height: 60px; border-radius: 50%;
     background: #25D366; color: white;
     display: flex; align-items: center; justify-content: center;
@@ -263,7 +269,7 @@ img { max-width: 100%; display: block; }
 }
 .whatsapp-float:hover { transform: scale(1.1); }
 .whatsapp-float::before {
-    content: "Consultanos!"; position: absolute; left: 70px;
+    content: "Consultanos!"; position: absolute; right: 70px;
     background: #1a1a1a; color: white; padding: 6px 12px; border-radius: 6px;
     font-size: 0.8rem; font-weight: 700; font-family: 'Nunito', sans-serif;
     white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s;
@@ -272,8 +278,13 @@ img { max-width: 100%; display: block; }
 @keyframes pulse-green { 0%,100%{box-shadow:0 6px 20px rgba(37,211,102,0.5)} 50%{box-shadow:0 6px 30px rgba(37,211,102,0.8)} }
 
 /* =============================================
-   VOLVER ARRIBA
+   SCROLL REVEAL
 ============================================= */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
 
 /* =============================================
    RESPONSIVE
@@ -299,7 +310,7 @@ img { max-width: 100%; display: block; }
     .form-row { grid-template-columns: 1fr; }
     .nosotros-section, .porque-section { padding: 60px 0; }
     .footer-content { grid-template-columns: 1fr; gap: 25px; }
-    .whatsapp-float { width: 52px; height: 52px; font-size: 1.5rem; bottom: 20px; left: 20px; }
+    .whatsapp-float { width: 52px; height: 52px; font-size: 1.5rem; bottom: 20px; right: 20px; }
     .whatsapp-float::before { display: none; }
 }
 
@@ -315,9 +326,9 @@ img { max-width: 100%; display: block; }
     <!-- NAVBAR -->
     <header class="navbar">
         <div class="container nav-container">
-            <div class="logo">
+            <a href="#inicio" class="logo">
                 <img src="assets/logo-web.png" alt="Herse Turismo Logo">
-            </div>
+            </a>
             <nav>
                 <ul class="nav-links">
                     <li><a href="#inicio">INICIO</a></li>
@@ -333,9 +344,9 @@ img { max-width: 100%; display: block; }
             </button>
         </div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#inicio" onclick="closeMobileMenu()">🏠 Inicio</a>
-            <a href="#nosotros" onclick="closeMobileMenu()">👥 Nosotros</a>
-            <a href="#contacto" onclick="closeMobileMenu()">📞 Contacto</a>
+            <a href="#inicio" onclick="closeMobileMenu()"> Inicio</a>
+            <a href="#nosotros" onclick="closeMobileMenu()"> Nosotros</a>
+            <a href="#contacto" onclick="closeMobileMenu()"> Contacto</a>
             <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank">
                 <i class="fab fa-whatsapp"></i> Cotizar por WhatsApp
             </a>
@@ -370,19 +381,23 @@ img { max-width: 100%; display: block; }
     <!-- STATS STRIP -->
     <div class="stats-strip">
         <div class="container stats-grid">
-            <div class="stat-item">
+            <div class="stat-item reveal">
+                <span class="stat-icon"><i class="fas fa-map-marked-alt"></i></span>
                 <span class="stat-number">200+</span>
                 <span class="stat-label">Destinos disponibles</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal reveal-d1">
+                <span class="stat-icon"><i class="fas fa-headset"></i></span>
                 <span class="stat-number">24/7</span>
                 <span class="stat-label">Soporte vía WhatsApp</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal reveal-d2">
+                <span class="stat-icon"><i class="fas fa-star"></i></span>
                 <span class="stat-number">100%</span>
                 <span class="stat-label">Personalizado</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item reveal reveal-d3">
+                <span class="stat-icon"><i class="fas fa-bolt"></i></span>
                 <span class="stat-number">&lt;24hs</span>
                 <span class="stat-label">Tiempo de respuesta</span>
             </div>
@@ -392,14 +407,14 @@ img { max-width: 100%; display: block; }
     <!-- SOBRE NOSOTROS -->
     <section id="nosotros" class="nosotros-section">
         <div class="container nosotros-grid">
-            <div class="nosotros-img-wrap">
+            <div class="nosotros-img-wrap reveal">
                 <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=75" alt="Viajeros Herse Turismo" loading="lazy">
                 <div class="nosotros-badge">
                     <i class="fas fa-award"></i>
                     <span>Agencia habilitada</span>
                 </div>
             </div>
-            <div class="nosotros-text">
+            <div class="nosotros-text reveal reveal-d1">
                 <p class="section-eyebrow">¿Quiénes somos?</p>
                 <h2 class="section-title-plain">Somos Herse Turismo</h2>
                 <p>Somos una agencia de viajes de La Plata, Buenos Aires. Nacimos con la misión de acercar el mundo a cada persona, ofreciendo paquetes a medida y un servicio cercano y de confianza.</p>
@@ -435,21 +450,21 @@ img { max-width: 100%; display: block; }
                 <h2 class="section-title-plain">¿Por qué elegir Herse?</h2>
             </div>
             <div class="porque-grid">
-                <div class="porque-card">
+                <div class="porque-card reveal">
                     <div class="porque-icon-wrap orange">
                         <i class="fas fa-headset"></i>
                     </div>
                     <h3>Soporte 24/7</h3>
                     <p>Viajá tranquilo. Estamos conectados con vos en todo momento vía WhatsApp, desde que reservás hasta que volvés a casa.</p>
                 </div>
-                <div class="porque-card">
+                <div class="porque-card reveal reveal-d1">
                     <div class="porque-icon-wrap blue">
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3>Multidestinos</h3>
                     <p>Argentina, Caribe, Europa, Brasil y mucho más. Armamos tu viaje a cualquier destino del mundo con las mejores tarifas.</p>
                 </div>
-                <div class="porque-card">
+                <div class="porque-card reveal reveal-d2">
                     <div class="porque-icon-wrap orange">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -477,9 +492,15 @@ img { max-width: 100%; display: block; }
             <div class="consulta-form-wrap">
                 <div class="consulta-form">
                     <h3>Cotizá tu viaje</h3>
-                    <div class="form-group">
-                        <label for="nombre">Tu nombre</label>
-                        <input type="text" id="nombre" placeholder="Ej: María González">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Tu nombre</label>
+                            <input type="text" id="nombre" placeholder="Ej: María González">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Tu teléfono</label>
+                            <input type="tel" id="telefono" placeholder="Ej: 221 566 1704">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="destino">¿Cuál es tu próximo destino soñado?</label>
@@ -553,7 +574,7 @@ img { max-width: 100%; display: block; }
 
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        const miWhatsapp = "5492215661704"; // ⚠️ REEMPLAZÁ CON TU NÚMERO REAL
+        const miWhatsapp = "5492215661704"; // REEMPLAZÁ CON TU NÚMERO REAL
 
         // Hamburger
         const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -567,9 +588,12 @@ img { max-width: 100%; display: block; }
             mobileMenu.classList.remove('open');
         }
 
-        // Back to top
-        window.addEventListener('scroll', () => {
-        });
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => revealObserver.observe(el));
 
         // Navbar active
         const navLinks = document.querySelectorAll('.nav-links a');
@@ -583,6 +607,7 @@ img { max-width: 100%; display: block; }
         // Formulario → WhatsApp
         function enviarConsulta() {
             const nombre   = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
             const destino  = document.getElementById('destino').value;
             const personas = document.getElementById('personas').value;
             const mes      = document.getElementById('mes').value;
@@ -595,6 +620,7 @@ img { max-width: 100%; display: block; }
 
             const texto = `Hola! Quiero cotizar un viaje 🌍\n\n` +
                           `👤 Nombre: ${nombre}\n` +
+                          (telefono ? `📱 Teléfono: ${telefono}\n` : '') +
                           `✈️ Destino: ${destino}\n` +
                           `👥 Personas: ${personas}\n` +
                           `📅 Fecha aproximada: ${mes}\n` +
