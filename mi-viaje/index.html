@@ -110,6 +110,15 @@ img { max-width: 100%; display: block; }
     transition: 0.3s;
 }
 .btn-logout:hover { background: rgba(239,68,68,0.3); border-color: rgba(239,68,68,0.45); color: white; }
+.btn-admin {
+    display: none; align-items: center; gap: 7px;
+    background: rgba(247,148,29,0.15); border: 1.5px solid rgba(247,148,29,0.4);
+    color: #fbbf24; padding: 8px 16px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 800; white-space: nowrap; transition: 0.3s;
+    text-decoration: none;
+}
+.btn-admin:hover { background: rgba(247,148,29,0.3); color: white; }
+.btn-admin.visible { display: inline-flex; }
 
 /* =============================================
    HERO WELCOME
@@ -619,6 +628,10 @@ img { max-width: 100%; display: block; }
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
+                <a href="/admin" class="btn-admin" id="btnAdmin">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Admin</span>
+                </a>
                 <button class="btn-logout" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Salir</span>
@@ -899,6 +912,11 @@ img { max-width: 100%; display: block; }
             if (!session) { window.location.href = '/login'; return; }
 
             const user = session.user;
+
+            // Mostrar botón admin si corresponde
+            const { data: _perfAdmin } = await _db.from('perfiles').select('is_admin').eq('id', user.id).single();
+            if (_perfAdmin?.is_admin) document.getElementById('btnAdmin').classList.add('visible');
+
             const raw = user.user_metadata?.nombre || user.email.split('@')[0].replace(/[._-]/g, ' ');
             const name = raw.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
             const nameEl = document.querySelector('.name');
