@@ -62,6 +62,13 @@ img { max-width: 100%; display: block; }
     display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s;
 }
 .btn-ghost:hover { background: rgba(255,255,255,0.15); border-color: white; }
+.btn-miviaje {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: transparent; border: 1.5px solid var(--blue); color: var(--blue);
+    padding: 9px 20px; border-radius: 50px; font-weight: 700; font-size: 0.88rem;
+    transition: 0.3s; white-space: nowrap;
+}
+.btn-miviaje:hover { background: var(--blue); color: white; transform: translateY(-1px); }
 
 /* =============================================
    NAVBAR
@@ -316,7 +323,7 @@ a.contact-val:hover { color: var(--orange); }
 }
 
 @media (max-width: 768px) {
-    .nav-links, .nav-container .btn-primary { display: none; }
+    .nav-links, .nav-container .btn-primary, .nav-container .btn-miviaje { display: none; }
     .hamburger { display: flex; }
     .hero { background-attachment: scroll; min-height: 100vh; }
     .hero-content h1 { font-size: 2.4rem; }
@@ -355,6 +362,9 @@ a.contact-val:hover { color: var(--orange); }
                     <li><a href="#contacto">CONTACTO</a></li>
                 </ul>
             </nav>
+            <a href="/mi-viaje" class="btn-miviaje">
+                <i class="fas fa-user-circle"></i> Mi Viaje
+            </a>
             <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank" rel="noopener">
                 <i class="fab fa-whatsapp"></i> Cotizar Viaje
             </a>
@@ -363,6 +373,7 @@ a.contact-val:hover { color: var(--orange); }
             </button>
         </div>
         <div class="mobile-menu" id="mobileMenu">
+            <a href="/mi-viaje"><i class="fas fa-user-circle"></i> Mi Viaje</a>
             <a href="#inicio" onclick="closeMobileMenu()"> Inicio</a>
             <a href="#nosotros" onclick="closeMobileMenu()"> Nosotros</a>
             <a href="#contacto" onclick="closeMobileMenu()"> Contacto</a>

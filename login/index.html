@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceder · Portal Herse Turismo</title>
+    <meta name="theme-color" content="#003366">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23004A8F'/><text y='72' x='12' font-size='70'>✈️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+:root {
+    --blue: #004A8F;
+    --blue-dark: #003366;
+    --orange: #F7941D;
+    --text: #1a2035;
+    --muted: #6b7280;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body { font-family: 'Nunito', sans-serif; display: flex; min-height: 100vh; }
+a { text-decoration: none; color: inherit; }
+
+/* ===== LEFT PANEL ===== */
+.l-panel {
+    flex: 1;
+    background: linear-gradient(145deg, #001f4d 0%, var(--blue-dark) 40%, #005cb8 100%);
+    color: white;
+    padding: 56px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+.l-panel::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(247,148,29,0.14), transparent 70%);
+    pointer-events: none;
+}
+.l-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+    pointer-events: none;
+}
+.l-logo img { height: 54px; filter: brightness(0) invert(1); }
+.l-content { position: relative; z-index: 1; }
+.l-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(247,148,29,0.18);
+    border: 1px solid rgba(247,148,29,0.32);
+    color: #fbbf24;
+    padding: 7px 18px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+.l-content h1 {
+    font-size: 2.6rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+}
+.l-content h1 span { color: var(--orange); }
+.l-content > p {
+    opacity: 0.8;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    max-width: 360px;
+}
+.l-features { display: flex; flex-direction: column; gap: 16px; }
+.l-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    opacity: 0.9;
+}
+.l-ico {
+    width: 38px; height: 38px;
+    border-radius: 11px;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--orange);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+.l-footer { font-size: 0.76rem; opacity: 0.4; position: relative; z-index: 1; }
+
+/* ===== RIGHT PANEL ===== */
+.r-panel {
+    width: 500px;
+    min-height: 100vh;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 52px;
+}
+.form-box { width: 100%; max-width: 380px; }
+.mobile-logo { display: none; margin-bottom: 32px; text-align: center; }
+.mobile-logo img { height: 42px; margin: 0 auto; }
+
+.form-icon {
+    width: 66px; height: 66px;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(0,74,143,0.25);
+}
+.form-box h2 { font-size: 1.85rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.form-box > p { color: var(--muted); font-size: 0.92rem; font-weight: 600; margin-bottom: 32px; line-height: 1.6; }
+
+.field { margin-bottom: 18px; position: relative; }
+.field label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--blue);
+    margin-bottom: 7px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.field input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid #e0e8f0;
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    background: #f8fafc;
+    outline: none;
+    transition: all 0.25s;
+}
+.field input:focus { border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(0,74,143,0.09); }
+.field input.shake { animation: shake 0.4s ease; border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.field.has-toggle input { padding-right: 50px; }
+.toggle-btn {
+    position: absolute; right: 14px; bottom: 14px;
+    background: none; border: none;
+    color: var(--muted); cursor: pointer; font-size: 1rem;
+    padding: 2px; transition: color 0.2s;
+}
+.toggle-btn:hover { color: var(--blue); }
+
+.error-box {
+    display: none;
+    align-items: center;
+    gap: 9px;
+    background: rgba(239,68,68,0.07);
+    border: 1px solid rgba(239,68,68,0.2);
+    color: #dc2626;
+    padding: 12px 16px;
+    border-radius: 11px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+.error-box.show { display: flex; }
+
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 18px rgba(0,74,143,0.28);
+    margin-bottom: 24px;
+}
+.btn-login:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(0,74,143,0.38); }
+.btn-login:disabled { opacity: 0.72; cursor: not-allowed; transform: none; }
+
+.login-help {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #f0f4f8;
+}
+.login-help p { font-size: 0.84rem; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+.login-help a.wsp { color: #25D366; font-weight: 800; }
+.login-help a.wsp:hover { text-decoration: underline; }
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 700;
+    transition: color 0.2s;
+}
+.back-link:hover { color: var(--blue); }
+.switch-link {
+    display: block; text-align: center; margin-top: 18px;
+    font-size: 0.84rem; color: var(--muted); font-weight: 600;
+}
+.switch-link a { color: var(--blue); font-weight: 800; cursor: pointer; }
+.switch-link a:hover { text-decoration: underline; }
+.success-box {
+    display: none; align-items: flex-start; gap: 9px;
+    background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25);
+    color: #065f46; padding: 14px 16px; border-radius: 11px;
+    font-size: 0.85rem; font-weight: 700; margin-bottom: 18px; line-height: 1.5;
+}
+.success-box.show { display: flex; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .l-panel { display: none; }
+    .r-panel { width: 100%; min-height: 100vh; }
+    .mobile-logo { display: block; }
+}
+@media (max-width: 480px) {
+    .r-panel { padding: 40px 24px; }
+    .form-box h2 { font-size: 1.5rem; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- LEFT PANEL -->
+    <div class="l-panel">
+        <div class="l-logo">
+            <img src="/assets/logo-web.png" alt="Herse Turismo">
+        </div>
+        <div class="l-content">
+            <div class="l-chip">
+                <i class="fas fa-shield-alt"></i> Portal exclusivo para viajeros
+            </div>
+            <h1>Tu viaje en<br>la palma de<br>tu <span>mano</span></h1>
+            <p>Accedé a toda la información de tu viaje en un solo lugar, sin papeles y desde cualquier dispositivo.</p>
+            <div class="l-features">
+                <div class="l-feature">
+                    <div class="l-ico"><i class="fas fa-folder-open"></i></div>
+                    Vouchers y documentos organizados
+                </div>
+                <div class="l-feature">
+                    <div class="l-ico"><i class="fas fa-satellite-dish"></i></div>
+                    Estado del vuelo en tiempo real
+                </div>
+                <div class="l-feature">
+                    <div class="l-ico"><i class="fas fa-crown"></i></div>
+                    Tu plan de fidelización Herse
+                </div>
+                <div class="l-feature">
+                    <div class="l-ico"><i class="fas fa-hourglass-half"></i></div>
+                    Cuenta regresiva personalizada
+                </div>
+            </div>
+        </div>
+        <div class="l-footer">© 2025 Herse Turismo · La Plata, Buenos Aires</div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="r-panel">
+        <div class="form-box">
+            <div class="mobile-logo">
+                <img src="/assets/logo-web.png" alt="Herse Turismo">
+            </div>
+
+            <!-- HEADER DINÁMICO -->
+            <div class="form-icon" id="formIcon">✈️</div>
+            <h2 id="formTitle">Bienvenido de vuelta</h2>
+            <p id="formSubtitle">Ingresá con tu email y contraseña para ver tu viaje.</p>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="tu@email.com" autocomplete="email" required>
+                </div>
+                <div class="field has-toggle">
+                    <label for="pass">Contraseña</label>
+                    <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password" required>
+                    <button type="button" class="toggle-btn" onclick="togglePass()" tabindex="-1">
+                        <i class="fas fa-eye" id="eyeIcon"></i>
+                    </button>
+                </div>
+                <div class="error-box" id="errorBox">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="errorText">Credenciales incorrectas.</span>
+                </div>
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <span>Acceder a mi portal</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="registerForm" onsubmit="handleRegister(event)" novalidate style="display:none">
+                <div class="field">
+                    <label for="reg-nombre">Nombre completo</label>
+                    <input type="text" id="reg-nombre" placeholder="Ej: María González" required>
+                </div>
+                <div class="field">
+                    <label for="reg-email">Email</label>
+                    <input type="email" id="reg-email" placeholder="tu@email.com" autocomplete="email" required>
+                </div>
+                <div class="field has-toggle">
+                    <label for="reg-pass">Contraseña</label>
+                    <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" required>
+                    <button type="button" class="toggle-btn" onclick="toggleRegPass()" tabindex="-1">
+                        <i class="fas fa-eye" id="regEyeIcon"></i>
+                    </button>
+                </div>
+                <div class="field">
+                    <label for="reg-pass2">Confirmá la contraseña</label>
+                    <input type="password" id="reg-pass2" placeholder="Repetí tu contraseña" required>
+                </div>
+                <div class="error-box" id="regErrorBox">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="regErrorText">Error al registrarse.</span>
+                </div>
+                <div class="success-box" id="regSuccessBox">
+                    <i class="fas fa-check-circle" style="font-size:1.1rem;margin-top:2px;flex-shrink:0"></i>
+                    <span>¡Cuenta creada! Revisá tu email para confirmar tu cuenta y después podés ingresar.</span>
+                </div>
+                <button type="submit" class="btn-login" id="regBtn">
+                    <span>Crear mi cuenta</span>
+                    <i class="fas fa-user-plus"></i>
+                </button>
+            </form>
+
+            <div class="login-help">
+                <p>¿Problemas para ingresar? <a href="https://wa.me/5492215661704?text=Hola!%20Necesito%20ayuda%20para%20acceder%20a%20mi%20portal." target="_blank" class="wsp"><i class="fab fa-whatsapp"></i> Contactanos</a></p>
+                <a href="/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Volver al sitio
+                </a>
+            </div>
+            <p class="switch-link" id="switchText">
+                ¿No tenés cuenta? <a onclick="showRegister()">Registrarte</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script>
+        const SUPA_URL = 'https://yuukqdcjitxhaeevjxjb.supabase.co';
+        const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
+        const { createClient } = supabase;
+        const _db = createClient(SUPA_URL, SUPA_KEY);
+
+        // Si ya tiene sesión activa, redirige directo
+        _db.auth.getSession().then(({ data: { session } }) => {
+            if (session) window.location.href = '/mi-viaje';
+        });
+
+        // ===== TOGGLE LOGIN / REGISTRO =====
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('formTitle').textContent = 'Crear cuenta';
+            document.getElementById('formSubtitle').textContent = 'Completá tus datos para acceder al portal de viaje.';
+            document.getElementById('formIcon').textContent = '👤';
+            document.getElementById('switchText').innerHTML = '¿Ya tenés cuenta? <a onclick="showLogin()">Iniciar sesión</a>';
+        }
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('formTitle').textContent = 'Bienvenido de vuelta';
+            document.getElementById('formSubtitle').textContent = 'Ingresá con tu email y contraseña para ver tu viaje.';
+            document.getElementById('formIcon').textContent = '✈️';
+            document.getElementById('switchText').innerHTML = '¿No tenés cuenta? <a onclick="showRegister()">Registrarte</a>';
+        }
+
+        function togglePass() {
+            const pass = document.getElementById('pass');
+            const icon = document.getElementById('eyeIcon');
+            pass.type = pass.type === 'password' ? 'text' : 'password';
+            icon.className = pass.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        }
+        function toggleRegPass() {
+            const pass = document.getElementById('reg-pass');
+            const icon = document.getElementById('regEyeIcon');
+            pass.type = pass.type === 'password' ? 'text' : 'password';
+            icon.className = pass.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+        }
+
+        // ===== REGISTRO =====
+        async function handleRegister(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('reg-nombre').value.trim();
+            const email  = document.getElementById('reg-email').value.trim();
+            const pass   = document.getElementById('reg-pass').value;
+            const pass2  = document.getElementById('reg-pass2').value;
+            const btn    = document.getElementById('regBtn');
+            const errBox = document.getElementById('regErrorBox');
+            const errTxt = document.getElementById('regErrorText');
+            const okBox  = document.getElementById('regSuccessBox');
+
+            errBox.classList.remove('show');
+            okBox.classList.remove('show');
+
+            if (!nombre || !email || !pass || !pass2) {
+                errTxt.textContent = 'Por favor completá todos los campos.';
+                errBox.classList.add('show'); return;
+            }
+            if (pass.length < 6) {
+                errTxt.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+                errBox.classList.add('show'); return;
+            }
+            if (pass !== pass2) {
+                errTxt.textContent = 'Las contraseñas no coinciden.';
+                errBox.classList.add('show'); return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando cuenta...';
+
+            const { data, error } = await _db.auth.signUp({
+                email,
+                password: pass,
+                options: { data: { nombre } }
+            });
+
+            if (error) {
+                errTxt.textContent = error.message.includes('already registered')
+                    ? 'Este email ya tiene una cuenta. Iniciá sesión.'
+                    : 'Error al crear la cuenta. Intentá de nuevo.';
+                errBox.classList.add('show');
+                btn.disabled = false;
+                btn.innerHTML = '<span>Crear mi cuenta</span><i class="fas fa-user-plus"></i>';
+            } else if (data.session) {
+                window.location.href = '/mi-viaje';
+            } else {
+                okBox.classList.add('show');
+                btn.disabled = false;
+                btn.innerHTML = '<span>Crear mi cuenta</span><i class="fas fa-user-plus"></i>';
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email  = document.getElementById('email').value.trim();
+            const pass   = document.getElementById('pass').value;
+            const btn    = document.getElementById('loginBtn');
+            const errBox = document.getElementById('errorBox');
+            const errTxt = document.getElementById('errorText');
+            const passEl = document.getElementById('pass');
+
+            errBox.classList.remove('show');
+            document.getElementById('email').classList.remove('shake');
+            passEl.classList.remove('shake');
+
+            if (!email || !pass) {
+                errTxt.textContent = 'Por favor completá todos los campos.';
+                errBox.classList.add('show');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verificando...';
+
+            const { data, error } = await _db.auth.signInWithPassword({ email, password: pass });
+
+            if (error) {
+                passEl.classList.add('shake');
+                errTxt.textContent = 'Credenciales incorrectas. Si no podés acceder, escribinos por WhatsApp.';
+                errBox.classList.add('show');
+                btn.disabled = false;
+                btn.innerHTML = '<span>Acceder a mi portal</span><i class="fas fa-arrow-right"></i>';
+            } else {
+                window.location.href = '/mi-viaje';
+            }
+        }
+    </script>
+</body>
+</html>

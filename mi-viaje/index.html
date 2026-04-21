@@ -12,6 +12,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#003366">
     <meta name="description" content="Tu portal personal de viaje con Herse Turismo.">
+    <link rel="manifest" href="/manifest.json">
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23004A8F'/><text y='72' x='12' font-size='70'>✈️</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,6 +93,23 @@ img { max-width: 100%; display: block; }
     transition: 0.3s;
 }
 .btn-back:hover { background: rgba(255,255,255,0.22); }
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.85);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.btn-logout:hover { background: rgba(239,68,68,0.3); border-color: rgba(239,68,68,0.45); color: white; }
 
 /* =============================================
    HERO WELCOME
@@ -596,10 +614,16 @@ img { max-width: 100%; display: block; }
                 <small>Portal del viajero</small>
                 <h1>Mi Bitácora de Viaje ✈️</h1>
             </div>
-            <a href="/" class="btn-back">
-                <i class="fas fa-home"></i>
-                <span>Inicio</span>
-            </a>
+            <div style="display:flex;gap:8px;align-items:center;">
+                <a href="/" class="btn-back">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Salir</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -610,7 +634,7 @@ img { max-width: 100%; display: block; }
                 <i class="fas fa-shield-alt"></i>
                 Tu viaje está en buenas manos
             </div>
-            <h2>¡Hola, <span class="name">María</span>! 👋</h2>
+            <h2>¡Hola, <span class="name">Viajero</span>! 👋</h2>
             <p>Todo listo para tu próxima aventura. Acá encontrás toda la información de tu viaje organizada y al alcance de tu mano.</p>
             <div class="trip-pill">
                 <i class="fas fa-map-marker-alt"></i>
@@ -859,45 +883,154 @@ img { max-width: 100%; display: block; }
         <p style="margin-top:6px; opacity:0.55;">Tu próxima aventura ya está en camino ✈️</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script>
-        // ===== COUNTDOWN =====
-        // Cambiá esta fecha por la real de salida del cliente
-        const TRIP_DATE = new Date('2025-08-15T08:30:00-03:00');
+        const SUPA_URL = 'https://yuukqdcjitxhaeevjxjb.supabase.co';
+        const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
+        const { createClient } = supabase;
+        const _db = createClient(SUPA_URL, SUPA_KEY);
 
-        function pad(n) { return String(n).padStart(2, '0'); }
+        let TRIP_DATE = new Date('2025-08-15T08:30:00-03:00');
+        let _tickInterval;
 
-        function tick() {
-            const diff = TRIP_DATE - new Date();
-            if (diff <= 0) {
-                ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
-                document.querySelector('.countdown-footer').innerHTML = '🎉 <strong>¡Es el día de tu viaje!</strong> ¡Que lo disfrutes muchísimo!';
-                return;
+        // ===== MAIN: AUTH + CARGA DE DATOS =====
+        (async () => {
+            const { data: { session } } = await _db.auth.getSession();
+            if (!session) { window.location.href = '/login'; return; }
+
+            const user = session.user;
+            const raw = user.user_metadata?.nombre || user.email.split('@')[0].replace(/[._-]/g, ' ');
+            const name = raw.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            const nameEl = document.querySelector('.name');
+            if (nameEl) nameEl.textContent = name;
+
+            // Fetch viaje activo + documentos
+            const { data: viajes } = await _db
+                .from('viajes')
+                .select('*, documentos(*)')
+                .eq('activo', true)
+                .order('fecha_salida', { ascending: true })
+                .limit(1);
+
+            if (viajes?.length > 0) {
+                const v = viajes[0];
+                TRIP_DATE = new Date(v.fecha_salida);
+                updateTripUI(v);
+                if (v.documentos?.length > 0) updateDocs(v.documentos);
             }
-            const d = Math.floor(diff / 864e5);
-            const h = Math.floor((diff % 864e5) / 36e5);
-            const m = Math.floor((diff % 36e5) / 6e4);
-            const s = Math.floor((diff % 6e4) / 1e3);
 
-            const ids = ['cd-d','cd-h','cd-m','cd-s'];
-            const vals = [d, h, m, s];
-            ids.forEach((id, i) => {
-                const el = document.getElementById(id);
-                const newVal = pad(vals[i]);
-                if (el.textContent !== newVal) {
-                    el.classList.add('tick');
-                    setTimeout(() => el.classList.remove('tick'), 100);
-                    el.textContent = newVal;
-                }
+            // Fetch fidelización
+            const { data: fid } = await _db.from('fidelizacion').select('*').maybeSingle();
+            if (fid) updateLoyalty(fid);
+
+            // Countdown
+            tick();
+            _tickInterval = setInterval(tick, 1000);
+
+            // Barra fidelización
+            const pct = fid ? Math.min((fid.viajes_completados / 5) * 100, 100) : 60;
+            setTimeout(() => { document.getElementById('loyaltyBar').style.width = pct + '%'; }, 400);
+        })();
+
+        // ===== LOGOUT =====
+        function logout() {
+            _db.auth.signOut().then(() => { window.location.href = '/login'; });
+        }
+
+        // ===== UPDATE UI CON DATOS REALES =====
+        function updateTripUI(v) {
+            const sd = new Date(v.fecha_salida);
+            const ed = new Date(v.fecha_regreso);
+
+            const pill = document.querySelector('.trip-pill');
+            if (pill) pill.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${v.destino} · ${fmtDate(sd)} al ${fmtDate(ed)}`;
+
+            const footer = document.querySelector('.countdown-footer');
+            if (footer) footer.innerHTML = `Tu vuelo sale el <strong>${fmtDateLong(sd)}</strong>`;
+
+            const cells = document.querySelectorAll('.info-cell-val');
+            if (cells[0]) cells[0].textContent = fmtDateTime(sd);
+            if (cells[1]) cells[1].textContent = fmtDateTime(ed);
+            if (cells[2]) cells[2].textContent = v.pasajeros + (v.pasajeros === 1 ? ' adulto' : ' adultos');
+            if (cells[3]) cells[3].textContent = v.hotel ? v.hotel : '-';
+
+            if (v.vuelo_ida) {
+                const parts = v.vuelo_ida.split('-');
+                const fcodes = document.querySelectorAll('.f-code');
+                if (fcodes[0] && parts[0]) fcodes[0].textContent = parts[0].trim();
+                if (fcodes[1] && parts[1]) fcodes[1].textContent = parts[1].trim();
+            }
+            const fdetails = document.querySelectorAll('.f-detail-val');
+            if (fdetails[0]) fdetails[0].textContent = sd.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+            if (v.terminal && fdetails[2]) fdetails[2].textContent = v.terminal + (v.gate ? ' · ' + v.gate : '');
+        }
+
+        function updateDocs(docs) {
+            const list = document.querySelector('.doc-list');
+            if (!list) return;
+            const icons = { 'pasaje': 'fa-plane', 'hotel': 'fa-hotel', 'seguro': 'fa-umbrella-beach', 'transfer': 'fa-car' };
+            list.innerHTML = docs.map(d => `
+                <div class="doc-row">
+                    <div class="doc-ico"><i class="fas ${icons[d.tipo?.toLowerCase()] || 'fa-file-alt'}"></i></div>
+                    <div class="doc-info">
+                        <div class="doc-name">${d.nombre}</div>
+                        <div class="doc-sub">${d.tipo}</div>
+                    </div>
+                    <span class="badge ${d.estado === 'listo' ? 'badge-ok' : 'badge-pnd'}">${d.estado === 'listo' ? 'Listo' : 'En proceso'}</span>
+                </div>`).join('');
+        }
+
+        function updateLoyalty(fid) {
+            const done = fid.viajes_completados || 0;
+            const faltan = Math.max(0, 5 - done);
+            const countEl = document.querySelector('.loyalty-count');
+            if (countEl) countEl.innerHTML = `Tus viajes: <strong>${done} de 5</strong>`;
+            const msgEl = document.querySelector('.loyalty-vip-msg');
+            if (msgEl) msgEl.innerHTML = faltan > 0
+                ? `<i class="fas fa-star"></i> Estás a ${faltan} viaje${faltan === 1 ? '' : 's'} de tu beneficio VIP`
+                : `<i class="fas fa-crown"></i> ¡Alcanzaste el nivel Elite VIP!`;
+            document.querySelectorAll('.dot-step').forEach((dot, i) => {
+                dot.classList.remove('done', 'current');
+                if (i < done) dot.classList.add('done');
+                else if (i === done) dot.classList.add('current');
             });
         }
 
-        tick();
-        setInterval(tick, 1000);
+        // ===== HELPERS DE FECHA =====
+        function fmtDate(d) { return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }); }
+        function fmtDateTime(d) {
+            return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' +
+                   d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+        }
+        function fmtDateLong(d) {
+            return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'long' }) +
+                   ' a las ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }) + ' hs';
+        }
 
-        // ===== LOYALTY BAR ANIMATION =====
-        setTimeout(() => {
-            document.getElementById('loyaltyBar').style.width = '60%';
-        }, 400);
+        // ===== COUNTDOWN =====
+        function pad(n) { return String(n).padStart(2, '0'); }
+        function tick() {
+            const diff = TRIP_DATE - new Date();
+            if (diff <= 0) {
+                ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const e = document.getElementById(id); if(e) e.textContent = '00'; });
+                const f = document.querySelector('.countdown-footer');
+                if (f) f.innerHTML = '🎉 <strong>¡Es el día de tu viaje!</strong> ¡Que lo disfrutes!';
+                clearInterval(_tickInterval);
+                return;
+            }
+            const vals = [Math.floor(diff/864e5), Math.floor((diff%864e5)/36e5), Math.floor((diff%36e5)/6e4), Math.floor((diff%6e4)/1e3)];
+            ['cd-d','cd-h','cd-m','cd-s'].forEach((id, i) => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                const v = pad(vals[i]);
+                if (el.textContent !== v) { el.classList.add('tick'); setTimeout(() => el.classList.remove('tick'), 100); el.textContent = v; }
+            });
+        }
+
+        // ===== SERVICE WORKER =====
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); });
+        }
     </script>
 
 </body>
