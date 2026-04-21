@@ -63,12 +63,12 @@ img { max-width: 100%; display: block; }
 }
 .btn-ghost:hover { background: rgba(255,255,255,0.15); border-color: white; }
 .btn-miviaje {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: transparent; border: 1.5px solid var(--blue); color: var(--blue);
-    padding: 9px 20px; border-radius: 50px; font-weight: 700; font-size: 0.88rem;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,74,143,0.07); border: 1.5px solid var(--blue); color: var(--blue);
+    padding: 9px 22px; border-radius: 50px; font-weight: 800; font-size: 0.88rem;
     transition: 0.3s; white-space: nowrap;
 }
-.btn-miviaje:hover { background: var(--blue); color: white; transform: translateY(-1px); }
+.btn-miviaje:hover { background: var(--blue); color: white; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,74,143,0.2); }
 
 /* =============================================
    NAVBAR
@@ -76,8 +76,9 @@ img { max-width: 100%; display: block; }
 .navbar { background: var(--white); padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-bottom: 3px solid var(--orange); transition: box-shadow 0.3s; }
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
 .logo img { height: 65px; }
-.nav-links { display: flex; gap: 30px; }
-.nav-links a { font-weight: 700; color: var(--blue); font-size: 0.9rem; letter-spacing: 0.5px; }
+.nav-right { display: flex; align-items: center; gap: 28px; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-weight: 700; color: var(--blue); font-size: 0.9rem; letter-spacing: 0.3px; }
 .nav-links a:hover, .nav-links a.active { color: var(--orange); }
 
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; background: none; border: none; }
@@ -323,7 +324,7 @@ a.contact-val:hover { color: var(--orange); }
 }
 
 @media (max-width: 768px) {
-    .nav-links, .nav-container .btn-primary, .nav-container .btn-miviaje { display: none; }
+    .nav-right { display: none; }
     .hamburger { display: flex; }
     .hero { background-attachment: scroll; min-height: 100vh; }
     .hero-content h1 { font-size: 2.4rem; }
@@ -355,30 +356,28 @@ a.contact-val:hover { color: var(--orange); }
             <a href="#inicio" class="logo">
                 <img src="assets/logo-web.png" alt="Herse Turismo Logo">
             </a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#inicio">INICIO</a></li>
-                    <li><a href="#nosotros">NOSOTROS</a></li>
-                    <li><a href="#contacto">CONTACTO</a></li>
-                </ul>
-            </nav>
-            <a href="/mi-viaje" class="btn-miviaje">
-                <i class="fas fa-user-circle"></i> Mi Viaje
-            </a>
-            <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank" rel="noopener">
-                <i class="fab fa-whatsapp"></i> Cotizar Viaje
-            </a>
+            <div class="nav-right">
+                <a href="/mi-viaje" class="btn-miviaje">
+                    <i class="fas fa-user-circle"></i> Mi Viaje
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
             <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
                 <span></span><span></span><span></span>
             </button>
         </div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="/mi-viaje"><i class="fas fa-user-circle"></i> Mi Viaje</a>
-            <a href="#inicio" onclick="closeMobileMenu()"> Inicio</a>
-            <a href="#nosotros" onclick="closeMobileMenu()"> Nosotros</a>
-            <a href="#contacto" onclick="closeMobileMenu()"> Contacto</a>
-            <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20cotizar%20un%20viaje." class="btn-primary" target="_blank">
-                <i class="fab fa-whatsapp"></i> Cotizar por WhatsApp
+            <a href="#inicio" onclick="closeMobileMenu()">Inicio</a>
+            <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
+            <a href="#contacto" onclick="closeMobileMenu()">Contacto</a>
+            <a href="/mi-viaje" class="btn-miviaje" style="justify-content:center;margin-top:4px">
+                <i class="fas fa-user-circle"></i> Mi Viaje
             </a>
         </div>
     </header>

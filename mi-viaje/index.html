@@ -648,16 +648,39 @@ img { max-width: 100%; display: block; }
                 Tu viaje está en buenas manos
             </div>
             <h2>¡Hola, <span class="name">Viajero</span>! 👋</h2>
-            <p>Todo listo para tu próxima aventura. Acá encontrás toda la información de tu viaje organizada y al alcance de tu mano.</p>
-            <div class="trip-pill">
+            <p id="heroSubtitle">Todo listo para tu próxima aventura. Acá encontrás toda la información de tu viaje organizada y al alcance de tu mano.</p>
+            <div class="trip-pill" id="tripPill">
                 <i class="fas fa-map-marker-alt"></i>
                 Cancún, México · 15 al 22 de agosto 2025
             </div>
         </div>
     </section>
 
+    <!-- ====== PRÓXIMAMENTE (no-admin) ====== -->
+    <div id="proximamente" style="display:none; padding:70px 24px; text-align:center; max-width:540px; margin:0 auto;">
+        <div style="font-size:4rem; margin-bottom:20px;">🚀</div>
+        <h3 style="font-size:1.6rem; font-weight:900; color:#004A8F; margin-bottom:14px;">Próximamente</h3>
+        <p style="color:#6b7280; font-size:1rem; line-height:1.75; margin-bottom:30px;">
+            El portal del viajero está en desarrollo. Muy pronto vas a poder ver toda la información de tu viaje, documentos y más, desde acá.
+        </p>
+        <a href="https://wa.me/5492215661704?text=Hola!%20Quiero%20saber%20m%C3%A1s%20sobre%20mi%20viaje." target="_blank"
+           style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:white;padding:13px 28px;border-radius:50px;font-weight:800;font-size:0.95rem;text-decoration:none;">
+            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+        </a>
+    </div>
+
+    <!-- ====== ESTADO SIN VIAJE (oculto por defecto) ====== -->
+    <div id="pendingState" style="display:none; padding: 60px 24px; text-align:center; max-width:520px; margin:0 auto;">
+        <div style="font-size:3.5rem; margin-bottom:18px;">✈️</div>
+        <h3 style="font-size:1.4rem; font-weight:900; color:#004A8F; margin-bottom:12px;">¡Tu portal está casi listo!</h3>
+        <p style="color:#6b7280; font-size:1rem; line-height:1.7; margin-bottom:28px;">Tu consultor de Herse Turismo ya está preparando la información de tu viaje. En cuanto esté lista, va a aparecer acá automáticamente.</p>
+        <a href="https://wa.me/5492215661704?text=Hola!%20Me%20registré%20en%20el%20portal%20y%20quiero%20saber%20cuándo%20van%20a%20cargar%20mi%20viaje." target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:white;padding:13px 28px;border-radius:50px;font-weight:800;font-size:0.95rem;text-decoration:none;">
+            <i class="fab fa-whatsapp"></i> Consultar por WhatsApp
+        </a>
+    </div>
+
     <!-- ====== DASHBOARD ====== -->
-    <main class="dashboard">
+    <main class="dashboard" id="mainDashboard">
 
         <!-- COUNTDOWN -->
         <div class="countdown-card">
@@ -913,9 +936,20 @@ img { max-width: 100%; display: block; }
 
             const user = session.user;
 
-            // Mostrar botón admin si corresponde
+            // Check admin
             const { data: _perfAdmin } = await _db.from('perfiles').select('is_admin').eq('id', user.id).single();
-            if (_perfAdmin?.is_admin) document.getElementById('btnAdmin').classList.add('visible');
+            if (_perfAdmin?.is_admin) {
+                document.getElementById('btnAdmin').classList.add('visible');
+            } else {
+                // No es admin → mostrar pantalla Próximamente
+                document.getElementById('mainDashboard').style.display = 'none';
+                document.getElementById('pendingState').style.display  = 'none';
+                document.getElementById('tripPill').style.display      = 'none';
+                document.getElementById('heroSubtitle').textContent    = 'Estamos preparando algo especial para vos.';
+                document.querySelector('.name').closest('h2').innerHTML = '¡Hola! 👋';
+                document.getElementById('proximamente').style.display  = 'block';
+                return;
+            }
 
             const raw = user.user_metadata?.nombre || user.email.split('@')[0].replace(/[._-]/g, ' ');
             const name = raw.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -935,6 +969,13 @@ img { max-width: 100%; display: block; }
                 TRIP_DATE = new Date(v.fecha_salida);
                 updateTripUI(v);
                 if (v.documentos?.length > 0) updateDocs(v.documentos);
+            } else {
+                // Sin viaje cargado → mostrar estado de espera
+                document.getElementById('mainDashboard').style.display = 'none';
+                document.getElementById('pendingState').style.display   = 'block';
+                document.getElementById('tripPill').style.display       = 'none';
+                document.getElementById('heroSubtitle').textContent     = 'Tu consultor ya está preparando todo. Pronto vas a ver tu viaje acá.';
+                clearInterval(_tickInterval);
             }
 
             // Fetch fidelización
