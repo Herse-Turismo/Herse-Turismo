@@ -611,6 +611,61 @@ img { max-width: 100%; display: block; }
 }
 
 /* =============================================
+   CHECKLIST + REMINDER
+============================================= */
+.checkin-banner {
+    display: none; align-items: center; gap: 14px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white; border-radius: 16px; padding: 16px 22px;
+    margin-bottom: 20px; box-shadow: 0 4px 18px rgba(245,158,11,0.35);
+}
+.checkin-banner.show { display: flex; }
+.checkin-banner-icon { font-size: 1.6rem; flex-shrink: 0; }
+.checkin-banner-body { flex: 1; }
+.checkin-banner-body strong { display: block; font-size: 0.95rem; font-weight: 900; margin-bottom: 3px; }
+.checkin-banner-body span { font-size: 0.82rem; opacity: 0.92; font-weight: 600; }
+.checkin-banner-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.btn-checkin-do {
+    background: white; color: #d97706; border: none;
+    padding: 8px 16px; border-radius: 50px; font-family: 'Nunito',sans-serif;
+    font-weight: 800; font-size: 0.8rem; cursor: pointer; transition: 0.2s; white-space: nowrap;
+}
+.btn-checkin-do:hover { background: #fef3c7; }
+.btn-checkin-dismiss {
+    background: none; border: 1.5px solid rgba(255,255,255,0.5); color: white;
+    width: 30px; height: 30px; border-radius: 50%; font-size: 0.8rem;
+    cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
+}
+.btn-checkin-dismiss:hover { background: rgba(255,255,255,0.15); }
+
+.checklist-card { grid-column: 1 / -1; }
+.checklist-items { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.check-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px; border-radius: 12px; border: 1.5px solid #eee;
+    background: #fafafa; cursor: pointer; transition: all 0.2s; user-select: none;
+}
+.check-item:hover { border-color: #c5d4f0; background: #f0f5ff; }
+.check-item.done { background: #f0fdf4; border-color: #bbf7d0; }
+.check-item-box {
+    width: 22px; height: 22px; border-radius: 6px; border: 2px solid #d1d5db;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: 0.2s; font-size: 0.75rem; color: white;
+}
+.check-item.done .check-item-box { background: #10b981; border-color: #10b981; }
+.check-item-text { font-size: 0.88rem; font-weight: 700; color: #374151; flex: 1; }
+.check-item.done .check-item-text { text-decoration: line-through; color: #9ca3af; }
+.checklist-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.checklist-bar-wrap { flex: 1; height: 8px; background: #e5e7eb; border-radius: 50px; overflow: hidden; }
+.checklist-bar { height: 100%; background: linear-gradient(90deg, #10b981, #059669); border-radius: 50px; transition: width 0.4s ease; width: 0%; }
+.checklist-pct { font-size: 0.82rem; font-weight: 900; color: #10b981; white-space: nowrap; }
+
+@media (max-width: 600px) {
+    .checklist-items { grid-template-columns: 1fr; }
+    .checkin-banner { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+/* =============================================
    PASAPORTE TRIBUNERO
 ============================================= */
 .passport-section {
@@ -807,6 +862,21 @@ img { max-width: 100%; display: block; }
 
     <!-- ====== DASHBOARD ====== -->
     <main class="dashboard" id="mainDashboard">
+
+        <!-- BANNER CHECK-IN (visible solo 48h antes del vuelo) -->
+        <div class="checkin-banner" id="checkinBanner">
+            <div class="checkin-banner-icon">⏰</div>
+            <div class="checkin-banner-body">
+                <strong>¡Recordatorio de check-in!</strong>
+                <span id="checkinBannerText">Tu vuelo sale pronto. No olvides hacer el check-in online.</span>
+            </div>
+            <div class="checkin-banner-actions">
+                <button class="btn-checkin-do" id="btnCheckinDo" onclick="window.open('https://www.aerolineas.com.ar','_blank')">
+                    <i class="fas fa-external-link-alt"></i> Hacer check-in
+                </button>
+                <button class="btn-checkin-dismiss" onclick="dismissCheckin()" title="Cerrar"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
 
         <!-- COUNTDOWN -->
         <div class="countdown-card">
@@ -1025,6 +1095,24 @@ img { max-width: 100%; display: block; }
                 </div>
             </div>
 
+            <!-- CHECKLIST PRE-VIAJE -->
+            <div class="card checklist-card">
+                <div class="card-head">
+                    <div class="card-ico" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-check-double"></i></div>
+                    <div class="card-head-text">
+                        <h3>Checklist Pre-Viaje</h3>
+                        <p>Tildá todo antes de despegar</p>
+                    </div>
+                </div>
+                <div class="checklist-progress">
+                    <div class="checklist-bar-wrap"><div class="checklist-bar" id="checklistBar"></div></div>
+                    <div class="checklist-pct" id="checklistPct">0 / 8</div>
+                </div>
+                <div class="checklist-items" id="checklistItems">
+                    <!-- Renderizado por JS -->
+                </div>
+            </div>
+
         </div>
 
         <!-- PASAPORTE TRIBUNERO -->
@@ -1138,6 +1226,7 @@ img { max-width: 100%; display: block; }
                 TRIP_DATE = new Date(v.fecha_salida);
                 updateTripUI(v);
                 if (v.documentos?.length > 0) updateDocs(v.documentos);
+                checkCheckinReminder(v.fecha_salida, v.vuelo_ida);
             } else {
                 // Sin viaje cargado → mostrar estado de espera
                 document.getElementById('mainDashboard').style.display = 'none';
@@ -1146,6 +1235,9 @@ img { max-width: 100%; display: block; }
                 document.getElementById('heroSubtitle').textContent     = 'Tu consultor ya está preparando todo. Pronto vas a ver tu viaje acá.';
                 clearInterval(_tickInterval);
             }
+
+            // Checklist + banner check-in
+            initChecklist(user.id);
 
             // Pasaporte Tribunero
             initPasaporte(user.id);
@@ -1256,6 +1348,81 @@ img { max-width: 100%; display: block; }
                 const v = pad(vals[i]);
                 if (el.textContent !== v) { el.classList.add('tick'); setTimeout(() => el.classList.remove('tick'), 100); el.textContent = v; }
             });
+        }
+
+        // ===== CHECKLIST PRE-VIAJE =====
+        const CHECKLIST_ITEMS = [
+            { id: 'psp', label: 'Pasaporte / DNI vigente', icon: '🛂' },
+            { id: 'seg', label: 'Seguro de viaje contratado', icon: '🛡️' },
+            { id: 'mon', label: 'Moneda local cambiada', icon: '💱' },
+            { id: 'chk', label: 'Check-in online realizado', icon: '✈️' },
+            { id: 'val', label: 'Valija preparada', icon: '🧳' },
+            { id: 'doc', label: 'Documentos impresos / descargados', icon: '📄' },
+            { id: 'app', label: 'App de la aerolínea instalada', icon: '📱' },
+            { id: 'aloj', label: 'Alojamiento confirmado', icon: '🏨' },
+        ];
+
+        let _checklistUserId = null;
+        let _checkedSet = new Set();
+
+        function initChecklist(userId) {
+            _checklistUserId = userId;
+            const saved = localStorage.getItem(`herse_cl_${userId}`);
+            if (saved) _checkedSet = new Set(JSON.parse(saved));
+            renderChecklist();
+        }
+
+        function renderChecklist() {
+            const wrap = document.getElementById('checklistItems');
+            if (!wrap) return;
+            wrap.innerHTML = CHECKLIST_ITEMS.map(item => `
+                <div class="check-item ${_checkedSet.has(item.id) ? 'done' : ''}" onclick="toggleCheck('${item.id}')">
+                    <div class="check-item-box">${_checkedSet.has(item.id) ? '<i class="fas fa-check"></i>' : ''}</div>
+                    <div class="check-item-text">${item.icon} ${item.label}</div>
+                </div>`).join('');
+            updateChecklistBar();
+        }
+
+        function toggleCheck(id) {
+            _checkedSet.has(id) ? _checkedSet.delete(id) : _checkedSet.add(id);
+            if (_checklistUserId) localStorage.setItem(`herse_cl_${_checklistUserId}`, JSON.stringify([..._checkedSet]));
+            renderChecklist();
+        }
+
+        function updateChecklistBar() {
+            const pct = Math.round((_checkedSet.size / CHECKLIST_ITEMS.length) * 100);
+            const bar = document.getElementById('checklistBar');
+            const lbl = document.getElementById('checklistPct');
+            if (bar) setTimeout(() => { bar.style.width = pct + '%'; }, 100);
+            if (lbl) lbl.textContent = `${_checkedSet.size} / ${CHECKLIST_ITEMS.length}`;
+        }
+
+        // ===== BANNER CHECK-IN =====
+        function checkCheckinReminder(tripDate, vueloIda) {
+            const key = `herse_chk_dismissed_${tripDate}`;
+            if (localStorage.getItem(key)) return;
+            const diff = new Date(tripDate) - new Date();
+            const hours = diff / 36e5;
+            if (hours > 0 && hours <= 48) {
+                const banner = document.getElementById('checkinBanner');
+                const txt = document.getElementById('checkinBannerText');
+                const btn = document.getElementById('btnCheckinDo');
+                const h = Math.floor(hours);
+                if (txt) txt.textContent = `Tu vuelo ${vueloIda ? `(${vueloIda}) ` : ''}sale en ${h} hora${h !== 1 ? 's' : ''}. ¡No olvides hacer el check-in online!`;
+                if (banner) banner.classList.add('show');
+                if (btn && vueloIda && vueloIda.toUpperCase().includes('AR')) {
+                    btn.onclick = () => window.open('https://www.aerolineas.com.ar/check-in', '_blank');
+                }
+                banner._dismissKey = key;
+            }
+        }
+
+        function dismissCheckin() {
+            const banner = document.getElementById('checkinBanner');
+            if (banner) {
+                if (banner._dismissKey) localStorage.setItem(banner._dismissKey, '1');
+                banner.classList.remove('show');
+            }
         }
 
         // ===== PASAPORTE TRIBUNERO =====

@@ -175,6 +175,29 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 .fid-level-card h4 { font-size: 0.88rem; font-weight: 900; color: var(--text); }
 .fid-level-card p { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
 
+/* ===== STATS DASHBOARD ===== */
+.stats-dashboard { padding-bottom: 8px; }
+.stats-dashboard-title { font-size: 1.1rem; font-weight: 900; color: var(--text); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.stats-dashboard-title i { color: var(--orange); }
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
+.st-card { background: white; border-radius: var(--radius); padding: 20px 16px; box-shadow: var(--shadow); text-align: center; border-top: 3px solid var(--blue); }
+.st-card:nth-child(2) { border-top-color: #10b981; }
+.st-card:nth-child(3) { border-top-color: var(--orange); }
+.st-card:nth-child(4) { border-top-color: #8b5cf6; }
+.st-num { font-size: 2rem; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 5px; }
+.st-lbl { font-size: 0.76rem; color: var(--muted); font-weight: 700; }
+.prox-card { background: white; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); }
+.prox-title { font-size: 0.8rem; font-weight: 900; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.prox-item { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.88rem; }
+.prox-item:last-child { border-bottom: none; }
+.prox-name { font-weight: 800; color: var(--text); }
+.prox-dest { font-size: 0.76rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
+.prox-date { font-weight: 800; color: var(--orange); font-size: 0.82rem; white-space: nowrap; }
+.prox-empty { color: var(--muted); font-size: 0.88rem; font-weight: 600; padding: 12px 0; }
+.btn-notify { display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; border: none; padding: 12px 22px; border-radius: 10px; font-weight: 800; font-size: 0.88rem; transition: 0.2s; margin-top: 6px; margin-left: 10px; }
+.btn-notify:hover:not(:disabled) { background: #047857; transform: translateY(-1px); }
+.btn-notify:disabled { background: #d1fae5; color: #6ee7b7; cursor: default; }
+
 /* ===== TOAST ===== */
 .toast {
     position: fixed; bottom: 28px; right: 28px;
@@ -229,10 +252,21 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         <!-- MAIN -->
         <main class="main-area">
 
-            <!-- Empty state -->
-            <div class="empty-state" id="emptyState">
-                <i class="fas fa-mouse-pointer"></i>
-                Seleccioná un cliente para ver y editar su información
+            <!-- Stats dashboard -->
+            <div id="emptyState">
+                <div class="stats-dashboard">
+                    <div class="stats-dashboard-title"><i class="fas fa-chart-bar"></i> Resumen del Panel</div>
+                    <div class="stats-row">
+                        <div class="st-card"><div class="st-num" id="st-total">—</div><div class="st-lbl">Total clientes</div></div>
+                        <div class="st-card"><div class="st-num" id="st-activos">—</div><div class="st-lbl">Viajes activos</div></div>
+                        <div class="st-card"><div class="st-num" id="st-proximos">—</div><div class="st-lbl">Salen esta semana</div></div>
+                        <div class="st-card"><div class="st-num" id="st-sinviaje">—</div><div class="st-lbl">Sin viaje cargado</div></div>
+                    </div>
+                    <div class="prox-card">
+                        <div class="prox-title"><i class="fas fa-plane-departure"></i> Próximas salidas</div>
+                        <div id="proxList"><p class="prox-empty">Cargando...</p></div>
+                    </div>
+                </div>
             </div>
 
             <!-- Client detail -->
@@ -309,9 +343,14 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn-save">
-                                <i class="fas fa-save"></i> Guardar viaje
-                            </button>
+                            <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:6px;">
+                                <button type="submit" class="btn-save">
+                                    <i class="fas fa-save"></i> Guardar viaje
+                                </button>
+                                <button type="button" class="btn-notify" id="btnNotificar" onclick="notificarCliente()" disabled>
+                                    <i class="fas fa-envelope"></i> Notificar al cliente
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -421,10 +460,39 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     </div>`;
                 return;
             }
-            await loadClients();
+            await Promise.all([loadClients(), loadStats()]);
         })();
 
         // ===== CLIENTES =====
+        async function loadStats() {
+            const now = new Date();
+            const weekLater = new Date(now.getTime() + 7 * 864e5).toISOString();
+            const [{ data: clientes }, { data: activos }, { data: proximos }] = await Promise.all([
+                _db.from('perfiles').select('id, nombre, email'),
+                _db.from('viajes').select('id').eq('activo', true),
+                _db.from('viajes').select('id, cliente_id, destino, fecha_salida, perfiles(nombre)').eq('activo', true)
+                    .gte('fecha_salida', now.toISOString()).lte('fecha_salida', weekLater).order('fecha_salida'),
+            ]);
+            const totalIds = (clientes || []).map(c => c.id);
+            const { data: conViaje } = await _db.from('viajes').select('cliente_id').in('cliente_id', totalIds.length ? totalIds : ['none']);
+            const conViajeIds = new Set((conViaje || []).map(v => v.cliente_id));
+            const sinViaje = totalIds.filter(id => !conViajeIds.has(id)).length;
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val ?? '—'; };
+            set('st-total',    clientes?.length ?? 0);
+            set('st-activos',  activos?.length ?? 0);
+            set('st-proximos', proximos?.length ?? 0);
+            set('st-sinviaje', sinViaje);
+            const proxList = document.getElementById('proxList');
+            if (proxList) {
+                if (!proximos?.length) { proxList.innerHTML = '<p class="prox-empty">No hay salidas en los próximos 7 días.</p>'; }
+                else proxList.innerHTML = proximos.map(v => {
+                    const d = new Date(v.fecha_salida);
+                    const lbl = d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+                    return `<div class="prox-item"><div><div class="prox-name">${v.perfiles?.nombre || '—'}</div><div class="prox-dest">${v.destino || ''}</div></div><div class="prox-date">${lbl}</div></div>`;
+                }).join('');
+            }
+        }
+
         async function loadClients() {
             const { data, error } = await _db.from('perfiles').select('*').order('nombre');
             const list = document.getElementById('clientList');
@@ -515,7 +583,27 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 error = res.error;
                 if (!error) currentViaje = res.data;
             }
-            error ? toast('Error: ' + error.message, 'error') : toast('Viaje guardado ✅', 'success');
+            if (error) {
+                toast('Error: ' + error.message, 'error');
+            } else {
+                toast('Viaje guardado ✅', 'success');
+                document.getElementById('btnNotificar').disabled = false;
+                loadStats();
+            }
+        }
+
+        function notificarCliente() {
+            if (!currentClient || !currentViaje) return;
+            const destino = currentViaje.destino || 'tu viaje';
+            const fecha = currentViaje.fecha_salida
+                ? new Date(currentViaje.fecha_salida).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })
+                : '';
+            const nombre = currentClient.nombre || 'viajero/a';
+            const msg = `Hola ${nombre}! 🎉\n\n` +
+                `Tu portal de viaje en Herse Turismo ya está listo con toda la información de tu viaje a *${destino}*${fecha ? ` (salida el ${fecha})` : ''}.\n\n` +
+                `Entrá acá para ver tus documentos, countdown y más: https://herseturismo.com.ar/mi-viaje\n\n` +
+                `Cualquier consulta estamos acá. ¡Que lo disfrutes! ✈️`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         // ===== DOCUMENTOS =====
