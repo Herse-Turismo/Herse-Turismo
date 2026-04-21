@@ -292,6 +292,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     <button class="tab-btn" onclick="switchTab('fid', this)">
                         <i class="fas fa-crown"></i> Fidelización
                     </button>
+                    <button class="tab-btn" onclick="switchTab('passport', this)">
+                        <i class="fas fa-stamp"></i> Pasaporte
+                    </button>
                 </div>
 
                 <!-- TAB: VIAJE -->
@@ -425,6 +428,14 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 <i class="fas fa-save"></i> Guardar fidelización
                             </button>
                         </form>
+                    </div>
+                </div>
+
+                <!-- TAB: PASAPORTE TRIBUNERO -->
+                <div class="tab-content" id="tab-passport">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-stamp"></i> Pasaporte Tribunero del cliente</div>
+                        <div id="passportAdminWrap"><p class="no-data">Seleccioná un cliente primero.</p></div>
                     </div>
                 </div>
 
@@ -677,12 +688,62 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             error ? toast('Error: ' + error.message, 'error') : toast('Fidelización guardada ✅', 'success');
         }
 
+        // ===== PASAPORTE ADMIN =====
+        const ADMIN_PASSPORT_DATA = {
+            england:  { nombre:'Inglaterra', flag:'🏴‍󠁧‍󠁢‍󠁥‍󠁮‍󠁧‍󠁿', liga:'Premier League',    estadios:[{id:'eng_anfield',nombre:'Anfield',equipo:'Liverpool FC'},{id:'eng_old_trafford',nombre:'Old Trafford',equipo:'Manchester United'},{id:'eng_etihad',nombre:'Etihad Stadium',equipo:'Manchester City'},{id:'eng_emirates',nombre:'Emirates Stadium',equipo:'Arsenal FC'},{id:'eng_stamford',nombre:'Stamford Bridge',equipo:'Chelsea FC'},{id:'eng_wembley',nombre:'Wembley Stadium',equipo:'Selección Inglesa'}]},
+            spain:    { nombre:'España',     flag:'🇪🇸', liga:'La Liga',          estadios:[{id:'esp_bernabeu',nombre:'Santiago Bern..',equipo:'Real Madrid'},{id:'esp_camp_nou',nombre:'Camp Nou',equipo:'FC Barcelona'},{id:'esp_wanda',nombre:'Metropolitano',equipo:'Atlético de Madrid'},{id:'esp_mestalla',nombre:'Mestalla',equipo:'Valencia CF'},{id:'esp_san_mames',nombre:'San Mamés',equipo:'Athletic Bilbao'},{id:'esp_pizjuan',nombre:'Sánchez-Pizjuán',equipo:'Sevilla FC'}]},
+            italy:    { nombre:'Italia',     flag:'🇮🇹', liga:'Serie A',          estadios:[{id:'ita_san_siro',nombre:'San Siro',equipo:'Inter / AC Milan'},{id:'ita_olimpico',nombre:'Stadio Olimpico',equipo:'Roma / Lazio'},{id:'ita_allianz',nombre:'Allianz Stadium',equipo:'Juventus FC'},{id:'ita_maradona',nombre:'Stadio Maradona',equipo:'SSC Napoli'},{id:'ita_bentegodi',nombre:'Bentegodi',equipo:'Verona / Chievo'}]},
+            germany:  { nombre:'Alemania',   flag:'🇩🇪', liga:'Bundesliga',       estadios:[{id:'ger_signal',nombre:'Signal Iduna',equipo:'Borussia Dortmund'},{id:'ger_allianz',nombre:'Allianz Arena',equipo:'Bayern München'},{id:'ger_volksparkst',nombre:'Volksparkstadion',equipo:'Hamburger SV'},{id:'ger_rheinenergie',nombre:'RheinEnergieSt.',equipo:'1. FC Köln'},{id:'ger_olympia',nombre:'Olympiastadion',equipo:'Hertha BSC'}]},
+            argentina:{ nombre:'Argentina',  flag:'🇦🇷', liga:'Liga Profesional', estadios:[{id:'arg_monumental',nombre:'El Monumental',equipo:'River Plate'},{id:'arg_bombonera',nombre:'La Bombonera',equipo:'Boca Juniors'},{id:'arg_cilindro',nombre:'El Cilindro',equipo:'Racing Club'},{id:'arg_gasometro',nombre:'Nuevo Gasómetro',equipo:'San Lorenzo'},{id:'arg_libertadores',nombre:'Libertadores Am.',equipo:'Independiente'},{id:'arg_bosque',nombre:'Est. Ciudad LP',equipo:'Estudiantes LP'}]},
+            brazil:   { nombre:'Brasil',     flag:'🇧🇷', liga:'Brasileirão',      estadios:[{id:'bra_maracana',nombre:'Maracaná',equipo:'Flamengo / Fluminense'},{id:'bra_morumbi',nombre:'Morumbis',equipo:'São Paulo FC'},{id:'bra_neo_quimica',nombre:'Neo Química Arena',equipo:'Corinthians'},{id:'bra_mineirao',nombre:'Mineirão',equipo:'Atlético / Cruzeiro'},{id:'bra_beira_rio',nombre:'Beira-Rio',equipo:'Internacional'}]},
+        };
+
+        let _adminPassportSet = new Set();
+
+        async function loadPassportAdmin() {
+            if (!currentClient) return;
+            const wrap = document.getElementById('passportAdminWrap');
+            if (!wrap) return;
+            const { data } = await _db.from('pasaporte_tribunero').select('estadio_id').eq('user_id', currentClient.id);
+            _adminPassportSet = new Set((data || []).map(r => r.estadio_id));
+            let html = '';
+            for (const [key, pais] of Object.entries(ADMIN_PASSPORT_DATA)) {
+                const done = pais.estadios.filter(e => _adminPassportSet.has(e.id)).length;
+                html += `<div style="margin-bottom:20px">`;
+                html += `<div style="font-size:0.75rem;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:8px">${pais.flag} ${pais.nombre} <span style="color:var(--muted);font-weight:700">${done}/${pais.estadios.length}</span></div>`;
+                html += `<div style="display:flex;flex-direction:column;gap:6px">`;
+                for (const e of pais.estadios) {
+                    const done = _adminPassportSet.has(e.id);
+                    html += `<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;border:1.5px solid ${done?'#c5d4f0':'#eee'};background:${done?'#f0f5ff':'white'}">` +
+                        `<div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#004A8F,#0069c8);display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0">🏟️</div>` +
+                        `<div style="flex:1;min-width:0"><div style="font-size:0.82rem;font-weight:900;color:#1a1a2e">${e.nombre}</div><div style="font-size:0.7rem;color:#6b7280">${e.equipo}</div></div>` +
+                        (done
+                            ? `<button onclick="toggleStamp('${e.id}','${currentClient.id}',true)" style="padding:5px 10px;background:#fee2e2;border:1.5px solid #fca5a5;color:#dc2626;border-radius:6px;font-weight:800;font-size:0.68rem;cursor:pointer"><i class="fas fa-times"></i> Quitar</button>`
+                            : `<button onclick="toggleStamp('${e.id}','${currentClient.id}',false)" style="padding:5px 10px;background:#004A8F;color:white;border:none;border-radius:6px;font-weight:800;font-size:0.68rem;cursor:pointer"><i class="fas fa-stamp"></i> Sellar</button>`) +
+                        `</div>`;
+                }
+                html += `</div></div>`;
+            }
+            wrap.innerHTML = html;
+        }
+
+        async function toggleStamp(estadioId, userId, remove) {
+            if (remove) {
+                await _db.from('pasaporte_tribunero').delete().eq('user_id', userId).eq('estadio_id', estadioId);
+            } else {
+                await _db.from('pasaporte_tribunero').insert({ user_id: userId, estadio_id: estadioId });
+            }
+            toast(remove ? 'Sello quitado' : 'Sello agregado ✅', 'success');
+            await loadPassportAdmin();
+        }
+
         // ===== TABS =====
         function switchTab(name, btn) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             btn.classList.add('active');
             document.getElementById('tab-' + name).classList.add('active');
+            if (name === 'passport') loadPassportAdmin();
         }
 
         // ===== LOGOUT =====
