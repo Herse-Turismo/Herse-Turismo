@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mi Viaje · Herse Turismo</title>
+
+    <!-- PWA / Add to Home Screen -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Mi Viaje Herse">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#003366">
+    <meta name="description" content="Tu portal personal de viaje con Herse Turismo.">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23004A8F'/><text y='72' x='12' font-size='70'>✈️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+/* =============================================
+   VARIABLES & RESET
+============================================= */
+:root {
+    --blue: #004A8F;
+    --blue-dark: #003366;
+    --orange: #F7941D;
+    --orange-dark: #e0800b;
+    --text: #1a2035;
+    --muted: #6b7280;
+    --light-bg: #f0f4f8;
+    --white: #ffffff;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --radius: 18px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: var(--light-bg); color: var(--text); min-height: 100vh; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+img { max-width: 100%; display: block; }
+
+/* =============================================
+   HEADER
+============================================= */
+.portal-header {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 4px 24px rgba(0,51,102,0.35);
+}
+.header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.header-logo img { height: 46px; filter: brightness(0) invert(1); }
+.header-center { flex: 1; text-align: center; }
+.header-center small {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 2px;
+}
+.header-center h1 { font-size: 1.05rem; font-weight: 900; }
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.13);
+    border: 1.5px solid rgba(255,255,255,0.22);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.btn-back:hover { background: rgba(255,255,255,0.22); }
+
+/* =============================================
+   HERO WELCOME
+============================================= */
+.hero-welcome {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, #005cb8 60%, #0070d4 100%);
+    color: white;
+    padding: 44px 24px 88px;
+    position: relative;
+    overflow: hidden;
+}
+.hero-welcome::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(247,148,29,0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+.hero-welcome::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+.hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+.welcome-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(247,148,29,0.18);
+    border: 1px solid rgba(247,148,29,0.38);
+    color: #fbbf24;
+    padding: 7px 18px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+.hero-welcome h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 8px;
+}
+.hero-welcome h2 .name { color: var(--orange); }
+.hero-welcome p {
+    opacity: 0.85;
+    font-size: 1rem;
+    max-width: 480px;
+    line-height: 1.65;
+    margin-bottom: 22px;
+}
+.trip-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.92rem;
+}
+.trip-pill i { color: var(--orange); }
+
+/* =============================================
+   MAIN DASHBOARD
+============================================= */
+.dashboard {
+    max-width: 1200px;
+    margin: -52px auto 48px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+}
+
+/* =============================================
+   COUNTDOWN
+============================================= */
+.countdown-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 34px 32px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 22px;
+}
+.card-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+.card-label i { color: var(--orange); font-size: 0.9rem; }
+.countdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.cd-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+.cd-box {
+    background: linear-gradient(145deg, var(--blue-dark), var(--blue));
+    color: white;
+    font-size: 3rem;
+    font-weight: 900;
+    width: 96px;
+    height: 96px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0,74,143,0.28);
+    letter-spacing: -2px;
+    line-height: 1;
+    transition: transform 0.1s;
+}
+.cd-box.tick { transform: scale(0.96); }
+.cd-lbl {
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--muted);
+}
+.cd-sep {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--orange);
+    margin-top: -22px;
+    opacity: 0.7;
+}
+.countdown-footer {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+.countdown-footer strong { color: var(--blue); }
+
+/* =============================================
+   DASHBOARD GRID
+============================================= */
+.dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+.dash-grid .span2 { grid-column: 1 / -1; }
+
+/* =============================================
+   CARDS BASE
+============================================= */
+.card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+}
+.card-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f4f8;
+}
+.card-ico {
+    width: 44px; height: 44px;
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+.ico-blue   { background: rgba(0,74,143,0.09);  color: var(--blue); }
+.ico-orange { background: rgba(247,148,29,0.12); color: var(--orange); }
+.ico-green  { background: rgba(16,185,129,0.1);  color: var(--success); }
+.ico-purple { background: rgba(124,58,237,0.1);  color: #7c3aed; }
+.card-head-text h3 { font-size: 1rem; font-weight: 800; color: var(--blue); }
+.card-head-text p  { font-size: 0.76rem; color: var(--muted); font-weight: 600; margin-top: 1px; }
+
+/* =============================================
+   DOCUMENTS
+============================================= */
+.doc-list { display: flex; flex-direction: column; gap: 10px; }
+.doc-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border: 1.5px solid #e8eef6;
+    border-radius: 13px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+.doc-row:hover { border-color: var(--blue); background: rgba(0,74,143,0.02); transform: translateX(4px); }
+.doc-ico {
+    width: 40px; height: 40px;
+    border-radius: 11px;
+    background: rgba(0,74,143,0.07);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+.doc-info { flex: 1; min-width: 0; }
+.doc-name { font-size: 0.87rem; font-weight: 800; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.doc-sub  { font-size: 0.73rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
+.badge {
+    padding: 3px 11px;
+    border-radius: 50px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.badge-ok  { background: rgba(16,185,129,0.1);  color: var(--success); }
+.badge-pnd { background: rgba(245,158,11,0.1);  color: var(--warning); }
+
+/* =============================================
+   QUICK INFO
+============================================= */
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.info-cell {
+    background: var(--light-bg);
+    border-radius: 12px;
+    padding: 13px 14px;
+}
+.info-cell-lbl { font-size: 0.68rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.info-cell-val { font-size: 0.93rem; font-weight: 800; color: var(--text); margin-top: 3px; }
+
+/* =============================================
+   FLIGHT STATUS
+============================================= */
+.flight-route {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+.f-city { text-align: center; flex-shrink: 0; }
+.f-code { font-size: 2rem; font-weight: 900; color: var(--blue); line-height: 1; }
+.f-name { font-size: 0.7rem; color: var(--muted); font-weight: 700; margin-top: 2px; }
+.f-line {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+.f-bar {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+    border-radius: 2px;
+    position: relative;
+}
+.f-bar i {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 0 5px;
+    color: var(--orange);
+    font-size: 0.95rem;
+}
+.f-dur { font-size: 0.68rem; font-weight: 700; color: var(--muted); }
+
+.f-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.f-detail { text-align: center; }
+.f-detail-lbl { font-size: 0.65rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.f-detail-val { font-size: 1.05rem; font-weight: 900; color: var(--text); margin-top: 2px; }
+
+.f-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px;
+    border-radius: 11px;
+    font-weight: 800;
+    font-size: 0.88rem;
+}
+.f-status.ok   { background: rgba(16,185,129,0.1); color: var(--success); }
+.f-status.late { background: rgba(245,158,11,0.1); color: var(--warning); }
+
+/* =============================================
+   LOYALTY
+============================================= */
+.loyalty-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.loyalty-count { font-size: 0.88rem; font-weight: 700; color: var(--muted); }
+.loyalty-count strong { color: var(--blue); font-size: 1rem; }
+.loyalty-vip-msg { font-size: 0.82rem; font-weight: 800; color: var(--orange); }
+
+.progress-track {
+    height: 14px;
+    background: #e8eef6;
+    border-radius: 50px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue), var(--orange));
+    border-radius: 50px;
+    position: relative;
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+}
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2.5s infinite;
+}
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+.progress-dots {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+.dot-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--muted);
+}
+.dot-circle {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #dde4ef;
+    transition: all 0.4s;
+}
+.dot-step.done    .dot-circle { background: var(--blue); }
+.dot-step.current .dot-circle { background: var(--orange); box-shadow: 0 0 0 4px rgba(247,148,29,0.25); }
+
+.tier-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.tier-card {
+    flex: 1;
+    min-width: 110px;
+    padding: 16px 14px;
+    border-radius: 14px;
+    text-align: center;
+    border: 2px solid #e8eef6;
+    transition: 0.3s;
+}
+.tier-card.active-tier {
+    border-color: var(--orange);
+    background: rgba(247,148,29,0.04);
+}
+.tier-card i { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+.tier-explorer i { color: #60a5fa; }
+.tier-viajero  i { color: var(--orange); }
+.tier-elite    i { color: #8b5cf6; }
+.tier-card h4  { font-size: 0.83rem; font-weight: 800; color: var(--text); }
+.tier-card p   { font-size: 0.7rem; color: var(--muted); font-weight: 600; margin-top: 3px; }
+.tier-tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 800;
+}
+.tag-done    { background: rgba(16,185,129,0.1); color: var(--success); }
+.tag-current { background: rgba(247,148,29,0.14); color: var(--orange); }
+.tag-locked  { background: #f0f4f8; color: var(--muted); }
+
+/* =============================================
+   WHATSAPP CTA
+============================================= */
+.wsp-cta {
+    background: white;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    margin-bottom: 28px;
+}
+.wsp-cta i.big { font-size: 2.2rem; color: var(--blue); margin-bottom: 12px; display: block; }
+.wsp-cta h3 { font-size: 1.1rem; font-weight: 900; color: var(--blue); margin-bottom: 6px; }
+.wsp-cta p { font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.btn-wsp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+.btn-wsp:hover { background: #1da851; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,211,102,0.4); }
+.btn-wsp i { font-size: 1.2rem; }
+
+/* =============================================
+   FOOTER
+============================================= */
+.portal-footer {
+    text-align: center;
+    padding: 28px 24px 40px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+.portal-footer a { color: var(--blue); font-weight: 700; }
+.portal-footer a:hover { color: var(--orange); }
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 900px) {
+    .dash-grid { grid-template-columns: 1fr; }
+    .dash-grid .span2 { grid-column: 1; }
+}
+
+@media (max-width: 768px) {
+    .header-logo img { height: 38px; }
+    .header-center h1 { font-size: 0.92rem; }
+    .hero-welcome { padding: 32px 20px 80px; }
+    .hero-welcome h2 { font-size: 1.7rem; }
+    .dashboard { padding: 0 16px; margin-top: -50px; }
+    .countdown-card { padding: 24px 18px; }
+    .cd-box { width: 76px; height: 76px; font-size: 2.3rem; border-radius: 14px; }
+    .cd-sep { font-size: 2.2rem; margin-top: -18px; }
+    .card { padding: 20px; }
+    .info-grid { grid-template-columns: 1fr 1fr; }
+    .tier-row { flex-direction: row; }
+}
+
+@media (max-width: 480px) {
+    .cd-box { width: 66px; height: 66px; font-size: 2rem; }
+    .cd-sep { font-size: 1.8rem; }
+    .countdown-row { gap: 6px; }
+    .f-code { font-size: 1.6rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .tier-card { min-width: 80px; padding: 12px 8px; }
+    .btn-back span { display: none; }
+}
+    </style>
+</head>
+<body>
+
+    <!-- ====== HEADER ====== -->
+    <header class="portal-header">
+        <div class="header-inner">
+            <a href="/" class="header-logo">
+                <img src="../assets/logo-web.png" alt="Herse Turismo">
+            </a>
+            <div class="header-center">
+                <small>Portal del viajero</small>
+                <h1>Mi Bitácora de Viaje ✈️</h1>
+            </div>
+            <a href="/" class="btn-back">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- ====== HERO WELCOME ====== -->
+    <section class="hero-welcome">
+        <div class="hero-inner">
+            <div class="welcome-chip">
+                <i class="fas fa-shield-alt"></i>
+                Tu viaje está en buenas manos
+            </div>
+            <h2>¡Hola, <span class="name">María</span>! 👋</h2>
+            <p>Todo listo para tu próxima aventura. Acá encontrás toda la información de tu viaje organizada y al alcance de tu mano.</p>
+            <div class="trip-pill">
+                <i class="fas fa-map-marker-alt"></i>
+                Cancún, México · 15 al 22 de agosto 2025
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== DASHBOARD ====== -->
+    <main class="dashboard">
+
+        <!-- COUNTDOWN -->
+        <div class="countdown-card">
+            <div class="card-label">
+                <i class="fas fa-hourglass-half"></i>
+                Tiempo restante para tu viaje
+            </div>
+            <div class="countdown-row">
+                <div class="cd-unit">
+                    <div class="cd-box" id="cd-d">00</div>
+                    <span class="cd-lbl">Días</span>
+                </div>
+                <span class="cd-sep">:</span>
+                <div class="cd-unit">
+                    <div class="cd-box" id="cd-h">00</div>
+                    <span class="cd-lbl">Horas</span>
+                </div>
+                <span class="cd-sep">:</span>
+                <div class="cd-unit">
+                    <div class="cd-box" id="cd-m">00</div>
+                    <span class="cd-lbl">Min</span>
+                </div>
+                <span class="cd-sep">:</span>
+                <div class="cd-unit">
+                    <div class="cd-box" id="cd-s">00</div>
+                    <span class="cd-lbl">Seg</span>
+                </div>
+            </div>
+            <p class="countdown-footer">
+                Tu vuelo sale el <strong>15 de agosto a las 08:30 hs</strong> desde Ezeiza (EZE)
+            </p>
+        </div>
+
+        <!-- GRID PRINCIPAL -->
+        <div class="dash-grid">
+
+            <!-- DOCUMENTOS -->
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-ico ico-blue"><i class="fas fa-folder-open"></i></div>
+                    <div class="card-head-text">
+                        <h3>Mis Documentos</h3>
+                        <p>Vouchers y pasajes</p>
+                    </div>
+                </div>
+                <div class="doc-list">
+                    <div class="doc-row">
+                        <div class="doc-ico"><i class="fas fa-plane"></i></div>
+                        <div class="doc-info">
+                            <div class="doc-name">Pasaje de ida · AR1234</div>
+                            <div class="doc-sub">EZE → CUN · 15 ago · 08:30 hs</div>
+                        </div>
+                        <span class="badge badge-ok">Listo</span>
+                    </div>
+                    <div class="doc-row">
+                        <div class="doc-ico"><i class="fas fa-plane" style="transform:scaleX(-1)"></i></div>
+                        <div class="doc-info">
+                            <div class="doc-name">Pasaje de vuelta · AR1235</div>
+                            <div class="doc-sub">CUN → EZE · 22 ago · 20:00 hs</div>
+                        </div>
+                        <span class="badge badge-ok">Listo</span>
+                    </div>
+                    <div class="doc-row">
+                        <div class="doc-ico"><i class="fas fa-hotel"></i></div>
+                        <div class="doc-info">
+                            <div class="doc-name">Voucher Hotel · Iberostar</div>
+                            <div class="doc-sub">All Inclusive · 7 noches · Suite Ocean View</div>
+                        </div>
+                        <span class="badge badge-ok">Listo</span>
+                    </div>
+                    <div class="doc-row">
+                        <div class="doc-ico"><i class="fas fa-umbrella-beach"></i></div>
+                        <div class="doc-info">
+                            <div class="doc-name">Seguro de Viaje</div>
+                            <div class="doc-sub">Cobertura completa · 8 días</div>
+                        </div>
+                        <span class="badge badge-pnd">En proceso</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: RESUMEN + VUELO -->
+            <div style="display:flex; flex-direction:column; gap:20px;">
+
+                <!-- RESUMEN -->
+                <div class="card" style="padding:22px;">
+                    <div class="card-head" style="margin-bottom:14px; padding-bottom:13px;">
+                        <div class="card-ico ico-orange"><i class="fas fa-suitcase-rolling"></i></div>
+                        <div class="card-head-text">
+                            <h3>Resumen del viaje</h3>
+                            <p>Cancún, México 🇲🇽</p>
+                        </div>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-cell">
+                            <div class="info-cell-lbl">Salida</div>
+                            <div class="info-cell-val">15 ago · 08:30</div>
+                        </div>
+                        <div class="info-cell">
+                            <div class="info-cell-lbl">Regreso</div>
+                            <div class="info-cell-val">22 ago · 20:00</div>
+                        </div>
+                        <div class="info-cell">
+                            <div class="info-cell-lbl">Pasajeros</div>
+                            <div class="info-cell-val">2 adultos</div>
+                        </div>
+                        <div class="info-cell">
+                            <div class="info-cell-lbl">Hotel</div>
+                            <div class="info-cell-val">Iberostar ⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ESTADO DEL VUELO -->
+                <div class="card" style="padding:22px;">
+                    <div class="card-head" style="margin-bottom:14px; padding-bottom:13px;">
+                        <div class="card-ico ico-green"><i class="fas fa-satellite-dish"></i></div>
+                        <div class="card-head-text">
+                            <h3>Estado del vuelo</h3>
+                            <p>AR1234 · Aerolíneas Argentinas</p>
+                        </div>
+                    </div>
+                    <div class="flight-route">
+                        <div class="f-city">
+                            <div class="f-code">EZE</div>
+                            <div class="f-name">Buenos Aires</div>
+                        </div>
+                        <div class="f-line">
+                            <div class="f-bar">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="f-dur">~9h 20 min</div>
+                        </div>
+                        <div class="f-city">
+                            <div class="f-code">CUN</div>
+                            <div class="f-name">Cancún</div>
+                        </div>
+                    </div>
+                    <div class="f-details">
+                        <div class="f-detail">
+                            <div class="f-detail-lbl">Salida</div>
+                            <div class="f-detail-val">08:30</div>
+                        </div>
+                        <div class="f-detail">
+                            <div class="f-detail-lbl">Llegada</div>
+                            <div class="f-detail-val">17:50</div>
+                        </div>
+                        <div class="f-detail">
+                            <div class="f-detail-lbl">Terminal</div>
+                            <div class="f-detail-val">A · G12</div>
+                        </div>
+                    </div>
+                    <div class="f-status ok">
+                        <i class="fas fa-circle-check"></i> En horario
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- FIDELIZACIÓN — full width -->
+            <div class="card span2">
+                <div class="card-head">
+                    <div class="card-ico ico-purple"><i class="fas fa-crown"></i></div>
+                    <div class="card-head-text">
+                        <h3>Plan de Fidelización Herse</h3>
+                        <p>Cada viaje suma · Vos elegís el destino, nosotros te premiamos</p>
+                    </div>
+                </div>
+
+                <div class="loyalty-header-row">
+                    <div class="loyalty-count">Tus viajes: <strong>3 de 5</strong></div>
+                    <div class="loyalty-vip-msg"><i class="fas fa-star"></i> Estás a 2 viajes de tu beneficio VIP</div>
+                </div>
+
+                <div class="progress-track">
+                    <div class="progress-fill" id="loyaltyBar" style="width:0%"></div>
+                </div>
+
+                <div class="progress-dots">
+                    <div class="dot-step done">
+                        <div class="dot-circle"></div>1
+                    </div>
+                    <div class="dot-step done">
+                        <div class="dot-circle"></div>2
+                    </div>
+                    <div class="dot-step current">
+                        <div class="dot-circle"></div>3
+                    </div>
+                    <div class="dot-step">
+                        <div class="dot-circle"></div>4
+                    </div>
+                    <div class="dot-step">
+                        <div class="dot-circle"></div>5 ⭐
+                    </div>
+                </div>
+
+                <div class="tier-row">
+                    <div class="tier-card tier-explorer">
+                        <i class="fas fa-compass"></i>
+                        <h4>Explorador</h4>
+                        <p>1 viaje</p>
+                        <span class="tier-tag tag-done">✓ Alcanzado</span>
+                    </div>
+                    <div class="tier-card tier-viajero active-tier">
+                        <i class="fas fa-suitcase"></i>
+                        <h4>Viajero</h4>
+                        <p>3 viajes</p>
+                        <span class="tier-tag tag-current">Nivel actual</span>
+                    </div>
+                    <div class="tier-card tier-elite">
+                        <i class="fas fa-crown"></i>
+                        <h4>Elite VIP</h4>
+                        <p>5 viajes</p>
+                        <span class="tier-tag tag-locked">🔒 Próximamente</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- WHATSAPP CTA -->
+        <div class="wsp-cta">
+            <i class="fas fa-headset big"></i>
+            <h3>¿Tenés alguna duda sobre tu viaje?</h3>
+            <p>Estamos disponibles para vos en todo momento. Escribinos y te respondemos al instante.</p>
+            <a href="https://wa.me/5492215661704?text=Hola!%20Tengo%20una%20consulta%20sobre%20mi%20viaje." class="btn-wsp" target="_blank" rel="noopener">
+                <i class="fab fa-whatsapp"></i> Escribinos por WhatsApp
+            </a>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="portal-footer">
+        <p><a href="/">Herse Turismo</a> · <a href="https://wa.me/5492215661704">Contacto</a></p>
+        <p style="margin-top:6px; opacity:0.55;">Tu próxima aventura ya está en camino ✈️</p>
+    </footer>
+
+    <script>
+        // ===== COUNTDOWN =====
+        // Cambiá esta fecha por la real de salida del cliente
+        const TRIP_DATE = new Date('2025-08-15T08:30:00-03:00');
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function tick() {
+            const diff = TRIP_DATE - new Date();
+            if (diff <= 0) {
+                ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+                document.querySelector('.countdown-footer').innerHTML = '🎉 <strong>¡Es el día de tu viaje!</strong> ¡Que lo disfrutes muchísimo!';
+                return;
+            }
+            const d = Math.floor(diff / 864e5);
+            const h = Math.floor((diff % 864e5) / 36e5);
+            const m = Math.floor((diff % 36e5) / 6e4);
+            const s = Math.floor((diff % 6e4) / 1e3);
+
+            const ids = ['cd-d','cd-h','cd-m','cd-s'];
+            const vals = [d, h, m, s];
+            ids.forEach((id, i) => {
+                const el = document.getElementById(id);
+                const newVal = pad(vals[i]);
+                if (el.textContent !== newVal) {
+                    el.classList.add('tick');
+                    setTimeout(() => el.classList.remove('tick'), 100);
+                    el.textContent = newVal;
+                }
+            });
+        }
+
+        tick();
+        setInterval(tick, 1000);
+
+        // ===== LOYALTY BAR ANIMATION =====
+        setTimeout(() => {
+            document.getElementById('loyaltyBar').style.width = '60%';
+        }, 400);
+    </script>
+
+</body>
+</html>
