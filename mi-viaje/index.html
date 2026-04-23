@@ -357,59 +357,76 @@ body {
 .btn-ver-pasaporte { display:flex; align-items:center; gap:7px; width:100%; padding:9px 14px; background:var(--accent-bg); color:var(--accent); border:1.5px solid var(--accent); border-radius:9px; font-size:.76rem; font-weight:800; cursor:pointer; transition:.18s; justify-content:center; }
 .btn-ver-pasaporte:hover { background:var(--accent); color:#fff; }
 
-/* ── PASSPORT PAGES (LIBRO) ── */
-.pp-page {
-    flex:1; padding:20px 18px 16px;
-    background:linear-gradient(180deg,#faf6e4 0%,#f3ecda 100%);
-    background-image:repeating-linear-gradient(180deg,transparent,transparent 27px,rgba(145,120,75,.09) 28px);
+/* ── PASAPORTE LIBRO ── */
+.page {
+    flex:1; padding:22px 20px; position:relative; overflow-y:auto;
+    background:repeating-linear-gradient(to bottom,#f5ebdd,#f5ebdd 27px,#e9dcc8 28px);
 }
-.pp-page.left { border-right:3px solid rgba(165,138,88,.3); box-shadow:inset -8px 0 14px rgba(0,0,0,.05); }
-[data-theme="dark"] .pp-page { background:linear-gradient(180deg,#1c2235,#181c2c); background-image:repeating-linear-gradient(180deg,transparent,transparent 27px,rgba(255,255,255,.04) 28px); }
-[data-theme="dark"] .pp-page.left { border-right-color:rgba(255,255,255,.07); box-shadow:none; }
-.pp-pg-title { font-size:.57rem; font-weight:900; color:#9a8060; text-transform:uppercase; letter-spacing:1.6px; margin-bottom:14px; display:flex; align-items:center; gap:5px; padding-bottom:8px; border-bottom:1px solid rgba(150,125,80,.22); }
-[data-theme="dark"] .pp-pg-title { color:var(--text-muted); border-bottom-color:rgba(255,255,255,.07); }
-
-/* ── STAMP ENTRY LIST ── */
-.pp-list { display:flex; flex-direction:column; gap:6px; }
-.pp-entry {
+.page.left-page { border-right:3px solid rgba(160,132,80,.22); box-shadow:inset -6px 0 12px rgba(0,0,0,.04); }
+[data-theme="dark"] .page { background:repeating-linear-gradient(to bottom,#1c2235,#1c2235 27px,#181c2c 28px); }
+[data-theme="dark"] .page.left-page { border-right-color:rgba(255,255,255,.07); box-shadow:none; }
+.page-title { font-size:.56rem; font-weight:900; text-transform:uppercase; letter-spacing:2.2px; color:#8b7d6b; margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid rgba(150,120,70,.2); }
+[data-theme="dark"] .page-title { color:var(--text-muted); border-bottom-color:rgba(255,255,255,.07); }
+/* país / item */
+.country {
+    position:relative; padding:10px 14px; margin-bottom:10px;
+    border-radius:10px; background:rgba(255,255,255,.42);
     display:flex; align-items:center; gap:12px;
-    padding:6px 8px 6px 4px; border-radius:10px;
-    transition:background .14s;
-    animation:ppEntryIn .4s ease both;
+    transition:transform .2s, background .18s;
 }
-.pp-entry:hover { background:rgba(145,118,70,.09); }
-[data-theme="dark"] .pp-entry:hover { background:rgba(255,255,255,.05); }
-@keyframes ppEntryIn {
-    from { opacity:0; transform:translateY(16px) scale(.96); }
-    to   { opacity:1; transform:none; }
+.country:hover { transform:scale(1.02); background:rgba(255,255,255,.6); }
+.country.stamped { background:rgba(255,255,255,.68); }
+[data-theme="dark"] .country { background:rgba(255,255,255,.06); }
+[data-theme="dark"] .country:hover { background:rgba(255,255,255,.1); }
+[data-theme="dark"] .country.stamped { background:rgba(255,255,255,.12); }
+.country-flag-emoji { font-size:1.5rem; flex-shrink:0; line-height:1; }
+.country-body { flex:1; min-width:0; }
+.code { font-weight:900; font-size:.78rem; color:#5c5346; letter-spacing:.8px; display:block; }
+.name { font-size:.73rem; color:#7a6f60; display:block; margin-top:2px; }
+[data-theme="dark"] .code { color:var(--text); }
+[data-theme="dark"] .name { color:var(--text-muted); }
+.stamp-btn {
+    padding:5px 12px; border-radius:7px;
+    border:1.5px solid #b8a98c; background:transparent;
+    font-size:.65rem; font-weight:700; cursor:pointer; white-space:nowrap; flex-shrink:0;
+    transition:all .16s;
 }
-/* sello SVG */
-.pp-mini-stamp { width:62px; height:62px; flex-shrink:0; position:relative; overflow:visible; }
-.pp-mini-stamp svg { width:100%; height:100%; overflow:visible; }
-.stamp-sealed-now { animation:ppStampDrop .46s cubic-bezier(.23,1,.32,1); }
-@keyframes ppStampDrop {
-    0%   { transform:translateY(-40px) scale(1.45) rotate(-9deg); opacity:0; }
-    50%  { transform:translateY(4px)   scale(.91)  rotate(-11deg); opacity:1; }
-    70%  { transform:translateY(-3px)  scale(1.05) rotate(-11deg); }
-    85%  { transform:translateY(1px)   scale(.97)  rotate(-11deg); }
-    100% { transform:translateY(0)     scale(1)    rotate(0deg); }
+.stamp-btn:hover:not(:disabled) { background:#e7dcc6; transform:scale(1.05); }
+.stamp-btn:active:not(:disabled) { transform:scale(.93); }
+.stamp-btn:disabled { opacity:.5; cursor:not-allowed; }
+.stamp-btn.done { background:#dcfce7; border-color:#16a34a; color:#16a34a; font-weight:800; }
+/* sello de tinta */
+.stamp {
+    position:absolute; top:8px; right:10px;
+    font-size:.7rem; font-weight:900; letter-spacing:1.2px;
+    color:rgba(155,28,28,.8); border:2px solid rgba(155,28,28,.65);
+    padding:2px 7px; border-radius:5px;
+    transform:rotate(-12deg); pointer-events:none;
+    animation:stampHit .36s ease-out;
 }
-/* info al lado del sello */
-.pp-entry-body { flex:1; min-width:0; }
-.pp-entry-name { font-size:.82rem; font-weight:800; color:#3a2e1a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.pp-entry-sub  { font-size:.6rem;  font-weight:700; color:#9a8060; letter-spacing:1.1px; margin-top:2px; }
-.pp-entry-ok   { font-size:.63rem; font-weight:800; color:#16a34a; white-space:nowrap; flex-shrink:0; display:flex; align-items:center; gap:4px; }
-.btn-sellar-pp {
-    font-size:.64rem; font-weight:800; padding:5px 11px;
-    background:var(--accent); color:#fff; border:none; border-radius:7px; cursor:pointer;
-    white-space:nowrap; flex-shrink:0;
-    transition:transform .14s ease, opacity .14s;
+@keyframes stampHit {
+    0%   { transform:translateY(-36px) scale(1.45) rotate(-12deg); opacity:0; }
+    60%  { transform:translateY(0)     scale(.88)  rotate(-12deg); }
+    80%  { transform:translateY(-2px)  scale(1.04) rotate(-12deg); }
+    100% { transform:scale(1) rotate(-12deg); opacity:1; }
 }
-.btn-sellar-pp:hover:not(:disabled) { opacity:.85; transform:scale(1.06); }
-.btn-sellar-pp:active:not(:disabled) { transform:scale(.93); }
-.btn-sellar-pp:disabled { opacity:.45; cursor:not-allowed; }
-[data-theme="dark"] .pp-entry-name { color:var(--text); }
-[data-theme="dark"] .pp-entry-sub  { color:var(--text-muted); }
+/* estadio (futbolero) */
+.stadium {
+    position:relative; display:flex; justify-content:space-between;
+    align-items:center; padding:11px 14px; margin-bottom:8px;
+    background:rgba(255,255,255,.46); border-radius:10px;
+    transition:transform .18s, background .18s;
+}
+.stadium:hover { transform:scale(1.015); background:rgba(255,255,255,.68); }
+.stadium.stamped { background:rgba(255,255,255,.72); }
+[data-theme="dark"] .stadium { background:rgba(255,255,255,.07); }
+[data-theme="dark"] .stadium:hover { background:rgba(255,255,255,.12); }
+.stadium-info { display:flex; gap:10px; align-items:center; flex:1; min-width:0; }
+.stadium-icon { font-size:1.45rem; flex-shrink:0; }
+.stadium-name { font-size:.8rem; font-weight:800; color:#3a2e1a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.stadium-club { font-size:.63rem; color:#9a8060; margin-top:2px; }
+[data-theme="dark"] .stadium-name { color:var(--text); }
+[data-theme="dark"] .stadium-club { color:var(--text-muted); }
 
 /* ── QUICK ACTIONS ── */
 .quick-actions { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
@@ -419,105 +436,121 @@ body {
 .qa-title { font-size:.79rem; font-weight:800; color:var(--text); }
 .qa-sub   { font-size:.64rem; color:var(--text-muted); margin-top:2px; }
 
-/* ── PASSPORT MODAL ── */
-.pbook-overlay {
+/* ── PASSPORT MODAL OVERLAY ── */
+.passport-modal {
     position:fixed; inset:0; z-index:300;
+    backdrop-filter:blur(14px) saturate(1.5);
+    background:rgba(0,0,0,.38);
     display:flex; align-items:center; justify-content:center;
-    background:rgba(8,12,28,.62); backdrop-filter:blur(14px) saturate(1.6);
     opacity:0; pointer-events:none; transition:opacity .32s;
-    perspective:1500px;
 }
-.pbook-overlay.open { opacity:1; pointer-events:all; }
-.pbook-modal {
-    background:var(--card-bg); border-radius:22px;
-    width:min(880px,96vw); max-height:90vh;
-    display:flex; flex-direction:column; overflow:hidden;
-    box-shadow:0 32px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.07);
-    transform: rotateY(-22deg) scale(0.82) translateX(-30px);
-    opacity:0; transform-origin:left center;
-    transition: transform 520ms cubic-bezier(.175,.885,.32,1.275), opacity 380ms ease;
+.passport-modal.open { opacity:1; pointer-events:all; }
+/* 3D wrapper */
+.passport-3d {
+    width:min(940px,96vw); height:min(560px,86vh);
+    position:relative; transform-style:preserve-3d; perspective:2200px;
 }
-.pbook-overlay.open .pbook-modal {
-    transform: rotateY(0deg) scale(1) translateX(0);
-    opacity:1;
+/* COVER (tapa que se abre) */
+.passport-cover {
+    position:absolute; inset:0;
+    background:linear-gradient(155deg,#174f28 0%,#2d8a45 55%,#1d6635 100%);
+    border-radius:18px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+    color:#fff; transform-origin:left center;
+    transition:transform .84s cubic-bezier(.645,.045,.355,1), box-shadow .84s;
+    z-index:2;
+    box-shadow:-8px 12px 40px rgba(0,0,0,.55), 0 2px 0 rgba(255,255,255,.08) inset;
 }
-.pbook-modal-hdr { display:flex; align-items:center; justify-content:space-between; padding:18px 22px 14px; border-bottom:1px solid var(--border); flex-shrink:0; }
-.pbook-modal-ttl { font-size:1rem; font-weight:900; color:var(--text); display:flex; align-items:center; gap:9px; }
-.pbook-modal-cnt { font-size:.7rem; font-weight:600; color:var(--text-muted); margin-left:4px; }
-.pbook-modal-cls { width:32px; height:32px; border-radius:50%; border:1.5px solid var(--border); background:transparent; cursor:pointer; font-size:.85rem; color:var(--text-muted); display:flex; align-items:center; justify-content:center; transition:.18s; }
-.pbook-modal-cls:hover { background:var(--accent-bg); color:var(--accent); border-color:var(--accent); }
-.pbook-modal-body { overflow-y:auto; padding:18px 22px 22px; flex:1; }
-
-/* ── INLINE PASSPORT BOOK ── */
-.pbook { background:#f7f2e8; border-radius:10px; overflow:hidden; border:1px solid #ddd3b8; box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 3px 14px rgba(0,0,0,.1); }
-.pbook-spread { display:flex; min-height:290px; position:relative; }
-.pbook-spread.anim-fwd { animation:bookFwd .24s ease; }
-.pbook-spread.anim-bck { animation:bookBck .24s ease; }
-@keyframes bookFwd { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:none} }
-@keyframes bookBck { from{opacity:0;transform:translateX(-18px)} to{opacity:1;transform:none} }
-.pbook-page { flex:1; padding:13px 11px; position:relative; }
-.pbook-page.left { border-right:1px solid #e0d5be; box-shadow:2px 0 6px rgba(0,0,0,.04); }
-.pbook-region-title { font-size:.62rem; font-weight:800; color:#9a8665; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:9px; display:flex; align-items:center; gap:5px; }
-.pbook-row { display:flex; align-items:center; justify-content:space-between; padding:5px 4px; border-radius:7px; transition:.14s; gap:6px; }
-.pbook-row:hover { background:rgba(0,0,0,.04); }
-.pbook-row-left { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
-.pbstamp { width:32px; height:32px; flex-shrink:0; border-radius:50%; border:2px dashed #c8b99a; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:.3s; }
-.pbstamp-lbl { font-size:.38rem; font-weight:900; color:#c8b99a; letter-spacing:.4px; text-transform:uppercase; text-align:center; line-height:1.3; white-space:pre; }
-.pbstamp.stamped { border:2px solid #16a34a; background:rgba(22,163,74,.07); }
-.pbstamp.stamped .pbstamp-lbl { color:#16a34a; }
-.pbstamp.stamped { animation:stampPop .44s cubic-bezier(.23,1,.32,1); }
-@keyframes stampPop {
-    0%   { transform:translateY(-30px) scale(1.4) rotate(15deg); opacity:0; }
-    55%  { transform:translateY(2px)   scale(.9)  rotate(-5deg); opacity:1; }
-    75%  { transform:translateY(-1px)  scale(1.04) rotate(-5deg); }
-    100% { transform:translateY(0)     scale(1)   rotate(-8deg); }
+.passport-cover .cover-emblem { font-size:3.2rem; filter:drop-shadow(0 3px 10px rgba(0,0,0,.4)); }
+.passport-cover h2 { font-size:1.5rem; font-weight:900; letter-spacing:5px; text-transform:uppercase; margin:0; }
+.passport-cover .cover-sub { font-size:.62rem; font-weight:700; letter-spacing:4px; opacity:.6; margin:0; }
+.passport-3d.futbol .passport-cover { background:linear-gradient(155deg,#38155a 0%,#6b2fa0 55%,#461a76 100%); }
+.passport-3d.open .passport-cover {
+    transform:rotateY(-168deg);
+    box-shadow:0 0 0 rgba(0,0,0,0);
 }
-.pbook-thumb { width:38px; height:30px; flex-shrink:0; border-radius:5px; background:#e5dcc8; display:flex; align-items:center; justify-content:center; font-size:.9rem; overflow:hidden; }
-.pbook-row-name { font-size:.78rem; font-weight:700; color:#3a3020; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.pbook-row-sub  { font-size:.61rem; color:#9a8665; margin-top:1px; }
-.pbook-stamped-lbl { font-size:.66rem; font-weight:800; color:#16a34a; display:flex; align-items:center; gap:3px; white-space:nowrap; flex-shrink:0; }
-.pbook-sel-btn { font-size:.65rem; font-weight:800; padding:4px 9px; background:var(--accent); color:#fff; border:none; border-radius:6px; cursor:pointer; white-space:nowrap; flex-shrink:0; transition:.18s; }
-.pbook-sel-btn:hover { opacity:.82; }
-.pbook-sel-btn:disabled { opacity:.45; cursor:not-allowed; }
-.pbook-nav { display:flex; align-items:center; justify-content:center; gap:10px; padding:9px; border-top:1px solid #e0d5be; background:#ede8d6; }
-.pbook-nav-btn { width:26px; height:26px; border-radius:50%; border:1.5px solid #c5b89a; background:transparent; cursor:pointer; font-size:.82rem; color:#8a7b60; display:flex; align-items:center; justify-content:center; transition:.18s; }
-.pbook-nav-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
-.pbook-nav-btn:disabled { opacity:.28; cursor:not-allowed; }
-.pbook-nav-lbl { font-size:.72rem; font-weight:700; color:#8a7b60; min-width:36px; text-align:center; }
-.pbook-tabs { display:flex; gap:2px; padding:8px 10px 0; background:#ede8d6; border-bottom:1px solid #e0d5be; overflow-x:auto; scrollbar-width:none; }
-.pbook-tabs::-webkit-scrollbar { display:none; }
-.pbook-tab-btn { padding:5px 10px; border-radius:7px 7px 0 0; font-size:.71rem; font-weight:700; color:#9a8665; background:transparent; border:1px solid transparent; border-bottom:none; cursor:pointer; white-space:nowrap; transition:.18s; }
-.pbook-tab-btn.active { background:#f7f2e8; color:var(--accent); border-color:#e0d5be; border-bottom-color:#f7f2e8; }
-.pbook-tab-btn:hover:not(.active) { color:#4a3a20; }
-[data-theme="dark"] .pbook { background:#1e2436; border-color:rgba(255,255,255,.1); box-shadow:0 3px 14px rgba(0,0,0,.3); }
-[data-theme="dark"] .pbook-page.left { border-right-color:rgba(255,255,255,.07); box-shadow:2px 0 6px rgba(0,0,0,.15); }
-[data-theme="dark"] .pbook-region-title { color:var(--text-muted); }
-[data-theme="dark"] .pbook-row:hover { background:rgba(255,255,255,.05); }
-[data-theme="dark"] .pbstamp { border-color:rgba(255,255,255,.18); }
-[data-theme="dark"] .pbstamp-lbl { color:rgba(255,255,255,.22); }
-[data-theme="dark"] .pbook-row-name { color:var(--text); }
-[data-theme="dark"] .pbook-row-sub { color:var(--text-muted); }
-[data-theme="dark"] .pbook-nav { background:var(--sidebar-bg); border-top-color:var(--border); }
-[data-theme="dark"] .pbook-nav-btn { border-color:var(--border); color:var(--text-muted); }
-[data-theme="dark"] .pbook-nav-lbl { color:var(--text-muted); }
-[data-theme="dark"] .pbook-tabs { background:var(--sidebar-bg); border-bottom-color:var(--border); }
-[data-theme="dark"] .pbook-tab-btn.active { background:var(--card-bg); color:var(--accent); border-color:var(--border); border-bottom-color:var(--card-bg); }
-[data-theme="dark"] .pbook-tab-btn { color:var(--text-muted); }
-[data-theme="dark"] .pbook-thumb { background:rgba(255,255,255,.08); }
+/* INTERIOR */
+.passport-book {
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    background:#f5ebdd; border-radius:18px; overflow:hidden;
+    box-shadow:0 32px 80px rgba(0,0,0,.45);
+}
+[data-theme="dark"] .passport-book { background:#1c2235; }
+/* header del libro */
+.book-header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:13px 20px 11px; border-bottom:1px solid rgba(155,130,80,.22);
+    background:rgba(250,246,230,.95); flex-shrink:0;
+}
+[data-theme="dark"] .book-header { background:var(--sidebar-bg); border-bottom-color:var(--border); }
+.book-ttl { font-size:.9rem; font-weight:800; color:#3a2e1a; display:flex; align-items:center; gap:8px; }
+[data-theme="dark"] .book-ttl { color:var(--text); }
+.book-close-btn {
+    width:28px; height:28px; border-radius:50%;
+    border:1.5px solid rgba(155,130,80,.3); background:transparent;
+    cursor:pointer; font-size:.9rem; color:#9a8060;
+    display:flex; align-items:center; justify-content:center; transition:.15s;
+}
+.book-close-btn:hover { background:#ede3ce; color:#5a3e1a; }
+[data-theme="dark"] .book-close-btn { border-color:var(--border); color:var(--text-muted); }
+/* league tabs */
+.league-tabs {
+    display:flex; gap:4px; padding:8px 14px 0; flex-shrink:0;
+    border-bottom:1px solid rgba(155,130,80,.2); overflow-x:auto; scrollbar-width:none;
+    background:rgba(243,236,218,.9);
+}
+.league-tabs::-webkit-scrollbar { display:none; }
+[data-theme="dark"] .league-tabs { background:var(--sidebar-bg); border-bottom-color:var(--border); }
+.league-tab-btn {
+    padding:5px 12px 10px; border:none; background:transparent;
+    font-size:.7rem; font-weight:700; color:#9a8060; cursor:pointer;
+    border-bottom:2.5px solid transparent; transition:.15s; white-space:nowrap; flex-shrink:0;
+}
+.league-tab-btn.active { color:#3a2e1a; border-bottom-color:#5c4a2a; }
+.league-tab-btn:hover:not(.active) { color:#5c4a2a; }
+[data-theme="dark"] .league-tab-btn { color:var(--text-muted); }
+[data-theme="dark"] .league-tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+/* body (páginas) */
+.book-body { flex:1; display:flex; overflow:hidden; position:relative; }
+.book-body.anim-fwd { animation:bookFwd .25s ease; }
+.book-body.anim-bck { animation:bookBck .25s ease; }
+@keyframes bookFwd { from{opacity:0;transform:translateX(16px)} to{opacity:1;transform:none} }
+@keyframes bookBck { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:none} }
+.book-pages { display:flex; width:100%; position:relative; }
+/* pliegue central */
+.book-pages::before {
+    content:''; position:absolute; left:50%; transform:translateX(-50%);
+    width:5px; height:100%; background:rgba(0,0,0,.07);
+    z-index:1; pointer-events:none;
+}
+/* nav */
+.book-nav {
+    display:flex; align-items:center; justify-content:center; gap:14px;
+    padding:9px; border-top:1px solid rgba(155,130,80,.2);
+    background:rgba(237,227,206,.85); flex-shrink:0;
+}
+[data-theme="dark"] .book-nav { background:var(--sidebar-bg); border-top-color:var(--border); }
+.book-nav-btn {
+    width:28px; height:28px; border-radius:50%; border:1.5px solid #c5b89a;
+    background:transparent; cursor:pointer; font-size:1rem; font-weight:700;
+    color:#8a7b60; display:flex; align-items:center; justify-content:center; transition:.15s;
+}
+.book-nav-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); transform:scale(1.1); }
+.book-nav-btn:disabled { opacity:.3; cursor:not-allowed; }
+.book-nav-lbl { font-size:.7rem; font-weight:700; color:#9a8060; min-width:38px; text-align:center; }
+[data-theme="dark"] .book-nav-btn { border-color:var(--border); color:var(--text-muted); }
+[data-theme="dark"] .book-nav-lbl { color:var(--text-muted); }
 
 /* ── MICROINTERACCIONES ── */
 .btn-ver-pasaporte { transition: transform .16s ease, background .18s, color .18s, border-color .18s !important; }
 .btn-ver-pasaporte:hover:not(:disabled) { transform: scale(1.04); }
 .btn-ver-pasaporte:active:not(:disabled) { transform: scale(0.95); }
-.pbook-sel-btn { transition: transform .14s ease, opacity .18s !important; }
-.pbook-sel-btn:hover:not(:disabled) { transform: scale(1.06); }
-.pbook-sel-btn:active:not(:disabled) { transform: scale(0.94); }
-.pbook-nav-btn { transition: transform .12s ease, border-color .18s, color .18s, background .18s !important; }
-.pbook-nav-btn:hover:not(:disabled) { transform: scale(1.14); }
-.pbook-nav-btn:active:not(:disabled) { transform: scale(0.88); }
-.pbook-tab-btn { transition: transform .12s ease, background .18s, color .18s !important; }
-.pbook-tab-btn:hover:not(.active) { transform: translateY(-1px); }
-.pbook-tab-btn:active { transform: scale(0.95); }
+.stamp-btn { transition: transform .14s ease, all .18s !important; }
+.book-nav-btn { transition: transform .12s ease, border-color .18s, color .18s, background .18s !important; }
+.league-tab-btn { transition: transform .12s ease, background .18s, color .18s, border-color .18s !important; }
+.league-tab-btn:hover:not(.active) { transform: translateY(-1px); }
+.league-tab-btn:active { transform: scale(0.95); }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
@@ -877,49 +910,47 @@ body {
 </div><!-- /app -->
 
 <!-- VIAJE PASSPORT MODAL -->
-<div class="pbook-overlay" id="viajeModalOverlay" onclick="if(event.target===this)closeViajeModal()">
-    <div class="pbook-modal">
-        <div class="pbook-modal-hdr">
-            <div class="pbook-modal-ttl">
-                <i class="fas fa-passport" style="color:#22c55e"></i>
-                Pasaporte de Viaje
-                <span class="pbook-modal-cnt" id="viajeModalCount">0 / 28 sellos</span>
-            </div>
-            <button class="pbook-modal-cls" onclick="closeViajeModal()"><i class="fas fa-times"></i></button>
+<div class="passport-modal" id="viajeModalOverlay" onclick="if(event.target===this)closeViajeModal()">
+    <div class="passport-3d" id="passportViaje3d">
+        <div class="passport-cover">
+            <span class="cover-emblem">🌍</span>
+            <h2>PASAPORTE</h2>
+            <p class="cover-sub">HERSE TURISMO</p>
         </div>
-        <div class="pbook-modal-body">
-            <div class="pbook">
-                <div class="pbook-spread" id="viajeSpread"></div>
-                <div class="pbook-nav">
-                    <button class="pbook-nav-btn" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
-                    <span class="pbook-nav-lbl" id="viajeNavLbl">1 / 3</span>
-                    <button class="pbook-nav-btn" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
-                </div>
+        <div class="passport-book">
+            <div class="book-header">
+                <div class="book-ttl"><i class="fas fa-passport" style="color:#22c55e"></i> Pasaporte de Viaje <span id="viajeModalCount" style="font-size:.68rem;font-weight:600;color:#9a8060;margin-left:4px">0 / 28</span></div>
+                <button class="book-close-btn" onclick="closeViajeModal()">&#10005;</button>
+            </div>
+            <div class="book-body" id="viajeSpread"></div>
+            <div class="book-nav">
+                <button class="book-nav-btn" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
+                <span class="book-nav-lbl" id="viajeNavLbl">1 / 3</span>
+                <button class="book-nav-btn" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- FUTBOL PASSPORT MODAL -->
-<div class="pbook-overlay" id="futbolModalOverlay" onclick="if(event.target===this)closeFutbolModal()">
-    <div class="pbook-modal">
-        <div class="pbook-modal-hdr">
-            <div class="pbook-modal-ttl">
-                <i class="fas fa-futbol" style="color:var(--accent)"></i>
-                Pasaporte Futbolero
-                <span class="pbook-modal-cnt" id="pasaporteCount">0 / 35 estadios</span>
-            </div>
-            <button class="pbook-modal-cls" onclick="closeFutbolModal()"><i class="fas fa-times"></i></button>
+<div class="passport-modal" id="futbolModalOverlay" onclick="if(event.target===this)closeFutbolModal()">
+    <div class="passport-3d futbol" id="passportFutbol3d">
+        <div class="passport-cover">
+            <span class="cover-emblem">⚽</span>
+            <h2>PASAPORTE</h2>
+            <p class="cover-sub">FUTBOLERO</p>
         </div>
-        <div class="pbook-modal-body">
-            <div class="pbook">
-                <div class="pbook-tabs" id="futbolTabs"></div>
-                <div class="pbook-spread" id="futbolSpread"></div>
-                <div class="pbook-nav">
-                    <button class="pbook-nav-btn" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
-                    <span class="pbook-nav-lbl" id="futbolNavLbl">1 / 1</span>
-                    <button class="pbook-nav-btn" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
-                </div>
+        <div class="passport-book">
+            <div class="book-header">
+                <div class="book-ttl"><i class="fas fa-futbol" style="color:var(--accent)"></i> Pasaporte Futbolero <span id="pasaporteCount" style="font-size:.68rem;font-weight:600;color:#9a8060;margin-left:4px">0 / 35</span></div>
+                <button class="book-close-btn" onclick="closeFutbolModal()">&#10005;</button>
+            </div>
+            <div class="league-tabs" id="futbolTabs"></div>
+            <div class="book-body" id="futbolSpread"></div>
+            <div class="book-nav">
+                <button class="book-nav-btn" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
+                <span class="book-nav-lbl" id="futbolNavLbl">1 / 1</span>
+                <button class="book-nav-btn" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
             </div>
         </div>
     </div>
@@ -1314,33 +1345,33 @@ body {
         if (!spread) return;
         const pg = VIAJE_PAGES[_viajeCurrentPage];
 
-        function buildSide(side, cls, colorOff) {
-            const rows = side.items.map((item, i) => {
-                const s     = _viajeSelladosSet.has(item.id);
-                const fl    = getFlag(item.nombre);
-                const color = STAMP_PALETTE[(i + colorOff) % STAMP_PALETTE.length];
-                const code  = item.nombre.substring(0,3).toUpperCase();
-                const svg   = makeStampSVG(fl, item.nombre, color, s);
-                const right = s
-                    ? `<span class="pp-entry-ok"><i class="fas fa-check"></i> Sellado</span>`
-                    : `<span style="font-size:.6rem;color:#b0a07a;font-style:italic;white-space:nowrap">Próximamente</span>`;
-                return `<div class="pp-entry" style="animation-delay:${i * 65}ms">
-                    <div class="pp-mini-stamp">${svg}</div>
-                    <div class="pp-entry-body">
-                        <div class="pp-entry-name">${item.nombre}</div>
-                        <div class="pp-entry-sub">${code}</div>
+        function buildSide(side, cls) {
+            const items = side.items.map(item => {
+                const s   = _viajeSelladosSet.has(item.id);
+                const fl  = getFlag(item.nombre);
+                const code = item.nombre.substring(0, 3).toUpperCase();
+                const stampEl = s ? `<span class="stamp">VISADO</span>` : '';
+                const btn = s
+                    ? `<button class="stamp-btn done" disabled>✓ Sellado</button>`
+                    : `<button class="stamp-btn" disabled>Próx.</button>`;
+                return `<div class="country ${s ? 'stamped' : ''}">
+                    ${stampEl}
+                    <span class="country-flag-emoji">${fl}</span>
+                    <div class="country-body">
+                        <span class="code">${code}</span>
+                        <span class="name">${item.nombre}</span>
                     </div>
-                    ${right}
+                    ${btn}
                 </div>`;
             }).join('');
-            return `<div class="pp-page ${cls}"><div class="pp-pg-title">${side.icon} ${side.title}</div><div class="pp-list">${rows}</div></div>`;
+            return `<div class="page ${cls}"><div class="page-title">${side.icon} ${side.title}</div>${items}</div>`;
         }
 
         if (animate) {
             spread.classList.add(dir > 0 ? 'anim-fwd' : 'anim-bck');
             setTimeout(() => spread.classList.remove('anim-fwd','anim-bck'), 280);
         }
-        spread.innerHTML = buildSide(pg.left,'left',0) + buildSide(pg.right,'right',5);
+        spread.innerHTML = `<div class="book-pages">${buildSide(pg.left,'left-page')}${buildSide(pg.right,'right-page')}</div>`;
 
         const total = VIAJE_PAGES.length;
         const lbl = document.getElementById('viajeNavLbl');
@@ -1369,14 +1400,14 @@ body {
         if (!tabs) return;
         tabs.innerHTML = PASSPORT_KEYS.map((key, i) => {
             const p = PASAPORTE_DATA[key];
-            return `<button class="pbook-tab-btn ${i === _futbolCurrentTab ? 'active' : ''}" onclick="selectFutbolTab(${i})">${p.flag} ${p.nombre}</button>`;
+            return `<button class="league-tab-btn ${i === _futbolCurrentTab ? 'active' : ''}" onclick="selectFutbolTab(${i})">${p.flag} ${p.nombre}</button>`;
         }).join('');
     }
 
     function selectFutbolTab(idx) {
         _futbolCurrentTab = idx;
         _futbolCurrentPage = 0;
-        document.querySelectorAll('#futbolTabs .pbook-tab-btn').forEach((t,i) => t.classList.toggle('active', i === idx));
+        document.querySelectorAll('#futbolTabs .league-tab-btn').forEach((t,i) => t.classList.toggle('active', i === idx));
         renderFutbolSpread(false, 0);
     }
 
@@ -1390,19 +1421,21 @@ body {
         const left  = slice.slice(0, 2);
         const right = slice.slice(2, 4);
 
-        function buildRow(e, idx) {
-            const v     = _selladosSet.has(e.id);
-            const color = STAMP_PALETTE[idx % STAMP_PALETTE.length];
-            const svg   = makeStampSVG('🏙️', e.nombre, color, v);
+        function buildRow(e) {
+            const v = _selladosSet.has(e.id);
+            const stampEl = v ? `<span class="stamp">MATCH</span>` : '';
             const action = _isAdmin
-                ? (v ? `<span class="pp-entry-ok"><i class="fas fa-check"></i> Sellado</span>`
-                     : `<button class="btn-sellar-pp" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)"><i class="fas fa-stamp"></i> Sellar</button>`)
-                : (v ? `<span class="pp-entry-ok"><i class="fas fa-check"></i> Visitado</span>` : '');
-            return `<div class="pp-entry" id="srow-${e.id}" style="animation-delay:${(idx % 2) * 80}ms">
-                <div class="pp-mini-stamp" data-flag="🏙️" data-name="${e.nombre}" data-color="${color}">${svg}</div>
-                <div class="pp-entry-body">
-                    <div class="pp-entry-name">${e.nombre}</div>
-                    <div class="pp-entry-sub">${e.equipo}</div>
+                ? (v ? `<button class="stamp-btn done" disabled>✓ Sellado</button>`
+                     : `<button class="stamp-btn" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)">Sellar</button>`)
+                : (v ? `<button class="stamp-btn done" disabled>✓ Visitado</button>` : '');
+            return `<div class="stadium ${v ? 'stamped' : ''}" id="srow-${e.id}">
+                ${stampEl}
+                <div class="stadium-info">
+                    <span class="stadium-icon">🏙️</span>
+                    <div>
+                        <div class="stadium-name">${e.nombre}</div>
+                        <div class="stadium-club">${e.equipo}</div>
+                    </div>
                 </div>
                 ${action}
             </div>`;
@@ -1429,12 +1462,12 @@ body {
                        <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:99px;transition:width .6s"></div>
                    </div>
                </div>`;
-        const base = _futbolCurrentPage * perPage;
-        const leftRows  = left.map((e, i) => buildRow(e, base + i)).join('');
-        const rightRows = right.map((e, i) => buildRow(e, base + 2 + i)).join('');
-        spread.innerHTML =
-            `<div class="pp-page left"><div class="pp-pg-title">${pais.flag} ${pais.nombre}</div>${leagueHdr}${leftRows}</div>` +
-            `<div class="pp-page right"><div style="height:38px"></div>${rightRows}</div>`;
+        const leftRows  = left.map(buildRow).join('');
+        const rightRows = right.map(buildRow).join('');
+        spread.innerHTML = `<div class="book-pages">
+            <div class="page left-page"><div class="page-title">${pais.flag} ${pais.nombre}</div>${leagueHdr}${leftRows}</div>
+            <div class="page right-page"><div style="height:42px"></div>${rightRows}</div>
+        </div>`;
 
         const lbl = document.getElementById('futbolNavLbl');
         if (lbl) lbl.textContent = `${_futbolCurrentPage + 1} / ${totalPages}`;
@@ -1461,17 +1494,15 @@ body {
         _selladosSet.add(estadioId);
         const row = document.getElementById(`srow-${estadioId}`);
         if (row) {
-            const sd = row.querySelector('.pp-mini-stamp');
-            if (sd) {
-                const fl  = sd.dataset.flag  || '🏙️';
-                const nm  = sd.dataset.name  || '';
-                const col = sd.dataset.color || '#1a6cff';
-                sd.innerHTML = makeStampSVG(fl, nm, col, true);
-                sd.classList.add('stamp-sealed-now');
-                setTimeout(() => sd.classList.remove('stamp-sealed-now'), 520);
+            row.classList.add('stamped');
+            if (!row.querySelector('.stamp')) {
+                const st = document.createElement('span');
+                st.className = 'stamp';
+                st.textContent = 'MATCH';
+                row.insertBefore(st, row.firstChild);
             }
-            const b = row.querySelector('.btn-sellar-pp');
-            if (b) b.outerHTML = `<span class="pp-entry-ok"><i class="fas fa-check"></i> Sellado</span>`;
+            const b = row.querySelector('.stamp-btn');
+            if (b) { b.textContent = '✓ Sellado'; b.disabled = true; b.classList.add('done'); }
         }
         updatePasaporteCounter();
     }
@@ -1501,22 +1532,38 @@ body {
             renderViajeSpread(false, 0);
             document.getElementById('viajeModalOverlay').classList.add('open');
             document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                const p3d = document.getElementById('passportViaje3d');
+                if (p3d) p3d.classList.add('open');
+            }, 80);
         });
     }
     function closeViajeModal() {
-        document.getElementById('viajeModalOverlay').classList.remove('open');
-        document.body.style.overflow = '';
+        const p3d = document.getElementById('passportViaje3d');
+        if (p3d) p3d.classList.remove('open');
+        setTimeout(() => {
+            document.getElementById('viajeModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }, 650);
     }
     function openFutbolModal() {
         _coverClickThen('.pcover.purple', () => {
             initFutbolBook();
             document.getElementById('futbolModalOverlay').classList.add('open');
             document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                const p3d = document.getElementById('passportFutbol3d');
+                if (p3d) p3d.classList.add('open');
+            }, 80);
         });
     }
     function closeFutbolModal() {
-        document.getElementById('futbolModalOverlay').classList.remove('open');
-        document.body.style.overflow = '';
+        const p3d = document.getElementById('passportFutbol3d');
+        if (p3d) p3d.classList.remove('open');
+        setTimeout(() => {
+            document.getElementById('futbolModalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }, 650);
     }
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') { closeViajeModal(); closeFutbolModal(); }
