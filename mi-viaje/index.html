@@ -357,50 +357,59 @@ body {
 .btn-ver-pasaporte { display:flex; align-items:center; gap:7px; width:100%; padding:9px 14px; background:var(--accent-bg); color:var(--accent); border:1.5px solid var(--accent); border-radius:9px; font-size:.76rem; font-weight:800; cursor:pointer; transition:.18s; justify-content:center; }
 .btn-ver-pasaporte:hover { background:var(--accent); color:#fff; }
 
-/* ── SCATTER STAMP PAGES ── */
+/* ── PASSPORT PAGES (LIBRO) ── */
 .pp-page {
-    flex:1; padding:15px 13px 12px;
-    background:linear-gradient(180deg,#faf6e6 0%,#f5efdc 100%);
-    background-image:repeating-linear-gradient(180deg,transparent,transparent 27px,rgba(150,130,90,.1) 28px);
+    flex:1; padding:20px 18px 16px;
+    background:linear-gradient(180deg,#faf6e4 0%,#f3ecda 100%);
+    background-image:repeating-linear-gradient(180deg,transparent,transparent 27px,rgba(145,120,75,.09) 28px);
 }
-.pp-page.left { border-right:2px solid rgba(180,155,110,.35); }
-[data-theme="dark"] .pp-page { background:linear-gradient(180deg,#1e2438,#191d2e); background-image:repeating-linear-gradient(180deg,transparent,transparent 27px,rgba(255,255,255,.04) 28px); }
-[data-theme="dark"] .pp-page.left { border-right-color:rgba(255,255,255,.07); }
-.pp-pg-title { font-size:.58rem; font-weight:900; color:#9a8060; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:12px; display:flex; align-items:center; gap:5px; padding-bottom:7px; border-bottom:1px solid rgba(155,130,90,.2); }
-[data-theme="dark"] .pp-pg-title { color:var(--text-muted); border-bottom-color:rgba(255,255,255,.06); }
-.pp-stamps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px 6px; justify-items:center; }
-.pp-stamp-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; transform:rotate(var(--rot,0deg)); }
-.pp-stamp-circle {
-    width:58px; height:58px; border-radius:50%;
-    border:2px dashed #bfaa88;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    cursor:default; transition:.2s; background:rgba(195,175,140,.08); flex-shrink:0;
-    position:relative; overflow:visible;
+.pp-page.left { border-right:3px solid rgba(165,138,88,.3); box-shadow:inset -8px 0 14px rgba(0,0,0,.05); }
+[data-theme="dark"] .pp-page { background:linear-gradient(180deg,#1c2235,#181c2c); background-image:repeating-linear-gradient(180deg,transparent,transparent 27px,rgba(255,255,255,.04) 28px); }
+[data-theme="dark"] .pp-page.left { border-right-color:rgba(255,255,255,.07); box-shadow:none; }
+.pp-pg-title { font-size:.57rem; font-weight:900; color:#9a8060; text-transform:uppercase; letter-spacing:1.6px; margin-bottom:14px; display:flex; align-items:center; gap:5px; padding-bottom:8px; border-bottom:1px solid rgba(150,125,80,.22); }
+[data-theme="dark"] .pp-pg-title { color:var(--text-muted); border-bottom-color:rgba(255,255,255,.07); }
+
+/* ── STAMP ENTRY LIST ── */
+.pp-list { display:flex; flex-direction:column; gap:6px; }
+.pp-entry {
+    display:flex; align-items:center; gap:12px;
+    padding:6px 8px 6px 4px; border-radius:10px;
+    transition:background .14s;
+    animation:ppEntryIn .4s ease both;
 }
-[data-theme="dark"] .pp-stamp-circle { border-color:rgba(255,255,255,.18); }
-.pp-stamp-circle.stamped {
-    border:2.5px solid #22c55e; background:rgba(34,197,94,.1);
-    animation:ppStampDrop .44s cubic-bezier(.23,1,.32,1);
+.pp-entry:hover { background:rgba(145,118,70,.09); }
+[data-theme="dark"] .pp-entry:hover { background:rgba(255,255,255,.05); }
+@keyframes ppEntryIn {
+    from { opacity:0; transform:translateY(16px) scale(.96); }
+    to   { opacity:1; transform:none; }
 }
+/* sello SVG */
+.pp-mini-stamp { width:62px; height:62px; flex-shrink:0; position:relative; overflow:visible; }
+.pp-mini-stamp svg { width:100%; height:100%; overflow:visible; }
+.stamp-sealed-now { animation:ppStampDrop .46s cubic-bezier(.23,1,.32,1); }
 @keyframes ppStampDrop {
-    0%   { transform:translateY(-36px) scale(1.4) rotate(-8deg); opacity:0; }
-    50%  { transform:translateY(3px)   scale(.93) rotate(-10deg); opacity:1; }
-    70%  { transform:translateY(-2px)  scale(1.03) rotate(-10deg); }
-    85%  { transform:translateY(1px)   scale(.98) rotate(-10deg); }
-    100% { transform:translateY(0)     scale(1)   rotate(0deg); }
+    0%   { transform:translateY(-40px) scale(1.45) rotate(-9deg); opacity:0; }
+    50%  { transform:translateY(4px)   scale(.91)  rotate(-11deg); opacity:1; }
+    70%  { transform:translateY(-3px)  scale(1.05) rotate(-11deg); }
+    85%  { transform:translateY(1px)   scale(.97)  rotate(-11deg); }
+    100% { transform:translateY(0)     scale(1)    rotate(0deg); }
 }
-.pp-stamp-circle.stamped::before {
-    content:'SELLADO'; position:absolute; bottom:-8px; right:-10px;
-    font-size:.3rem; font-weight:900; color:#15803d; letter-spacing:.5px;
-    border:1.5px solid #15803d; border-radius:3px; padding:1px 4px;
-    transform:rotate(-12deg); background:rgba(240,253,244,.9); z-index:2;
-    pointer-events:none; white-space:nowrap;
+/* info al lado del sello */
+.pp-entry-body { flex:1; min-width:0; }
+.pp-entry-name { font-size:.82rem; font-weight:800; color:#3a2e1a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pp-entry-sub  { font-size:.6rem;  font-weight:700; color:#9a8060; letter-spacing:1.1px; margin-top:2px; }
+.pp-entry-ok   { font-size:.63rem; font-weight:800; color:#16a34a; white-space:nowrap; flex-shrink:0; display:flex; align-items:center; gap:4px; }
+.btn-sellar-pp {
+    font-size:.64rem; font-weight:800; padding:5px 11px;
+    background:var(--accent); color:#fff; border:none; border-radius:7px; cursor:pointer;
+    white-space:nowrap; flex-shrink:0;
+    transition:transform .14s ease, opacity .14s;
 }
-[data-theme="dark"] .pp-stamp-circle.stamped::before { background:rgba(20,83,45,.85); color:#4ade80; border-color:#4ade80; }
-.pp-stamp-flag { font-size:1.3rem; line-height:1; display:block; }
-.pp-stamp-code { font-size:.38rem; font-weight:900; color:#16a34a; letter-spacing:.8px; margin-top:2px; display:block; }
-.pp-stamp-name { font-size:.54rem; font-weight:700; color:#6b5a3e; text-align:center; max-width:64px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-[data-theme="dark"] .pp-stamp-name { color:var(--text-muted); }
+.btn-sellar-pp:hover:not(:disabled) { opacity:.85; transform:scale(1.06); }
+.btn-sellar-pp:active:not(:disabled) { transform:scale(.93); }
+.btn-sellar-pp:disabled { opacity:.45; cursor:not-allowed; }
+[data-theme="dark"] .pp-entry-name { color:var(--text); }
+[data-theme="dark"] .pp-entry-sub  { color:var(--text-muted); }
 
 /* ── QUICK ACTIONS ── */
 .quick-actions { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
@@ -421,7 +430,7 @@ body {
 .pbook-overlay.open { opacity:1; pointer-events:all; }
 .pbook-modal {
     background:var(--card-bg); border-radius:22px;
-    width:min(740px,95vw); max-height:88vh;
+    width:min(880px,96vw); max-height:90vh;
     display:flex; flex-direction:column; overflow:hidden;
     box-shadow:0 32px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.07);
     transform: rotateY(-22deg) scale(0.82) translateX(-30px);
@@ -1278,6 +1287,26 @@ body {
         renderViajeSpread(false, 0);
     }
 
+    const STAMP_PALETTE = ['#1a6cff','#22c55e','#ef4444','#8b5cf6','#f97316','#0ea5e9','#ec4899','#eab308','#14b8a6','#6366f1'];
+
+    function makeStampSVG(flag, name, color, visited) {
+        const uid = 'sv' + (Math.random() * 99999 | 0);
+        const c   = visited ? color : '#b5a282';
+        const bg  = visited ? color + '18' : 'rgba(180,162,130,.06)';
+        const op  = visited ? 1 : 0.38;
+        const lbl = name.toUpperCase().substring(0, 13);
+        return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;opacity:${op}">
+            <defs><path id="${uid}" d="M 8,40 A 32,32 0 0,1 72,40"/></defs>
+            <circle cx="40" cy="40" r="36" fill="${bg}" stroke="${c}" stroke-width="2.4" ${visited ? '' : 'stroke-dasharray="3 2"'}/>
+            <circle cx="40" cy="40" r="28" fill="none" stroke="${c}" stroke-width="1.1" opacity=".5"/>
+            <text font-size="7" font-weight="900" fill="${c}" font-family="system-ui,sans-serif" letter-spacing="1.8">
+                <textPath href="#${uid}" startOffset="50%" text-anchor="middle">${lbl}</textPath>
+            </text>
+            <text x="40" y="52" text-anchor="middle" font-size="24" font-family="system-ui,sans-serif">${flag}</text>
+            ${visited ? `<text x="40" y="70" text-anchor="middle" font-size="6.5" font-weight="900" fill="${c}" font-family="system-ui,sans-serif" letter-spacing="1.2">✶ SELLADO ✶</text>` : ''}
+        </svg>`;
+    }
+
     const PP_ROTS = [2,-4,3,-2,4,-3,1,-5,3,-1,2,-4,5,-2,1];
 
     function renderViajeSpread(animate, dir) {
@@ -1285,21 +1314,26 @@ body {
         if (!spread) return;
         const pg = VIAJE_PAGES[_viajeCurrentPage];
 
-        function buildSide(side, cls, rotOffset) {
-            const stamps = side.items.map((item, i) => {
-                const s = _viajeSelladosSet.has(item.id);
-                const fl = getFlag(item.nombre);
-                const rot = PP_ROTS[(i + rotOffset) % PP_ROTS.length];
-                const code = item.nombre.substring(0,3).toUpperCase();
-                return `<div class="pp-stamp-wrap" style="--rot:${rot}deg">
-                    <div class="pp-stamp-circle ${s ? 'stamped' : ''}">
-                        <span class="pp-stamp-flag">${fl}</span>
-                        ${s ? `<span class="pp-stamp-code">${code}</span>` : ''}
+        function buildSide(side, cls, colorOff) {
+            const rows = side.items.map((item, i) => {
+                const s     = _viajeSelladosSet.has(item.id);
+                const fl    = getFlag(item.nombre);
+                const color = STAMP_PALETTE[(i + colorOff) % STAMP_PALETTE.length];
+                const code  = item.nombre.substring(0,3).toUpperCase();
+                const svg   = makeStampSVG(fl, item.nombre, color, s);
+                const right = s
+                    ? `<span class="pp-entry-ok"><i class="fas fa-check"></i> Sellado</span>`
+                    : `<span style="font-size:.6rem;color:#b0a07a;font-style:italic;white-space:nowrap">Próximamente</span>`;
+                return `<div class="pp-entry" style="animation-delay:${i * 65}ms">
+                    <div class="pp-mini-stamp">${svg}</div>
+                    <div class="pp-entry-body">
+                        <div class="pp-entry-name">${item.nombre}</div>
+                        <div class="pp-entry-sub">${code}</div>
                     </div>
-                    <div class="pp-stamp-name">${item.nombre}</div>
+                    ${right}
                 </div>`;
             }).join('');
-            return `<div class="pp-page ${cls}"><div class="pp-pg-title">${side.icon} ${side.title}</div><div class="pp-stamps-grid">${stamps}</div></div>`;
+            return `<div class="pp-page ${cls}"><div class="pp-pg-title">${side.icon} ${side.title}</div><div class="pp-list">${rows}</div></div>`;
         }
 
         if (animate) {
@@ -1356,21 +1390,21 @@ body {
         const left  = slice.slice(0, 2);
         const right = slice.slice(2, 4);
 
-        function buildRow(e) {
-            const v = _selladosSet.has(e.id);
+        function buildRow(e, idx) {
+            const v     = _selladosSet.has(e.id);
+            const color = STAMP_PALETTE[idx % STAMP_PALETTE.length];
+            const svg   = makeStampSVG('🏙️', e.nombre, color, v);
             const action = _isAdmin
-                ? (v ? `<span class="pbook-stamped-lbl"><i class="fas fa-check"></i>&nbsp;Sellado</span>`
-                     : `<button class="pbook-sel-btn" onclick="sellarEstadio('${e.id}',this)"><i class="fas fa-stamp"></i> Sellar</button>`)
-                : (v ? `<span class="pbook-stamped-lbl"><i class="fas fa-check"></i>&nbsp;Visitado</span>` : '');
-            return `<div class="pbook-row" id="srow-${e.id}">
-                <div class="pbook-row-left">
-                    <div class="pbook-thumb">🏟️</div>
-                    <div><div class="pbook-row-name">${e.nombre}</div><div class="pbook-row-sub">${e.equipo}</div></div>
+                ? (v ? `<span class="pp-entry-ok"><i class="fas fa-check"></i> Sellado</span>`
+                     : `<button class="btn-sellar-pp" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)"><i class="fas fa-stamp"></i> Sellar</button>`)
+                : (v ? `<span class="pp-entry-ok"><i class="fas fa-check"></i> Visitado</span>` : '');
+            return `<div class="pp-entry" id="srow-${e.id}" style="animation-delay:${(idx % 2) * 80}ms">
+                <div class="pp-mini-stamp" data-flag="🏙️" data-name="${e.nombre}" data-color="${color}">${svg}</div>
+                <div class="pp-entry-body">
+                    <div class="pp-entry-name">${e.nombre}</div>
+                    <div class="pp-entry-sub">${e.equipo}</div>
                 </div>
-                <div style="display:flex;align-items:center;gap:6px">
-                    <div class="pbstamp ${v ? 'stamped' : ''}"><span class="pbstamp-lbl">${v ? 'SELL\nADO' : ''}</span></div>
-                    ${action}
-                </div>
+                ${action}
             </div>`;
         }
 
@@ -1395,11 +1429,12 @@ body {
                        <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:99px;transition:width .6s"></div>
                    </div>
                </div>`;
-        const leftRows  = left.map(buildRow).join('');
-        const rightRows = right.map(buildRow).join('');
+        const base = _futbolCurrentPage * perPage;
+        const leftRows  = left.map((e, i) => buildRow(e, base + i)).join('');
+        const rightRows = right.map((e, i) => buildRow(e, base + 2 + i)).join('');
         spread.innerHTML =
-            `<div class="pbook-page left"><div class="pbook-region-title">${pais.flag} ${pais.nombre}</div>${leagueHdr}${leftRows}</div>` +
-            `<div class="pbook-page right">${rightRows}</div>`;
+            `<div class="pp-page left"><div class="pp-pg-title">${pais.flag} ${pais.nombre}</div>${leagueHdr}${leftRows}</div>` +
+            `<div class="pp-page right"><div style="height:38px"></div>${rightRows}</div>`;
 
         const lbl = document.getElementById('futbolNavLbl');
         if (lbl) lbl.textContent = `${_futbolCurrentPage + 1} / ${totalPages}`;
@@ -1426,10 +1461,17 @@ body {
         _selladosSet.add(estadioId);
         const row = document.getElementById(`srow-${estadioId}`);
         if (row) {
-            const stamp = row.querySelector('.pbstamp');
-            if (stamp) { stamp.classList.add('stamped'); stamp.querySelector('.pbstamp-lbl').textContent = 'SELL\nADO'; }
-            const b = row.querySelector('.pbook-sel-btn');
-            if (b) b.outerHTML = `<span class="pbook-stamped-lbl"><i class="fas fa-check"></i>&nbsp;Sellado</span>`;
+            const sd = row.querySelector('.pp-mini-stamp');
+            if (sd) {
+                const fl  = sd.dataset.flag  || '🏙️';
+                const nm  = sd.dataset.name  || '';
+                const col = sd.dataset.color || '#1a6cff';
+                sd.innerHTML = makeStampSVG(fl, nm, col, true);
+                sd.classList.add('stamp-sealed-now');
+                setTimeout(() => sd.classList.remove('stamp-sealed-now'), 520);
+            }
+            const b = row.querySelector('.btn-sellar-pp');
+            if (b) b.outerHTML = `<span class="pp-entry-ok"><i class="fas fa-check"></i> Sellado</span>`;
         }
         updatePasaporteCounter();
     }
