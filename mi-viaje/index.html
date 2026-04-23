@@ -43,7 +43,7 @@
     --shadow: 0 2px 20px rgba(0,0,0,.35);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+html, body { height: 100%; width: 100%; overflow-x: hidden; }
 body {
     font-family: 'Inter', system-ui, sans-serif;
     background: var(--bg);
@@ -54,7 +54,7 @@ body {
 }
 
 /* ── APP LAYOUT ── */
-.app { display: flex; min-height: 100vh; }
+.app { display: flex; min-height: 100vh; width: 100%; }
 
 /* ── SIDEBAR ── */
 .sidebar {
@@ -110,7 +110,7 @@ body {
 .btn-promo:hover { opacity: .85; }
 
 /* ── MAIN WRAPPER ── */
-.main-wrap { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+.main-wrap { margin-left: var(--sidebar-w); width: calc(100% - var(--sidebar-w)); display: flex; flex-direction: column; min-height: 100vh; }
 
 /* ── TOP HEADER ── */
 .top-header {
@@ -124,6 +124,7 @@ body {
     position: sticky; top: 0; z-index: 50;
     transition: background .3s;
     flex-shrink: 0;
+    width: 100%;
 }
 .header-left h1 { font-size: 1.05rem; font-weight: 900; color: var(--text); display: flex; align-items: center; gap: 8px; }
 .header-left p  { font-size: .7rem; color: var(--text-muted); margin-top: 1px; }
@@ -147,7 +148,7 @@ body {
 .btn-admin.visible { display: inline-flex; align-items: center; gap: 5px; }
 
 /* ── PAGE CONTENT ── */
-.page-content { padding: 24px 28px; max-width: 1100px; width: 100%; }
+.page-content { padding: 24px 28px; width: 100%; }
 
 /* ── CHECK-IN BANNER ── */
 .checkin-banner {
@@ -303,6 +304,58 @@ body {
 .btn-sellar-modal:hover { opacity: .85; }
 .btn-sellar-modal:disabled { opacity: .5; cursor: not-allowed; }
 
+/* ── INLINE PASSPORT BOOK ── */
+.pbook { background:#f7f2e8; border-radius:10px; overflow:hidden; border:1px solid #ddd3b8; box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 3px 14px rgba(0,0,0,.1); }
+.pbook-spread { display:flex; min-height:228px; position:relative; }
+.pbook-spread.anim-fwd { animation:bookFwd .24s ease; }
+.pbook-spread.anim-bck { animation:bookBck .24s ease; }
+@keyframes bookFwd { from{opacity:0;transform:translateX(18px)} to{opacity:1;transform:none} }
+@keyframes bookBck { from{opacity:0;transform:translateX(-18px)} to{opacity:1;transform:none} }
+.pbook-page { flex:1; padding:13px 11px; position:relative; }
+.pbook-page.left { border-right:1px solid #e0d5be; box-shadow:2px 0 6px rgba(0,0,0,.04); }
+.pbook-region-title { font-size:.62rem; font-weight:800; color:#9a8665; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:9px; display:flex; align-items:center; gap:5px; }
+.pbook-row { display:flex; align-items:center; justify-content:space-between; padding:5px 4px; border-radius:7px; transition:.14s; gap:6px; }
+.pbook-row:hover { background:rgba(0,0,0,.04); }
+.pbook-row-left { display:flex; align-items:center; gap:8px; flex:1; min-width:0; }
+.pbstamp { width:32px; height:32px; flex-shrink:0; border-radius:50%; border:2px dashed #c8b99a; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:.3s; }
+.pbstamp-lbl { font-size:.38rem; font-weight:900; color:#c8b99a; letter-spacing:.4px; text-transform:uppercase; text-align:center; line-height:1.3; white-space:pre; }
+.pbstamp.stamped { border:2px solid #16a34a; background:rgba(22,163,74,.07); }
+.pbstamp.stamped .pbstamp-lbl { color:#16a34a; }
+.pbstamp.stamped { animation:stampPop .38s cubic-bezier(.175,.885,.32,1.275); }
+@keyframes stampPop { 0%{transform:scale(2.2) rotate(20deg);opacity:0} 60%{transform:scale(.9) rotate(-5deg);opacity:1} 100%{transform:scale(1) rotate(-8deg)} }
+.pbook-thumb { width:38px; height:30px; flex-shrink:0; border-radius:5px; background:#e5dcc8; display:flex; align-items:center; justify-content:center; font-size:.9rem; overflow:hidden; }
+.pbook-row-name { font-size:.78rem; font-weight:700; color:#3a3020; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.pbook-row-sub  { font-size:.61rem; color:#9a8665; margin-top:1px; }
+.pbook-stamped-lbl { font-size:.66rem; font-weight:800; color:#16a34a; display:flex; align-items:center; gap:3px; white-space:nowrap; flex-shrink:0; }
+.pbook-sel-btn { font-size:.65rem; font-weight:800; padding:4px 9px; background:var(--accent); color:#fff; border:none; border-radius:6px; cursor:pointer; white-space:nowrap; flex-shrink:0; transition:.18s; }
+.pbook-sel-btn:hover { opacity:.82; }
+.pbook-sel-btn:disabled { opacity:.45; cursor:not-allowed; }
+.pbook-nav { display:flex; align-items:center; justify-content:center; gap:10px; padding:9px; border-top:1px solid #e0d5be; background:#ede8d6; }
+.pbook-nav-btn { width:26px; height:26px; border-radius:50%; border:1.5px solid #c5b89a; background:transparent; cursor:pointer; font-size:.82rem; color:#8a7b60; display:flex; align-items:center; justify-content:center; transition:.18s; }
+.pbook-nav-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); }
+.pbook-nav-btn:disabled { opacity:.28; cursor:not-allowed; }
+.pbook-nav-lbl { font-size:.72rem; font-weight:700; color:#8a7b60; min-width:36px; text-align:center; }
+.pbook-tabs { display:flex; gap:2px; padding:8px 10px 0; background:#ede8d6; border-bottom:1px solid #e0d5be; overflow-x:auto; scrollbar-width:none; }
+.pbook-tabs::-webkit-scrollbar { display:none; }
+.pbook-tab-btn { padding:5px 10px; border-radius:7px 7px 0 0; font-size:.71rem; font-weight:700; color:#9a8665; background:transparent; border:1px solid transparent; border-bottom:none; cursor:pointer; white-space:nowrap; transition:.18s; }
+.pbook-tab-btn.active { background:#f7f2e8; color:var(--accent); border-color:#e0d5be; border-bottom-color:#f7f2e8; }
+.pbook-tab-btn:hover:not(.active) { color:#4a3a20; }
+[data-theme="dark"] .pbook { background:#1e2436; border-color:rgba(255,255,255,.1); box-shadow:0 3px 14px rgba(0,0,0,.3); }
+[data-theme="dark"] .pbook-page.left { border-right-color:rgba(255,255,255,.07); box-shadow:2px 0 6px rgba(0,0,0,.15); }
+[data-theme="dark"] .pbook-region-title { color:var(--text-muted); }
+[data-theme="dark"] .pbook-row:hover { background:rgba(255,255,255,.05); }
+[data-theme="dark"] .pbstamp { border-color:rgba(255,255,255,.18); }
+[data-theme="dark"] .pbstamp-lbl { color:rgba(255,255,255,.22); }
+[data-theme="dark"] .pbook-row-name { color:var(--text); }
+[data-theme="dark"] .pbook-row-sub { color:var(--text-muted); }
+[data-theme="dark"] .pbook-nav { background:var(--sidebar-bg); border-top-color:var(--border); }
+[data-theme="dark"] .pbook-nav-btn { border-color:var(--border); color:var(--text-muted); }
+[data-theme="dark"] .pbook-nav-lbl { color:var(--text-muted); }
+[data-theme="dark"] .pbook-tabs { background:var(--sidebar-bg); border-bottom-color:var(--border); }
+[data-theme="dark"] .pbook-tab-btn.active { background:var(--card-bg); color:var(--accent); border-color:var(--border); border-bottom-color:var(--card-bg); }
+[data-theme="dark"] .pbook-tab-btn { color:var(--text-muted); }
+[data-theme="dark"] .pbook-thumb { background:rgba(255,255,255,.08); }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 860px) {
     .cols-2 { grid-template-columns: 1fr; }
@@ -310,7 +363,7 @@ body {
 }
 @media (max-width: 700px) {
     .sidebar { display: none; }
-    .main-wrap { margin-left: 0; }
+    .main-wrap { margin-left: 0; width: 100%; }
     .page-content { padding: 14px; }
     .hero-dest { font-size: 1.45rem; }
     .hero-cta-btn { display: none; }
@@ -552,20 +605,22 @@ body {
                 <!-- ROW 2: PASAPORTES -->
                 <div class="cards-row cols-2">
 
-                    <!-- PASAPORTE DE VIAJE (historial como sellos) -->
+                    <!-- PASAPORTE DE VIAJE -->
                     <div class="card">
                         <div class="card-hdr">
                             <span class="card-title">
                                 <i class="fas fa-passport" style="color:#22c55e"></i>
                                 Pasaporte de Viaje
                             </span>
-                            <a href="#historialSection" class="card-link">
-                                Ver todos mis sellos <i class="fas fa-chevron-right"></i>
-                            </a>
+                            <a href="#" class="card-link" id="viajePassportCount">Ver mis sellos (0)</a>
                         </div>
-                        <div class="stamp-carousel" id="historialStamps">
-                            <div style="color:var(--text-muted);font-size:.82rem;padding:18px 0">
-                                Tus viajes completados aparecerán acá
+                        <p style="font-size:.71rem;color:var(--text-muted);margin:-10px 0 11px">Sellá los destinos que ya visitaste.</p>
+                        <div class="pbook" id="viajePassport">
+                            <div class="pbook-spread" id="viajeSpread"></div>
+                            <div class="pbook-nav">
+                                <button class="pbook-nav-btn" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
+                                <span class="pbook-nav-lbl" id="viajeNavLbl">1 / 3</span>
+                                <button class="pbook-nav-btn" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
                             </div>
                         </div>
                     </div>
@@ -577,13 +632,16 @@ body {
                                 <i class="fas fa-futbol" style="color:var(--accent)"></i>
                                 Pasaporte Futbolero
                             </span>
-                            <a href="#" class="card-link" onclick="openPassportModal(); return false">
-                                Ver todos mis estadios <i class="fas fa-chevron-right"></i>
-                            </a>
+                            <a href="#" class="card-link" id="futbolPassportCount">Ver mis sellos (0)</a>
                         </div>
-                        <div class="stamp-carousel" id="futbolStamps">
-                            <div style="color:var(--text-muted);font-size:.82rem;padding:18px 0">
-                                Cargando estadios...
+                        <p style="font-size:.71rem;color:var(--text-muted);margin:-10px 0 11px">Explorá estadios y sellá los que ya conociste.</p>
+                        <div class="pbook" id="futbolPassport">
+                            <div class="pbook-tabs" id="futbolTabs"></div>
+                            <div class="pbook-spread" id="futbolSpread"></div>
+                            <div class="pbook-nav">
+                                <button class="pbook-nav-btn" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
+                                <span class="pbook-nav-lbl" id="futbolNavLbl">1 / 1</span>
+                                <button class="pbook-nav-btn" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
                             </div>
                         </div>
                     </div>
@@ -767,39 +825,11 @@ body {
 
     /* ── HISTORIAL ── */
     async function loadHistorial() {
-        const list = document.getElementById('historialList');
-        if (!list) return;
         const { data } = await _db.from('viajes')
-            .select('destino,fecha_salida,fecha_regreso,pasajeros')
+            .select('destino,fecha_salida,fecha_regreso')
             .eq('activo', false)
             .order('fecha_salida', { ascending: false });
-        if (!data || data.length === 0) return;
-        renderHistorialStamps(data);
-    }
-
-    function renderHistorialStamps(viajes) {
-        const wrap = document.getElementById('historialStamps');
-        if (!wrap) return;
-        const colors = ['stamp-blue','stamp-red','stamp-green','stamp-purple','stamp-orange','stamp-teal'];
-        const stamps = viajes.map((v, i) => {
-            const sd  = new Date(v.fecha_salida);
-            const yr  = sd.getFullYear();
-            const flag = getFlag(v.destino);
-            return `<div class="stamp-item">
-                <div class="stamp-ring visited ${colors[i % colors.length]}">
-                    <span class="stamp-ring-icon">${flag}</span>
-                    <span class="stamp-ring-year">${yr}</span>
-                </div>
-                <div class="stamp-lbl-name">${v.destino}</div>
-                <div class="stamp-lbl-sub">${yr}</div>
-            </div>`;
-        });
-        stamps.push(`<div class="stamp-item">
-            <button class="stamp-see-all-btn" onclick="document.getElementById('historialSection').style.display='block'">
-                <i class="fas fa-plus"></i><span>Ver más</span>
-            </button>
-        </div>`);
-        wrap.innerHTML = stamps.join('');
+        initViajePassport(data || []);
     }
 
     /* ── LOYALTY ── */
@@ -919,10 +949,53 @@ body {
     };
 
     const PASSPORT_KEYS = Object.keys(PASAPORTE_DATA);
-    const STAMP_COLORS  = ['stamp-blue','stamp-red','stamp-green','stamp-purple','stamp-orange','stamp-teal'];
     let _selladosSet    = new Set();
     let _passportUserId = null;
-    let _pmodalTab      = 0;
+
+    /* ── VIAJE PASSPORT DATA ── */
+    const VIAJE_PAGES = [
+        {
+            left:  { title:'América del Sur', icon:'🌎', items:[
+                {id:'arg',nombre:'Argentina'},{id:'bra',nombre:'Brasil'},
+                {id:'chi',nombre:'Chile'},{id:'col',nombre:'Colombia'},
+                {id:'per',nombre:'Perú'},{id:'uru',nombre:'Uruguay'},
+            ]},
+            right: { title:'América del Norte', icon:'🌎', items:[
+                {id:'mex',nombre:'México'},{id:'usa',nombre:'Estados Unidos'},{id:'can',nombre:'Canadá'},
+            ]},
+        },
+        {
+            left:  { title:'Europa', icon:'🌍', items:[
+                {id:'esp',nombre:'España'},{id:'ita',nombre:'Italia'},
+                {id:'fra',nombre:'Francia'},{id:'ale',nombre:'Alemania'},
+                {id:'por',nombre:'Portugal'},
+            ]},
+            right: { title:'Europa (cont.)', icon:'🌍', items:[
+                {id:'ing',nombre:'Inglaterra'},{id:'gre',nombre:'Grecia'},
+                {id:'hol',nombre:'Holanda'},{id:'bel',nombre:'Bélgica'},
+            ]},
+        },
+        {
+            left:  { title:'Asia & Medio Oriente', icon:'🌏', items:[
+                {id:'jpn',nombre:'Japón'},{id:'tai',nombre:'Tailandia'},
+                {id:'tur',nombre:'Turquía'},{id:'dub',nombre:'Dubai'},
+            ]},
+            right: { title:'Oceanía & África', icon:'🌏', items:[
+                {id:'aus',nombre:'Australia'},{id:'egy',nombre:'Egipto'},
+                {id:'mar',nombre:'Marruecos'},{id:'nzl',nombre:'Nueva Zelanda'},
+            ]},
+        },
+    ];
+    let _viajeSelladosSet = new Set();
+    let _viajeCurrentPage = 0;
+    let _futbolCurrentTab = 0;
+    let _futbolCurrentPage = 0;
+
+    function matchesDestino(destino, pais) {
+        const n = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+        const d = n(destino), p = n(pais);
+        return d.includes(p) || p.includes(d);
+    }
 
     /* ── INIT PASSPORT ── */
     async function initPasaporte(userId) {
@@ -930,101 +1003,144 @@ body {
         const { data } = await _db.from('pasaporte_tribunero').select('estadio_id').eq('user_id', userId);
         if (data) data.forEach(r => _selladosSet.add(r.estadio_id));
         updatePasaporteCounter();
-        renderFutbolStamps();
+        initFutbolBook();
     }
 
-    /* ── RENDER FUTBOL STAMPS (inline carousel) ── */
-    function renderFutbolStamps() {
-        const wrap = document.getElementById('futbolStamps');
-        if (!wrap) return;
-        const visited = [];
-        const pending = [];
-        PASSPORT_KEYS.forEach((key, ki) => {
-            const pais = PASAPORTE_DATA[key];
-            const c = STAMP_COLORS[ki % STAMP_COLORS.length];
-            pais.estadios.forEach(e => {
-                const v = _selladosSet.has(e.id);
-                const html = `<div class="stamp-item" onclick="openPassportModal()">
-                    <div class="stamp-ring ${v ? 'visited' : 'pending'} ${c}">
-                        <span class="stamp-ring-icon">${pais.flag}</span>
-                        ${v ? `<span class="stamp-ring-year">${pais.nombre.substring(0, 3).toUpperCase()}</span>` : ''}
-                    </div>
-                    <div class="stamp-lbl-name">${e.nombre}</div>
-                    <div class="stamp-lbl-sub">${v ? pais.nombre : 'Próximamente'}</div>
-                </div>`;
-                v ? visited.push(html) : pending.push(html);
+    /* ── VIAJE PASSPORT ── */
+    function initViajePassport(historialData) {
+        _viajeSelladosSet = new Set();
+        (historialData || []).forEach(v => {
+            VIAJE_PAGES.forEach(pg => {
+                [pg.left, pg.right].forEach(side => {
+                    side.items.forEach(item => {
+                        if (matchesDestino(v.destino, item.nombre)) _viajeSelladosSet.add(item.id);
+                    });
+                });
             });
         });
-        const maxPending = Math.max(2, 5 - visited.length);
-        const shown = [...visited, ...pending.slice(0, maxPending)];
-        shown.push(`<div class="stamp-item">
-            <button class="stamp-see-all-btn" onclick="openPassportModal()">
-                <i class="fas fa-futbol"></i><span>Ver todos</span>
-            </button>
-        </div>`);
-        wrap.innerHTML = shown.join('');
+        const cnt = document.getElementById('viajePassportCount');
+        if (cnt) cnt.textContent = `Ver mis sellos (${_viajeSelladosSet.size})`;
+        _viajeCurrentPage = 0;
+        renderViajeSpread(false, 0);
     }
 
-    /* ── OPEN / CLOSE PASSPORT MODAL ── */
-    function openPassportModal() {
-        _pmodalTab = 0;
-        renderPassportModal();
-        document.getElementById('passportModalOverlay')?.classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-    function closePassportModal(e) {
-        if (e && e.target !== document.getElementById('passportModalOverlay')) return;
-        document.getElementById('passportModalOverlay')?.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-            document.getElementById('passportModalOverlay')?.classList.remove('open');
-            document.body.style.overflow = '';
+    function renderViajeSpread(animate, dir) {
+        const spread = document.getElementById('viajeSpread');
+        if (!spread) return;
+        const pg = VIAJE_PAGES[_viajeCurrentPage];
+
+        function buildSide(side, cls) {
+            const rows = side.items.map(item => {
+                const s = _viajeSelladosSet.has(item.id);
+                const fl = getFlag(item.nombre);
+                return `<div class="pbook-row">
+                    <div class="pbook-row-left">
+                        <div class="pbstamp ${s ? 'stamped' : ''}">
+                            <span class="pbstamp-lbl">${s ? 'SELL\nADO' : ''}</span>
+                        </div>
+                        <div class="pbook-row-name">${fl} ${item.nombre}</div>
+                    </div>
+                    ${s ? '<span class="pbook-stamped-lbl"><i class="fas fa-check"></i>&nbsp;Sellado</span>' : ''}
+                </div>`;
+            }).join('');
+            return `<div class="pbook-page ${cls}"><div class="pbook-region-title">${side.icon} ${side.title}</div>${rows}</div>`;
         }
-    });
 
-    /* ── RENDER PASSPORT MODAL ── */
-    function renderPassportModal() {
-        const tabs    = document.getElementById('pmodalTabs');
-        const content = document.getElementById('pmodalContent');
-        if (!tabs || !content) return;
+        if (animate) {
+            spread.classList.add(dir > 0 ? 'anim-fwd' : 'anim-bck');
+            setTimeout(() => spread.classList.remove('anim-fwd','anim-bck'), 280);
+        }
+        spread.innerHTML = buildSide(pg.left,'left') + buildSide(pg.right,'right');
+
+        const total = VIAJE_PAGES.length;
+        const lbl = document.getElementById('viajeNavLbl');
+        if (lbl) lbl.textContent = `${_viajeCurrentPage + 1} / ${total}`;
+        const prev = document.getElementById('viajeNavPrev');
+        const next = document.getElementById('viajeNavNext');
+        if (prev) prev.disabled = _viajeCurrentPage === 0;
+        if (next) next.disabled = _viajeCurrentPage >= total - 1;
+    }
+
+    function navViajePassport(dir) {
+        const total = VIAJE_PAGES.length;
+        _viajeCurrentPage = Math.max(0, Math.min(total - 1, _viajeCurrentPage + dir));
+        renderViajeSpread(true, dir);
+    }
+
+    /* ── FUTBOL BOOK ── */
+    function initFutbolBook() {
+        renderFutbolTabs();
+        _futbolCurrentPage = 0;
+        renderFutbolSpread(false, 0);
+    }
+
+    function renderFutbolTabs() {
+        const tabs = document.getElementById('futbolTabs');
+        if (!tabs) return;
         tabs.innerHTML = PASSPORT_KEYS.map((key, i) => {
             const p = PASAPORTE_DATA[key];
-            return `<button class="pmodal-tab ${i === _pmodalTab ? 'active' : ''}"
-                onclick="switchPmodalTab(${i})">${p.flag} ${p.nombre}</button>`;
+            return `<button class="pbook-tab-btn ${i === _futbolCurrentTab ? 'active' : ''}" onclick="selectFutbolTab(${i})">${p.flag} ${p.nombre}</button>`;
         }).join('');
-        renderPmodalCountry(_pmodalTab);
     }
-    function switchPmodalTab(idx) {
-        _pmodalTab = idx;
-        document.querySelectorAll('.pmodal-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
-        renderPmodalCountry(idx);
+
+    function selectFutbolTab(idx) {
+        _futbolCurrentTab = idx;
+        _futbolCurrentPage = 0;
+        document.querySelectorAll('#futbolTabs .pbook-tab-btn').forEach((t,i) => t.classList.toggle('active', i === idx));
+        renderFutbolSpread(false, 0);
     }
-    function renderPmodalCountry(idx) {
-        const content = document.getElementById('pmodalContent');
-        if (!content) return;
-        const pais = PASAPORTE_DATA[PASSPORT_KEYS[idx]];
-        const rows = pais.estadios.map(e => {
+
+    function renderFutbolSpread(animate, dir) {
+        const spread = document.getElementById('futbolSpread');
+        if (!spread) return;
+        const pais = PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
+        const perPage = 4;
+        const totalPages = Math.max(1, Math.ceil(pais.estadios.length / perPage));
+        const slice = pais.estadios.slice(_futbolCurrentPage * perPage, (_futbolCurrentPage + 1) * perPage);
+        const left  = slice.slice(0, 2);
+        const right = slice.slice(2, 4);
+
+        function buildRow(e) {
             const v = _selladosSet.has(e.id);
             const action = _isAdmin
-                ? (v ? `<span class="pmodal-visited-lbl"><i class="fas fa-check"></i> Sellado</span>`
-                     : `<button class="btn-sellar-modal" onclick="sellarEstadio('${e.id}',this)"><i class="fas fa-stamp"></i> Sellar</button>`)
-                : (v ? `<span class="pmodal-visited-lbl"><i class="fas fa-check"></i> Visitado</span>`
-                     : `<span class="pmodal-pending-lbl">Pendiente</span>`);
-            return `<div class="pmodal-st-row" id="sc-${e.id}">
-                <div>
-                    <div class="pmodal-st-name">${e.nombre}</div>
-                    <div class="pmodal-st-team">${e.equipo}</div>
+                ? (v ? `<span class="pbook-stamped-lbl"><i class="fas fa-check"></i>&nbsp;Sellado</span>`
+                     : `<button class="pbook-sel-btn" onclick="sellarEstadio('${e.id}',this)"><i class="fas fa-stamp"></i> Sellar</button>`)
+                : (v ? `<span class="pbook-stamped-lbl"><i class="fas fa-check"></i>&nbsp;Visitado</span>` : '');
+            return `<div class="pbook-row" id="srow-${e.id}">
+                <div class="pbook-row-left">
+                    <div class="pbook-thumb">🏟️</div>
+                    <div><div class="pbook-row-name">${e.nombre}</div><div class="pbook-row-sub">${e.equipo}</div></div>
                 </div>
-                ${action}
+                <div style="display:flex;align-items:center;gap:6px">
+                    <div class="pbstamp ${v ? 'stamped' : ''}"><span class="pbstamp-lbl">${v ? 'SELL\nADO' : ''}</span></div>
+                    ${action}
+                </div>
             </div>`;
-        }).join('');
-        content.innerHTML = `
-            <div class="pmodal-country-header">${pais.flag} ${pais.nombre}
-                <span style="font-size:.7rem;color:var(--text-muted);font-weight:500">${pais.liga}</span>
-            </div>
-            ${rows}`;
+        }
+
+        if (animate) {
+            spread.classList.add(dir > 0 ? 'anim-fwd' : 'anim-bck');
+            setTimeout(() => spread.classList.remove('anim-fwd','anim-bck'), 280);
+        }
+        const leftRows  = left.map(buildRow).join('');
+        const rightRows = right.map(buildRow).join('');
+        spread.innerHTML =
+            `<div class="pbook-page left"><div class="pbook-region-title">${pais.flag} ${pais.nombre} · ${pais.liga}</div>${leftRows}</div>` +
+            `<div class="pbook-page right">${rightRows}</div>`;
+
+        const lbl = document.getElementById('futbolNavLbl');
+        if (lbl) lbl.textContent = `${_futbolCurrentPage + 1} / ${totalPages}`;
+        const prev = document.getElementById('futbolNavPrev');
+        const next = document.getElementById('futbolNavNext');
+        if (prev) prev.disabled = _futbolCurrentPage === 0;
+        if (next) next.disabled = _futbolCurrentPage >= totalPages - 1;
+    }
+
+    function navFutbolPassport(dir) {
+        const pais = PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
+        const totalPages = Math.max(1, Math.ceil(pais.estadios.length / 4));
+        _futbolCurrentPage = Math.max(0, Math.min(totalPages - 1, _futbolCurrentPage + dir));
+        renderFutbolSpread(true, dir);
     }
 
     /* ── SELLAR ESTADIO ── */
@@ -1035,13 +1151,14 @@ body {
         const { error } = await _db.from('pasaporte_tribunero').insert({ user_id: _passportUserId, estadio_id: estadioId });
         if (error) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-stamp"></i> Sellar'; return; }
         _selladosSet.add(estadioId);
-        const row = document.getElementById(`sc-${estadioId}`);
+        const row = document.getElementById(`srow-${estadioId}`);
         if (row) {
-            const old = row.querySelector('button');
-            if (old) old.outerHTML = `<span class="pmodal-visited-lbl"><i class="fas fa-check"></i> Sellado</span>`;
+            const stamp = row.querySelector('.pbstamp');
+            if (stamp) { stamp.classList.add('stamped'); stamp.querySelector('.pbstamp-lbl').textContent = 'SELL\nADO'; }
+            const b = row.querySelector('.pbook-sel-btn');
+            if (b) b.outerHTML = `<span class="pbook-stamped-lbl"><i class="fas fa-check"></i>&nbsp;Sellado</span>`;
         }
         updatePasaporteCounter();
-        renderFutbolStamps();
     }
 
     /* ── COUNTER ── */
@@ -1049,6 +1166,8 @@ body {
         const total = Object.values(PASAPORTE_DATA).reduce((s, p) => s + p.estadios.length, 0);
         const el = document.getElementById('pasaporteCount');
         if (el) el.textContent = `${_selladosSet.size} de ${total} estadios`;
+        const fc = document.getElementById('futbolPassportCount');
+        if (fc) fc.textContent = `Ver mis sellos (${_selladosSet.size})`;
     }
 
     /* ── SERVICE WORKER ── */
