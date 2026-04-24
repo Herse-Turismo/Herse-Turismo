@@ -318,70 +318,96 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
 ::-webkit-scrollbar-track{background:transparent}
-/* ── PASSPORT COVERS + ANIMATIONS ── */
-@keyframes coverOpen{0%{transform:perspective(900px) rotateY(0) scale(1);opacity:1}50%{transform:perspective(900px) rotateY(-35deg) scale(.97);opacity:.8}100%{transform:perspective(900px) rotateY(-90deg) scale(.9);opacity:0}}
-@keyframes bookIn{0%{opacity:0;transform:translateY(20px) scale(.97)}100%{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes bookOut{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(16px) scale(.97)}}
-@keyframes flipFwd{0%{opacity:1;transform:translateX(0) rotateY(0)}40%{opacity:0;transform:translateX(-24px) rotateY(-8deg)}60%{opacity:0;transform:translateX(24px) rotateY(8deg)}100%{opacity:1;transform:translateX(0) rotateY(0)}}
-@keyframes flipBck{0%{opacity:1;transform:translateX(0) rotateY(0)}40%{opacity:0;transform:translateX(24px) rotateY(8deg)}60%{opacity:0;transform:translateX(-24px) rotateY(-8deg)}100%{opacity:1;transform:translateX(0) rotateY(0)}}
-@keyframes stampDrop{0%{transform:rotate(-12deg) translateY(-70px) scale(1.5);opacity:0}55%{transform:rotate(-12deg) translateY(5px) scale(.93);opacity:1}72%{transform:rotate(-12deg) translateY(-5px) scale(1.04)}84%{transform:rotate(-12deg) translateY(3px) scale(.97)}100%{transform:rotate(-12deg) translateY(0) scale(1);opacity:1}}
-@keyframes inkSpread{0%{box-shadow:0 0 0 0 rgba(34,168,85,.55)}100%{box-shadow:0 0 0 18px rgba(34,168,85,0)}}
-.pp-cover-wrap{display:flex;flex-direction:column;align-items:center;gap:18px}
-.pp-cover{
-  width:242px;height:340px;border-radius:9px 20px 20px 9px;
-  position:relative;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  padding:26px 22px 20px;
-  box-shadow:-10px 16px 44px rgba(0,0,0,.58),-5px 5px 0 rgba(0,0,0,.24),inset 2px 0 0 rgba(255,255,255,.09);
-  border-left:12px solid rgba(0,0,0,.38);
-  transition:transform .3s ease,box-shadow .3s ease;
-  transform-style:preserve-3d;
-  overflow:hidden;
-  user-select:none;
-}
-.pp-cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.022) 0,rgba(255,255,255,.022) 1px,transparent 1px,transparent 9px);pointer-events:none}
-.pp-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,.04) 28%,transparent 55%,rgba(0,0,0,.14) 100%);pointer-events:none}
-.pp-cover.navy{background:linear-gradient(160deg,#1e3258 0%,#0d1e3c 55%,#152040 100%)}
-.pp-cover.forest{background:linear-gradient(160deg,#1b3d28 0%,#0e2619 55%,#163022 100%)}
-.pp-cover:hover{transform:scale(1.03) rotate(-1.5deg) translateY(-5px);box-shadow:-14px 24px 54px rgba(0,0,0,.68),-6px 6px 0 rgba(0,0,0,.28),inset 2px 0 0 rgba(255,255,255,.14)}
-.pp-cover:active{transform:scale(.97) rotate(-2deg);transition-duration:.08s}
-.pp-cover.opening{animation:coverOpen .32s ease-in forwards;pointer-events:none}
-.pp-corner{position:absolute;width:22px;height:22px;border:2px solid #c9a227}
-.pp-corner.tl{top:11px;left:11px;border-right:none;border-bottom:none;border-radius:3px 0 0 0}
-.pp-corner.tr{top:11px;right:11px;border-left:none;border-bottom:none;border-radius:0 3px 0 0}
-.pp-corner.bl{bottom:11px;left:11px;border-right:none;border-top:none;border-radius:0 0 0 3px}
-.pp-corner.br{bottom:11px;right:11px;border-left:none;border-top:none;border-radius:0 0 3px 0}
-.pp-cover-emblem{font-size:2.8rem;filter:drop-shadow(0 3px 10px rgba(0,0,0,.45));position:relative;z-index:1}
-.pp-cov-mid{text-align:center;position:relative;z-index:1}
-.pp-cover-title{font-size:.92rem;font-weight:900;color:#c9a227;text-transform:uppercase;letter-spacing:4.5px;margin-bottom:3px}
-.pp-cover-subtitle{font-size:.62rem;font-weight:700;color:#c9a227;letter-spacing:3.5px;margin-bottom:5px}
-.pp-cover-tagline{font-size:.44rem;font-weight:600;color:rgba(201,162,39,.6);letter-spacing:2.5px;text-transform:uppercase}
-.pp-cover-icon{font-size:1.75rem;filter:drop-shadow(0 2px 10px rgba(201,162,39,.4));position:relative;z-index:1}
-.pp-cov-bot{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;z-index:1}
-.pp-cov-brand{display:flex;align-items:center;gap:7px}
-.pp-cov-brand img{width:20px;height:20px;object-fit:contain;filter:sepia(1) saturate(.4) brightness(1.2);opacity:.75}
-.pp-cov-brand-txt strong{display:block;font-size:.58rem;font-weight:900;color:#c9a227;letter-spacing:2.5px}
-.pp-cov-brand-txt small{font-size:.42rem;color:rgba(201,162,39,.55);letter-spacing:1.5px;text-transform:uppercase}
-.pp-cov-chip{width:26px;height:18px;border-radius:3px;border:1.5px solid rgba(201,162,39,.45)}
-.pp-progress-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:11px;width:242px;box-shadow:var(--sh)}
-.pp-prog-ico{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0}
-.pp-prog-ico.blue{background:#ebf1ff} .pp-prog-ico.green{background:#dcfce7}
-.pp-prog-body{flex:1;min-width:0}
-.pp-prog-body strong{font-size:.76rem;font-weight:800;color:var(--tx);display:block}
-.pp-prog-body p{font-size:.6rem;color:var(--tx2);margin-top:2px;line-height:1.3}
-.pp-prog-badge{background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:5px 9px;text-align:center;flex-shrink:0}
-.pp-prog-num{font-size:.8rem;font-weight:900;color:var(--ac)}
-.pp-prog-lbl{font-size:.54rem;color:var(--tx2);margin-top:1px;white-space:nowrap}
-.btn-open-passport{display:flex;align-items:center;gap:8px;padding:9px 20px;background:var(--ac);border:none;border-radius:10px;color:#fff;font-size:.76rem;font-weight:800;cursor:pointer;transition:.15s}
-.btn-open-passport:hover{opacity:.88;transform:translateY(-1px)}
-.btn-close-passport{display:flex;align-items:center;gap:6px;padding:6px 13px;background:var(--bg);border:1.5px solid var(--bd);border-radius:8px;color:var(--tx2);font-size:.72rem;font-weight:700;cursor:pointer;transition:.15s}
-.btn-close-passport:hover{border-color:var(--ac);color:var(--ac)}
-.pp-book-wrap{animation:bookIn .35s ease forwards}
-.pp-book-wrap.out{animation:bookOut .25s ease forwards}
-.book-pages.flip-fwd{animation:flipFwd .38s ease}
-.book-pages.flip-bck{animation:flipBck .38s ease}
-.vstamp.dropping{animation:stampDrop .52s cubic-bezier(.2,.8,.3,1.3) forwards}
-.just-stamped .cc-flag,.just-stamped .tc-badge{animation:inkSpread .55s ease forwards}
+/* ── PREMIUM PASSPORT BOOK SYSTEM ── */
+@keyframes stampIn{0%{opacity:0;transform:rotate(-20deg) scale(1.6)}55%{transform:rotate(-10deg) scale(.9)}78%{transform:rotate(-13deg) scale(1.05)}100%{opacity:1;transform:rotate(-12deg) scale(1)}}
+@keyframes pbookPulse{0%,100%{opacity:.35}50%{opacity:.75}}
+/* Scene wrapper */
+.pp-scene{display:flex;flex-direction:column;align-items:center;padding:24px 28px;gap:14px}
+/* Book container — fixed 900x500 */
+.pbook-wrap{width:900px;height:500px;position:relative;perspective:2000px;flex-shrink:0}
+/* Pages always behind cover */
+.pbook-pages{position:absolute;inset:0;display:flex;border-radius:4px 16px 16px 4px;box-shadow:0 24px 64px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.12);overflow:hidden}
+.pbook-page{flex:1;padding:0;overflow-y:auto;background:repeating-linear-gradient(to bottom,#f5ebdd 0px,#f5ebdd 31px,#e5d5b5 32px)}
+.pbook-page::-webkit-scrollbar{width:4px}
+.pbook-page::-webkit-scrollbar-thumb{background:rgba(120,90,40,.25);border-radius:99px}
+.pbook-page-l{border-right:3px solid rgba(110,85,40,.13)}
+.pbook-page-inner{padding:18px 20px;height:100%;display:flex;flex-direction:column}
+.pbook-pg-ttl{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:2.5px;color:rgba(90,65,25,.6);padding-bottom:9px;margin-bottom:10px;border-bottom:1px solid rgba(110,85,40,.18);display:flex;align-items:center;gap:7px}
+.pbook-pg-tabs{display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap}
+.pbook-pg-tab{padding:4px 10px;border-radius:5px;font-size:.58rem;font-weight:700;border:1px solid rgba(110,85,40,.25);background:rgba(255,255,255,.4);color:#5a4020;cursor:pointer;transition:.12s}
+.pbook-pg-tab.active{background:rgba(201,162,39,.25);border-color:#c9a227;color:#7a4e10}
+/* Entry rows */
+.pbook-entry{display:flex;align-items:center;gap:11px;padding:6px 0;border-bottom:1px solid rgba(110,85,40,.1);position:relative;min-height:40px}
+.pbook-entry:last-child{border-bottom:none}
+.pbook-entry-flag{width:36px;height:24px;border-radius:3px;overflow:hidden;flex-shrink:0;border:1px solid rgba(0,0,0,.1);background:#ddd}
+.pbook-entry-flag img{width:100%;height:100%;object-fit:cover}
+.pbook-entry-ico{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.6);border:1px solid rgba(110,85,40,.15);display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.pbook-entry-info{flex:1;min-width:0}
+.pbook-entry-code{font-size:.62rem;font-weight:900;color:rgba(60,40,10,.55);letter-spacing:1px;font-family:monospace}
+.pbook-entry-name{font-size:.8rem;font-weight:700;color:#2a1e0a;display:block;line-height:1.2}
+.pbook-entry-sub{font-size:.58rem;color:#7a6540;margin-top:1px}
+.pbook-entry-stamp{position:absolute;right:52px;pointer-events:none}
+.pbook-stamp-v{display:inline-block;border:2.5px solid #b91c1c;color:#b91c1c;border-radius:3px;padding:1px 6px;font-size:.52rem;font-weight:900;letter-spacing:2px;transform:rotate(-12deg);background:rgba(255,255,255,.55);text-transform:uppercase;animation:stampIn .44s cubic-bezier(.2,.8,.3,1.2) forwards}
+.pbook-stamp-f{display:inline-block;border:2.5px solid #15803d;color:#15803d;border-radius:3px;padding:1px 6px;font-size:.52rem;font-weight:900;letter-spacing:2px;transform:rotate(-12deg);background:rgba(255,255,255,.55);text-transform:uppercase;animation:stampIn .44s cubic-bezier(.2,.8,.3,1.2) forwards}
+.pbook-seal{padding:4px 10px;border-radius:5px;font-size:.6rem;font-weight:700;border:1.5px solid rgba(110,85,40,.3);background:rgba(255,255,255,.55);color:#5a4020;cursor:pointer;flex-shrink:0;white-space:nowrap;transition:.12s}
+.pbook-seal:hover:not(:disabled){border-color:#5a4020;background:rgba(255,255,255,.88)}
+.pbook-seal:disabled{opacity:.5;cursor:default}
+/* Right page */
+.pbook-r-block{background:rgba(255,255,255,.5);border-radius:9px;padding:11px 13px;margin-bottom:9px}
+.pbook-r-ttl{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:rgba(90,65,25,.6);margin-bottom:9px}
+.pbook-r-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(110,85,40,.1);font-size:.72rem}
+.pbook-r-row:last-child{border-bottom:none}
+.pbook-r-lbl{color:#5a4020}.pbook-r-val{font-weight:800;color:#2a1e0a}
+.pbook-donut{display:flex;flex-direction:column;align-items:center;margin-bottom:3px}
+.pbook-donut-svg{transform:rotate(-90deg)}
+.pbook-d-bg{fill:none;stroke:rgba(110,85,40,.15);stroke-width:9}
+.pbook-d-fill{fill:none;stroke:#22c55e;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .9s ease}
+.pbook-d-lbl{font-size:1.15rem;font-weight:900;color:#2a1e0a;margin-top:-3px}
+.pbook-d-sub{font-size:.6rem;color:#7a6540}
+.pbook-d-pct{font-size:.62rem;color:#16a34a;font-weight:700}
+.pbook-logro{background:rgba(220,252,231,.75);border:1px solid rgba(187,247,208,.8);border-radius:8px;padding:9px 11px;display:flex;gap:8px;align-items:center;margin-top:auto}
+.pbook-logro-ico{width:28px;height:28px;border-radius:7px;background:#22c55e;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#fff;flex-shrink:0}
+.pbook-logro-name{font-size:.7rem;font-weight:700;color:#15803d}
+.pbook-logro-desc{font-size:.57rem;color:#4ade80;margin-top:1px}
+/* THE COVER */
+.pbook-cover{position:absolute;inset:0;transform-origin:left center;transform:rotateY(0deg);transition:transform .8s cubic-bezier(.645,.045,.355,1);transform-style:preserve-3d;cursor:pointer;border-radius:4px 16px 16px 4px;z-index:10;overflow:hidden;user-select:none;box-shadow:-10px 0 28px rgba(0,0,0,.42),10px 0 28px rgba(0,0,0,.28),0 24px 64px rgba(0,0,0,.38)}
+.pbook-cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.024) 0,rgba(255,255,255,.024) 1px,transparent 1px,transparent 9px);pointer-events:none;z-index:1}
+.pbook-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.15) 0%,rgba(255,255,255,.04) 25%,transparent 55%,rgba(0,0,0,.16) 100%);pointer-events:none;z-index:1}
+.pbook-cover.navy{background:linear-gradient(160deg,#1e3258 0%,#0d1e3c 55%,#152040 100%)}
+.pbook-cover.forest{background:linear-gradient(160deg,#1b3d28 0%,#0e2619 55%,#163022 100%)}
+.pbook-cover:hover{filter:brightness(1.07)}
+.pbook-wrap.open .pbook-cover{transform:rotateY(-160deg);box-shadow:inset -6px 0 20px rgba(0,0,0,.25)}
+.pbook-cover-body{position:relative;z-index:2;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:36px 50px 28px}
+.pbc-corner{position:absolute;width:28px;height:28px;border:2.5px solid #c9a227}
+.pbc-corner.tl{top:16px;left:16px;border-right:none;border-bottom:none}
+.pbc-corner.tr{top:16px;right:16px;border-left:none;border-bottom:none}
+.pbc-corner.bl{bottom:16px;left:16px;border-right:none;border-top:none}
+.pbc-corner.br{bottom:16px;right:16px;border-left:none;border-top:none}
+.pbc-emblem{font-size:4rem;filter:drop-shadow(0 4px 14px rgba(0,0,0,.45))}
+.pbc-mid{text-align:center}
+.pbc-title{font-size:1.15rem;font-weight:900;color:#c9a227;letter-spacing:5px;margin-bottom:5px}
+.pbc-sub{font-size:.72rem;font-weight:700;color:#c9a227;letter-spacing:4px;margin-bottom:9px}
+.pbc-tag{font-size:.5rem;color:rgba(201,162,39,.58);letter-spacing:3px;text-transform:uppercase}
+.pbc-icon{font-size:2.4rem;filter:drop-shadow(0 3px 14px rgba(201,162,39,.4));margin:8px 0}
+.pbc-bot{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pbc-brand{display:flex;align-items:center;gap:9px}
+.pbc-brand img{width:22px;height:22px;object-fit:contain;filter:sepia(1) saturate(.4) brightness(1.3);opacity:.8}
+.pbc-brand-txt strong{display:block;font-size:.64rem;font-weight:900;color:#c9a227;letter-spacing:3px}
+.pbc-brand-txt small{font-size:.44rem;color:rgba(201,162,39,.5);letter-spacing:2px;text-transform:uppercase}
+.pbc-chip{width:30px;height:20px;border-radius:4px;border:2px solid rgba(201,162,39,.4)}
+.pbc-hint{font-size:.5rem;color:rgba(201,162,39,.45);letter-spacing:2px;text-transform:uppercase;animation:pbookPulse 2.5s ease infinite}
+/* Under-book bar */
+.pbook-bar{width:900px;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh)}
+.pbook-bar-ico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.pbook-bar-ico.blue{background:#ebf1ff}.pbook-bar-ico.green{background:#dcfce7}
+.pbook-bar-body{flex:1}
+.pbook-bar-body strong{font-size:.76rem;font-weight:800;color:var(--tx);display:block}
+.pbook-bar-body p{font-size:.6rem;color:var(--tx2);margin-top:1px}
+.pbook-bar-badge{background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:5px 10px;text-align:center;flex-shrink:0}
+.pbook-bar-num{font-size:.8rem;font-weight:900;color:var(--ac)}
+.pbook-bar-lbl{font-size:.53rem;color:var(--tx2);margin-top:1px;white-space:nowrap}
+.pbook-close{margin-left:auto;display:flex;align-items:center;gap:5px;padding:6px 12px;background:var(--bg);border:1.5px solid var(--bd);border-radius:8px;color:var(--tx2);font-size:.7rem;font-weight:700;cursor:pointer;transition:.12s;flex-shrink:0}
+.pbook-close:hover{border-color:var(--ac);color:var(--ac)}
 </style>
 </head>
 <body>
@@ -568,123 +594,138 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE VIAJE -->
   <div class="view" id="view-pasaporte-viaje">
-   <div class="vcontent">
-    <!-- COVER STATE -->
-    <div id="viajeCoverState" style="display:flex;justify-content:center;padding:28px 0">
-     <div class="pp-cover-wrap">
-      <div class="pp-cover navy" id="viajeCover" onclick="openPassport('viaje')">
-       <div class="pp-corner tl"></div><div class="pp-corner tr"></div>
-       <div class="pp-corner bl"></div><div class="pp-corner br"></div>
-       <div class="pp-cover-emblem">🌍</div>
-       <div class="pp-cov-mid">
-        <div class="pp-cover-title">PASAPORTE</div>
-        <div class="pp-cover-subtitle">• DE VIAJE •</div>
-        <div class="pp-cover-tagline">TU MUNDO, TUS HISTORIAS</div>
+   <div class="vcontent pp-scene">
+    <div class="pbook-wrap" id="pbook-viaje">
+     <!-- Pages (beige paper, always behind) -->
+     <div class="pbook-pages">
+      <div class="pbook-page pbook-page-l" id="pviaje-left">
+       <div class="pbook-page-inner">
+        <div class="pbook-pg-ttl"><span>🗺️</span> DESTINOS</div>
+        <div class="pbook-pg-tabs" id="pviaje-tabs"></div>
+        <div id="pviaje-entries"></div>
        </div>
-       <div class="pp-cover-icon">🧭</div>
-       <div class="pp-cov-bot">
-        <div class="pp-cov-brand">
-         <img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'">
-         <div class="pp-cov-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div>
+      </div>
+      <div class="pbook-page" id="pviaje-right">
+       <div class="pbook-page-inner">
+        <div class="pbook-pg-ttl"><span>📊</span> TU PROGRESO</div>
+        <div class="pbook-donut">
+         <svg width="100" height="100" class="pbook-donut-svg"><circle class="pbook-d-bg" cx="50" cy="50" r="40"/><circle class="pbook-d-fill" id="pviajeDonut" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg>
+         <div class="pbook-d-lbl" id="pviajeDonutLbl">0/28</div>
+         <div class="pbook-d-sub">Países visitados</div>
+         <div class="pbook-d-pct" id="pviajeDonutPct">0% completado</div>
         </div>
-        <div class="pp-cov-chip"></div>
+        <div class="pbook-r-block">
+         <div class="pbook-r-ttl">Estadísticas</div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">🌍 Países disponibles</span><strong class="pbook-r-val">28</strong></div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">✅ Países visitados</span><strong class="pbook-r-val" id="pviajeStatV">0</strong></div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">🗺️ Continentes</span><strong class="pbook-r-val" id="pviajeStatC">0</strong></div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">📏 Km recorridos</span><strong class="pbook-r-val">—</strong></div>
+        </div>
+        <div class="pbook-logro">
+         <div class="pbook-logro-ico">✈️</div>
+         <div><div class="pbook-logro-name" id="pviajeLogroN">Explorador</div><div class="pbook-logro-desc" id="pviajeLogroD">Visitaste tu primer país</div></div>
+        </div>
        </div>
       </div>
-      <div class="pp-progress-card">
-       <div class="pp-prog-ico blue">🌍</div>
-       <div class="pp-prog-body"><strong>Pasaporte de Viaje</strong><p>Sellá cada destino y creá tu historia por el mundo.</p></div>
-       <div class="pp-prog-badge"><div class="pp-prog-num" id="viajeProgNum">0/28</div><div class="pp-prog-lbl">Países visitados</div></div>
+     </div>
+     <!-- Cover on top — same 900x500 -->
+     <div class="pbook-cover navy" id="pviaje-cover" onclick="openPbook('pbook-viaje')">
+      <div class="pbook-cover-body">
+       <div class="pbc-corner tl"></div><div class="pbc-corner tr"></div>
+       <div class="pbc-corner bl"></div><div class="pbc-corner br"></div>
+       <div class="pbc-emblem">🌍</div>
+       <div class="pbc-mid">
+        <div class="pbc-title">PASAPORTE</div>
+        <div class="pbc-sub">• DE VIAJE •</div>
+        <div class="pbc-tag">TU MUNDO — TUS HISTORIAS</div>
+       </div>
+       <div class="pbc-icon">🧭</div>
+       <div class="pbc-bot">
+        <div class="pbc-brand">
+         <img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'">
+         <div class="pbc-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div>
+        </div>
+        <div class="pbc-chip"></div>
+        <div class="pbc-hint">TOCA PARA ABRIR</div>
+       </div>
       </div>
-      <button class="btn-open-passport" onclick="openPassport('viaje')"><i class="fas fa-book-open"></i> Abrir Pasaporte</button>
      </div>
     </div>
-    <!-- BOOK STATE -->
-    <div id="viajeBookState" style="display:none">
-     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-      <div style="font-size:.8rem;font-weight:700;color:var(--tx2)"><i class="fas fa-passport" style="color:#22c55e"></i> Pasaporte de Viaje</div>
-      <button class="btn-close-passport" onclick="closePassport('viaje')"><i class="fas fa-times"></i> Cerrar</button>
-     </div>
-     <div class="pp-layout pp-book-wrap" id="viajeBookWrap">
-      <div>
-       <div class="pp-tabs" id="viajeRegionTabs"></div>
-       <div class="open-book"><div class="book-pages" id="viajeBookInner"></div></div>
-       <div class="book-nav-row">
-        <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip viajero</strong><br>¡Cada sello es un recuerdo que dura para siempre!</div></div>
-        <div class="book-nav-btns">
-         <button class="bnb" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
-         <span class="bnb-lbl" id="viajeNavLbl">1 / 3</span>
-         <button class="bnb" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
-        </div>
-       </div>
-      </div>
-      <div class="pp-sb">
-       <div class="sb-card"><div class="sb-card-ttl">Tu progreso</div><div class="donut-wrap"><svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="viajeDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg><div class="d-val" id="viajeDonutLbl">0/28</div><div class="d-sub">Países visitados</div><div class="d-pct" id="viajeDonutPct">0% completado</div></div></div>
-       <div class="sb-card"><div class="sb-card-ttl">Estadísticas</div><div class="sl-list"><div class="sl-i"><div class="sl-ico">🌍</div><span class="sl-lbl">Países disponibles</span><strong class="sl-v">28</strong></div><div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Países visitados</span><strong class="sl-v" id="viajeStatV">0</strong></div><div class="sl-i"><div class="sl-ico">🗺️</div><span class="sl-lbl">Continentes</span><strong class="sl-v" id="viajeStatC">0</strong></div><div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km recorridos</span><strong class="sl-v">—</strong></div></div></div>
-       <div class="sb-card"><div class="sb-card-ttl">Logro reciente</div><div class="logro-c"><div class="logro-ico">✈️</div><div><div class="logro-name" id="viajeLogroName">Explorador</div><div class="logro-desc" id="viajeLogroDesc">Visitaste tu primer país</div></div></div></div>
-      </div>
-     </div>
+    <!-- Under-book info bar -->
+    <div class="pbook-bar">
+     <div class="pbook-bar-ico blue">🌍</div>
+     <div class="pbook-bar-body"><strong>Pasaporte de Viaje</strong><p>Sellá cada destino y creá tu historia por el mundo.</p></div>
+     <div class="pbook-bar-badge"><div class="pbook-bar-num" id="pviajeBarNum">0/28</div><div class="pbook-bar-lbl">Países visitados</div></div>
+     <button class="pbook-close" onclick="closePbook('pbook-viaje')"><i class="fas fa-times"></i> Cerrar</button>
     </div>
    </div>
   </div>
 
   <!-- VIEW: PASAPORTE FUTBOL -->
   <div class="view" id="view-pasaporte-futbol">
-   <div class="vcontent">
-    <!-- COVER STATE -->
-    <div id="futbolCoverState" style="display:flex;justify-content:center;padding:28px 0">
-     <div class="pp-cover-wrap">
-      <div class="pp-cover forest" id="futbolCover" onclick="openPassport('futbol')">
-       <div class="pp-corner tl"></div><div class="pp-corner tr"></div>
-       <div class="pp-corner bl"></div><div class="pp-corner br"></div>
-       <div class="pp-cover-emblem">⚽</div>
-       <div class="pp-cov-mid">
-        <div class="pp-cover-title">PASAPORTE</div>
-        <div class="pp-cover-subtitle">• FUTBOLERO •</div>
-        <div class="pp-cover-tagline">CADA ESTADIO, UNA PASIÓN</div>
+   <div class="vcontent pp-scene">
+    <div class="pbook-wrap" id="pbook-futbol">
+     <!-- Pages -->
+     <div class="pbook-pages">
+      <div class="pbook-page pbook-page-l" id="pfutbol-left">
+       <div class="pbook-page-inner">
+        <div class="pbook-pg-ttl"><span>⚽</span> ESTADIOS</div>
+        <div class="pbook-pg-tabs" id="pfutbol-tabs"></div>
+        <div id="pfutbol-entries"></div>
        </div>
-       <div class="pp-cover-icon">🏟️</div>
-       <div class="pp-cov-bot">
-        <div class="pp-cov-brand">
-         <img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'">
-         <div class="pp-cov-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div>
+      </div>
+      <div class="pbook-page" id="pfutbol-right">
+       <div class="pbook-page-inner">
+        <div class="pbook-pg-ttl"><span>📊</span> TU PROGRESO</div>
+        <div class="pbook-donut">
+         <svg width="100" height="100" class="pbook-donut-svg"><circle class="pbook-d-bg" cx="50" cy="50" r="40"/><circle class="pbook-d-fill" id="pfutbolDonut" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg>
+         <div class="pbook-d-lbl" id="pfutbolDonutLbl">0/30</div>
+         <div class="pbook-d-sub">Estadios visitados</div>
+         <div class="pbook-d-pct" id="pfutbolDonutPct">0% completado</div>
         </div>
-        <div class="pp-cov-chip"></div>
+        <div class="pbook-r-block">
+         <div class="pbook-r-ttl">Estadísticas</div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">🏟️ Estadios disponibles</span><strong class="pbook-r-val" id="pfutbolStatT">—</strong></div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">✅ Estadios visitados</span><strong class="pbook-r-val" id="pfutbolStatV">0</strong></div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">🌐 Ligas exploradas</span><strong class="pbook-r-val" id="pfutbolStatL">0</strong></div>
+         <div class="pbook-r-row"><span class="pbook-r-lbl">📏 Km futboleros</span><strong class="pbook-r-val">—</strong></div>
+        </div>
+        <div class="pbook-logro">
+         <div class="pbook-logro-ico">⚽</div>
+         <div><div class="pbook-logro-name" id="pfutbolLogroN">Hincha Argento</div><div class="pbook-logro-desc" id="pfutbolLogroD">Visitaste estadios en Argentina</div></div>
+        </div>
        </div>
       </div>
-      <div class="pp-progress-card">
-       <div class="pp-prog-ico green">⚽</div>
-       <div class="pp-prog-body"><strong>Pasaporte Futbolero</strong><p>Viví el fútbol, coleccioná estadios y momentos únicos.</p></div>
-       <div class="pp-prog-badge" style="border-color:#22c55e"><div class="pp-prog-num" style="color:#22c55e" id="futbolProgNum">0/30</div><div class="pp-prog-lbl">Estadios visitados</div></div>
+     </div>
+     <!-- Cover on top — same 900x500 -->
+     <div class="pbook-cover forest" id="pfutbol-cover" onclick="openPbook('pbook-futbol')">
+      <div class="pbook-cover-body">
+       <div class="pbc-corner tl"></div><div class="pbc-corner tr"></div>
+       <div class="pbc-corner bl"></div><div class="pbc-corner br"></div>
+       <div class="pbc-emblem">⚽</div>
+       <div class="pbc-mid">
+        <div class="pbc-title">PASAPORTE</div>
+        <div class="pbc-sub">• FUTBOLERO •</div>
+        <div class="pbc-tag">CADA ESTADIO — UNA PASIÓN</div>
+       </div>
+       <div class="pbc-icon">🏟️</div>
+       <div class="pbc-bot">
+        <div class="pbc-brand">
+         <img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'">
+         <div class="pbc-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div>
+        </div>
+        <div class="pbc-chip"></div>
+        <div class="pbc-hint">TOCA PARA ABRIR</div>
+       </div>
       </div>
-      <button class="btn-open-passport" style="background:#22c55e" onclick="openPassport('futbol')"><i class="fas fa-book-open"></i> Abrir Pasaporte</button>
      </div>
     </div>
-    <!-- BOOK STATE -->
-    <div id="futbolBookState" style="display:none">
-     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-      <div style="font-size:.8rem;font-weight:700;color:var(--tx2)"><i class="fas fa-futbol" style="color:#22c55e"></i> Pasaporte Futbolero</div>
-      <button class="btn-close-passport" onclick="closePassport('futbol')"><i class="fas fa-times"></i> Cerrar</button>
-     </div>
-     <div class="pp-layout pp-book-wrap" id="futbolBookWrap">
-      <div>
-       <div class="ftabs" id="futbolTabs"></div>
-       <div class="open-book"><div class="book-pages" id="futbolBookInner"></div></div>
-       <div style="margin-top:14px"><div class="sec-ttl" style="margin-bottom:10px">Logros desbloqueables</div><div class="logros-grid"><div class="lg-c"><div class="lg-ico">🎫</div><div class="lg-name">Primer partido</div><div class="lg-desc">Asistí a tu primer partido</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">🏟️</div><div class="lg-name">5 estadios</div><div class="lg-desc">Visitaste 5 estadios</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">⚡</div><div class="lg-name">Clásico vivido</div><div class="lg-desc">Viviste un clásico</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">🌐</div><div class="lg-name">Internacional</div><div class="lg-desc">Fuera de tu país</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">🏆</div><div class="lg-name">Final asistida</div><div class="lg-desc">Viviste una final</div></div></div></div>
-       <div class="book-nav-row">
-        <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip futbolero</strong><br>¡Cada partido cuenta tu historia!</div></div>
-        <div class="book-nav-btns">
-         <button class="bnb" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
-         <span class="bnb-lbl" id="futbolNavLbl">1 / 1</span>
-         <button class="bnb" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
-        </div>
-       </div>
-      </div>
-      <div class="pp-sb">
-       <div class="sb-card"><div class="sb-card-ttl">Tu progreso</div><div class="donut-wrap"><svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="futbolDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg><div class="d-val" id="futbolDonutLbl">0/30</div><div class="d-sub">Estadios visitados</div><div class="d-pct" id="futbolDonutPct">0% completado</div></div></div>
-       <div class="sb-card"><div class="sb-card-ttl">Estadísticas</div><div class="sl-list"><div class="sl-i"><div class="sl-ico">🏟️</div><span class="sl-lbl">Estadios disponibles</span><strong class="sl-v" id="futbolStatT">—</strong></div><div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Estadios visitados</span><strong class="sl-v" id="futbolStatV">0</strong></div><div class="sl-i"><div class="sl-ico">⚽</div><span class="sl-lbl">Ligas exploradas</span><strong class="sl-v" id="futbolStatL">0</strong></div><div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km futboleros</span><strong class="sl-v">—</strong></div></div></div>
-       <div class="sb-card"><div class="sb-card-ttl">Logro reciente</div><div class="logro-c"><div class="logro-ico">⚽</div><div><div class="logro-name" id="futbolLogroN">Hincha Argento</div><div class="logro-desc" id="futbolLogroD">Visitaste estadios en Argentina</div></div></div></div>
-      </div>
-     </div>
+    <!-- Under-book info bar -->
+    <div class="pbook-bar">
+     <div class="pbook-bar-ico green">⚽</div>
+     <div class="pbook-bar-body"><strong>Pasaporte Futbolero</strong><p>Viví el fútbol, coleccioná estadios y momentos únicos.</p></div>
+     <div class="pbook-bar-badge" style="border-color:#22c55e"><div class="pbook-bar-num" style="color:#22c55e" id="pfutbolBarNum">0/30</div><div class="pbook-bar-lbl">Estadios visitados</div></div>
+     <button class="pbook-close" onclick="closePbook('pbook-futbol')"><i class="fas fa-times"></i> Cerrar</button>
     </div>
    </div>
   </div>
@@ -801,47 +842,21 @@ function showView(id){
   if(ico){ico.className='hdr-ico '+(m.cls||'blue');ico.innerHTML='<i class="'+m.ico+'"></i>';}
   if(ttl) ttl.textContent=m.title||'';
   if(sub) sub.textContent=m.sub||'';
-  /* reset passport views to cover state */
-  if(id==='pasaporte-viaje'){
-    const cs=document.getElementById('viajeCoverState'),bs=document.getElementById('viajeBookState');
-    if(cs)cs.style.display='flex';if(bs)bs.style.display='none';
-    const cov=document.getElementById('viajeCover');if(cov)cov.classList.remove('opening');
-  }
-  if(id==='pasaporte-futbol'){
-    const cs=document.getElementById('futbolCoverState'),bs=document.getElementById('futbolBookState');
-    if(cs)cs.style.display='flex';if(bs)bs.style.display='none';
-    const cov=document.getElementById('futbolCover');if(cov)cov.classList.remove('opening');
-  }
+  /* reset pbooks to closed state */
+  if(id==='pasaporte-viaje'){const w=document.getElementById('pbook-viaje');if(w)w.classList.remove('open');}
+  if(id==='pasaporte-futbol'){const w=document.getElementById('pbook-futbol');if(w)w.classList.remove('open');}
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
 }
-function openPassport(type){
-  const cs=document.getElementById(type+'CoverState');
-  const bs=document.getElementById(type+'BookState');
-  const cov=document.getElementById(type+'Cover');
-  if(!cs||!bs||!cov)return;
-  cov.classList.add('opening');
-  setTimeout(()=>{
-    cs.style.display='none';
-    cov.classList.remove('opening');
-    bs.style.display='block';
-    const wrap=document.getElementById(type+'BookWrap');
-    if(wrap){wrap.style.animation='none';void wrap.offsetWidth;wrap.style.animation='bookIn .36s ease forwards';}
-    if(type==='viaje') renderViajeBook();
-    else renderFutbolBook();
-  },290);
+function openPbook(bookId){
+  const wrap=document.getElementById(bookId);if(!wrap)return;
+  wrap.classList.add('open');
+  if(bookId==='pbook-viaje') renderPviajeEntries();
+  else if(bookId==='pbook-futbol') renderPfutbolEntries();
 }
-function closePassport(type){
-  const cs=document.getElementById(type+'CoverState');
-  const bs=document.getElementById(type+'BookState');
-  const wrap=document.getElementById(type+'BookWrap');
-  if(!wrap)return;
-  wrap.style.animation='bookOut .24s ease forwards';
-  setTimeout(()=>{
-    if(bs)bs.style.display='none';
-    if(cs)cs.style.display='flex';
-    wrap.style.animation='';
-  },220);
+function closePbook(bookId){
+  const wrap=document.getElementById(bookId);if(!wrap)return;
+  wrap.classList.remove('open');
 }
 /* THEME */
 (function(){
@@ -1110,135 +1125,101 @@ function updateViajeDonut(){
   const total=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
   const count=_viajeSelladosSet.size;
   const pct=total?Math.round((count/total)*100):0;
-  const circ=251;
-  const offset=circ-((pct/100)*circ);
-  const df=document.getElementById('viajeDonutFill');if(df)setTimeout(()=>{df.style.strokeDashoffset=offset;},400);
-  const dl=document.getElementById('viajeDonutLbl');if(dl)dl.textContent=count+'/'+total;
-  const dp=document.getElementById('viajeDonutPct');if(dp)dp.textContent=pct+'% completado';
-  const sv=document.getElementById('viajeStatV');if(sv)sv.textContent=count;
-  const sc=document.getElementById('viajeStatC');if(sc)sc.textContent=count>0?Math.min(Math.ceil(count/4),3):0;
-  const pn=document.getElementById('viajeProgNum');if(pn)pn.textContent=count+'/28';
+  const offset=251-((pct/100)*251);
+  const df=document.getElementById('pviajeDonut');if(df)setTimeout(()=>{df.style.strokeDashoffset=offset;},400);
+  const dl=document.getElementById('pviajeDonutLbl');if(dl)dl.textContent=count+'/'+total;
+  const dp=document.getElementById('pviajeDonutPct');if(dp)dp.textContent=pct+'% completado';
+  const sv=document.getElementById('pviajeStatV');if(sv)sv.textContent=count;
+  const sc=document.getElementById('pviajeStatC');if(sc)sc.textContent=count>0?Math.min(Math.ceil(count/4),3):0;
+  const bn=document.getElementById('pviajeBarNum');if(bn)bn.textContent=count+'/'+total;
 }
 function updateFutbolDonut(){
   const total=Object.values(PASAPORTE_DATA).reduce((s,p)=>s+p.estadios.length,0);
   const count=_selladosSet.size;
   const pct=total?Math.round((count/total)*100):0;
-  const circ=251;
-  const offset=circ-((pct/100)*circ);
-  const df=document.getElementById('futbolDonutFill');if(df)setTimeout(()=>{df.style.strokeDashoffset=offset;},400);
-  const dl=document.getElementById('futbolDonutLbl');if(dl)dl.textContent=count+'/'+total;
-  const dp=document.getElementById('futbolDonutPct');if(dp)dp.textContent=pct+'% completado';
-  const st=document.getElementById('futbolStatT');if(st)st.textContent=total;
-  const sv=document.getElementById('futbolStatV');if(sv)sv.textContent=count;
-  const sl=document.getElementById('futbolStatL');if(sl)sl.textContent=PASSPORT_KEYS.filter(k=>PASAPORTE_DATA[k].estadios.some(e=>_selladosSet.has(e.id))).length;
-  const fn=document.getElementById('futbolProgNum');if(fn)fn.textContent=count+'/'+total;
+  const offset=251-((pct/100)*251);
+  const df=document.getElementById('pfutbolDonut');if(df)setTimeout(()=>{df.style.strokeDashoffset=offset;},400);
+  const dl=document.getElementById('pfutbolDonutLbl');if(dl)dl.textContent=count+'/'+total;
+  const dp=document.getElementById('pfutbolDonutPct');if(dp)dp.textContent=pct+'% completado';
+  const st=document.getElementById('pfutbolStatT');if(st)st.textContent=total;
+  const sv=document.getElementById('pfutbolStatV');if(sv)sv.textContent=count;
+  const sl=document.getElementById('pfutbolStatL');if(sl)sl.textContent=PASSPORT_KEYS.filter(k=>PASAPORTE_DATA[k].estadios.some(e=>_selladosSet.has(e.id))).length;
+  const bn=document.getElementById('pfutbolBarNum');if(bn)bn.textContent=count+'/'+total;
 }
 /* VIAJE BOOK RENDER */
-function renderViajeBook(){
-  renderViajeRegionTabs();
-  renderViajeSpread();
-}
-function renderViajeRegionTabs(){
-  const wrap=document.getElementById('viajeRegionTabs');if(!wrap)return;
-  wrap.innerHTML=VIAJE_PAGES.map((pg,i)=>`<button class="pp-tab ${i===_viajeCurrentTab?'active':''}" onclick="selectViajeTab(${i})">${pg.tab}</button>`).join('');
-}
-function selectViajeTab(idx){
-  _viajeCurrentTab=idx;
-  document.querySelectorAll('#viajeRegionTabs .pp-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  renderViajeSpread();
-}
-function renderViajeSpread(){
-  const inner=document.getElementById('viajeBookInner');if(!inner)return;
+function renderPviajeEntries(){
+  const tabsWrap=document.getElementById('pviaje-tabs');
+  if(tabsWrap) tabsWrap.innerHTML=VIAJE_PAGES.map((pg,i)=>
+    `<button class="pbook-pg-tab ${i===_viajeCurrentTab?'active':''}" onclick="selectPviajeTab(${i})">${pg.tab}</button>`
+  ).join('');
+  const wrap=document.getElementById('pviaje-entries');if(!wrap)return;
   const pg=VIAJE_PAGES[_viajeCurrentTab];
-  function buildSide(side){
-    const items=side.items.map(item=>{
-      const s=_viajeSelladosSet.has(item.id);
-      const fl=getFlag(item.nombre);
-      const stamp=s?`<div class="visitado-ov"><span class="vstamp">VISITADO</span></div>`:'';
-      const btn=s?`<button class="cc-btn done" disabled>✓ Visitado</button>`:`<button class="cc-btn" disabled>Sellar</button>`;
-      const imgUrl=`https://flagcdn.com/w80/${item.code.toLowerCase()}.png`;
-      const flagEl=`<img src="${imgUrl}" alt="${item.nombre}" onerror="this.replaceWith(document.createTextNode('${fl}'))">` ;
-      return `<div class="cc ${s?'visited':''}">${ stamp}<div class="cc-flag">${flagEl}</div><div class="cc-code">${item.code}</div><div class="cc-name">${item.nombre}</div>${btn}</div>`;
-    }).join('');
-    return `<div class="bp"><div class="bp-ttl">${side.icon} ${side.title}</div><div class="country-grid">${items}</div></div>`;
-  }
-  inner.innerHTML=buildSide(pg.left)+buildSide(pg.right);
-  const lbl=document.getElementById('viajeNavLbl');if(lbl)lbl.textContent=(_viajeCurrentTab+1)+' / '+VIAJE_PAGES.length;
-  const prev=document.getElementById('viajeNavPrev');if(prev)prev.disabled=_viajeCurrentTab===0;
-  const next=document.getElementById('viajeNavNext');if(next)next.disabled=_viajeCurrentTab>=VIAJE_PAGES.length-1;
-}
-function navViajePassport(dir){
-  _viajeCurrentTab=Math.max(0,Math.min(VIAJE_PAGES.length-1,_viajeCurrentTab+dir));
-  const inner=document.getElementById('viajeBookInner');
-  if(inner){const cls=dir>0?'flip-fwd':'flip-bck';inner.classList.add(cls);setTimeout(()=>inner.classList.remove(cls),380);}
-  renderViajeRegionTabs();
-  renderViajeSpread();
-}
-/* FUTBOL BOOK RENDER */
-function renderFutbolBook(){
-  renderFutbolTabs();
-  _futbolCurrentPage=0;
-  renderFutbolSpread();
-}
-function renderFutbolTabs(){
-  const tabs=document.getElementById('futbolTabs');if(!tabs)return;
-  tabs.innerHTML=PASSPORT_KEYS.map((key,i)=>{
-    const p=PASAPORTE_DATA[key];
-    return `<button class="ftab ${i===_futbolCurrentTab?'active':''}" onclick="selectFutbolTab(${i})">${p.nombre}</button>`;
+  const items=[...pg.left.items,...pg.right.items];
+  wrap.innerHTML=items.map(item=>{
+    const s=_viajeSelladosSet.has(item.id);
+    const imgUrl=`https://flagcdn.com/w80/${item.code.toLowerCase()}.png`;
+    const stamp=s?`<div class="pbook-entry-stamp"><span class="pbook-stamp-v">VISADO</span></div>`:'';
+    const btn=s
+      ?`<button class="pbook-seal" disabled>✓ Visitado</button>`
+      :`<button class="pbook-seal" onclick="stampViaje(this,'${item.id}')">Sellar</button>`;
+    return `<div class="pbook-entry" id="pvrow-${item.id}"><div class="pbook-entry-flag"><img src="${imgUrl}" alt="${item.nombre}" onerror="this.style.opacity='.3'"></div><div class="pbook-entry-info"><span class="pbook-entry-code">${item.code}</span><span class="pbook-entry-name">${item.nombre}</span></div>${stamp}${btn}</div>`;
   }).join('');
 }
-function selectFutbolTab(idx){
+function selectPviajeTab(idx){
+  _viajeCurrentTab=idx;
+  renderPviajeEntries();
+}
+function stampViaje(btn,itemId){
+  if(_viajeSelladosSet.has(itemId))return;
+  _viajeSelladosSet.add(itemId);
+  const row=document.getElementById('pvrow-'+itemId);
+  if(row){
+    const sa=document.createElement('div');sa.className='pbook-entry-stamp';
+    sa.innerHTML='<span class="pbook-stamp-v">VISADO</span>';
+    const ex=row.querySelector('.pbook-entry-stamp');
+    if(ex)ex.replaceWith(sa);else row.insertBefore(sa,btn);
+    btn.textContent='✓ Visitado';btn.disabled=true;
+  }
+  updateViajeDonut();
+}
+/* FUTBOL BOOK RENDER */
+function renderPfutbolEntries(){
+  const tabsWrap=document.getElementById('pfutbol-tabs');
+  if(tabsWrap) tabsWrap.innerHTML=PASSPORT_KEYS.map((key,i)=>{
+    const p=PASAPORTE_DATA[key];
+    return `<button class="pbook-pg-tab ${i===_futbolCurrentTab?'active':''}" onclick="selectPfutbolTab(${i})">${p.flag||''} ${p.nombre}</button>`;
+  }).join('');
+  const wrap=document.getElementById('pfutbol-entries');if(!wrap)return;
+  const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
+  wrap.innerHTML=pais.estadios.map(e=>{
+    const v=_selladosSet.has(e.id);
+    const stamp=v?`<div class="pbook-entry-stamp"><span class="pbook-stamp-f">MATCH</span></div>`:'';
+    const btn=_isAdmin
+      ?(v?`<button class="pbook-seal" disabled>✓ Sellado</button>`:`<button class="pbook-seal" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)">Sellar</button>`)
+      :(v?`<button class="pbook-seal" disabled>✓ Visitado</button>`:`<button class="pbook-seal" disabled>Sellar</button>`);
+    return `<div class="pbook-entry" id="srow-${e.id}"><div class="pbook-entry-ico">${pais.flag||'🏠'}</div><div class="pbook-entry-info"><span class="pbook-entry-code">${e.code||e.equipo.substring(0,3).toUpperCase()}</span><span class="pbook-entry-name">${e.nombre}</span><span class="pbook-entry-sub">${e.equipo}</span></div>${stamp}${btn}</div>`;
+  }).join('');
+}
+function selectPfutbolTab(idx){
   _futbolCurrentTab=idx;
   _futbolCurrentPage=0;
-  document.querySelectorAll('#futbolTabs .ftab').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  renderFutbolSpread();
-}
-function renderFutbolSpread(){
-  const inner=document.getElementById('futbolBookInner');if(!inner)return;
-  const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
-  const perPage=6,totalPages=Math.max(1,Math.ceil(pais.estadios.length/perPage));
-  const slice=pais.estadios.slice(_futbolCurrentPage*perPage,(_futbolCurrentPage+1)*perPage);
-  const left=slice.slice(0,3),right=slice.slice(3,6);
-  function buildTeamSide(items,ttl){
-    const cards=items.map(e=>{
-      const v=_selladosSet.has(e.id);
-      const stamp=v?`<div class="visitado-ov"><span class="vstamp">VISITADO</span></div>`:'';
-      const btn=_isAdmin?(v?`<button class="tc-btn done" disabled>✓ Sellado</button>`:`<button class="tc-btn" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)">SELLAR</button>`):(v?`<button class="tc-btn done" disabled>✓ Visitado</button>`:`<button class="tc-btn" disabled>SELLAR</button>`);
-      const bdg=`<div class="tc-badge" style="background:${e.bg||'#1a6cff'};color:${e.col||'#fff'};border-color:${e.bg||'#1a6cff'}">${e.code||e.equipo.substring(0,3).toUpperCase()}</div>`;
-      return `<div class="tc ${v?'visited':''}" id="srow-${e.id}">${stamp}${bdg}<div class="tc-code">${e.code||''}</div><div class="tc-club">${e.equipo}</div><div class="tc-stad">${e.nombre}</div>${btn}</div>`;
-    }).join('');
-    return `<div class="bp"><div class="bp-ttl">${pais.flag} ${ttl||pais.nombre}</div><div class="country-grid">${cards}</div></div>`;
-  }
-  inner.innerHTML=buildTeamSide(left,pais.nombre)+buildTeamSide(right,'');
-  const lbl=document.getElementById('futbolNavLbl');if(lbl)lbl.textContent=(_futbolCurrentPage+1)+' / '+totalPages;
-  const prev=document.getElementById('futbolNavPrev');if(prev)prev.disabled=_futbolCurrentPage===0;
-  const next=document.getElementById('futbolNavNext');if(next)next.disabled=_futbolCurrentPage>=totalPages-1;
-}
-function navFutbolPassport(dir){
-  const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
-  const total=Math.max(1,Math.ceil(pais.estadios.length/6));
-  _futbolCurrentPage=Math.max(0,Math.min(total-1,_futbolCurrentPage+dir));
-  const inner=document.getElementById('futbolBookInner');
-  if(inner){const cls=dir>0?'flip-fwd':'flip-bck';inner.classList.add(cls);setTimeout(()=>inner.classList.remove(cls),380);}
-  renderFutbolSpread();
+  renderPfutbolEntries();
 }
 /* SELLAR ESTADIO */
 async function sellarEstadio(estadioId,btn){
   if(_selladosSet.has(estadioId)||!_passportUserId)return;
   btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
-  const {error}=await _db.from('pasaporte_tribunero').insert({user_id:_passportUserId,estadio_id:estadioId});
-  if(error){btn.disabled=false;btn.textContent='SELLAR';return;}
+  const{error}=await _db.from('pasaporte_tribunero').insert({user_id:_passportUserId,estadio_id:estadioId});
+  if(error){btn.disabled=false;btn.textContent='Sellar';return;}
   _selladosSet.add(estadioId);
   const row=document.getElementById(`srow-${estadioId}`);
   if(row){
-    row.classList.add('visited','just-stamped');
-    setTimeout(()=>row.classList.remove('just-stamped'),700);
-    if(!row.querySelector('.visitado-ov')){
-      const ov=document.createElement('div');ov.className='visitado-ov';
-      const st=document.createElement('span');st.className='vstamp dropping';st.textContent='VISITADO';
-      ov.appendChild(st);row.insertBefore(ov,row.firstChild);
+    if(!row.querySelector('.pbook-entry-stamp')){
+      const sa=document.createElement('div');sa.className='pbook-entry-stamp';
+      sa.innerHTML='<span class="pbook-stamp-f">MATCH</span>';
+      row.insertBefore(sa,btn);
     }
-    const b=row.querySelector('.tc-btn');if(b){b.textContent='✓ Sellado';b.disabled=true;b.classList.add('done');}
+    btn.textContent='✓ Sellado';btn.disabled=true;
   }
   updateFutbolDonut();
 }
