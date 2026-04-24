@@ -323,15 +323,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 @keyframes pulseHint{0%,100%{opacity:.35}50%{opacity:.85}}
 .passport-scene{display:flex;flex-direction:column;align-items:center;padding:24px 28px;gap:16px}
 .passport-wrapper{display:flex;justify-content:center}
-.passport{width:800px;height:480px;perspective:2000px;position:relative;flex-shrink:0}
+.passport{width:760px;height:480px;perspective:1800px;position:relative;flex-shrink:0}
 /* COVER */
-.passport-cover{position:absolute;width:100%;height:100%;border-radius:16px;transform-origin:left;transition:transform .8s ease;z-index:2;box-shadow:0 20px 60px rgba(0,0,0,.4);cursor:pointer;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
+/* portrait cover centered in 760px stage */
+.passport-cover{position:absolute;width:360px;height:480px;left:200px;top:0;border-radius:5px 18px 18px 5px;border-left:12px solid rgba(0,0,0,.36);transform-origin:left center;transform:rotateY(0deg);transition:transform .8s cubic-bezier(.645,.045,.355,1);z-index:10;cursor:pointer;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;box-shadow:-4px 0 16px rgba(0,0,0,.35),10px 10px 44px rgba(0,0,0,.52),0 30px 72px rgba(0,0,0,.42)}
 .passport-cover.navy{background:linear-gradient(135deg,#1e3258,#0d1e3c)}
 .passport-cover.forest{background:linear-gradient(135deg,#1b3d28,#0e2619)}
 .passport-cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 9px);pointer-events:none}
 .passport-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.14) 0%,transparent 50%,rgba(0,0,0,.15) 100%);pointer-events:none}
 .passport-cover:hover{filter:brightness(1.08)}
-.passport.open .passport-cover{transform:rotateY(-160deg);pointer-events:none;visibility:hidden}
+.passport.open .passport-cover{transform:rotateY(-160deg);pointer-events:none}
 /* COVER INNER */
 .cover-inner{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:40px;color:#ffd700;position:relative;z-index:2}
 .ci-corners{position:absolute;inset:18px;pointer-events:none}
@@ -349,8 +350,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .ci-brand-txt strong{font-size:.58rem;font-weight:900;color:#c9a227;letter-spacing:2.5px;display:block}
 .ci-brand-txt small{font-size:.4rem;color:rgba(201,162,39,.55);letter-spacing:2px;text-transform:uppercase}
 .ci-hint{font-size:.46rem;letter-spacing:2px;text-transform:uppercase;color:rgba(201,162,39,.45);animation:pulseHint 2.5s ease infinite}
-/* BOOK */
-.passport-book{display:flex;width:100%;height:100%;background:#f5ebdd;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+/* BOOK — always behind cover, fades in on open */
+.passport-book{position:absolute;inset:0;display:flex;border-radius:14px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .35s 0s}
+.passport.open .passport-book{opacity:1;pointer-events:auto;transition:opacity .45s .35s}
 /* PAGE */
 .pp{width:50%;padding:24px;overflow-y:auto;background:repeating-linear-gradient(to bottom,#f5ebdd,#f5ebdd 28px,#e7dcc7 29px);display:flex;flex-direction:column}
 .pp:first-child{border-right:2px solid rgba(110,85,40,.14)}
@@ -380,18 +382,11 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* STAMP */
 .pp-stamp{position:absolute;top:6px;right:42px;border:2px solid #c0392b;color:#c0392b;padding:3px 7px;font-size:.52rem;font-weight:900;letter-spacing:2px;transform:rotate(-10deg);background:rgba(255,255,255,.65);animation:stampIn .3s ease;pointer-events:none;line-height:1}
 .pp-stamp.futbol{border-color:#15803d;color:#15803d}
-/* RIGHT DECO PAGE */
-.pp-deco{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
-.pp-deco-title{font-size:.5rem;font-weight:800;letter-spacing:4px;text-transform:uppercase;color:rgba(90,65,25,.5)}
-.pp-deco-emblem{font-size:4rem;opacity:.18;line-height:1}
-.pp-deco-count{background:rgba(255,255,255,.6);border:1px solid rgba(110,85,40,.2);border-radius:10px;padding:12px 28px;text-align:center}
-.pp-deco-n{font-size:2rem;font-weight:900;color:#2a1e0a;line-height:1}
-.pp-deco-l{font-size:.54rem;text-transform:uppercase;letter-spacing:2px;color:rgba(90,65,25,.55);margin-top:4px}
-.pp-deco-brand{opacity:.28;text-align:center}
-.pp-deco-brand strong{display:block;font-size:.58rem;font-weight:900;letter-spacing:3px;color:#5a4020}
-.pp-deco-brand small{font-size:.42rem;letter-spacing:2px;color:#7a6540}
+/* CLOSE BUTTON (inside book top-right) */
+.pp-close-btn{position:absolute;top:10px;right:12px;z-index:5;background:rgba(255,255,255,.65);border:1px solid rgba(110,85,40,.25);border-radius:6px;color:#5a4020;font-size:.65rem;font-weight:700;padding:4px 9px;cursor:pointer;transition:.12s;backdrop-filter:blur(4px)}
+.pp-close-btn:hover{background:rgba(255,255,255,.9);border-color:#5a4020}
 /* PROGRESS BAR */
-.passport-bar{width:800px;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px 18px;display:flex;align-items:center;gap:16px;box-shadow:var(--sh)}
+.passport-bar{width:760px;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px 18px;display:flex;align-items:center;gap:16px;box-shadow:var(--sh)}
 .pb-ico{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .pb-ico.blue{background:#ebf1ff}.pb-ico.green{background:#dcfce7}
 .pb-body{flex:1}
@@ -608,19 +603,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="ci-hint">TOCA PARA ABRIR</div>
        </div>
       </div>
-      <div class="passport-book">
+      <div class="passport-book" style="position:relative">
+       <button class="pp-close-btn" onclick="closePassport('viaje')">&#10005; Cerrar</button>
        <div class="pp">
-        <div class="pp-hdr">🗺️ Destinos</div>
+        <div class="pp-hdr" id="viaje-hdr-l">🗺️ Destinos</div>
         <div class="pp-tabs" id="viaje-tabs"></div>
         <div class="pp-list" id="viaje-list"></div>
        </div>
        <div class="pp">
-        <div class="pp-deco">
-         <div class="pp-deco-title">Pasaporte de Viaje</div>
-         <div class="pp-deco-emblem">🌍</div>
-         <div class="pp-deco-count"><div class="pp-deco-n" id="viaje-count-n">0</div><div class="pp-deco-l">sellos coleccionados</div></div>
-         <div class="pp-deco-brand"><strong>HERSE TURISMO</strong><small>Pasaporte Oficial</small></div>
-        </div>
+        <div class="pp-hdr" id="viaje-hdr-r">Continuación</div>
+        <div class="pp-list" id="viaje-list-r"></div>
        </div>
       </div>
      </div>
@@ -655,19 +647,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="ci-hint">TOCA PARA ABRIR</div>
        </div>
       </div>
-      <div class="passport-book">
+      <div class="passport-book" style="position:relative">
+       <button class="pp-close-btn" onclick="closePassport('futbol')">&#10005; Cerrar</button>
        <div class="pp">
-        <div class="pp-hdr">⚽ Estadios</div>
+        <div class="pp-hdr" id="futbol-hdr-l">⚽ Estadios</div>
         <div class="pp-tabs" id="futbol-tabs"></div>
         <div class="pp-list" id="futbol-list"></div>
        </div>
        <div class="pp">
-        <div class="pp-deco">
-         <div class="pp-deco-title">Pasaporte Futbolero</div>
-         <div class="pp-deco-emblem">⚽</div>
-         <div class="pp-deco-count"><div class="pp-deco-n" id="futbol-count-n">0</div><div class="pp-deco-l">estadios visitados</div></div>
-         <div class="pp-deco-brand"><strong>HERSE TURISMO</strong><small>Pasaporte Oficial</small></div>
-        </div>
+        <div class="pp-hdr" id="futbol-hdr-r">Continuación</div>
+        <div class="pp-list" id="futbol-list-r"></div>
        </div>
       </div>
      </div>
@@ -1101,23 +1090,29 @@ function updateFutbolDonut(){
   const sl=document.getElementById('futbol-stat-l');if(sl)sl.textContent=PASSPORT_KEYS.filter(k=>PASAPORTE_DATA[k].estadios.some(e=>_selladosSet.has(e.id))).length;
 }
 /* VIAJE BOOK RENDER */
+function _buildViajeRow(item){
+  const s=_viajeSelladosSet.has(item.id);
+  const imgUrl=`https://flagcdn.com/w40/${item.code.toLowerCase()}.png`;
+  const stamp=s?`<span class="pp-stamp">VISADO</span>`:'';
+  const btn=s
+    ?`<button class="pp-btn done" disabled>\u2713 Visitado</button>`
+    :`<button class="pp-btn" onclick="stampViaje(this,'${item.id}')">Sellar</button>`;
+  return `<div class="pp-item${s?' stamped':''}" id="pvrow-${item.id}"><img src="${imgUrl}" alt="${item.nombre}" onerror="this.style.opacity='.3'"><div class="pp-info"><strong>${item.nombre}</strong><span>${item.code}</span></div>${stamp}${btn}</div>`;
+}
 function renderViajeList(){
   const tabsWrap=document.getElementById('viaje-tabs');
   if(tabsWrap) tabsWrap.innerHTML=VIAJE_PAGES.map((pg,i)=>
     `<button class="pp-tab ${i===_viajeCurrentTab?'active':''}" onclick="selectViajeTab(${i})">${pg.tab}</button>`
   ).join('');
-  const wrap=document.getElementById('viaje-list');if(!wrap)return;
   const pg=VIAJE_PAGES[_viajeCurrentTab];
   const items=[...pg.left.items,...pg.right.items];
-  wrap.innerHTML=items.map(item=>{
-    const s=_viajeSelladosSet.has(item.id);
-    const imgUrl=`https://flagcdn.com/w40/${item.code.toLowerCase()}.png`;
-    const stamp=s?`<span class="pp-stamp">VISADO</span>`:'';
-    const btn=s
-      ?`<button class="pp-btn done" disabled>\u2713 Visitado</button>`
-      :`<button class="pp-btn" onclick="stampViaje(this,'${item.id}')">Sellar</button>`;
-    return `<div class="pp-item${s?' stamped':''}" id="pvrow-${item.id}"><img src="${imgUrl}" alt="${item.nombre}" onerror="this.style.opacity='.3'"><div class="pp-info"><strong>${item.nombre}</strong><span>${item.code}</span></div>${stamp}${btn}</div>`;
-  }).join('');
+  const mid=Math.ceil(items.length/2);
+  const left=items.slice(0,mid);
+  const right=items.slice(mid);
+  const wL=document.getElementById('viaje-list');if(wL)wL.innerHTML=left.map(_buildViajeRow).join('');
+  const wR=document.getElementById('viaje-list-r');if(wR)wR.innerHTML=right.map(_buildViajeRow).join('');
+  const hL=document.getElementById('viaje-hdr-l');if(hL)hL.textContent='\ud83d\uddfa\ufe0f '+pg.tab;
+  const hR=document.getElementById('viaje-hdr-r');if(hR)hR.textContent='\u2708\ufe0f Continuaci\u00f3n';
 }
 function selectViajeTab(idx){
   _viajeCurrentTab=idx;
@@ -1135,22 +1130,27 @@ function stampViaje(btn,itemId){
   updateViajeDonut();
 }
 /* FUTBOL BOOK RENDER */
+function _buildFutbolRow(e,pais){
+  const v=_selladosSet.has(e.id);
+  const stamp=v?`<span class="pp-stamp futbol">MATCH</span>`:'';
+  const btn=_isAdmin
+    ?(v?`<button class="pp-btn forest done" disabled>\u2713 Sellado</button>`:`<button class="pp-btn forest" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)">Sellar</button>`)
+    :(v?`<button class="pp-btn forest done" disabled>\u2713 Visitado</button>`:`<button class="pp-btn forest" disabled>Sellar</button>`);
+  return `<div class="pp-item${v?' stamped':''}" id="srow-${e.id}"><div class="pp-ico">${pais.flag||'\ud83c\udfe0'}</div><div class="pp-info"><strong>${e.nombre}</strong><span>${e.equipo}</span></div>${stamp}${btn}</div>`;
+}
 function renderFutbolList(){
   const tabsWrap=document.getElementById('futbol-tabs');
   if(tabsWrap) tabsWrap.innerHTML=PASSPORT_KEYS.map((key,i)=>{
     const p=PASAPORTE_DATA[key];
     return `<button class="pp-tab ${i===_futbolCurrentTab?'active':''}" onclick="selectFutbolTab(${i})">${p.flag||''} ${p.nombre}</button>`;
   }).join('');
-  const wrap=document.getElementById('futbol-list');if(!wrap)return;
   const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
-  wrap.innerHTML=pais.estadios.map(e=>{
-    const v=_selladosSet.has(e.id);
-    const stamp=v?`<span class="pp-stamp futbol">MATCH</span>`:'';
-    const btn=_isAdmin
-      ?(v?`<button class="pp-btn forest done" disabled>\u2713 Sellado</button>`:`<button class="pp-btn forest" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)">Sellar</button>`)
-      :(v?`<button class="pp-btn forest done" disabled>\u2713 Visitado</button>`:`<button class="pp-btn forest" disabled>Sellar</button>`);
-    return `<div class="pp-item${v?' stamped':''}" id="srow-${e.id}"><div class="pp-ico">${pais.flag||'\ud83c\udfe0'}</div><div class="pp-info"><strong>${e.nombre}</strong><span>${e.equipo}</span></div>${stamp}${btn}</div>`;
-  }).join('');
+  const estadios=pais.estadios;
+  const mid=Math.ceil(estadios.length/2);
+  const wL=document.getElementById('futbol-list');if(wL)wL.innerHTML=estadios.slice(0,mid).map(e=>_buildFutbolRow(e,pais)).join('');
+  const wR=document.getElementById('futbol-list-r');if(wR)wR.innerHTML=estadios.slice(mid).map(e=>_buildFutbolRow(e,pais)).join('');
+  const hL=document.getElementById('futbol-hdr-l');if(hL)hL.textContent=(pais.flag||'\u26bd')+' '+pais.nombre;
+  const hR=document.getElementById('futbol-hdr-r');if(hR)hR.textContent='\u26bd Continuaci\u00f3n';
 }
 function selectFutbolTab(idx){
   _futbolCurrentTab=idx;
