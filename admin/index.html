@@ -340,6 +340,10 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <input type="text" id="v-gate" placeholder="Ej: Gate 12">
                                 </div>
                                 <div class="form-group full">
+                                    <label>Itinerario / Notas del viaje</label>
+                                    <textarea id="v-itinerario" placeholder="Describí los días del viaje, actividades incluidas, horarios, etc."></textarea>
+                                </div>
+                                <div class="form-group full">
                                     <div class="check-row">
                                         <input type="checkbox" id="v-activo" checked>
                                         <label for="v-activo">Viaje activo (visible para el cliente)</label>
@@ -352,6 +356,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 </button>
                                 <button type="button" class="btn-notify" id="btnNotificar" onclick="notificarCliente()" disabled>
                                     <i class="fas fa-envelope"></i> Notificar al cliente
+                                </button>
+                                <button type="button" class="btn-delete" id="btnEliminarViaje" style="display:none;margin-left:auto" onclick="eliminarViaje()">
+                                    <i class="fas fa-trash"></i> Eliminar viaje
                                 </button>
                             </div>
                         </form>
@@ -567,7 +574,10 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             f('v-vuelo-vuelta', v?.vuelo_vuelta);
             f('v-terminal', v?.terminal);
             f('v-gate', v?.gate);
+            f('v-itinerario', v?.itinerario);
             document.getElementById('v-activo').checked = v?.activo !== false;
+            const btnDel = document.getElementById('btnEliminarViaje');
+            if (btnDel) btnDel.style.display = v?.id ? '' : 'none';
         }
 
         async function saveViaje(e) {
@@ -586,19 +596,21 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 gate:         document.getElementById('v-gate').value || null,
                 activo:       document.getElementById('v-activo').checked
             };
+            payload.itinerario = document.getElementById('v-itinerario').value || null;
             let error;
             if (currentViaje?.id) {
                 ({ error } = await _db.from('viajes').update(payload).eq('id', currentViaje.id));
             } else {
                 const res = await _db.from('viajes').insert(payload).select().single();
                 error = res.error;
-                if (!error) currentViaje = res.data;
+                if (!error) { currentViaje = res.data; }
             }
             if (error) {
                 toast('Error: ' + error.message, 'error');
             } else {
                 toast('Viaje guardado ✅', 'success');
                 document.getElementById('btnNotificar').disabled = false;
+                fillViajeForm(currentViaje);
                 loadStats();
             }
         }
@@ -735,6 +747,18 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             }
             toast(remove ? 'Sello quitado' : 'Sello agregado ✅', 'success');
             await loadPassportAdmin();
+        }
+
+        async function eliminarViaje() {
+            if (!currentViaje?.id) return;
+            if (!confirm('¿Eliminars este viaje? Esta acción no se puede deshacer.')) return;
+            const { error } = await _db.from('viajes').delete().eq('id', currentViaje.id);
+            if (error) { toast('Error: ' + error.message, 'error'); return; }
+            toast('Viaje eliminado', 'success');
+            currentViaje = null;
+            fillViajeForm(null);
+            await loadDocs();
+            loadStats();
         }
 
         // ===== TABS =====

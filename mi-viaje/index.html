@@ -19,10 +19,8 @@ img{display:block}
 .top-hdr{height:var(--hh);background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;flex-shrink:0}
 .view-wrap{flex:1;overflow-y:auto}
 /* sidebar */
-.sb-logo{display:flex;align-items:center;gap:9px;padding:18px 16px 14px}
-.sb-logo img{height:34px;width:auto}
-.sb-brand strong{display:block;font-size:.85rem;font-weight:900;color:var(--tx)}
-.sb-brand small{font-size:.6rem;color:var(--tx2);text-transform:uppercase;letter-spacing:1px}
+.sb-logo{display:flex;align-items:center;justify-content:center;padding:22px 16px 18px;border-bottom:1px solid var(--bd)}
+.sb-logo img{height:52px;width:auto}
 .sb-nav{flex:1;padding:0 10px;display:flex;flex-direction:column;gap:2px}
 .sb-sec{font-size:.58rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:1.2px;padding:10px 8px 5px;margin-top:4px}
 .ni{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;font-size:.8rem;font-weight:500;color:var(--tx2);border:none;background:none;width:100%;text-align:left;cursor:pointer;transition:.15s}
@@ -318,6 +316,70 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
 ::-webkit-scrollbar-track{background:transparent}
+/* PASSPORT SCENE BACKGROUNDS */
+#view-pasaporte-viaje .view-wrap,#view-pasaporte-viaje{background:linear-gradient(rgba(235,243,255,.88),rgba(235,243,255,.88)),url('https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=1600&q=80') center/cover}
+#view-pasaporte-futbol .view-wrap,#view-pasaporte-futbol{background:linear-gradient(rgba(0,12,28,.06),rgba(0,12,28,.06)),url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Signal_Iduna_Park_-_Dortmund_DSC_1175.jpg/1280px-Signal_Iduna_Park_-_Dortmund_DSC_1175.jpg') center/cover}
+/* ITINERARIO */
+.itin-wrap{margin-bottom:18px}
+.itin-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;border-bottom:none}
+.itin-hdr-ttl{font-size:.82rem;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:9px}
+.itin-body{padding:20px;background:var(--card);border:1px solid var(--bd);border-radius:0 0 var(--r) var(--r)}
+.itin-day{margin-bottom:18px}
+.itin-day:last-child{margin-bottom:0}
+.itin-day-hdr{font-size:.7rem;font-weight:900;color:var(--ac);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:7px;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.itin-item{display:flex;gap:11px;padding:8px 0;border-bottom:1px solid var(--bg)}
+.itin-item:last-child{border-bottom:none}
+.itin-time{font-size:.62rem;font-weight:700;color:var(--tx3);min-width:50px;margin-top:3px}
+.itin-ico{width:28px;height:28px;border-radius:8px;background:#eff6ff;color:var(--ac);display:flex;align-items:center;justify-content:center;font-size:.76rem;flex-shrink:0}
+.itin-name{font-size:.75rem;font-weight:700;color:var(--tx);margin-bottom:2px}
+.itin-det{font-size:.63rem;color:var(--tx2);line-height:1.4}
+/* MI PERFIL */
+.perfil-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+.perfil-top-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.perfil-av-wrap{position:relative;flex-shrink:0}
+.perfil-av{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#6366f1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:900}
+.perfil-av-edit{position:absolute;bottom:0;right:0;width:22px;height:22px;background:var(--ac);border-radius:50%;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#fff;cursor:pointer}
+.perfil-info{flex:1;min-width:0}
+.perfil-name{font-size:1.05rem;font-weight:900;color:var(--tx);margin-bottom:5px}
+.perfil-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.68rem;color:var(--tx2);margin-bottom:4px;align-items:center}
+.perfil-veri{color:#15803d;font-weight:700;display:flex;align-items:center;gap:4px}
+.btn-editar{margin-top:8px;padding:6px 14px;border:1.5px solid var(--bd);border-radius:8px;background:var(--card);font-size:.7rem;font-weight:700;color:var(--tx);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+.btn-editar:hover{border-color:var(--ac);color:var(--ac)}
+.perfil-nivel{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:12px;padding:13px 15px;min-width:170px;flex-shrink:0}
+.pn-lbl{font-size:.53rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0ea5e9;margin-bottom:4px}
+.pn-ico{font-size:1.2rem;margin-bottom:3px}
+.pn-name{font-size:.88rem;font-weight:900;color:var(--tx);margin-bottom:2px}
+.pn-pts{font-size:.6rem;color:var(--tx2);margin-bottom:8px}
+.pn-bar{height:6px;background:#e0f2fe;border-radius:99px;overflow:hidden;margin-bottom:3px}
+.pn-bar-fill{height:100%;background:linear-gradient(90deg,#0ea5e9,#6366f1);border-radius:99px;transition:width .6s ease}
+.pn-bar-lbl{font-size:.56rem;color:#0ea5e9;font-weight:700;margin-bottom:6px}
+.pn-link{font-size:.6rem;color:#0ea5e9;font-weight:700;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;padding:0}
+.perfil-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.ps-c{border-radius:9px;padding:11px 8px;text-align:center;border:1px solid transparent}
+.ps-c.bl{background:#eff6ff;border-color:#bfdbfe}.ps-c.pu{background:#f5f3ff;border-color:#ddd6fe}.ps-c.gr{background:#f0fdf4;border-color:#bbf7d0}.ps-c.go{background:#fefce8;border-color:#fef08a}
+.ps-n{font-size:1.3rem;font-weight:900;color:var(--tx);line-height:1;margin-bottom:3px}
+.ps-l{font-size:.62rem;font-weight:700;color:var(--tx2);margin-bottom:1px}
+.ps-s{font-size:.55rem;color:var(--ac);font-weight:600}
+.perfil-2col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pd-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--bd)}
+.pd-row:last-child{border-bottom:none}
+.pd-lbl{font-size:.67rem;color:var(--tx2);display:flex;align-items:center;gap:6px}
+.pd-lbl i{width:11px;text-align:center;color:var(--tx3)}
+.pd-val{font-size:.7rem;font-weight:600;color:var(--tx);text-align:right;max-width:55%}
+.act-list{display:flex;flex-direction:column;gap:7px}
+.act-i{display:flex;align-items:center;gap:9px}
+.act-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;flex-shrink:0}
+.act-ico.bl{background:#eff6ff;color:var(--ac)}.act-ico.go{background:#fefce8;color:#d97706}.act-ico.gr{background:#f0fdf4;color:#15803d}.act-ico.rd{background:#fef2f2;color:#ef4444}.act-ico.pu{background:#f5f3ff;color:#7c3aed}
+.act-body{flex:1;min-width:0}
+.act-name{font-size:.72rem;font-weight:700;color:var(--tx)}
+.act-date{font-size:.6rem;color:var(--tx2);margin-top:1px}
+.act-pts{font-size:.66rem;font-weight:800;white-space:nowrap;color:#15803d}
+.act-tag{font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:99px}
+.act-tag.ok{background:#dcfce7;color:#15803d}.act-tag.done{background:#f1f5f9;color:#64748b}
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qa-btn{border:1.5px solid var(--bd);background:var(--card);border-radius:10px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:.15s;font-size:.67rem;font-weight:700;color:var(--tx2)}
+.qa-btn i{font-size:.95rem;color:var(--ac)}
+.qa-btn:hover{border-color:var(--ac);background:#eff6ff;color:var(--ac)}
 /* ── PASSPORT SYSTEM ── */
 @keyframes stampIn{0%{transform:scale(1.5) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(-10deg);opacity:1}}
 @keyframes pulseHint{0%,100%{opacity:.35}50%{opacity:.85}}
@@ -431,18 +493,17 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 <div class="app">
 <aside class="sidebar">
   <div class="sb-logo">
-    <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
-    <div class="sb-brand"><strong>HERSE</strong><small>TURISMO</small></div>
+   <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
   </div>
   <nav class="sb-nav">
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
     <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-suitcase"></i> Mis Viajes</button>
     <button class="ni" id="nav-pasaporte-viaje" onclick="showView('pasaporte-viaje')"><i class="fas fa-passport"></i> Pasaporte de Viaje</button>
-    <button class="ni" id="nav-pasaporte-futbol" onclick="showView('pasaporte-futbol')"><i class="fas fa-futbol"></i> Pasaporte Futbolero</button>
+    <button class="ni" id="nav-pasaporte-futbol" onclick="showView('pasaporte-futbol')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
     <div class="sb-sec">Más</div>
     <a class="ni" href="/"><i class="fas fa-tag"></i> Ofertas para vos</a>
-    <a class="ni" href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+    <button class="ni" id="nav-perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
     <a class="ni" href="https://wa.me/5492215661704" target="_blank"><i class="fas fa-headset"></i> Ayuda y Soporte</a>
   </nav>
   <div class="sb-promo">
@@ -450,7 +511,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <div class="sb-promo-body">
       <h4 id="promoTitle">¿Listo para tu próximo destino?</h4>
       <p id="promoSub">Explorá nuestras ofertas exclusivas.</p>
-      <a href="/" class="btn-promo" id="promoBtn">Ver ofertas</a>
+      <a href="https://wa.me/5492215661704" target="_blank" class="btn-promo" id="promoBtn">Ver ofertas</a>
     </div>
   </div>
 </aside>
@@ -463,7 +524,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <div class="hdr-r">
       <button class="hdr-btn" onclick="toggleTheme()" id="themeBtn" title="Cambiar tema">🌙</button>
       <button class="hdr-btn" style="position:relative"><i class="fas fa-bell"></i><span class="ndot"></span></button>
-      <button class="av-btn" onclick="logout()">
+      <button class="av-btn" onclick="showView('perfil')">
         <div class="av-circle" id="avatarInitial">?</div>
         <div><div class="av-name name">Cargando…</div><div class="av-sub">Ver perfil</div></div>
         <i class="fas fa-chevron-down" style="font-size:.58rem;color:var(--tx3);margin-left:3px"></i>
@@ -492,9 +553,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
           <div class="cd-u"><div class="cd-v" id="cd-s">--</div><div class="cd-l">Seg</div></div>
          </div>
         </div>
-        <button class="hero-cta"><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</button>
+        <button class="hero-cta" onclick="toggleItinerario()"><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</button>
        </div>
       </div>
+     </div>
+     <div id="itinerarioSection" style="display:none;margin-bottom:4px">
+      <div class="itin-hdr" onclick="toggleItinerario()">
+       <div class="itin-hdr-ttl"><i class="fas fa-route" style="color:var(--ac)"></i> Itinerario completo</div>
+       <button class="btn-a btn-ghost" style="font-size:.65rem;pointer-events:none">Cerrar <i class="fas fa-times"></i></button>
+      </div>
+      <div class="itin-body" id="itin-body"></div>
      </div>
      <div class="viaje-grid">
       <div class="col-stack">
@@ -513,7 +581,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
          <div><div class="tm-lbl"><i class="fas fa-users"></i> PASAJEROS</div><div class="tm-val mt-val-pax">—</div></div>
          <div><div class="tm-lbl"><i class="fas fa-hotel"></i> HOTEL</div><div class="tm-val mt-val-hotel">—</div></div>
         </div>
-        <button class="exp-btn"><span><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</span><i class="fas fa-chevron-right" style="font-size:.68rem"></i></button>
+        <button class="exp-btn" onclick="toggleItinerario()"><span><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</span><i class="fas fa-chevron-right" style="font-size:.68rem"></i></button>
        </div>
        <div class="card">
         <div class="card-ttl"><i class="fas fa-info-circle"></i> Información importante</div>
@@ -547,14 +615,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
          <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">¡A disfrutar!</div><div class="tl-date">Próximamente</div></div></div>
         </div>
        </div>
-       <div class="ayuda">
-        <div>
-         <div class="ayuda-ttl">¿Necesitás ayuda?</div>
-         <div class="ayuda-sub">Nuestro equipo disponible 24/7</div>
-         <button class="btn-contact" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-headset"></i> Contactar soporte</button>
-        </div>
-        <div class="ayuda-ico"><i class="fas fa-headset"></i></div>
-       </div>
        <div class="card">
         <div class="card-ttl"><i class="fas fa-lightbulb"></i> Consejos para tu viaje</div>
         <div class="consejo">
@@ -572,7 +632,115 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     </div>
     <div id="pendingState" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">⏳</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Estamos preparando tu viaje</div><div style="font-size:.8rem;color:var(--tx2)">Pronto tendrás toda la info de tu próxima aventura.</div></div>
     <div id="proximamente" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">🔒</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Acceso pendiente</div><div style="font-size:.8rem;color:var(--tx2)">Tu cuenta está siendo verificada.</div></div>
-    <button id="btnAdmin" style="display:none;position:fixed;bottom:20px;right:20px;background:var(--ac);color:#fff;border:none;border-radius:99px;padding:7px 14px;font-size:.7rem;font-weight:700;cursor:pointer;box-shadow:var(--shl)"><i class="fas fa-tools"></i> Admin</button>
+    <button id="btnAdmin" style="display:none;position:fixed;bottom:20px;right:20px;background:var(--ac);color:#fff;border:none;border-radius:99px;padding:7px 14px;font-size:.7rem;font-weight:700;cursor:pointer;box-shadow:var(--shl)" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Admin</button>
+   </div>
+  </div>
+
+  <!-- VIEW: MI PERFIL -->
+  <div class="view" id="view-perfil">
+   <div class="vcontent">
+    <div class="perfil-layout">
+     <div class="perfil-main">
+      <!-- Tarjeta principal -->
+      <div class="card" style="margin-bottom:14px">
+       <div class="perfil-top-card">
+        <div class="perfil-av-wrap"><div class="perfil-av" id="perfilAv">?</div><div class="perfil-av-edit"><i class="fas fa-camera"></i></div></div>
+        <div class="perfil-info">
+         <div class="perfil-name" id="perfilName">Cargando…</div>
+         <div class="perfil-meta"><span id="perfilEmail"><i class="fas fa-envelope"></i> —</span><span class="perfil-veri"><i class="fas fa-check-circle"></i> Verificado</span></div>
+         <div class="perfil-meta"><span><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</span></div>
+         <button class="btn-editar"><i class="fas fa-pen"></i> Editar perfil</button>
+        </div>
+        <div class="perfil-nivel">
+         <div class="pn-lbl">Nivel actual</div>
+         <div class="pn-ico">🧭</div>
+         <div class="pn-name" id="pn-name">Explorador</div>
+         <div class="pn-pts" id="pn-pts">— pts para el siguiente</div>
+         <div class="pn-bar"><div class="pn-bar-fill" id="pn-fill" style="width:0%"></div></div>
+         <div class="pn-bar-lbl" id="pn-lbl">0 / 1000 pts</div>
+         <button class="pn-link">Ver mi progreso <i class="fas fa-chevron-right"></i></button>
+        </div>
+       </div>
+      </div>
+      <!-- Stats actividad -->
+      <div class="card" style="margin-bottom:14px">
+       <div class="card-ttl"><i class="fas fa-chart-bar"></i> Resumen de tu actividad</div>
+       <div class="perfil-stats">
+        <div class="ps-c bl"><div class="ps-n" id="ps-viajes">—</div><div class="ps-l">Viajes realizados</div><div class="ps-s">¡Seguí así!</div></div>
+        <div class="ps-c pu"><div class="ps-n" id="ps-paises">—</div><div class="ps-l">Países visitados</div><div class="ps-s">Excelente</div></div>
+        <div class="ps-c gr"><div class="ps-n" id="ps-estadios">—</div><div class="ps-l">Estadios visitados</div><div class="ps-s">¡Hincha viajero!</div></div>
+        <div class="ps-c go"><div class="ps-n" id="ps-puntos">—</div><div class="ps-l">Puntos acumulados</div><div class="ps-s">Viajero activo</div></div>
+       </div>
+      </div>
+      <!-- Info personal + Preferencias -->
+      <div class="perfil-2col">
+       <div class="card">
+        <div class="card-ttl"><i class="fas fa-id-card"></i> Información personal</div>
+        <div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-user"></i> Nombre completo</div><div class="pd-val" id="pd-nombre">—</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-calendar"></i> Miembro desde</div><div class="pd-val" id="pd-desde">—</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-flag"></i> Nacionalidad</div><div class="pd-val">Argentina</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-globe"></i> Idioma preferido</div><div class="pd-val">Español</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-dollar-sign"></i> Moneda preferida</div><div class="pd-val">USD</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-envelope"></i> Suscripción</div><div class="pd-val"><span class="badge badge-ok">Activa</span></div></div>
+        </div>
+       </div>
+       <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="card-ttl" style="margin-bottom:0"><i class="fas fa-heart"></i> Preferencias de viaje</div><button class="btn-a btn-ghost" style="font-size:.65rem">Editar</button></div>
+        <div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-map"></i> Tipo de viaje</div><div class="pd-val">Aventura, Cultura</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-wallet"></i> Presupuesto</div><div class="pd-val">Medio</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-hotel"></i> Alojamiento</div><div class="pd-val">Hotel 4 estrellas</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-plane"></i> Transporte</div><div class="pd-val">Aéreo</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-users"></i> Compañía</div><div class="pd-val">En pareja</div></div>
+         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-star"></i> Intereses</div><div class="pd-val">Fútbol, Naturaleza</div></div>
+        </div>
+       </div>
+      </div>
+      <!-- Ayuda -->
+      <div class="ayuda" style="margin-top:14px">
+       <div>
+        <div class="ayuda-ttl">¿Necesitás ayuda?</div>
+        <div class="ayuda-sub">Nuestro equipo disponible 24/7</div>
+        <button class="btn-contact" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-headset"></i> Contactar soporte</button>
+       </div>
+       <div class="ayuda-ico"><i class="fas fa-headset"></i></div>
+      </div>
+     </div>
+     <!-- Panel derecho -->
+     <div>
+      <!-- Actividad reciente -->
+      <div class="card" style="margin-bottom:14px">
+       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px"><div class="card-ttl" style="margin-bottom:0"><i class="fas fa-history"></i> Actividad reciente</div><button class="btn-a btn-ghost" style="font-size:.65rem">Ver todo</button></div>
+       <div class="act-list" id="actividadList">
+        <div class="act-i"><div class="act-ico bl"><i class="fas fa-plane"></i></div><div class="act-body"><div class="act-name">Reserva confirmada</div><div class="act-date" id="actFecha">—</div></div><div class="act-pts">+120 pts</div></div>
+        <div class="act-i"><div class="act-ico go"><i class="fas fa-star"></i></div><div class="act-body"><div class="act-name">Nivel Explorador</div><div class="act-date">Al registrarte</div></div><div class="act-pts">+50 pts</div></div>
+        <div class="act-i"><div class="act-ico gr"><i class="fas fa-futbol"></i></div><div class="act-body"><div class="act-name">Pasaporte Tribunero</div><div class="act-date">Activado</div></div><div class="act-pts">+100 pts</div></div>
+       </div>
+      </div>
+      <!-- Acciones rápidas -->
+      <div class="card" style="margin-bottom:14px">
+       <div class="card-ttl"><i class="fas fa-bolt"></i> Acciones rápidas</div>
+       <div class="qa-grid">
+        <button class="qa-btn" onclick="showView('mis-viajes')"><i class="fas fa-file-alt"></i><span>Mis viajes</span></button>
+        <button class="qa-btn" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i><span>Fidelización</span></button>
+        <button class="qa-btn" onclick="showView('pasaporte-viaje')"><i class="fas fa-passport"></i><span>Pasaporte</span></button>
+        <button class="qa-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-headset"></i><span>Centro de ayuda</span></button>
+       </div>
+      </div>
+      <!-- Seguridad -->
+      <div class="card">
+       <div class="card-ttl"><i class="fas fa-shield-alt"></i> Seguridad de la cuenta</div>
+       <div style="display:flex;align-items:center;gap:10px;padding:10px;background:#f0fdf4;border-radius:9px;border:1px solid #bbf7d0">
+        <i class="fas fa-check-circle" style="color:#22c55e;font-size:1rem"></i>
+        <div><div style="font-size:.74rem;font-weight:700;color:#15803d">Tu cuenta está protegida</div><div style="font-size:.6rem;color:#166534;margin-top:2px">Sesión activa</div></div>
+       </div>
+       <button style="margin-top:12px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;color:#ef4444;font-size:.73rem;background:none;border:1.5px solid #fecaca;border-radius:8px;padding:9px;cursor:pointer;font-weight:700" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+       </button>
+      </div>
+     </div>
+    </div>
    </div>
   </div>
 
@@ -663,7 +831,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="ci-emblem">⚽</div>
         <div class="ci-chip"></div>
         <div class="ci-h2">PASAPORTE</div>
-        <div class="ci-p">• FUTBOLERO •</div>
+        <div class="ci-p">• TRIBUNERO •</div>
         <div class="ci-brand"><img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'"><div class="ci-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div></div>
         <div class="ci-hint">TOCA PARA ABRIR</div>
        </div>
@@ -689,7 +857,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     </div>
     <div class="passport-bar">
      <div class="pb-ico green">⚽</div>
-     <div class="pb-body"><strong>Pasaporte Futbolero</strong><p>Viví el fútbol, coleccioná estadios y momentos únicos.</p></div>
+     <div class="pb-body"><strong>Pasaporte Tribunero</strong><p>Viví el fútbol, coleccioná estadios y momentos únicos.</p></div>
      <div class="pb-stats">
       <div class="pb-stat"><span class="pb-stat-n" id="futbol-stat-v">0</span><span class="pb-stat-l">Visitados</span></div>
       <div class="pb-stat"><span class="pb-stat-n" id="futbol-stat-t">—</span><span class="pb-stat-l">Total</span></div>
@@ -789,14 +957,15 @@ const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const {createClient}=supabase;
 const _db=createClient(SUPA_URL,SUPA_KEY);
 let TRIP_DATE=new Date('2025-08-15T08:30:00-03:00');
-let _tickInterval,_isAdmin=false;
+let _tickInterval,_isAdmin=false,_userName='',_userEmail='';
 
 /* VIEW SWITCHING */
 const VIEW_META={
   'mi-viaje':   {title:'Mi Viaje',      sub:'Tu mundo, tus viajes, tu historia.',        ico:'fas fa-plane',     cls:'blue'},
   'mis-viajes': {title:'Mis Viajes',    sub:'Todos tus viajes en un solo lugar.',         ico:'fas fa-suitcase',  cls:'blue'},
   'pasaporte-viaje':  {title:'Pasaporte de Viaje',   sub:'Sellá cada destino y creá tu historia por el mundo.', ico:'fas fa-passport', cls:'green'},
-  'pasaporte-futbol': {title:'Pasaporte Futbolero',  sub:'Sellá cada estadio y viví el fútbol como nunca.',    ico:'fas fa-futbol',   cls:'soccer'},
+  'pasaporte-futbol': {title:'Pasaporte Tribunero',  sub:'Sellá cada estadio y viví el fútbol como nunca.',    ico:'fas fa-futbol',   cls:'soccer'},
+  'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple'},
   'fidelizacion':     {title:'Fidelización Herse',   sub:'Viajá más, sumá puntos y desbloqueá beneficios.',    ico:'fas fa-star',     cls:'gold'},
 };
 function showView(id){
@@ -818,6 +987,68 @@ function showView(id){
   if(id==='pasaporte-futbol'){const w=document.getElementById('passport-futbol');if(w)w.classList.remove('open');}
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
+  if(id==='perfil') renderPerfil();
+}
+function toggleItinerario(){
+  const s=document.getElementById('itinerarioSection');
+  if(!s)return;
+  const open=s.style.display==='none';
+  s.style.display=open?'block':'none';
+  if(open) renderItinerario();
+  s.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function renderItinerario(){
+  const body=document.getElementById('itin-body');
+  if(!body)return;
+  body.innerHTML=`
+    <div class="itin-day">
+      <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 1 — Salida y Llegada</div>
+      <div class="itin-item"><div class="itin-time">06:00</div><div class="itin-ico"><i class="fas fa-car"></i></div><div><div class="itin-name">Traslado al aeropuerto</div><div class="itin-det">Transfer privado desde tu domicilio hasta Ezeiza.</div></div></div>
+      <div class="itin-item"><div class="itin-time">09:30</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo hacia el destino</div><div class="itin-det">Embarque y vuelo. Recordá llegar 3 hs antes.</div></div></div>
+      <div class="itin-item"><div class="itin-time">14:00</div><div class="itin-ico"><i class="fas fa-hotel"></i></div><div><div class="itin-name">Check-in en el hotel</div><div class="itin-det">Llegada, acomodación y descanso libre.</div></div></div>
+      <div class="itin-item"><div class="itin-time">20:00</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Cena de bienvenida</div><div class="itin-det">Cena en restaurante local seleccionado por Herse.</div></div></div>
+    </div>
+    <div class="itin-day">
+      <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 2 — City Tour</div>
+      <div class="itin-item"><div class="itin-time">09:00</div><div class="itin-ico"><i class="fas fa-bus"></i></div><div><div class="itin-name">City Tour guiado</div><div class="itin-det">Recorrido por los principales atractivos con guía bilingüe.</div></div></div>
+      <div class="itin-item"><div class="itin-time">13:30</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Almuerzo libre</div><div class="itin-det">Tiempo libre para explorar y almorzar a tu ritmo.</div></div></div>
+      <div class="itin-item"><div class="itin-time">19:00</div><div class="itin-ico"><i class="fas fa-futbol"></i></div><div><div class="itin-name">Experiencia deportiva</div><div class="itin-det">Partido o visita guiada a estadio según disponibilidad.</div></div></div>
+    </div>
+    <div class="itin-day">
+      <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 3 — Excursión y Vuelta</div>
+      <div class="itin-item"><div class="itin-time">08:00</div><div class="itin-ico"><i class="fas fa-map-marked-alt"></i></div><div><div class="itin-name">Excursión opcional</div><div class="itin-det">Actividad incluida según el paquete contratado.</div></div></div>
+      <div class="itin-item"><div class="itin-time">18:00</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo de regreso</div><div class="itin-det">Check-out del hotel y traslado al aeropuerto.</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)">
+      <p style="font-size:.7rem;color:var(--tx2);margin-bottom:10px">El itinerario detallado y definitivo se envía por WhatsApp antes del viaje.</p>
+      <button class="btn-a btn-prim" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultar a Herse</button>
+    </div>`;
+}
+function renderPerfil(){
+  const n=document.getElementById('perfilName');if(n)n.textContent=_userName||'—';
+  const av=document.getElementById('perfilAv');if(av)av.textContent=(_userName||'?').charAt(0).toUpperCase();
+  const em=document.getElementById('perfilEmail');if(em)em.innerHTML='<i class="fas fa-envelope"></i> '+(_userEmail||'—');
+  const pdn=document.getElementById('pd-nombre');if(pdn)pdn.textContent=_userName||'—';
+  const viajes=_allTrips.length;
+  const comp=_allTrips.filter(t=>!t.activo).length;
+  const paises=new Set(_allTrips.map(t=>t.destino.split(' ')[0].toLowerCase())).size;
+  const estadios=_selladosSet.size;
+  const pts=comp*250;
+  const nivel=pts>=1000?'Elite VIP':pts>=500?'Viajero Frecuente':'Explorador';
+  const nivelIco=pts>=1000?'👑':pts>=500?'✈️':'🧭';
+  const pctN=Math.min((pts/1000)*100,100);
+  const faltaN=Math.max(0,1000-pts);
+  const sv=document.getElementById('ps-viajes');if(sv)sv.textContent=viajes||0;
+  const sp=document.getElementById('ps-paises');if(sp)sp.textContent=paises||0;
+  const se=document.getElementById('ps-estadios');if(se)se.textContent=estadios||0;
+  const spt=document.getElementById('ps-puntos');if(spt)spt.textContent=pts||0;
+  const nn=document.getElementById('pn-name');if(nn)nn.textContent=nivel;
+  const ni=document.querySelector('.pn-ico');if(ni)ni.textContent=nivelIco;
+  const nf=document.getElementById('pn-pts');if(nf)nf.textContent=faltaN>0?faltaN+' pts para el siguiente nivel':'¡Nivel máximo!';
+  const nb=document.getElementById('pn-fill');if(nb)setTimeout(()=>nb.style.width=pctN+'%',200);
+  const nl=document.getElementById('pn-lbl');if(nl)nl.textContent=pts+' / 1000 pts';
+  const fa=document.getElementById('actFecha');
+  if(_allTrips.length&&fa){const t=_allTrips.find(x=>x.activo)||_allTrips[0];fa.textContent=t?fmtDate(new Date(t.fecha_salida)):'—';}
 }
 function openPassport(type){
   const p=document.getElementById('passport-'+type);if(!p)return;
@@ -861,6 +1092,7 @@ function toggleTheme(){
   }
   const raw=user.user_metadata?.nombre||user.email.split('@')[0].replace(/[._-]/g,' ');
   const name=raw.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+  _userName=name; _userEmail=user.email||'';
   document.querySelectorAll('.name').forEach(el=>el.textContent=name);
   const ini=document.getElementById('avatarInitial');
   if(ini) ini.textContent=name.charAt(0).toUpperCase();
@@ -908,7 +1140,7 @@ function updateTripUI(v){
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
   const ct=document.getElementById('cardTripDest');if(ct)ct.textContent=v.destino;
   document.querySelectorAll('.countdown-footer').forEach(f=>{f.textContent=fmtDate(sd)+' → '+fmtDate(ed);});
-  const dt=document.getElementById('mosaicTripDest');if(dt)dt.textContent=v.destino+' '+getFlag(v.destino);
+  const dt=document.getElementById('mosaicTripDest');if(dt)dt.textContent=v.destino;
   const fc=document.getElementById('tripFlagCircle');if(fc)fc.textContent=getFlag(v.destino);
   const vs=document.querySelector('.mt-val-salida');if(vs)vs.textContent=fmtDateTime(sd);
   const vr=document.querySelector('.mt-val-regreso');if(vr)vr.textContent=fmtDateTime(ed);
@@ -1162,7 +1394,7 @@ function _buildViajeRow(item){
   const btn=s
     ?`<button class="pp-btn done" disabled>\u2713 Visitado</button>`
     :`<button class="pp-btn" onclick="stampViaje(this,'${item.id}')">Sellar</button>`;
-  return `<div class="pp-item${s?' stamped':''}" id="pvrow-${item.id}"><img src="${imgUrl}" alt="${item.nombre}" onerror="this.style.opacity='.3'"><div class="pp-info"><strong>${item.nombre}</strong><span>${item.code}</span></div>${stamp}${btn}</div>`;
+  return `<div class="pp-item${s?' stamped':''}" id="pvrow-${item.id}"><img src="${imgUrl}" alt="${item.nombre}" onerror="this.style.opacity='.3'"><div class="pp-info"><strong>${item.nombre}</strong></div>${stamp}${btn}</div>`;
 }
 function renderViajeList(){
   const tabsWrap=document.getElementById('viaje-tabs');
