@@ -326,7 +326,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* Book container — fixed 900x500 */
 .pbook-wrap{width:900px;height:500px;position:relative;perspective:2000px;flex-shrink:0}
 /* Pages always behind cover */
-.pbook-pages{position:absolute;inset:0;display:flex;border-radius:4px 16px 16px 4px;box-shadow:0 24px 64px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.12);overflow:hidden}
+.pbook-pages{position:absolute;inset:0;display:flex;border-radius:4px 16px 16px 4px;box-shadow:0 24px 64px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.12);overflow:hidden;opacity:0;pointer-events:none;transition:opacity .45s .25s}
+.pbook-wrap.open .pbook-pages{opacity:1;pointer-events:auto}
 .pbook-page{flex:1;padding:0;overflow-y:auto;background:repeating-linear-gradient(to bottom,#f5ebdd 0px,#f5ebdd 31px,#e5d5b5 32px)}
 .pbook-page::-webkit-scrollbar{width:4px}
 .pbook-page::-webkit-scrollbar-thumb{background:rgba(120,90,40,.25);border-radius:99px}
@@ -370,7 +371,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .pbook-logro-name{font-size:.7rem;font-weight:700;color:#15803d}
 .pbook-logro-desc{font-size:.57rem;color:#4ade80;margin-top:1px}
 /* THE COVER */
-.pbook-cover{position:absolute;inset:0;transform-origin:left center;transform:rotateY(0deg);transition:transform .8s cubic-bezier(.645,.045,.355,1);transform-style:preserve-3d;cursor:pointer;border-radius:4px 16px 16px 4px;z-index:10;overflow:hidden;user-select:none;box-shadow:-10px 0 28px rgba(0,0,0,.42),10px 0 28px rgba(0,0,0,.28),0 24px 64px rgba(0,0,0,.38)}
+.pbook-cover{position:absolute;width:360px;height:500px;left:270px;top:0;transform-origin:left center;transform:rotateY(0deg);transition:transform .8s cubic-bezier(.645,.045,.355,1);transform-style:preserve-3d;cursor:pointer;border-radius:5px 22px 22px 5px;z-index:10;overflow:hidden;user-select:none;border-left:14px solid rgba(0,0,0,.42);box-shadow:-6px 0 18px rgba(0,0,0,.35),12px 12px 40px rgba(0,0,0,.55),0 28px 70px rgba(0,0,0,.42)}
 .pbook-cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.024) 0,rgba(255,255,255,.024) 1px,transparent 1px,transparent 9px);pointer-events:none;z-index:1}
 .pbook-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.15) 0%,rgba(255,255,255,.04) 25%,transparent 55%,rgba(0,0,0,.16) 100%);pointer-events:none;z-index:1}
 .pbook-cover.navy{background:linear-gradient(160deg,#1e3258 0%,#0d1e3c 55%,#152040 100%)}
