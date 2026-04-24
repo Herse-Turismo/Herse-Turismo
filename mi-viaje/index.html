@@ -318,6 +318,70 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
 ::-webkit-scrollbar-track{background:transparent}
+/* ── PASSPORT COVERS + ANIMATIONS ── */
+@keyframes coverOpen{0%{transform:perspective(900px) rotateY(0) scale(1);opacity:1}50%{transform:perspective(900px) rotateY(-35deg) scale(.97);opacity:.8}100%{transform:perspective(900px) rotateY(-90deg) scale(.9);opacity:0}}
+@keyframes bookIn{0%{opacity:0;transform:translateY(20px) scale(.97)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes bookOut{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(16px) scale(.97)}}
+@keyframes flipFwd{0%{opacity:1;transform:translateX(0) rotateY(0)}40%{opacity:0;transform:translateX(-24px) rotateY(-8deg)}60%{opacity:0;transform:translateX(24px) rotateY(8deg)}100%{opacity:1;transform:translateX(0) rotateY(0)}}
+@keyframes flipBck{0%{opacity:1;transform:translateX(0) rotateY(0)}40%{opacity:0;transform:translateX(24px) rotateY(8deg)}60%{opacity:0;transform:translateX(-24px) rotateY(-8deg)}100%{opacity:1;transform:translateX(0) rotateY(0)}}
+@keyframes stampDrop{0%{transform:rotate(-12deg) translateY(-70px) scale(1.5);opacity:0}55%{transform:rotate(-12deg) translateY(5px) scale(.93);opacity:1}72%{transform:rotate(-12deg) translateY(-5px) scale(1.04)}84%{transform:rotate(-12deg) translateY(3px) scale(.97)}100%{transform:rotate(-12deg) translateY(0) scale(1);opacity:1}}
+@keyframes inkSpread{0%{box-shadow:0 0 0 0 rgba(34,168,85,.55)}100%{box-shadow:0 0 0 18px rgba(34,168,85,0)}}
+.pp-cover-wrap{display:flex;flex-direction:column;align-items:center;gap:18px}
+.pp-cover{
+  width:242px;height:340px;border-radius:9px 20px 20px 9px;
+  position:relative;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+  padding:26px 22px 20px;
+  box-shadow:-10px 16px 44px rgba(0,0,0,.58),-5px 5px 0 rgba(0,0,0,.24),inset 2px 0 0 rgba(255,255,255,.09);
+  border-left:12px solid rgba(0,0,0,.38);
+  transition:transform .3s ease,box-shadow .3s ease;
+  transform-style:preserve-3d;
+  overflow:hidden;
+  user-select:none;
+}
+.pp-cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.022) 0,rgba(255,255,255,.022) 1px,transparent 1px,transparent 9px);pointer-events:none}
+.pp-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.13) 0%,rgba(255,255,255,.04) 28%,transparent 55%,rgba(0,0,0,.14) 100%);pointer-events:none}
+.pp-cover.navy{background:linear-gradient(160deg,#1e3258 0%,#0d1e3c 55%,#152040 100%)}
+.pp-cover.forest{background:linear-gradient(160deg,#1b3d28 0%,#0e2619 55%,#163022 100%)}
+.pp-cover:hover{transform:scale(1.03) rotate(-1.5deg) translateY(-5px);box-shadow:-14px 24px 54px rgba(0,0,0,.68),-6px 6px 0 rgba(0,0,0,.28),inset 2px 0 0 rgba(255,255,255,.14)}
+.pp-cover:active{transform:scale(.97) rotate(-2deg);transition-duration:.08s}
+.pp-cover.opening{animation:coverOpen .32s ease-in forwards;pointer-events:none}
+.pp-corner{position:absolute;width:22px;height:22px;border:2px solid #c9a227}
+.pp-corner.tl{top:11px;left:11px;border-right:none;border-bottom:none;border-radius:3px 0 0 0}
+.pp-corner.tr{top:11px;right:11px;border-left:none;border-bottom:none;border-radius:0 3px 0 0}
+.pp-corner.bl{bottom:11px;left:11px;border-right:none;border-top:none;border-radius:0 0 0 3px}
+.pp-corner.br{bottom:11px;right:11px;border-left:none;border-top:none;border-radius:0 0 3px 0}
+.pp-cover-emblem{font-size:2.8rem;filter:drop-shadow(0 3px 10px rgba(0,0,0,.45));position:relative;z-index:1}
+.pp-cov-mid{text-align:center;position:relative;z-index:1}
+.pp-cover-title{font-size:.92rem;font-weight:900;color:#c9a227;text-transform:uppercase;letter-spacing:4.5px;margin-bottom:3px}
+.pp-cover-subtitle{font-size:.62rem;font-weight:700;color:#c9a227;letter-spacing:3.5px;margin-bottom:5px}
+.pp-cover-tagline{font-size:.44rem;font-weight:600;color:rgba(201,162,39,.6);letter-spacing:2.5px;text-transform:uppercase}
+.pp-cover-icon{font-size:1.75rem;filter:drop-shadow(0 2px 10px rgba(201,162,39,.4));position:relative;z-index:1}
+.pp-cov-bot{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;z-index:1}
+.pp-cov-brand{display:flex;align-items:center;gap:7px}
+.pp-cov-brand img{width:20px;height:20px;object-fit:contain;filter:sepia(1) saturate(.4) brightness(1.2);opacity:.75}
+.pp-cov-brand-txt strong{display:block;font-size:.58rem;font-weight:900;color:#c9a227;letter-spacing:2.5px}
+.pp-cov-brand-txt small{font-size:.42rem;color:rgba(201,162,39,.55);letter-spacing:1.5px;text-transform:uppercase}
+.pp-cov-chip{width:26px;height:18px;border-radius:3px;border:1.5px solid rgba(201,162,39,.45)}
+.pp-progress-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:11px;width:242px;box-shadow:var(--sh)}
+.pp-prog-ico{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;flex-shrink:0}
+.pp-prog-ico.blue{background:#ebf1ff} .pp-prog-ico.green{background:#dcfce7}
+.pp-prog-body{flex:1;min-width:0}
+.pp-prog-body strong{font-size:.76rem;font-weight:800;color:var(--tx);display:block}
+.pp-prog-body p{font-size:.6rem;color:var(--tx2);margin-top:2px;line-height:1.3}
+.pp-prog-badge{background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:5px 9px;text-align:center;flex-shrink:0}
+.pp-prog-num{font-size:.8rem;font-weight:900;color:var(--ac)}
+.pp-prog-lbl{font-size:.54rem;color:var(--tx2);margin-top:1px;white-space:nowrap}
+.btn-open-passport{display:flex;align-items:center;gap:8px;padding:9px 20px;background:var(--ac);border:none;border-radius:10px;color:#fff;font-size:.76rem;font-weight:800;cursor:pointer;transition:.15s}
+.btn-open-passport:hover{opacity:.88;transform:translateY(-1px)}
+.btn-close-passport{display:flex;align-items:center;gap:6px;padding:6px 13px;background:var(--bg);border:1.5px solid var(--bd);border-radius:8px;color:var(--tx2);font-size:.72rem;font-weight:700;cursor:pointer;transition:.15s}
+.btn-close-passport:hover{border-color:var(--ac);color:var(--ac)}
+.pp-book-wrap{animation:bookIn .35s ease forwards}
+.pp-book-wrap.out{animation:bookOut .25s ease forwards}
+.book-pages.flip-fwd{animation:flipFwd .38s ease}
+.book-pages.flip-bck{animation:flipBck .38s ease}
+.vstamp.dropping{animation:stampDrop .52s cubic-bezier(.2,.8,.3,1.3) forwards}
+.just-stamped .cc-flag,.just-stamped .tc-badge{animation:inkSpread .55s ease forwards}
 </style>
 </head>
 <body>
@@ -505,41 +569,58 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <!-- VIEW: PASAPORTE VIAJE -->
   <div class="view" id="view-pasaporte-viaje">
    <div class="vcontent">
-    <div class="pp-layout">
-     <div>
-      <div class="pp-tabs" id="viajeRegionTabs"></div>
-      <div class="open-book">
-       <div class="book-pages" id="viajeBookInner"></div>
-      </div>
-      <div class="book-nav-row">
-       <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip viajero</strong><br>¡Cada sello es un recuerdo que dura para siempre!</div></div>
-       <div class="book-nav-btns">
-        <button class="bnb" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
-        <span class="bnb-lbl" id="viajeNavLbl">1 / 3</span>
-        <button class="bnb" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
+    <!-- COVER STATE -->
+    <div id="viajeCoverState" style="display:flex;justify-content:center;padding:28px 0">
+     <div class="pp-cover-wrap">
+      <div class="pp-cover navy" id="viajeCover" onclick="openPassport('viaje')">
+       <div class="pp-corner tl"></div><div class="pp-corner tr"></div>
+       <div class="pp-corner bl"></div><div class="pp-corner br"></div>
+       <div class="pp-cover-emblem">🌍</div>
+       <div class="pp-cov-mid">
+        <div class="pp-cover-title">PASAPORTE</div>
+        <div class="pp-cover-subtitle">• DE VIAJE •</div>
+        <div class="pp-cover-tagline">TU MUNDO, TUS HISTORIAS</div>
+       </div>
+       <div class="pp-cover-icon">🧭</div>
+       <div class="pp-cov-bot">
+        <div class="pp-cov-brand">
+         <img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'">
+         <div class="pp-cov-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div>
+        </div>
+        <div class="pp-cov-chip"></div>
        </div>
       </div>
+      <div class="pp-progress-card">
+       <div class="pp-prog-ico blue">🌍</div>
+       <div class="pp-prog-body"><strong>Pasaporte de Viaje</strong><p>Sellá cada destino y creá tu historia por el mundo.</p></div>
+       <div class="pp-prog-badge"><div class="pp-prog-num" id="viajeProgNum">0/28</div><div class="pp-prog-lbl">Países visitados</div></div>
+      </div>
+      <button class="btn-open-passport" onclick="openPassport('viaje')"><i class="fas fa-book-open"></i> Abrir Pasaporte</button>
      </div>
-     <div class="pp-sb">
-      <div class="sb-card">
-       <div class="sb-card-ttl">Tu progreso</div>
-       <div class="donut-wrap">
-        <svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="viajeDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg>
-        <div class="d-val" id="viajeDonutLbl">0/28</div><div class="d-sub">Países visitados</div><div class="d-pct" id="viajeDonutPct">0% completado</div>
+    </div>
+    <!-- BOOK STATE -->
+    <div id="viajeBookState" style="display:none">
+     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div style="font-size:.8rem;font-weight:700;color:var(--tx2)"><i class="fas fa-passport" style="color:#22c55e"></i> Pasaporte de Viaje</div>
+      <button class="btn-close-passport" onclick="closePassport('viaje')"><i class="fas fa-times"></i> Cerrar</button>
+     </div>
+     <div class="pp-layout pp-book-wrap" id="viajeBookWrap">
+      <div>
+       <div class="pp-tabs" id="viajeRegionTabs"></div>
+       <div class="open-book"><div class="book-pages" id="viajeBookInner"></div></div>
+       <div class="book-nav-row">
+        <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip viajero</strong><br>¡Cada sello es un recuerdo que dura para siempre!</div></div>
+        <div class="book-nav-btns">
+         <button class="bnb" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
+         <span class="bnb-lbl" id="viajeNavLbl">1 / 3</span>
+         <button class="bnb" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
+        </div>
        </div>
       </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Estadísticas</div>
-       <div class="sl-list">
-        <div class="sl-i"><div class="sl-ico">🌍</div><span class="sl-lbl">Países disponibles</span><strong class="sl-v">28</strong></div>
-        <div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Países visitados</span><strong class="sl-v" id="viajeStatV">0</strong></div>
-        <div class="sl-i"><div class="sl-ico">🗺️</div><span class="sl-lbl">Continentes</span><strong class="sl-v" id="viajeStatC">0</strong></div>
-        <div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km recorridos</span><strong class="sl-v">—</strong></div>
-       </div>
-      </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Logro reciente</div>
-       <div class="logro-c"><div class="logro-ico">✈️</div><div><div class="logro-name" id="viajeLogroName">Explorador</div><div class="logro-desc" id="viajeLogroDesc">Visitaste tu primer país</div></div></div>
+      <div class="pp-sb">
+       <div class="sb-card"><div class="sb-card-ttl">Tu progreso</div><div class="donut-wrap"><svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="viajeDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg><div class="d-val" id="viajeDonutLbl">0/28</div><div class="d-sub">Países visitados</div><div class="d-pct" id="viajeDonutPct">0% completado</div></div></div>
+       <div class="sb-card"><div class="sb-card-ttl">Estadísticas</div><div class="sl-list"><div class="sl-i"><div class="sl-ico">🌍</div><span class="sl-lbl">Países disponibles</span><strong class="sl-v">28</strong></div><div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Países visitados</span><strong class="sl-v" id="viajeStatV">0</strong></div><div class="sl-i"><div class="sl-ico">🗺️</div><span class="sl-lbl">Continentes</span><strong class="sl-v" id="viajeStatC">0</strong></div><div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km recorridos</span><strong class="sl-v">—</strong></div></div></div>
+       <div class="sb-card"><div class="sb-card-ttl">Logro reciente</div><div class="logro-c"><div class="logro-ico">✈️</div><div><div class="logro-name" id="viajeLogroName">Explorador</div><div class="logro-desc" id="viajeLogroDesc">Visitaste tu primer país</div></div></div></div>
       </div>
      </div>
     </div>
@@ -549,51 +630,59 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <!-- VIEW: PASAPORTE FUTBOL -->
   <div class="view" id="view-pasaporte-futbol">
    <div class="vcontent">
-    <div class="pp-layout">
-     <div>
-      <div class="ftabs" id="futbolTabs"></div>
-      <div class="open-book">
-       <div class="book-pages" id="futbolBookInner"></div>
-      </div>
-      <div style="margin-top:14px">
-       <div class="sec-ttl" style="margin-bottom:10px">Logros desbloqueables</div>
-       <div class="logros-grid">
-        <div class="lg-c"><div class="lg-ico">🎫</div><div class="lg-name">Primer partido</div><div class="lg-desc">Asistí a tu primer partido</div></div>
-        <div class="lg-c" style="opacity:.5"><div class="lg-ico">🏟️</div><div class="lg-name">5 estadios</div><div class="lg-desc">Visitaste 5 estadios</div></div>
-        <div class="lg-c" style="opacity:.5"><div class="lg-ico">⚡</div><div class="lg-name">Clásico vivido</div><div class="lg-desc">Viviste un clásico</div></div>
-        <div class="lg-c" style="opacity:.5"><div class="lg-ico">🌐</div><div class="lg-name">Partido internacional</div><div class="lg-desc">Fuera de tu país</div></div>
-        <div class="lg-c" style="opacity:.5"><div class="lg-ico">🏆</div><div class="lg-name">Final asistida</div><div class="lg-desc">Viviste una final</div></div>
+    <!-- COVER STATE -->
+    <div id="futbolCoverState" style="display:flex;justify-content:center;padding:28px 0">
+     <div class="pp-cover-wrap">
+      <div class="pp-cover forest" id="futbolCover" onclick="openPassport('futbol')">
+       <div class="pp-corner tl"></div><div class="pp-corner tr"></div>
+       <div class="pp-corner bl"></div><div class="pp-corner br"></div>
+       <div class="pp-cover-emblem">⚽</div>
+       <div class="pp-cov-mid">
+        <div class="pp-cover-title">PASAPORTE</div>
+        <div class="pp-cover-subtitle">• FUTBOLERO •</div>
+        <div class="pp-cover-tagline">CADA ESTADIO, UNA PASIÓN</div>
+       </div>
+       <div class="pp-cover-icon">🏟️</div>
+       <div class="pp-cov-bot">
+        <div class="pp-cov-brand">
+         <img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'">
+         <div class="pp-cov-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div>
+        </div>
+        <div class="pp-cov-chip"></div>
        </div>
       </div>
-      <div class="book-nav-row">
-       <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip futbolero</strong><br>¡No olvides cargar tu entrada! Cada partido cuenta tu historia.</div></div>
-       <div class="book-nav-btns">
-        <button class="bnb" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
-        <span class="bnb-lbl" id="futbolNavLbl">1 / 1</span>
-        <button class="bnb" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
-       </div>
+      <div class="pp-progress-card">
+       <div class="pp-prog-ico green">⚽</div>
+       <div class="pp-prog-body"><strong>Pasaporte Futbolero</strong><p>Viví el fútbol, coleccioná estadios y momentos únicos.</p></div>
+       <div class="pp-prog-badge" style="border-color:#22c55e"><div class="pp-prog-num" style="color:#22c55e" id="futbolProgNum">0/30</div><div class="pp-prog-lbl">Estadios visitados</div></div>
       </div>
+      <button class="btn-open-passport" style="background:#22c55e" onclick="openPassport('futbol')"><i class="fas fa-book-open"></i> Abrir Pasaporte</button>
      </div>
-     <div class="pp-sb">
-      <div class="sb-card">
-       <div class="sb-card-ttl">Tu progreso</div>
-       <div class="donut-wrap">
-        <svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="futbolDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg>
-        <div class="d-val" id="futbolDonutLbl">0/30</div><div class="d-sub">Estadios visitados</div><div class="d-pct" id="futbolDonutPct">0% completado</div>
+    </div>
+    <!-- BOOK STATE -->
+    <div id="futbolBookState" style="display:none">
+     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div style="font-size:.8rem;font-weight:700;color:var(--tx2)"><i class="fas fa-futbol" style="color:#22c55e"></i> Pasaporte Futbolero</div>
+      <button class="btn-close-passport" onclick="closePassport('futbol')"><i class="fas fa-times"></i> Cerrar</button>
+     </div>
+     <div class="pp-layout pp-book-wrap" id="futbolBookWrap">
+      <div>
+       <div class="ftabs" id="futbolTabs"></div>
+       <div class="open-book"><div class="book-pages" id="futbolBookInner"></div></div>
+       <div style="margin-top:14px"><div class="sec-ttl" style="margin-bottom:10px">Logros desbloqueables</div><div class="logros-grid"><div class="lg-c"><div class="lg-ico">🎫</div><div class="lg-name">Primer partido</div><div class="lg-desc">Asistí a tu primer partido</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">🏟️</div><div class="lg-name">5 estadios</div><div class="lg-desc">Visitaste 5 estadios</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">⚡</div><div class="lg-name">Clásico vivido</div><div class="lg-desc">Viviste un clásico</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">🌐</div><div class="lg-name">Internacional</div><div class="lg-desc">Fuera de tu país</div></div><div class="lg-c" style="opacity:.5"><div class="lg-ico">🏆</div><div class="lg-name">Final asistida</div><div class="lg-desc">Viviste una final</div></div></div></div>
+       <div class="book-nav-row">
+        <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip futbolero</strong><br>¡Cada partido cuenta tu historia!</div></div>
+        <div class="book-nav-btns">
+         <button class="bnb" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
+         <span class="bnb-lbl" id="futbolNavLbl">1 / 1</span>
+         <button class="bnb" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
+        </div>
        </div>
       </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Estadísticas</div>
-       <div class="sl-list">
-        <div class="sl-i"><div class="sl-ico">🏟️</div><span class="sl-lbl">Estadios disponibles</span><strong class="sl-v" id="futbolStatT">—</strong></div>
-        <div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Estadios visitados</span><strong class="sl-v" id="futbolStatV">0</strong></div>
-        <div class="sl-i"><div class="sl-ico">⚽</div><span class="sl-lbl">Ligas exploradas</span><strong class="sl-v" id="futbolStatL">0</strong></div>
-        <div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km futboleros</span><strong class="sl-v">—</strong></div>
-       </div>
-      </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Logro reciente</div>
-       <div class="logro-c"><div class="logro-ico">⚽</div><div><div class="logro-name" id="futbolLogroN">Hincha Argento</div><div class="logro-desc" id="futbolLogroD">Visitaste estadios en Argentina</div></div></div>
+      <div class="pp-sb">
+       <div class="sb-card"><div class="sb-card-ttl">Tu progreso</div><div class="donut-wrap"><svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="futbolDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg><div class="d-val" id="futbolDonutLbl">0/30</div><div class="d-sub">Estadios visitados</div><div class="d-pct" id="futbolDonutPct">0% completado</div></div></div>
+       <div class="sb-card"><div class="sb-card-ttl">Estadísticas</div><div class="sl-list"><div class="sl-i"><div class="sl-ico">🏟️</div><span class="sl-lbl">Estadios disponibles</span><strong class="sl-v" id="futbolStatT">—</strong></div><div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Estadios visitados</span><strong class="sl-v" id="futbolStatV">0</strong></div><div class="sl-i"><div class="sl-ico">⚽</div><span class="sl-lbl">Ligas exploradas</span><strong class="sl-v" id="futbolStatL">0</strong></div><div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km futboleros</span><strong class="sl-v">—</strong></div></div></div>
+       <div class="sb-card"><div class="sb-card-ttl">Logro reciente</div><div class="logro-c"><div class="logro-ico">⚽</div><div><div class="logro-name" id="futbolLogroN">Hincha Argento</div><div class="logro-desc" id="futbolLogroD">Visitaste estadios en Argentina</div></div></div></div>
       </div>
      </div>
     </div>
@@ -712,10 +801,47 @@ function showView(id){
   if(ico){ico.className='hdr-ico '+(m.cls||'blue');ico.innerHTML='<i class="'+m.ico+'"></i>';}
   if(ttl) ttl.textContent=m.title||'';
   if(sub) sub.textContent=m.sub||'';
-  if(id==='pasaporte-viaje') renderViajeBook();
-  if(id==='pasaporte-futbol') renderFutbolBook();
+  /* reset passport views to cover state */
+  if(id==='pasaporte-viaje'){
+    const cs=document.getElementById('viajeCoverState'),bs=document.getElementById('viajeBookState');
+    if(cs)cs.style.display='flex';if(bs)bs.style.display='none';
+    const cov=document.getElementById('viajeCover');if(cov)cov.classList.remove('opening');
+  }
+  if(id==='pasaporte-futbol'){
+    const cs=document.getElementById('futbolCoverState'),bs=document.getElementById('futbolBookState');
+    if(cs)cs.style.display='flex';if(bs)bs.style.display='none';
+    const cov=document.getElementById('futbolCover');if(cov)cov.classList.remove('opening');
+  }
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
+}
+function openPassport(type){
+  const cs=document.getElementById(type+'CoverState');
+  const bs=document.getElementById(type+'BookState');
+  const cov=document.getElementById(type+'Cover');
+  if(!cs||!bs||!cov)return;
+  cov.classList.add('opening');
+  setTimeout(()=>{
+    cs.style.display='none';
+    cov.classList.remove('opening');
+    bs.style.display='block';
+    const wrap=document.getElementById(type+'BookWrap');
+    if(wrap){wrap.style.animation='none';void wrap.offsetWidth;wrap.style.animation='bookIn .36s ease forwards';}
+    if(type==='viaje') renderViajeBook();
+    else renderFutbolBook();
+  },290);
+}
+function closePassport(type){
+  const cs=document.getElementById(type+'CoverState');
+  const bs=document.getElementById(type+'BookState');
+  const wrap=document.getElementById(type+'BookWrap');
+  if(!wrap)return;
+  wrap.style.animation='bookOut .24s ease forwards';
+  setTimeout(()=>{
+    if(bs)bs.style.display='none';
+    if(cs)cs.style.display='flex';
+    wrap.style.animation='';
+  },220);
 }
 /* THEME */
 (function(){
@@ -991,6 +1117,7 @@ function updateViajeDonut(){
   const dp=document.getElementById('viajeDonutPct');if(dp)dp.textContent=pct+'% completado';
   const sv=document.getElementById('viajeStatV');if(sv)sv.textContent=count;
   const sc=document.getElementById('viajeStatC');if(sc)sc.textContent=count>0?Math.min(Math.ceil(count/4),3):0;
+  const pn=document.getElementById('viajeProgNum');if(pn)pn.textContent=count+'/28';
 }
 function updateFutbolDonut(){
   const total=Object.values(PASAPORTE_DATA).reduce((s,p)=>s+p.estadios.length,0);
@@ -1004,6 +1131,7 @@ function updateFutbolDonut(){
   const st=document.getElementById('futbolStatT');if(st)st.textContent=total;
   const sv=document.getElementById('futbolStatV');if(sv)sv.textContent=count;
   const sl=document.getElementById('futbolStatL');if(sl)sl.textContent=PASSPORT_KEYS.filter(k=>PASAPORTE_DATA[k].estadios.some(e=>_selladosSet.has(e.id))).length;
+  const fn=document.getElementById('futbolProgNum');if(fn)fn.textContent=count+'/'+total;
 }
 /* VIAJE BOOK RENDER */
 function renderViajeBook(){
@@ -1041,6 +1169,8 @@ function renderViajeSpread(){
 }
 function navViajePassport(dir){
   _viajeCurrentTab=Math.max(0,Math.min(VIAJE_PAGES.length-1,_viajeCurrentTab+dir));
+  const inner=document.getElementById('viajeBookInner');
+  if(inner){const cls=dir>0?'flip-fwd':'flip-bck';inner.classList.add(cls);setTimeout(()=>inner.classList.remove(cls),380);}
   renderViajeRegionTabs();
   renderViajeSpread();
 }
@@ -1088,6 +1218,8 @@ function navFutbolPassport(dir){
   const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
   const total=Math.max(1,Math.ceil(pais.estadios.length/6));
   _futbolCurrentPage=Math.max(0,Math.min(total-1,_futbolCurrentPage+dir));
+  const inner=document.getElementById('futbolBookInner');
+  if(inner){const cls=dir>0?'flip-fwd':'flip-bck';inner.classList.add(cls);setTimeout(()=>inner.classList.remove(cls),380);}
   renderFutbolSpread();
 }
 /* SELLAR ESTADIO */
@@ -1099,8 +1231,13 @@ async function sellarEstadio(estadioId,btn){
   _selladosSet.add(estadioId);
   const row=document.getElementById(`srow-${estadioId}`);
   if(row){
-    row.classList.add('visited');
-    if(!row.querySelector('.visitado-ov')){const ov=document.createElement('div');ov.className='visitado-ov';ov.innerHTML='<span class="vstamp">VISITADO</span>';row.insertBefore(ov,row.firstChild);}
+    row.classList.add('visited','just-stamped');
+    setTimeout(()=>row.classList.remove('just-stamped'),700);
+    if(!row.querySelector('.visitado-ov')){
+      const ov=document.createElement('div');ov.className='visitado-ov';
+      const st=document.createElement('span');st.className='vstamp dropping';st.textContent='VISITADO';
+      ov.appendChild(st);row.insertBefore(ov,row.firstChild);
+    }
     const b=row.querySelector('.tc-btn');if(b){b.textContent='✓ Sellado';b.disabled=true;b.classList.add('done');}
   }
   updateFutbolDonut();
