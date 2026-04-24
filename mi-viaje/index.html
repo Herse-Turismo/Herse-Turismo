@@ -355,7 +355,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .passport.open .passport-book{opacity:1;pointer-events:auto;transition:opacity .45s .35s}
 .passport-book::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:4px;height:100%;background:linear-gradient(to right,rgba(80,50,10,0) 0,rgba(80,50,10,.22) 50%,rgba(80,50,10,0) 100%);box-shadow:0 0 10px rgba(0,0,0,.14);z-index:2;pointer-events:none}
 /* PAGE */
-.pp{width:50%;padding:24px;overflow-y:auto;background:repeating-linear-gradient(to bottom,#f5ebdd,#f5ebdd 28px,#e7dcc7 29px);display:flex;flex-direction:column}
+.pp{width:50%;padding:24px 20px 50px;overflow-y:auto;background:repeating-linear-gradient(to bottom,#f5ebdd,#f5ebdd 28px,#e7dcc7 29px);display:flex;flex-direction:column}
 .pp:first-child{border-right:none}
 .pp::-webkit-scrollbar{width:4px}
 .pp::-webkit-scrollbar-thumb{background:rgba(120,90,40,.22);border-radius:99px}
@@ -383,6 +383,21 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* STAMP */
 .pp-stamp{position:absolute;top:6px;right:42px;border:2px solid #c0392b;color:#c0392b;padding:3px 7px;font-size:.52rem;font-weight:900;letter-spacing:2px;transform:rotate(-10deg);background:rgba(255,255,255,.65);animation:stampIn .3s ease;pointer-events:none;line-height:1}
 .pp-stamp.futbol{border-color:#15803d;color:#15803d}
+/* PAGE TURN ANIMATION */
+@keyframes ppOutFwd{from{transform:translateX(0) scale(1);opacity:1}to{transform:translateX(-30px) scale(.97);opacity:0}}
+@keyframes ppInFwd{from{transform:translateX(30px) scale(.97);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
+@keyframes ppOutBwd{from{transform:translateX(0) scale(1);opacity:1}to{transform:translateX(30px) scale(.97);opacity:0}}
+@keyframes ppInBwd{from{transform:translateX(-30px) scale(.97);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
+.pp-list.pout-fwd{animation:ppOutFwd .19s ease forwards}
+.pp-list.pin-fwd{animation:ppInFwd .19s ease forwards}
+.pp-list.pout-bwd{animation:ppOutBwd .19s ease forwards}
+.pp-list.pin-bwd{animation:ppInBwd .19s ease forwards}
+/* PAGE NAV */
+.pp-nav{position:absolute;bottom:0;left:0;right:0;height:40px;display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(to top,rgba(240,228,210,1) 55%,rgba(245,235,221,0) 100%);z-index:3;pointer-events:auto}
+.pp-nav-btn{width:27px;height:27px;border-radius:50%;border:1.5px solid rgba(110,85,40,.3);background:rgba(255,255,255,.78);color:#5a4020;font-size:.84rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.12s;line-height:1}
+.pp-nav-btn:hover:not(:disabled){background:#fff;border-color:rgba(110,85,40,.65);box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.pp-nav-btn:disabled{opacity:.22;cursor:default}
+.pp-nav-lbl{font-size:.57rem;font-weight:800;color:rgba(90,65,25,.55);letter-spacing:1px;min-width:32px;text-align:center}
 /* CLOSE BUTTON (inside book top-right) */
 .pp-close-btn{position:absolute;top:10px;right:12px;z-index:5;background:rgba(255,255,255,.65);border:1px solid rgba(110,85,40,.25);border-radius:6px;color:#5a4020;font-size:.65rem;font-weight:700;padding:4px 9px;cursor:pointer;transition:.12s;backdrop-filter:blur(4px)}
 .pp-close-btn:hover{background:rgba(255,255,255,.9);border-color:#5a4020}
@@ -615,6 +630,11 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="pp-hdr" id="viaje-hdr-r">Continuación</div>
         <div class="pp-list" id="viaje-list-r"></div>
        </div>
+       <div class="pp-nav">
+        <button class="pp-nav-btn" id="viaje-nav-prev" onclick="navPassport('viaje',-1)" disabled>&#8249;</button>
+        <span class="pp-nav-lbl" id="viaje-nav-lbl">1/1</span>
+        <button class="pp-nav-btn" id="viaje-nav-next" onclick="navPassport('viaje',1)">&#8250;</button>
+       </div>
       </div>
      </div>
     </div>
@@ -658,6 +678,11 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
        <div class="pp">
         <div class="pp-hdr" id="futbol-hdr-r">Continuación</div>
         <div class="pp-list" id="futbol-list-r"></div>
+       </div>
+       <div class="pp-nav">
+        <button class="pp-nav-btn" id="futbol-nav-prev" onclick="navPassport('futbol',-1)" disabled>&#8249;</button>
+        <span class="pp-nav-lbl" id="futbol-nav-lbl">1/1</span>
+        <button class="pp-nav-btn" id="futbol-nav-next" onclick="navPassport('futbol',1)">&#8250;</button>
        </div>
       </div>
      </div>
@@ -1081,6 +1106,9 @@ let _viajeSelladosSet=new Set();
 let _viajeCurrentTab=0;
 let _futbolCurrentTab=0;
 let _futbolCurrentPage=0;
+let _viajeSpread=0;
+let _futbolSpread=0;
+const _IPS=8; /* items per spread (4 per page) */
 function matchesDestino(destino,pais){
   const n=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const d=n(destino),p=n(pais);
@@ -1143,16 +1171,19 @@ function renderViajeList(){
   ).join('');
   const pg=VIAJE_PAGES[_viajeCurrentTab];
   const items=[...pg.left.items,...pg.right.items];
-  const mid=Math.ceil(items.length/2);
-  const left=items.slice(0,mid);
-  const right=items.slice(mid);
-  const wL=document.getElementById('viaje-list');if(wL)wL.innerHTML=left.map(_buildViajeRow).join('');
-  const wR=document.getElementById('viaje-list-r');if(wR)wR.innerHTML=right.map(_buildViajeRow).join('');
+  const total=Math.max(1,Math.ceil(items.length/_IPS));
+  const s=_viajeSpread*_IPS;
+  const wL=document.getElementById('viaje-list');if(wL)wL.innerHTML=items.slice(s,s+4).map(_buildViajeRow).join('');
+  const wR=document.getElementById('viaje-list-r');if(wR)wR.innerHTML=items.slice(s+4,s+_IPS).map(_buildViajeRow).join('');
   const hL=document.getElementById('viaje-hdr-l');if(hL)hL.textContent='\ud83d\uddfa\ufe0f '+pg.tab;
-  const hR=document.getElementById('viaje-hdr-r');if(hR)hR.textContent='\u2708\ufe0f Continuaci\u00f3n';
+  const hR=document.getElementById('viaje-hdr-r');if(hR)hR.textContent=items.slice(s+4,s+_IPS).length?'\u2708\ufe0f Continuaci\u00f3n':'';
+  const np=document.getElementById('viaje-nav-prev');if(np)np.disabled=_viajeSpread===0;
+  const nn=document.getElementById('viaje-nav-next');if(nn)nn.disabled=_viajeSpread>=total-1;
+  const nl=document.getElementById('viaje-nav-lbl');if(nl)nl.textContent=(_viajeSpread+1)+'/'+total;
 }
 function selectViajeTab(idx){
   _viajeCurrentTab=idx;
+  _viajeSpread=0;
   renderViajeList();
 }
 function stampViaje(btn,itemId){
@@ -1185,16 +1216,43 @@ function renderFutbolList(){
   }).join('');
   const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
   const estadios=pais.estadios;
-  const mid=Math.ceil(estadios.length/2);
-  const wL=document.getElementById('futbol-list');if(wL)wL.innerHTML=estadios.slice(0,mid).map(e=>_buildFutbolRow(e,pais)).join('');
-  const wR=document.getElementById('futbol-list-r');if(wR)wR.innerHTML=estadios.slice(mid).map(e=>_buildFutbolRow(e,pais)).join('');
+  const total=Math.max(1,Math.ceil(estadios.length/_IPS));
+  const s=_futbolSpread*_IPS;
+  const wL=document.getElementById('futbol-list');if(wL)wL.innerHTML=estadios.slice(s,s+4).map(e=>_buildFutbolRow(e,pais)).join('');
+  const wR=document.getElementById('futbol-list-r');if(wR)wR.innerHTML=estadios.slice(s+4,s+_IPS).map(e=>_buildFutbolRow(e,pais)).join('');
   const hL=document.getElementById('futbol-hdr-l');if(hL)hL.textContent=(pais.flag||'\u26bd')+' '+pais.nombre;
-  const hR=document.getElementById('futbol-hdr-r');if(hR)hR.textContent='\u26bd Continuaci\u00f3n';
+  const hR=document.getElementById('futbol-hdr-r');if(hR)hR.textContent=estadios.slice(s+4,s+_IPS).length?'\u26bd Continuaci\u00f3n':'';
+  const np=document.getElementById('futbol-nav-prev');if(np)np.disabled=_futbolSpread===0;
+  const nn=document.getElementById('futbol-nav-next');if(nn)nn.disabled=_futbolSpread>=total-1;
+  const nl=document.getElementById('futbol-nav-lbl');if(nl)nl.textContent=(_futbolSpread+1)+'/'+total;
 }
 function selectFutbolTab(idx){
   _futbolCurrentTab=idx;
   _futbolCurrentPage=0;
+  _futbolSpread=0;
   renderFutbolList();
+}
+function navPassport(type,dir){
+  const isV=type==='viaje';
+  const items=isV
+    ?[...VIAJE_PAGES[_viajeCurrentTab].left.items,...VIAJE_PAGES[_viajeCurrentTab].right.items]
+    :PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]].estadios;
+  const cur=isV?_viajeSpread:_futbolSpread;
+  const total=Math.max(1,Math.ceil(items.length/_IPS));
+  const next=cur+dir;
+  if(next<0||next>=total)return;
+  const lL=document.getElementById(type+'-list');
+  const lR=document.getElementById(type+'-list-r');
+  const oC=dir>0?'pout-fwd':'pout-bwd';
+  const iC=dir>0?'pin-fwd':'pin-bwd';
+  [lL,lR].forEach(el=>{if(el)el.classList.add(oC);});
+  setTimeout(()=>{
+    if(isV)_viajeSpread=next;else _futbolSpread=next;
+    [lL,lR].forEach(el=>{if(el)el.classList.remove(oC);});
+    if(isV)renderViajeList();else renderFutbolList();
+    [lL,lR].forEach(el=>{if(el)el.classList.add(iC);});
+    setTimeout(()=>[lL,lR].forEach(el=>{if(el)el.classList.remove(iC);}),210);
+  },200);
 }
 /* SELLAR ESTADIO */
 async function sellarEstadio(estadioId,btn){
