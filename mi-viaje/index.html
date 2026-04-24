@@ -1,1647 +1,1105 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Mi Viaje · Herse Turismo</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Mi Viaje Herse">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#003366">
-    <meta name="description" content="Tu portal personal de viaje con Herse Turismo.">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23004A8F'/><text y='72' x='12' font-size='70'>✈️</text></svg>">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-/* ── VARIABLES ── */
-:root {
-    --bg: #f0f4fa;
-    --sidebar-bg: #ffffff;
-    --card-bg: #ffffff;
-    --text: #1a1e2e;
-    --text-muted: #6b7280;
-    --border: #e5eaf2;
-    --accent: #1a6cff;
-    --accent-bg: #eef3ff;
-    --shadow: 0 2px 12px rgba(0,0,0,.07);
-    --radius: 16px;
-    --sidebar-w: 240px;
-    --header-h: 64px;
-}
-[data-theme="dark"] {
-    --bg: #0e1120;
-    --sidebar-bg: #141829;
-    --card-bg: #1a2040;
-    --text: #e8edf8;
-    --text-muted: #7b86a8;
-    --border: rgba(255,255,255,.08);
-    --accent: #4d8eff;
-    --accent-bg: rgba(77,142,255,.12);
-    --shadow: 0 2px 20px rgba(0,0,0,.35);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; width: 100%; overflow-x: hidden; }
-body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    transition: background .3s, color .3s;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/* ── APP LAYOUT ── */
-.app { display: flex; min-height: 100vh; width: 100%; }
-
-/* ── SIDEBAR ── */
-.sidebar {
-    width: var(--sidebar-w);
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0; left: 0;
-    height: 100vh;
-    z-index: 100;
-    overflow-y: auto;
-    transition: background .3s, border .3s;
-}
-.sidebar-logo {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-}
-.sidebar-logo img { height: 28px; object-fit: contain; }
-.sidebar-logo-wordmark { font-size: .7rem; font-weight: 900; color: var(--text); letter-spacing: .5px; line-height: 1.25; }
-.sidebar-logo-wordmark small { display: block; font-size: .6rem; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
-.sidebar-nav { flex: 1; padding: 10px; }
-.nav-item {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    font-size: .845rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all .18s;
-    text-decoration: none;
-    white-space: nowrap;
-    margin-bottom: 2px;
-}
-.nav-item i { width: 18px; text-align: center; font-size: .9rem; flex-shrink: 0; }
-.nav-item:hover { background: var(--accent-bg); color: var(--accent); }
-.nav-item.active { background: var(--accent-bg); color: var(--accent); font-weight: 700; }
-.sidebar-bottom { padding: 12px; flex-shrink: 0; }
-.sidebar-promo { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
-.sidebar-promo-img { width: 100%; height: 100px; object-fit: cover; display: block; }
-.sidebar-promo-body { padding: 13px; background: var(--card-bg); }
-.sidebar-promo h4 { font-size: .78rem; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-.sidebar-promo p  { font-size: .7rem; color: var(--text-muted); margin-bottom: 10px; line-height: 1.4; }
-.btn-promo { display: block; text-align: center; padding: 8px 12px; background: var(--accent); color: #fff; border-radius: 8px; font-size: .76rem; font-weight: 800; text-decoration: none; transition: .18s; }
-.btn-promo:hover { opacity: .85; }
-
-/* ── MAIN WRAPPER ── */
-.main-wrap { margin-left: var(--sidebar-w); width: calc(100% - var(--sidebar-w)); display: flex; flex-direction: column; min-height: 100vh; }
-
-/* ── TOP HEADER ── */
-.top-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 28px;
-    height: var(--header-h);
-    background: var(--card-bg);
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 50;
-    transition: background .3s;
-    flex-shrink: 0;
-    width: 100%;
-}
-.header-left h1 { font-size: 1.05rem; font-weight: 900; color: var(--text); display: flex; align-items: center; gap: 8px; }
-.header-left p  { font-size: .7rem; color: var(--text-muted); margin-top: 1px; }
-.header-actions { display: flex; align-items: center; gap: 10px; }
-.icon-btn {
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1.5px solid var(--border);
-    background: transparent; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: .9rem; color: var(--text-muted);
-    transition: .18s; position: relative;
-}
-.icon-btn:hover { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
-.notif-dot { position: absolute; top: 5px; right: 5px; width: 7px; height: 7px; border-radius: 50%; background: #ef4444; border: 2px solid var(--card-bg); }
-.user-chip { display: flex; align-items: center; gap: 9px; cursor: pointer; padding: 5px 10px; border-radius: 10px; transition: .18s; }
-.user-chip:hover { background: var(--accent-bg); }
-.user-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: #fff; font-size: .82rem; font-weight: 800; flex-shrink: 0; overflow: hidden; }
-.user-name-lbl { font-size: .83rem; font-weight: 800; color: var(--text); display: block; white-space: nowrap; }
-.user-sub-lbl  { font-size: .67rem; color: var(--text-muted); display: block; }
-.btn-admin { display: none; font-size: .68rem; padding: 3px 10px; background: var(--accent); color: #fff; border-radius: 6px; text-decoration: none; font-weight: 800; margin-left: 6px; }
-.btn-admin.visible { display: inline-flex; align-items: center; gap: 5px; }
-
-/* ── PAGE CONTENT ── */
-.page-content { padding: 24px 28px; width: 100%; }
-
-/* ── CHECK-IN BANNER ── */
-.checkin-banner {
-    display: none;
-    background: #fffbeb; border: 1px solid #fcd34d;
-    border-radius: 12px; padding: 12px 16px;
-    margin-bottom: 18px; align-items: center; gap: 12px; flex-wrap: wrap;
-}
-.checkin-banner.show { display: flex; }
-[data-theme="dark"] .checkin-banner { background: #251f0e; border-color: #7a5c00; }
-.btn-checkin { padding: 7px 14px; background: var(--accent); color: #fff; border: none; border-radius: 8px; font-size: .77rem; font-weight: 800; cursor: pointer; }
-.btn-dismiss  { background: none; border: none; cursor: pointer; color: var(--text-muted); margin-left: auto; }
-
-/* ── STATES ── */
-.state-card { padding: 60px 24px; text-align: center; }
-.state-card .state-icon { font-size: 3.2rem; margin-bottom: 18px; }
-.state-card h3 { font-size: 1.25rem; font-weight: 900; color: var(--accent); margin-bottom: 12px; }
-.state-card p  { color: var(--text-muted); margin-bottom: 24px; }
-
-/* ── HERO BANNER ── */
-.hero-banner {
-    border-radius: 20px; overflow: hidden;
-    position: relative; margin-bottom: 20px;
-    min-height: 210px; display: flex; align-items: flex-end;
-    background: linear-gradient(135deg, #001a55 0%, #003499 100%);
-}
-.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .48; }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,8,50,.9) 35%, rgba(0,8,50,.06) 100%); }
-.hero-body { position: relative; z-index: 1; padding: 26px 30px; flex: 1; }
-.hero-label { font-size: .6rem; font-weight: 800; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 5px; }
-.hero-dest  { font-size: 1.95rem; font-weight: 900; color: #fff; margin-bottom: 14px; line-height: 1.05; }
-.hero-meta  { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.hero-dates-chip {
-    display: flex; align-items: center; gap: 7px;
-    background: rgba(255,255,255,.11); border: 1px solid rgba(255,255,255,.2);
-    border-radius: 8px; padding: 5px 11px;
-    font-size: .75rem; font-weight: 700; color: rgba(255,255,255,.82);
-}
-.hero-cd { display: flex; align-items: center; gap: 16px; }
-.hero-cd-item { text-align: center; }
-.hero-cd-num { font-size: 1.55rem; font-weight: 900; color: #fff; display: block; line-height: 1; font-variant-numeric: tabular-nums; }
-.hero-cd-lbl { font-size: .58rem; color: rgba(255,255,255,.48); font-weight: 700; text-transform: uppercase; }
-.hero-cta-btn {
-    position: absolute; bottom: 22px; right: 24px; z-index: 1;
-    display: flex; align-items: center; gap: 7px;
-    padding: 9px 18px;
-    background: rgba(255,255,255,.13); border: 1.5px solid rgba(255,255,255,.28);
-    border-radius: 10px; color: #fff; font-size: .77rem; font-weight: 800;
-    cursor: pointer; text-decoration: none; transition: .2s;
-}
-.hero-cta-btn:hover { background: rgba(255,255,255,.24); }
-@keyframes tick-anim { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
-.tick { animation: tick-anim .12s ease; }
-
-/* ── CARDS GRID ── */
-.cards-row { display: grid; gap: 16px; margin-bottom: 20px; }
-.cols-2 { grid-template-columns: 1fr 1fr; }
-.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-
-/* ── BASE CARD ── */
-.card {
-    background: var(--card-bg);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    transition: background .3s, border .3s;
-}
-.card-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-.card-title { font-size: .88rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 8px; }
-.card-link  { font-size: .73rem; font-weight: 700; color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-.card-link:hover { text-decoration: underline; }
-
-/* ── TRIP CARD ── */
-.trip-dest-row { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
-.trip-flag-circle { width: 52px; height: 52px; border-radius: 50%; background: var(--accent-bg); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.7rem; flex-shrink: 0; }
-.trip-dest-name  { font-size: 1.4rem; font-weight: 900; color: var(--text); }
-.trip-dest-dates { font-size: .72rem; color: var(--text-muted); margin-top: 2px; }
-.trip-meta { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-bottom: 18px; }
-.trip-meta-item label { font-size: .6rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: .8px; display: flex; align-items: center; gap: 4px; margin-bottom: 4px; }
-.trip-meta-item span  { font-size: .8rem; font-weight: 800; color: var(--text); }
-.trip-action-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border: 1.5px solid var(--border); border-radius: 10px; color: var(--text-muted); font-size: .78rem; font-weight: 700; background: none; cursor: pointer; transition: .18s; }
-.trip-action-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-/* ── FIDELIZACIÓN CARD ── */
-.fid-tier-header {
-    display:flex; align-items:center; gap:14px;
-    padding:16px 20px; margin:-22px -24px 18px;
-    background:linear-gradient(130deg,#0f2d5e 0%,#1a6cff 60%,#5e3aee 100%);
-    border-radius:var(--radius) var(--radius) 0 0;
-}
-.fid-tier-icon-wrap {
-    width:46px; height:46px; border-radius:12px; flex-shrink:0;
-    background:rgba(255,255,255,.14); border:1.5px solid rgba(255,255,255,.22);
-    display:flex; align-items:center; justify-content:center; font-size:1.45rem;
-}
-.fid-tier-meta { flex:1; min-width:0; }
-.fid-tier-lbl { font-size:.54rem; font-weight:700; color:rgba(255,255,255,.55); text-transform:uppercase; letter-spacing:1.8px; }
-.fid-tier-name { font-size:1.15rem; font-weight:900; color:#fff; line-height:1.2; }
-.fid-pts-pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:99px; padding:6px 13px; text-align:center; flex-shrink:0; }
-.fid-pts-pill .fid-pts-val { font-size:1.05rem; font-weight:900; color:#fff; display:block; line-height:1; }
-.fid-pts-pill .fid-pts-unit { font-size:.52rem; font-weight:700; color:rgba(255,255,255,.5); letter-spacing:1px; text-transform:uppercase; display:block; margin-top:2px; }
-.fid-prog-wrap { margin-bottom:14px; }
-.fid-prog-labels { display:flex; justify-content:space-between; margin-bottom:6px; font-size:.63rem; font-weight:700; }
-.fid-prog-labels span:first-child { color:var(--text-muted); }
-.fid-prog-labels span:last-child { color:var(--accent); }
-.progress-track { height:6px; background:var(--border); border-radius:99px; overflow:hidden; }
-.progress-fill  { height:100%; background:linear-gradient(90deg,var(--accent),#6e44ff); border-radius:99px; width:0; transition:width 1s ease; }
-.fid-prog-hint { font-size:.62rem; color:var(--text-muted); margin-top:5px; }
-.fid-benefits { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
-.fid-benefit { display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:9px; background:var(--accent-bg); }
-.fid-benefit-ico { font-size:1.1rem; flex-shrink:0; }
-.fid-benefit-name { font-size:.74rem; font-weight:700; color:var(--text); }
-.fid-benefit-sub  { font-size:.62rem; color:var(--text-muted); margin-top:1px; }
-.fid-benefit.fid-benefit-locked { background:transparent; border:1px dashed var(--border); opacity:.7; }
-.fid-action-btn { display:inline-flex; align-items:center; gap:7px; padding:9px 16px; background:var(--accent-bg); border:1.5px solid var(--accent); border-radius:10px; color:var(--accent); font-size:.76rem; font-weight:800; cursor:pointer; transition:.18s; }
-.fid-action-btn:hover { background:var(--accent); color:#fff; }
-
-/* ── PASSPORT STAMP CAROUSEL ── */
-.stamp-carousel { display: flex; gap: 14px; overflow-x: auto; padding: 4px 0 10px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
-.stamp-carousel::-webkit-scrollbar { height: 4px; }
-.stamp-carousel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
-.stamp-item { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 7px; cursor: pointer; }
-.stamp-ring {
-    width: 80px; height: 80px; border-radius: 50%;
-    border: 3px solid;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 1px; position: relative;
-    transition: transform .2s, box-shadow .2s;
-}
-.stamp-ring:hover { transform: scale(1.07); }
-.stamp-ring.visited { opacity: 1; }
-.stamp-ring.pending { opacity: .32; border-style: dashed; }
-.stamp-ring-icon { font-size: 1.85rem; line-height: 1; }
-.stamp-ring-year { font-size: .42rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; position: absolute; bottom: 9px; }
-.stamp-lbl-name { font-size: .67rem; font-weight: 700; color: var(--text); text-align: center; max-width: 80px; line-height: 1.25; }
-.stamp-lbl-sub  { font-size: .61rem; color: var(--text-muted); text-align: center; }
-.stamp-see-all-btn { flex-shrink: 0; width: 80px; height: 80px; border-radius: 50%; border: 2px dashed var(--border); background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: var(--text-muted); font-size: .62rem; font-weight: 700; gap: 5px; transition: .18s; }
-.stamp-see-all-btn:hover { border-color: var(--accent); color: var(--accent); }
-.stamp-blue   { border-color: #1a6cff; color: #1a6cff; }
-.stamp-red    { border-color: #dc2626; color: #dc2626; }
-.stamp-green  { border-color: #16a34a; color: #16a34a; }
-.stamp-purple { border-color: #7c3aed; color: #7c3aed; }
-.stamp-orange { border-color: #ea580c; color: #ea580c; }
-.stamp-teal   { border-color: #0891b2; color: #0891b2; }
-
-/* ── BOTTOM BANNER ── */
-.bottom-banner { border-radius: 16px; padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; background: linear-gradient(130deg, #0f2290, var(--accent), #4d2aff); flex-wrap: wrap; margin-bottom: 24px; }
-.bottom-banner h4 { font-size: .95rem; font-weight: 900; color: #fff; margin-bottom: 4px; }
-.bottom-banner p  { font-size: .75rem; color: rgba(255,255,255,.7); }
-.bottom-banner-btn { display: flex; align-items: center; gap: 8px; padding: 11px 22px; background: rgba(255,255,255,.14); border: 1.5px solid rgba(255,255,255,.3); border-radius: 10px; color: #fff; font-size: .8rem; font-weight: 800; cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: .2s; }
-.bottom-banner-btn:hover { background: rgba(255,255,255,.26); }
-
-/* ── PASSPORT MODAL ── */
-.passport-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.65); backdrop-filter: blur(10px); z-index: 300; align-items: center; justify-content: center; padding: 20px; }
-.passport-modal-overlay.open { display: flex; }
-.passport-modal-inner { background: var(--card-bg); border-radius: 20px; max-width: 560px; width: 100%; max-height: 88vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 80px rgba(0,0,0,.35); animation: modalIn .28s cubic-bezier(.175,.885,.32,1.275); }
-@keyframes modalIn { from { opacity:0; transform:scale(.92) translateY(20px); } to { opacity:1; transform:none; } }
-.pmodal-header { padding: 18px 22px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-.pmodal-title  { font-size: .95rem; font-weight: 900; color: var(--text); display: flex; align-items: center; gap: 8px; }
-.pmodal-close  { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; cursor: pointer; color: var(--text-muted); font-size: .85rem; display: flex; align-items: center; justify-content: center; transition: .18s; }
-.pmodal-close:hover { background: var(--accent-bg); color: var(--accent); }
-.pmodal-tabs { display: flex; gap: 6px; padding: 12px 22px 0; flex-shrink: 0; overflow-x: auto; scrollbar-width: none; }
-.pmodal-tabs::-webkit-scrollbar { display: none; }
-.pmodal-tab { padding: 6px 13px; border-radius: 8px; font-size: .76rem; font-weight: 700; color: var(--text-muted); background: none; border: 1.5px solid transparent; cursor: pointer; white-space: nowrap; transition: .18s; }
-.pmodal-tab:hover:not(.active) { background: var(--accent-bg); color: var(--accent); }
-.pmodal-tab.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
-.pmodal-body  { overflow-y: auto; flex: 1; padding: 14px 22px 22px; }
-.pmodal-country-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: .82rem; font-weight: 800; color: var(--text); }
-.pmodal-st-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 10px; border-radius: 9px; transition: .15s; }
-.pmodal-st-row:hover { background: var(--accent-bg); }
-.pmodal-st-name { font-size: .81rem; font-weight: 700; color: var(--text); }
-.pmodal-st-team { font-size: .67rem; color: var(--text-muted); margin-top: 1px; }
-.pmodal-visited-lbl { font-size: .71rem; font-weight: 800; color: #16a34a; display: flex; align-items: center; gap: 4px; }
-.pmodal-pending-lbl { font-size: .67rem; color: var(--text-muted); }
-.btn-sellar-modal { font-size: .7rem; font-weight: 800; padding: 5px 12px; background: var(--accent); color: #fff; border: none; border-radius: 7px; cursor: pointer; transition: .18s; }
-.btn-sellar-modal:hover { opacity: .85; }
-.btn-sellar-modal:disabled { opacity: .5; cursor: not-allowed; }
-
-/* ── RECENT TRIPS ── */
-.recent-trip-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--border); }
-.recent-trip-item:last-child { border-bottom:none; padding-bottom:0; }
-.rtrip-thumb { width:44px; height:36px; border-radius:8px; background:var(--accent-bg); display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0; }
-.rtrip-name  { font-size:.82rem; font-weight:700; color:var(--text); }
-.rtrip-dates { font-size:.66rem; color:var(--text-muted); margin-top:1px; }
-.rtrip-badge { font-size:.6rem; font-weight:800; padding:2px 7px; border-radius:20px; background:#dcfce7; color:#16a34a; flex-shrink:0; }
-[data-theme="dark"] .rtrip-badge { background:rgba(22,163,74,.15); }
-
-/* ── PASSPORT COVER CARD ── */
-.pcover-card { display:flex; align-items:center; gap:14px; perspective:900px; }
-.pcover {
-    width:64px; height:90px; border-radius:3px 8px 8px 3px;
-    display:flex; flex-direction:column; align-items:center; justify-content:space-between;
-    padding:8px 6px 7px; position:relative; flex-shrink:0; cursor:pointer;
-    box-shadow:-3px 5px 14px rgba(0,0,0,.52), -6px 1px 0 rgba(0,0,0,.18), inset 1px 0 0 rgba(255,255,255,.16);
-    border-left:6px solid rgba(0,0,0,.3);
-    overflow:hidden;
-    transform: rotate(-3deg) translateY(2px);
-    transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
-}
-.pcover:hover {
-    transform: scale(1.06) rotate(-2deg) translateY(-4px);
-    box-shadow: -5px 10px 22px rgba(0,0,0,.65), -8px 2px 0 rgba(0,0,0,.22), inset 1px 0 0 rgba(255,255,255,.22);
-}
-.pcover:active {
-    transform: scale(0.97) rotate(-3deg) translateY(2px);
-    transition-duration: 80ms;
-}
-.pcover::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(120deg,rgba(255,255,255,.32) 0%,rgba(255,255,255,.06) 35%,transparent 55%,rgba(0,0,0,.15) 100%);
-    pointer-events:none; border-radius:inherit;
-}
-.pcover.green  { background:linear-gradient(160deg,#174f28 0%,#2d8a45 55%,#1d6635 100%); }
-.pcover.purple { background:linear-gradient(160deg,#38155a 0%,#6b2fa0 55%,#461a76 100%); }
-.pcover-wm { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.5rem; opacity:.07; pointer-events:none; }
-.pcover-top  { font-size:.36rem; font-weight:900; color:rgba(255,255,255,.9); text-transform:uppercase; letter-spacing:1px; text-align:center; line-height:1.7; }
-.pcover-icon { font-size:1.2rem; filter:drop-shadow(0 2px 8px rgba(0,0,0,.45)); margin:1px 0; }
-.pcover-brand{ font-size:.36rem; font-weight:900; color:rgba(255,255,255,.65); text-transform:uppercase; letter-spacing:1.5px; border-top:1px solid rgba(255,255,255,.28); padding-top:3px; width:100%; text-align:center; }
-.pcover-info { flex:1; min-width:0; }
-.pcover-info h3 { font-size:.9rem; font-weight:800; color:var(--text); margin-bottom:4px; }
-.pcover-info p  { font-size:.7rem; color:var(--text-muted); margin-bottom:12px; line-height:1.45; }
-.pcover-stat-lbl{ font-size:.65rem; font-weight:700; color:var(--text-muted); margin-bottom:4px; }
-.pcover-stat-val{ font-size:.78rem; font-weight:800; color:var(--text); }
-.pcover-bar { height:5px; background:var(--border); border-radius:99px; margin:6px 0 14px; overflow:hidden; }
-.pcover-bar-fill{ height:100%; border-radius:99px; transition:width .7s ease; }
-.pcover-bar-fill.green { background:linear-gradient(90deg,#22c55e,#16a34a); }
-.pcover-bar-fill.blue  { background:linear-gradient(90deg,#60a5fa,#3b82f6); }
-.btn-ver-pasaporte { display:flex; align-items:center; gap:7px; width:100%; padding:9px 14px; background:var(--accent-bg); color:var(--accent); border:1.5px solid var(--accent); border-radius:9px; font-size:.76rem; font-weight:800; cursor:pointer; transition:.18s; justify-content:center; }
-.btn-ver-pasaporte:hover { background:var(--accent); color:#fff; }
-
-/* ── PASAPORTE LIBRO ── */
-.page {
-    flex:1; padding:22px 20px; position:relative; overflow-y:auto;
-    background:repeating-linear-gradient(to bottom,#f5ebdd,#f5ebdd 27px,#e9dcc8 28px);
-}
-.page.left-page { border-right:3px solid rgba(160,132,80,.22); box-shadow:inset -6px 0 12px rgba(0,0,0,.04); }
-[data-theme="dark"] .page { background:repeating-linear-gradient(to bottom,#1c2235,#1c2235 27px,#181c2c 28px); }
-[data-theme="dark"] .page.left-page { border-right-color:rgba(255,255,255,.07); box-shadow:none; }
-.page-title { font-size:.56rem; font-weight:900; text-transform:uppercase; letter-spacing:2.2px; color:#8b7d6b; margin-bottom:16px; padding-bottom:8px; border-bottom:1px solid rgba(150,120,70,.2); }
-[data-theme="dark"] .page-title { color:var(--text-muted); border-bottom-color:rgba(255,255,255,.07); }
-/* país / item */
-.country {
-    position:relative; padding:10px 14px; margin-bottom:10px;
-    border-radius:10px; background:rgba(255,255,255,.42);
-    display:flex; align-items:center; gap:12px;
-    transition:transform .2s, background .18s;
-}
-.country:hover { transform:scale(1.02); background:rgba(255,255,255,.6); }
-.country.stamped { background:rgba(255,255,255,.68); }
-[data-theme="dark"] .country { background:rgba(255,255,255,.06); }
-[data-theme="dark"] .country:hover { background:rgba(255,255,255,.1); }
-[data-theme="dark"] .country.stamped { background:rgba(255,255,255,.12); }
-.country-flag-emoji { font-size:1.5rem; flex-shrink:0; line-height:1; }
-.country-body { flex:1; min-width:0; }
-.code { font-weight:900; font-size:.78rem; color:#5c5346; letter-spacing:.8px; display:block; }
-.name { font-size:.73rem; color:#7a6f60; display:block; margin-top:2px; }
-[data-theme="dark"] .code { color:var(--text); }
-[data-theme="dark"] .name { color:var(--text-muted); }
-.stamp-btn {
-    padding:5px 12px; border-radius:7px;
-    border:1.5px solid #b8a98c; background:transparent;
-    font-size:.65rem; font-weight:700; cursor:pointer; white-space:nowrap; flex-shrink:0;
-    transition:all .16s;
-}
-.stamp-btn:hover:not(:disabled) { background:#e7dcc6; transform:scale(1.05); }
-.stamp-btn:active:not(:disabled) { transform:scale(.93); }
-.stamp-btn:disabled { opacity:.5; cursor:not-allowed; }
-.stamp-btn.done { background:#dcfce7; border-color:#16a34a; color:#16a34a; font-weight:800; }
-/* sello de tinta */
-.stamp {
-    position:absolute; top:8px; right:10px;
-    font-size:.7rem; font-weight:900; letter-spacing:1.2px;
-    color:rgba(155,28,28,.8); border:2px solid rgba(155,28,28,.65);
-    padding:2px 7px; border-radius:5px;
-    transform:rotate(-12deg); pointer-events:none;
-    animation:stampHit .36s ease-out;
-}
-@keyframes stampHit {
-    0%   { transform:translateY(-36px) scale(1.45) rotate(-12deg); opacity:0; }
-    60%  { transform:translateY(0)     scale(.88)  rotate(-12deg); }
-    80%  { transform:translateY(-2px)  scale(1.04) rotate(-12deg); }
-    100% { transform:scale(1) rotate(-12deg); opacity:1; }
-}
-/* estadio (futbolero) */
-.stadium {
-    position:relative; display:flex; justify-content:space-between;
-    align-items:center; padding:11px 14px; margin-bottom:8px;
-    background:rgba(255,255,255,.46); border-radius:10px;
-    transition:transform .18s, background .18s;
-}
-.stadium:hover { transform:scale(1.015); background:rgba(255,255,255,.68); }
-.stadium.stamped { background:rgba(255,255,255,.72); }
-[data-theme="dark"] .stadium { background:rgba(255,255,255,.07); }
-[data-theme="dark"] .stadium:hover { background:rgba(255,255,255,.12); }
-.stadium-info { display:flex; gap:10px; align-items:center; flex:1; min-width:0; }
-.stadium-icon { font-size:1.45rem; flex-shrink:0; }
-.stadium-name { font-size:.8rem; font-weight:800; color:#3a2e1a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.stadium-club { font-size:.63rem; color:#9a8060; margin-top:2px; }
-[data-theme="dark"] .stadium-name { color:var(--text); }
-[data-theme="dark"] .stadium-club { color:var(--text-muted); }
-
-/* ── QUICK ACTIONS ── */
-.quick-actions { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
-.qa-item { display:flex; align-items:center; gap:12px; padding:14px 16px; background:var(--card-bg); border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); cursor:pointer; transition:.18s; text-decoration:none; }
-.qa-item:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 6px 20px rgba(26,108,255,.1); }
-.qa-ico { width:38px; height:38px; border-radius:10px; background:var(--accent-bg); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
-.qa-title { font-size:.79rem; font-weight:800; color:var(--text); }
-.qa-sub   { font-size:.64rem; color:var(--text-muted); margin-top:2px; }
-
-/* ── PASSPORT MODAL OVERLAY ── */
-.passport-modal {
-    position:fixed; inset:0; z-index:300;
-    backdrop-filter:blur(14px) saturate(1.5);
-    background:rgba(0,0,0,.38);
-    display:flex; align-items:center; justify-content:center;
-    opacity:0; pointer-events:none; transition:opacity .32s;
-}
-.passport-modal.open { opacity:1; pointer-events:all; }
-/* 3D wrapper */
-.passport-3d {
-    width:min(940px,96vw); height:min(560px,86vh);
-    position:relative; transform-style:preserve-3d; perspective:2200px;
-}
-/* COVER (tapa que se abre) */
-.passport-cover {
-    position:absolute; inset:0;
-    background:linear-gradient(155deg,#174f28 0%,#2d8a45 55%,#1d6635 100%);
-    border-radius:18px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-    color:#fff; transform-origin:left center;
-    transition:transform .84s cubic-bezier(.645,.045,.355,1), box-shadow .84s;
-    z-index:2;
-    box-shadow:-8px 12px 40px rgba(0,0,0,.55), 0 2px 0 rgba(255,255,255,.08) inset;
-}
-.passport-cover .cover-emblem { font-size:3.2rem; filter:drop-shadow(0 3px 10px rgba(0,0,0,.4)); }
-.passport-cover h2 { font-size:1.5rem; font-weight:900; letter-spacing:5px; text-transform:uppercase; margin:0; }
-.passport-cover .cover-sub { font-size:.62rem; font-weight:700; letter-spacing:4px; opacity:.6; margin:0; }
-.passport-3d.futbol .passport-cover { background:linear-gradient(155deg,#38155a 0%,#6b2fa0 55%,#461a76 100%); }
-.passport-3d.open .passport-cover {
-    transform:rotateY(-168deg);
-    box-shadow:0 0 0 rgba(0,0,0,0);
-}
-/* INTERIOR */
-.passport-book {
-    position:absolute; inset:0;
-    display:flex; flex-direction:column;
-    background:#f5ebdd; border-radius:18px; overflow:hidden;
-    box-shadow:0 32px 80px rgba(0,0,0,.45);
-}
-[data-theme="dark"] .passport-book { background:#1c2235; }
-/* header del libro */
-.book-header {
-    display:flex; align-items:center; justify-content:space-between;
-    padding:13px 20px 11px; border-bottom:1px solid rgba(155,130,80,.22);
-    background:rgba(250,246,230,.95); flex-shrink:0;
-}
-[data-theme="dark"] .book-header { background:var(--sidebar-bg); border-bottom-color:var(--border); }
-.book-ttl { font-size:.9rem; font-weight:800; color:#3a2e1a; display:flex; align-items:center; gap:8px; }
-[data-theme="dark"] .book-ttl { color:var(--text); }
-.book-close-btn {
-    width:28px; height:28px; border-radius:50%;
-    border:1.5px solid rgba(155,130,80,.3); background:transparent;
-    cursor:pointer; font-size:.9rem; color:#9a8060;
-    display:flex; align-items:center; justify-content:center; transition:.15s;
-}
-.book-close-btn:hover { background:#ede3ce; color:#5a3e1a; }
-[data-theme="dark"] .book-close-btn { border-color:var(--border); color:var(--text-muted); }
-/* league tabs */
-.league-tabs {
-    display:flex; gap:4px; padding:8px 14px 0; flex-shrink:0;
-    border-bottom:1px solid rgba(155,130,80,.2); overflow-x:auto; scrollbar-width:none;
-    background:rgba(243,236,218,.9);
-}
-.league-tabs::-webkit-scrollbar { display:none; }
-[data-theme="dark"] .league-tabs { background:var(--sidebar-bg); border-bottom-color:var(--border); }
-.league-tab-btn {
-    padding:5px 12px 10px; border:none; background:transparent;
-    font-size:.7rem; font-weight:700; color:#9a8060; cursor:pointer;
-    border-bottom:2.5px solid transparent; transition:.15s; white-space:nowrap; flex-shrink:0;
-}
-.league-tab-btn.active { color:#3a2e1a; border-bottom-color:#5c4a2a; }
-.league-tab-btn:hover:not(.active) { color:#5c4a2a; }
-[data-theme="dark"] .league-tab-btn { color:var(--text-muted); }
-[data-theme="dark"] .league-tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
-/* body (páginas) */
-.book-body { flex:1; display:flex; overflow:hidden; position:relative; }
-.book-body.anim-fwd { animation:bookFwd .25s ease; }
-.book-body.anim-bck { animation:bookBck .25s ease; }
-@keyframes bookFwd { from{opacity:0;transform:translateX(16px)} to{opacity:1;transform:none} }
-@keyframes bookBck { from{opacity:0;transform:translateX(-16px)} to{opacity:1;transform:none} }
-.book-pages { display:flex; width:100%; position:relative; }
-/* pliegue central */
-.book-pages::before {
-    content:''; position:absolute; left:50%; transform:translateX(-50%);
-    width:5px; height:100%; background:rgba(0,0,0,.07);
-    z-index:1; pointer-events:none;
-}
-/* nav */
-.book-nav {
-    display:flex; align-items:center; justify-content:center; gap:14px;
-    padding:9px; border-top:1px solid rgba(155,130,80,.2);
-    background:rgba(237,227,206,.85); flex-shrink:0;
-}
-[data-theme="dark"] .book-nav { background:var(--sidebar-bg); border-top-color:var(--border); }
-.book-nav-btn {
-    width:28px; height:28px; border-radius:50%; border:1.5px solid #c5b89a;
-    background:transparent; cursor:pointer; font-size:1rem; font-weight:700;
-    color:#8a7b60; display:flex; align-items:center; justify-content:center; transition:.15s;
-}
-.book-nav-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent); transform:scale(1.1); }
-.book-nav-btn:disabled { opacity:.3; cursor:not-allowed; }
-.book-nav-lbl { font-size:.7rem; font-weight:700; color:#9a8060; min-width:38px; text-align:center; }
-[data-theme="dark"] .book-nav-btn { border-color:var(--border); color:var(--text-muted); }
-[data-theme="dark"] .book-nav-lbl { color:var(--text-muted); }
-
-/* ── MICROINTERACCIONES ── */
-.btn-ver-pasaporte { transition: transform .16s ease, background .18s, color .18s, border-color .18s !important; }
-.btn-ver-pasaporte:hover:not(:disabled) { transform: scale(1.04); }
-.btn-ver-pasaporte:active:not(:disabled) { transform: scale(0.95); }
-.stamp-btn { transition: transform .14s ease, all .18s !important; }
-.book-nav-btn { transition: transform .12s ease, border-color .18s, color .18s, background .18s !important; }
-.league-tab-btn { transition: transform .12s ease, background .18s, color .18s, border-color .18s !important; }
-.league-tab-btn:hover:not(.active) { transform: translateY(-1px); }
-.league-tab-btn:active { transform: scale(0.95); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1100px) {
-    .cols-3 { grid-template-columns: 1fr 1fr; }
-    .quick-actions { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 860px) {
-    .cols-2, .cols-3 { grid-template-columns: 1fr; }
-    .trip-meta { grid-template-columns: 1fr 1fr; }
-    .quick-actions { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 700px) {
-    .sidebar { display: none; }
-    .main-wrap { margin-left: 0; width: 100%; }
-    .page-content { padding: 14px; }
-    .hero-dest { font-size: 1.45rem; }
-    .hero-cta-btn { display: none; }
-    .top-header { padding: 0 16px; }
-    .quick-actions { grid-template-columns: 1fr 1fr; }
-    .pcover-card { gap:12px; }
-    .pcover { width:88px; height:125px; }
-}
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Herse Turismo</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--ac:#1a6cff;--ac2:#22c55e;--ac3:#f59e0b;--bg:#f4f5f8;--card:#fff;--bd:#e5e7eb;--tx:#111827;--tx2:#6b7280;--tx3:#9ca3af;--sw:220px;--hh:64px;--r:12px;--sh:0 1px 3px rgba(0,0,0,.07);--shl:0 4px 24px rgba(0,0,0,.10)}
+[data-theme=dark]{--bg:#0f1117;--card:#1a1d27;--bd:#2a2d3a;--tx:#f1f5f9;--tx2:#94a3b8;--tx3:#64748b;--sh:0 1px 3px rgba(0,0,0,.3);--shl:0 4px 24px rgba(0,0,0,.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+button{font-family:inherit;cursor:pointer} a{text-decoration:none;color:inherit}
+img{display:block}
+/* layout */
+.app{display:flex;min-height:100vh}
+.sidebar{width:var(--sw);background:var(--card);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto}
+.main{flex:1;margin-left:var(--sw);display:flex;flex-direction:column;min-height:100vh}
+.top-hdr{height:var(--hh);background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;flex-shrink:0}
+.view-wrap{flex:1;overflow-y:auto}
+/* sidebar */
+.sb-logo{display:flex;align-items:center;gap:9px;padding:18px 16px 14px}
+.sb-logo img{height:34px;width:auto}
+.sb-brand strong{display:block;font-size:.85rem;font-weight:900;color:var(--tx)}
+.sb-brand small{font-size:.6rem;color:var(--tx2);text-transform:uppercase;letter-spacing:1px}
+.sb-nav{flex:1;padding:0 10px;display:flex;flex-direction:column;gap:2px}
+.sb-sec{font-size:.58rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:1.2px;padding:10px 8px 5px;margin-top:4px}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;font-size:.8rem;font-weight:500;color:var(--tx2);border:none;background:none;width:100%;text-align:left;cursor:pointer;transition:.15s}
+.ni i{width:15px;text-align:center;font-size:.82rem}
+.ni:hover{background:var(--bg);color:var(--tx)}
+.ni.active{background:#ebf1ff;color:var(--ac);font-weight:700}
+[data-theme=dark] .ni.active{background:rgba(26,108,255,.15)}
+.sb-promo{margin:10px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#0f2d5e,#1a6cff)}
+.sb-promo img{width:100%;height:80px;object-fit:cover;opacity:.65}
+.sb-promo-body{padding:10px}
+.sb-promo-body h4{font-size:.74rem;font-weight:800;color:#fff;margin-bottom:3px}
+.sb-promo-body p{font-size:.63rem;color:rgba(255,255,255,.7);margin-bottom:8px;line-height:1.4}
+.btn-promo{display:block;text-align:center;background:#fff;color:#1a6cff;font-size:.7rem;font-weight:800;padding:6px;border-radius:7px}
+/* top header */
+.hdr-l{display:flex;align-items:center;gap:11px}
+.hdr-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.hdr-ico.blue{background:#ebf1ff;color:var(--ac)} .hdr-ico.green{background:#dcfce7;color:#16a34a}
+.hdr-ico.purple{background:#f3e8ff;color:#9333ea} .hdr-ico.gold{background:#fef9c3;color:#d97706}
+.hdr-ico.soccer{background:var(--ac);color:#fff}
+.hdr-ttl h1{font-size:1.05rem;font-weight:800;line-height:1.2}
+.hdr-ttl p{font-size:.7rem;color:var(--tx2);margin-top:1px}
+.hdr-r{display:flex;align-items:center;gap:9px}
+.hdr-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--bd);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:.82rem;color:var(--tx2);cursor:pointer;transition:.15s;position:relative}
+.hdr-btn:hover{border-color:var(--ac);color:var(--ac)}
+.ndot{position:absolute;top:4px;right:4px;width:7px;height:7px;border-radius:50%;background:#ef4444;border:1.5px solid var(--card)}
+.av-btn{display:flex;align-items:center;gap:7px;padding:5px 9px 5px 5px;border:1.5px solid var(--bd);border-radius:99px;background:var(--card);cursor:pointer;transition:.15s}
+.av-btn:hover{border-color:var(--ac)}
+.av-circle{width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800}
+.av-name{font-size:.74rem;font-weight:700;color:var(--tx)}
+.av-sub{font-size:.6rem;color:var(--ac)}
+/* views */
+.view{display:none} .view.active{display:block}
+.vcontent{padding:24px 28px}
+/* cards */
+.card{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:18px 20px;box-shadow:var(--sh)}
+.card-ttl{font-size:.78rem;font-weight:700;color:var(--tx2);display:flex;align-items:center;gap:7px;margin-bottom:14px}
+/* badges */
+.badge{padding:3px 9px;border-radius:99px;font-size:.66rem;font-weight:700}
+.badge-ok{background:#dcfce7;color:#16a34a} .badge-done{background:#ebf1ff;color:#1a6cff}
+.badge-cancel{background:#f3f4f6;color:#6b7280} .badge-pend{background:#fef9c3;color:#b45309}
+/* mi viaje hero */
+.hero{border-radius:14px;overflow:hidden;position:relative;height:195px;margin-bottom:22px}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.18) 100%)}
+.hero-cnt{position:relative;z-index:2;padding:22px 26px;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.hero-tag{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:2px}
+.hero-title{font-size:1.75rem;font-weight:900;color:#fff;margin-top:3px}
+.hero-btm{display:flex;align-items:center;justify-content:space-between}
+.hero-dates{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border-radius:7px;padding:5px 10px;font-size:.73rem;font-weight:600;color:#fff}
+.hero-cd{display:flex;gap:12px;margin-left:14px}
+.cd-u{text-align:center}
+.cd-v{font-size:1.4rem;font-weight:900;color:#fff;line-height:1}
+.cd-l{font-size:.48rem;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px;margin-top:1px}
+.hero-cta{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:9px;padding:7px 13px;font-size:.72rem;font-weight:700;color:#fff;cursor:pointer;backdrop-filter:blur(4px)}
+/* 2-col viaje layout */
+.viaje-grid{display:grid;grid-template-columns:1fr 300px;gap:18px}
+.col-stack{display:flex;flex-direction:column;gap:14px}
+/* trip meta */
+.trip-head{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.trip-code{width:46px;height:46px;border-radius:11px;background:var(--bg);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;color:var(--tx2);flex-shrink:0;font-family:monospace}
+.trip-dest{font-size:1.3rem;font-weight:900;color:var(--tx)}
+.trip-dates{font-size:.7rem;color:var(--tx2);margin-top:1px}
+.trip-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:13px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);margin:12px 0}
+.tm-lbl{font-size:.56rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;display:flex;align-items:center;gap:3px}
+.tm-val{font-size:.78rem;font-weight:700;color:var(--tx)}
+.exp-btn{display:flex;align-items:center;justify-content:space-between;width:100%;padding:9px 12px;border:1.5px solid var(--bd);border-radius:9px;background:none;font-size:.74rem;font-weight:600;color:var(--tx2)}
+.exp-btn:hover{border-color:var(--ac);color:var(--ac)}
+/* info grid */
+.info-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.info-i{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 6px;border-radius:9px;background:var(--bg);border:1px solid var(--bd);text-align:center}
+.info-ico{font-size:1.2rem}
+.info-lbl{font-size:.57rem;font-weight:600;color:var(--tx3);text-transform:uppercase}
+.info-val{font-size:.7rem;font-weight:700;color:var(--tx)}
+/* pasos */
+.paso{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--bd)}
+.paso:last-child{border-bottom:none;padding-bottom:0}
+.paso-l{display:flex;align-items:center;gap:11px}
+.paso-ico{width:34px;height:34px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.88rem;color:var(--tx2);flex-shrink:0}
+.paso-name{font-size:.78rem;font-weight:700;color:var(--tx)}
+.paso-sub{font-size:.63rem;color:var(--tx2);margin-top:1px}
+.btn-a{padding:6px 12px;border-radius:7px;font-size:.7rem;font-weight:700;border:1.5px solid;cursor:pointer;transition:.15s;white-space:nowrap}
+.btn-ghost{background:none;border-color:var(--bd);color:var(--tx2)}.btn-ghost:hover{border-color:var(--ac);color:var(--ac)}
+.btn-prim{background:var(--ac);border-color:var(--ac);color:#fff}.btn-prim:hover{opacity:.88}
+/* timeline */
+.tl{display:flex;flex-direction:column}
+.tl-i{display:flex;align-items:flex-start;gap:10px;padding:8px 0}
+.tl-side{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.tl-dot{width:16px;height:16px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;font-size:.5rem}
+.tl-dot.ok{background:#dcfce7;border-color:#22c55e;color:#22c55e}
+.tl-dot.cur{background:#ebf1ff;border-color:var(--ac);color:var(--ac)}
+.tl-dot.pend{background:var(--bg);border-color:var(--bd)}
+.tl-ln{width:2px;min-height:18px;background:var(--bd);margin:1px auto;flex:1}
+.tl-i:last-child .tl-ln{display:none}
+.tl-name{font-size:.76rem;font-weight:700;color:var(--tx)}
+.tl-date{font-size:.6rem;color:var(--tx2);margin-top:1px}
+/* ayuda */
+.ayuda{background:linear-gradient(135deg,#e8f4fd,#ebf1ff);border:1px solid #bfdbfe;border-radius:var(--r);padding:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.ayuda-ico{width:42px;height:42px;border-radius:11px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#fff;flex-shrink:0}
+.ayuda-ttl{font-size:.78rem;font-weight:800;color:#1e40af;margin-bottom:2px}
+.ayuda-sub{font-size:.62rem;color:#3b82f6}
+.btn-contact{display:flex;align-items:center;gap:5px;padding:6px 11px;background:#fff;border:1.5px solid #bfdbfe;border-radius:7px;font-size:.68rem;font-weight:700;color:var(--ac);cursor:pointer;margin-top:9px}
+/* consejo */
+.consejo{background:var(--bg);border-radius:9px;padding:11px 13px;display:flex;align-items:flex-start;gap:11px}
+.consejo-ico{width:34px;height:34px;border-radius:9px;background:#fef9c3;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+/* mis viajes */
+.tabs-bar{display:flex;align-items:flex-end;gap:2px;border-bottom:1px solid var(--bd);margin-bottom:18px;flex-wrap:wrap}
+.tab-btn{padding:9px 16px;font-size:.78rem;font-weight:600;color:var(--tx2);background:none;border:none;border-bottom:2.5px solid transparent;margin-bottom:-1px;cursor:pointer;transition:.15s}
+.tab-btn.active{color:var(--ac);border-bottom-color:var(--ac);font-weight:700}
+.tab-btn:hover:not(.active){color:var(--tx)}
+.tabs-search{margin-left:auto;display:flex;align-items:center;gap:7px;padding-bottom:8px}
+.srch-wrap{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1.5px solid var(--bd);border-radius:8px;background:var(--card)}
+.srch-wrap input{border:none;outline:none;font-size:.74rem;color:var(--tx);background:none;width:130px}
+.srch-wrap input::placeholder{color:var(--tx3)}
+.btn-filtros{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1.5px solid var(--bd);border-radius:8px;background:var(--card);font-size:.74rem;font-weight:600;color:var(--tx2);cursor:pointer}
+.btn-filtros:hover{border-color:var(--ac);color:var(--ac)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.stat-c{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh)}
+.stat-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
+.stat-ico.b{background:#ebf1ff;color:var(--ac)} .stat-ico.g{background:#dcfce7;color:#16a34a}
+.stat-ico.o{background:#fef3c7;color:#d97706} .stat-ico.p{background:#f3e8ff;color:#9333ea}
+.stat-lbl{font-size:.63rem;font-weight:600;color:var(--tx2);margin-bottom:2px}
+.stat-val{font-size:1.4rem;font-weight:900;color:var(--tx);line-height:1}
+.stat-sub{font-size:.58rem;color:var(--tx3);margin-top:1px}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-ttl{font-size:.9rem;font-weight:800;color:var(--tx)}
+.sort-w{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--tx2)}
+.sort-w select{font-size:.7rem;font-weight:600;border:none;background:none;color:var(--tx2);cursor:pointer}
+/* trip list item */
+.tli{display:flex;align-items:center;gap:14px;padding:13px 16px;background:var(--card);border-radius:var(--r);border:1px solid var(--bd);margin-bottom:9px;cursor:pointer;transition:.15s}
+.tli:hover{border-color:var(--ac);box-shadow:var(--shl)}
+.tli-img{width:88px;height:62px;border-radius:9px;object-fit:cover;flex-shrink:0;background:var(--bg)}
+.tli-ph{width:88px;height:62px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0}
+.tli-body{flex:1;min-width:0}
+.tli-dest{font-size:.92rem;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:5px}
+.tli-city{font-size:.7rem;color:var(--tx2);margin-top:2px}
+.tli-meta{display:flex;align-items:center;gap:12px;margin-top:6px}
+.tli-meta span{font-size:.68rem;color:var(--tx2);display:flex;align-items:center;gap:3px}
+.tag-prox{display:inline-flex;padding:2px 7px;border-radius:99px;font-size:.6rem;font-weight:700;background:#ebf1ff;color:var(--ac);margin-top:4px}
+.tli-r{display:flex;flex-direction:column;align-items:flex-end;gap:7px;flex-shrink:0}
+.tli-code{font-size:.63rem;color:var(--tx3);font-family:monospace}
+.tli-stars{color:#f59e0b;font-size:.73rem}
+.tli-rate{font-size:.6rem;color:var(--ac)}
+.tli-cancel{font-size:.63rem;color:var(--tx3)}
+/* pasaporte book */
+.pp-layout{display:grid;grid-template-columns:1fr 268px;gap:18px;align-items:start}
+.pp-tabs{display:flex;gap:4px;margin-bottom:12px}
+.pp-tab{padding:7px 16px;border-radius:99px;font-size:.76rem;font-weight:600;border:1.5px solid var(--bd);background:var(--card);color:var(--tx2);cursor:pointer;transition:.15s}
+.pp-tab.active{background:#dcfce7;border-color:#22c55e;color:#15803d;font-weight:700}
+.open-book{background:#1a1007;border-radius:11px;padding:10px}
+.book-pages{display:grid;grid-template-columns:1fr 1fr;min-height:360px;background:#f8f1e0;border-radius:7px;position:relative;overflow:hidden}
+.book-pages::after{content:'';position:absolute;left:50%;transform:translateX(-50%);width:6px;height:100%;background:linear-gradient(90deg,rgba(0,0,0,.14),rgba(0,0,0,.04),rgba(0,0,0,.14));z-index:1;pointer-events:none}
+.bp{padding:18px 14px;background:repeating-linear-gradient(to bottom,#f8f1e0 0px,#f8f1e0 27px,#ede3cc 28px)}
+.bp-ttl{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#7a6a50;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(120,100,60,.2);display:flex;align-items:center;gap:5px}
+.country-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cc{background:rgba(255,255,255,.7);border:1px solid rgba(200,185,155,.6);border-radius:9px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;text-align:center;transition:.15s}
+.cc:hover{background:rgba(255,255,255,.92);transform:translateY(-1px)}
+.cc-flag{width:46px;height:46px;border-radius:50%;background:#fff;border:2px solid rgba(200,185,155,.8);display:flex;align-items:center;justify-content:center;font-size:1.5rem;overflow:hidden;flex-shrink:0}
+.cc-code{font-size:.8rem;font-weight:900;color:#3a2e1a;letter-spacing:.5px}
+.cc-name{font-size:.6rem;color:#7a6a50;line-height:1.2}
+.cc-btn{padding:3px 9px;border-radius:5px;font-size:.6rem;font-weight:700;border:1.5px solid rgba(155,130,80,.5);background:transparent;color:#7a6a50;cursor:pointer;transition:.15s;margin-top:2px}
+.cc-btn:hover{background:#e7dcc6;color:#3a2e1a}
+.cc-btn.done{background:#dcfce7;border-color:#22c55e;color:#15803d;cursor:default}
+.visitado-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:2}
+.vstamp{display:block;padding:3px 7px;border:2px dashed #22a855;border-radius:5px;font-size:.58rem;font-weight:900;color:#22a855;transform:rotate(-12deg);background:rgba(255,255,255,.65);letter-spacing:1px}
+.cc.visited{background:rgba(236,253,245,.85)}
+.book-nav-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.book-tip{flex:1;display:flex;align-items:flex-start;gap:7px;background:var(--card);border:1px solid var(--bd);border-radius:9px;padding:9px 12px}
+.book-tip i{color:var(--ac);margin-top:1px;flex-shrink:0;font-size:.82rem}
+.tip-text{font-size:.7rem;color:var(--tx2);line-height:1.45}
+.tip-text strong{color:var(--tx)}
+.book-nav-btns{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.bnb{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bd);background:var(--card);font-size:.88rem;font-weight:700;color:var(--tx2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.bnb:hover:not(:disabled){border-color:var(--ac);color:var(--ac)}
+.bnb:disabled{opacity:.32;cursor:not-allowed}
+.bnb-lbl{font-size:.68rem;font-weight:700;color:var(--tx2)}
+/* passport sidebar */
+.pp-sb{display:flex;flex-direction:column;gap:12px}
+.sb-card{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:16px;box-shadow:var(--sh)}
+.sb-card-ttl{font-size:.78rem;font-weight:700;color:var(--tx2);margin-bottom:12px}
+.donut-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;margin-bottom:10px}
+.donut-svg{transform:rotate(-90deg)}
+.d-bg{fill:none;stroke:var(--bd);stroke-width:9}
+.d-fill{fill:none;stroke:#22c55e;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .9s ease}
+.d-val{font-size:1.35rem;font-weight:900;color:var(--tx);line-height:1}
+.d-sub{font-size:.63rem;color:var(--tx2)}
+.d-pct{font-size:.66rem;color:#22c55e;font-weight:700}
+.sl-list{display:flex;flex-direction:column;gap:7px}
+.sl-i{display:flex;align-items:center;font-size:.72rem}
+.sl-ico{width:24px;height:24px;border-radius:7px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0;margin-right:7px}
+.sl-lbl{color:var(--tx2);flex:1}
+.sl-v{font-weight:700;color:var(--tx)}
+.logro-c{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:11px;display:flex;gap:9px;align-items:center}
+[data-theme=dark] .logro-c{background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2)}
+.logro-ico{width:34px;height:34px;border-radius:9px;background:#22c55e;display:flex;align-items:center;justify-content:center;font-size:.88rem;color:#fff;flex-shrink:0}
+.logro-name{font-size:.74rem;font-weight:700;color:#15803d}
+.logro-desc{font-size:.6rem;color:#4ade80;margin-top:1px}
+[data-theme=dark] .logro-name{color:#4ade80}
+/* futbol tabs */
+.ftabs{display:flex;gap:2px;border-bottom:2px solid var(--bd);margin-bottom:10px}
+.ftab{padding:8px 14px;font-size:.76rem;font-weight:600;color:var(--tx2);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:.15s;white-space:nowrap}
+.ftab.active{color:#22c55e;border-bottom-color:#22c55e;font-weight:700}
+.ftab:hover:not(.active){color:var(--tx)}
+/* team card */
+.tc{background:rgba(255,255,255,.75);border:1px solid rgba(200,185,155,.6);border-radius:9px;padding:10px 7px;display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;text-align:center;transition:.15s}
+.tc:hover{background:rgba(255,255,255,.95);transform:translateY(-1px)}
+.tc-badge{width:50px;height:50px;border-radius:50%;border:2px solid rgba(200,185,155,.8);background:#fff;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;color:var(--ac);font-family:monospace;overflow:hidden}
+.tc-code{font-size:.8rem;font-weight:900;color:#3a2e1a;letter-spacing:.5px}
+.tc-club{font-size:.6rem;color:#7a6a50;line-height:1.2}
+.tc-stad{font-size:.54rem;color:#9a8a6a;line-height:1.2}
+.tc-btn{padding:3px 0;border-radius:5px;font-size:.6rem;font-weight:700;border:1.5px solid rgba(155,130,80,.5);background:transparent;color:#7a6a50;cursor:pointer;width:100%;transition:.15s;margin-top:1px}
+.tc-btn:hover{background:#e7dcc6;color:#3a2e1a}
+.tc-btn.done{background:#dcfce7;border-color:#22c55e;color:#15803d;cursor:default}
+.tc.visited .tc-badge{border-color:#22a855}
+/* logros */
+.logros-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
+.lg-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:13px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:7px}
+.lg-ico{font-size:1.4rem} .lg-name{font-size:.7rem;font-weight:700;color:var(--tx)}
+.lg-desc{font-size:.58rem;color:var(--tx2);line-height:1.3}
+/* fidelizacion */
+.fid-layout{display:grid;grid-template-columns:1fr 286px;gap:18px;align-items:start}
+.pts-hero{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:22px 26px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.pts-l{flex:1}
+.pts-lbl{font-size:.7rem;font-weight:600;color:var(--tx2);margin-bottom:7px}
+.pts-row{display:flex;align-items:baseline;gap:7px;margin-bottom:5px}
+.pts-num{font-size:2.3rem;font-weight:900;color:var(--tx)}
+.pts-unit{font-size:.82rem;font-weight:600;color:var(--tx2)}
+.pts-sub{font-size:.7rem;color:#16a34a;font-weight:600;display:flex;align-items:center;gap:4px;margin-bottom:14px}
+.pts-img{width:95px;height:85px;object-fit:contain;flex-shrink:0;opacity:.8}
+.fid-sep{border:none;border-top:1px solid var(--bd);margin:14px 0}
+.prox-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.prox-txt{font-size:.72rem;font-weight:600;color:var(--tx2);flex:1}
+.prox-txt strong{color:var(--ac)}
+.prox-b{display:flex;align-items:center;gap:7px;font-size:.7rem;font-weight:700;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:7px;padding:5px 9px;flex-shrink:0}
+.fpbar{height:7px;background:var(--bd);border-radius:99px;overflow:hidden;margin-bottom:5px}
+.fpfill{height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:99px;transition:width 1s}
+.fp-lbls{display:flex;justify-content:space-between;font-size:.6rem;color:var(--tx3)}
+.como-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:20px}
+.como-i{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:7px}
+.como-ico{font-size:1.35rem} .como-name{font-size:.7rem;font-weight:700;color:var(--tx);line-height:1.3}
+.como-pts{font-size:.63rem;color:var(--tx2);line-height:1.4}
+.benef-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:7px}
+.ben-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;text-align:center}
+.ben-c.ok{border-color:#22c55e;background:#f0fdf4}
+[data-theme=dark] .ben-c.ok{background:rgba(34,197,94,.06)}
+.ben-tag{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;font-size:.56rem;font-weight:700;padding:2px 7px;border-radius:0 0 5px 5px;white-space:nowrap}
+.ben-ico{width:38px;height:38px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.ben-c.ok .ben-ico{background:#dcfce7}
+.ben-name{font-size:.7rem;font-weight:700;color:var(--tx)}
+.ben-pts{font-size:.6rem;color:var(--tx2)}
+.ben-bar{width:100%;height:3px;background:var(--bd);border-radius:99px;overflow:hidden}
+.ben-bfill{height:100%;background:var(--ac);border-radius:99px}
+.btn-canjear{padding:5px 11px;background:#22c55e;border:none;border-radius:6px;font-size:.64rem;font-weight:700;color:#fff;cursor:pointer}
+.btn-canjear:hover{background:#16a34a}
+.ver-todos{display:block;text-align:center;font-size:.74rem;font-weight:700;color:var(--ac);margin:6px 0 20px;cursor:pointer}
+.tip-bar{display:flex;align-items:flex-start;gap:9px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:11px 14px}
+.tip-bar i{color:var(--ac);font-size:.88rem;margin-top:1px;flex-shrink:0}
+.tip-bar-t{font-size:.71rem;color:var(--tx2);line-height:1.5}
+.tip-bar-t strong{color:var(--tx)}
+.niv-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.niv-ver{font-size:.68rem;font-weight:700;color:var(--ac);cursor:pointer}
+.niv-badge{width:42px;height:42px;border-radius:50%;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
+.niv-name{font-size:.88rem;font-weight:900;color:var(--tx)}
+.niv-sub{font-size:.63rem;color:var(--tx2)}
+.niv-list{display:flex;flex-direction:column;gap:5px}
+.niv-it{display:flex;align-items:center;gap:7px;font-size:.7rem;padding:5px 7px;border-radius:7px}
+.niv-it.active-n{background:#f0fdf4;font-weight:700}
+[data-theme=dark] .niv-it.active-n{background:rgba(34,197,94,.08)}
+.niv-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.niv-range{font-size:.6rem;color:var(--tx3);margin-left:auto}
+.act-list{display:flex;flex-direction:column}
+.act-i{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--bd)}
+.act-i:last-child{border-bottom:none}
+.act-ico{width:26px;height:26px;border-radius:7px;background:#ebf1ff;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--ac);flex-shrink:0}
+.act-name{font-size:.72rem;font-weight:700;color:var(--tx)}
+.act-date{font-size:.58rem;color:var(--tx2)}
+.act-pts{font-size:.7rem;font-weight:800;color:#22c55e;margin-left:auto;white-space:nowrap}
+.ver-act{font-size:.68rem;font-weight:700;color:var(--ac);cursor:pointer;display:inline-block;margin-top:7px}
+.fst-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.fst-i{background:var(--bg);border-radius:7px;padding:9px;text-align:center}
+.fst-v{font-size:.92rem;font-weight:900;color:var(--tx)}
+.fst-l{font-size:.58rem;color:var(--tx2);margin-top:1px}
+/* checkin banner */
+#checkinBanner{display:none;position:fixed;top:0;left:0;right:0;z-index:999;background:linear-gradient(90deg,#854d0e,#d97706);padding:9px 18px;align-items:center;gap:9px}
+#checkinBanner.show{display:flex}
+#checkinBanner p{flex:1;color:#fff;font-size:.76rem;font-weight:600}
+.btn-chk{padding:5px 12px;background:#fff;border:none;border-radius:6px;font-size:.7rem;font-weight:800;color:#b45309;cursor:pointer}
+.btn-dism{background:none;border:none;color:rgba(255,255,255,.7);font-size:.95rem;cursor:pointer}
+/* utils */
+.gap-c{display:flex;flex-direction:column;gap:12px}
+hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
+::-webkit-scrollbar-track{background:transparent}
+</style>
 </head>
 <body>
+<div id="checkinBanner">
+  <i class="fas fa-plane" style="color:#fff;font-size:.88rem"></i>
+  <p id="checkinBannerText">Recordatorio de check-in</p>
+  <button class="btn-chk" id="btnCheckinDo">Hacer check-in</button>
+  <button class="btn-dism" onclick="dismissCheckin()">&#10005;</button>
+</div>
 <div class="app">
-
-    <!-- ══════════════ SIDEBAR ══════════════ -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
-        </div>
-        <nav class="sidebar-nav">
-            <a class="nav-item active" href="/mi-viaje">
-                <i class="fas fa-plane"></i> Mi Viaje
-            </a>
-            <a class="nav-item" href="#historialSection">
-                <i class="fas fa-suitcase"></i> Mis Viajes
-            </a>
-            <a class="nav-item" href="#" onclick="return false">
-                <i class="fas fa-passport"></i> Pasaporte de Viaje
-            </a>
-            <a class="nav-item" href="#" onclick="openPassportModal(); return false">
-                <i class="fas fa-futbol"></i> Pasaporte Futbolero
-            </a>
-            <a class="nav-item" href="#fidSection">
-                <i class="fas fa-star"></i> Fidelización Herse
-            </a>
-            <a class="nav-item" href="/">
-                <i class="fas fa-tag"></i> Ofertas para vos
-            </a>
-            <a class="nav-item" href="#">
-                <i class="fas fa-user"></i> Mi Perfil
-            </a>
-            <a class="nav-item" href="https://wa.me/5492215661704" target="_blank" rel="noopener">
-                <i class="fas fa-headset"></i> Ayuda y Soporte
-            </a>
-        </nav>
-        <div class="sidebar-bottom">
-            <div class="sidebar-promo">
-                <img class="sidebar-promo-img"
-                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80"
-                     alt="" onerror="this.style.display='none'">
-                <div class="sidebar-promo-body">
-                    <h4>¿Listo para tu próximo destino?</h4>
-                    <p>Explorá nuestras ofertas exclusivas.</p>
-                    <a href="/" class="btn-promo">Ver ofertas</a>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- ══════════════ MAIN ══════════════ -->
-    <div class="main-wrap">
-
-        <!-- TOP HEADER -->
-        <header class="top-header">
-            <div class="header-left">
-                <h1>
-                    Mi Viaje ✈️
-                    <a href="/admin" class="btn-admin" id="btnAdmin">
-                        <i class="fas fa-shield-alt"></i> Admin
-                    </a>
-                </h1>
-                <p>Tu mundo, tus viajes, tu historia.</p>
-            </div>
-            <div class="header-actions">
-                <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Cambiar tema">🌙</button>
-                <button class="icon-btn" title="Notificaciones">
-                    <i class="fas fa-bell"></i>
-                    <span class="notif-dot"></span>
-                </button>
-                <div class="user-chip" onclick="logout()" title="Cerrar sesión">
-                    <div class="user-avatar">
-                        <span style="font-size:.8rem;font-weight:900" id="avatarInitial">V</span>
-                    </div>
-                    <div>
-                        <span class="user-name-lbl name">Viajero</span>
-                        <span class="user-sub-lbl">Ver perfil</span>
-                    </div>
-                    <i class="fas fa-chevron-down" style="font-size:.62rem;color:var(--text-muted)"></i>
-                </div>
-            </div>
-        </header>
-
-        <!-- PAGE CONTENT -->
-        <div class="page-content">
-
-            <!-- CHECK-IN BANNER -->
-            <div class="checkin-banner" id="checkinBanner">
-                <span style="font-size:1.1rem">⏰</span>
-                <div style="flex:1;font-size:.82rem">
-                    <strong>¡Recordatorio de check-in!</strong>
-                    <span id="checkinBannerText"> No olvides hacer el check-in online.</span>
-                </div>
-                <button class="btn-checkin" id="btnCheckinDo">Hacer check-in</button>
-                <button class="btn-dismiss" onclick="dismissCheckin()"><i class="fas fa-times"></i></button>
-            </div>
-
-            <!-- PENDING STATE -->
-            <div id="pendingState" style="display:none" class="state-card">
-                <div class="state-icon">✈️</div>
-                <h3>¡Tu portal está casi listo!</h3>
-                <p>Tu consultor ya está preparando la información de tu viaje.</p>
-                <a href="https://wa.me/5492215661704" target="_blank" rel="noopener"
-                   style="display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:12px 26px;border-radius:50px;font-weight:800;font-size:.9rem;text-decoration:none">
-                    <i class="fab fa-whatsapp"></i> Consultar
-                </a>
-            </div>
-
-            <!-- PRÓXIMAMENTE -->
-            <div id="proximamente" style="display:none" class="state-card">
-                <div class="state-icon">🌍</div>
-                <h3>¡Próximamente!</h3>
-                <p>Estamos preparando algo especial para vos.</p>
-            </div>
-
-            <!-- ══ MAIN DASHBOARD ══ -->
-            <div id="mainDashboard">
-
-                <!-- HERO BANNER -->
-                <div class="hero-banner">
-                    <img class="hero-img" id="heroBannerImg"
-                         src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1200&q=80" alt="">
-                    <div class="hero-overlay"></div>
-                    <div class="hero-body">
-                        <div class="hero-label">Tu próxima aventura</div>
-                        <div class="hero-dest">
-                            <span id="cardTripDest">Tu Destino</span> te espera ✈️
-                        </div>
-                        <div class="hero-meta">
-                            <div class="hero-dates-chip">
-                                <i class="fas fa-calendar-alt" style="opacity:.65"></i>
-                                <span class="countdown-footer">—</span>
-                            </div>
-                            <div class="hero-cd">
-                                <div class="hero-cd-item">
-                                    <span class="hero-cd-num" id="cd-d">00</span>
-                                    <span class="hero-cd-lbl">días</span>
-                                </div>
-                                <div class="hero-cd-item">
-                                    <span class="hero-cd-num" id="cd-h">00</span>
-                                    <span class="hero-cd-lbl">horas</span>
-                                </div>
-                                <div class="hero-cd-item">
-                                    <span class="hero-cd-num" id="cd-m">00</span>
-                                    <span class="hero-cd-lbl">min</span>
-                                </div>
-                                <div class="hero-cd-item">
-                                    <span class="hero-cd-num" id="cd-s">00</span>
-                                    <span class="hero-cd-lbl">seg</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="#" class="hero-cta-btn">
-                        Ver detalles del viaje <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
-
-                <!-- ROW 1: VIAJE + FIDELIZACIÓN + RECIENTES -->
-                <div class="cards-row cols-3">
-
-                    <!-- VIAJE CARD -->
-                    <div class="card">
-                        <div class="card-hdr">
-                            <span class="card-title">
-                                <i class="fas fa-plane" style="color:var(--accent)"></i>
-                                Tu viaje actual
-                            </span>
-                            <a href="#" class="card-link">Ver itinerario <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                        <div class="trip-dest-row">
-                            <div class="trip-flag-circle" id="tripFlagCircle">🌍</div>
-                            <div>
-                                <div class="trip-dest-name" id="mosaicTripDest">—</div>
-                                <div class="trip-dest-dates countdown-footer">—</div>
-                            </div>
-                        </div>
-                        <div class="trip-meta">
-                            <div class="trip-meta-item">
-                                <label><i class="fas fa-clock"></i> Salida</label>
-                                <span class="mt-val-salida">—</span>
-                            </div>
-                            <div class="trip-meta-item">
-                                <label><i class="fas fa-map-pin"></i> Regreso</label>
-                                <span class="mt-val-regreso">—</span>
-                            </div>
-                            <div class="trip-meta-item">
-                                <label><i class="fas fa-users"></i> Pasajeros</label>
-                                <span class="mt-val-pax">—</span>
-                            </div>
-                            <div class="trip-meta-item">
-                                <label><i class="fas fa-hotel"></i> Hotel</label>
-                                <span class="mt-val-hotel">—</span>
-                            </div>
-                        </div>
-                        <button class="trip-action-btn">
-                            Ver itinerario completo <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-
-                    <!-- FIDELIZACIÓN CARD -->
-                    <div class="card" id="fidSection">
-                        <div class="fid-tier-header">
-                            <div class="fid-tier-icon-wrap" id="fidTierBadge"><span>🌱</span></div>
-                            <div class="fid-tier-meta">
-                                <div class="fid-tier-lbl">Nivel Herse</div>
-                                <div class="fid-tier-name" id="fidLevelLabel">Explorador</div>
-                            </div>
-                            <div class="fid-pts-pill">
-                                <span class="fid-pts-val" id="fidCountLabel">0</span>
-                                <span class="fid-pts-unit">pts</span>
-                            </div>
-                        </div>
-                        <div class="fid-prog-wrap">
-                            <div class="fid-prog-labels">
-                                <span id="fidCurrentTierLbl">Explorador</span>
-                                <span id="fidNextTier">&#8594; Viajero</span>
-                            </div>
-                            <div class="progress-track">
-                                <div class="progress-fill" id="loyaltyBar"></div>
-                            </div>
-                            <div class="fid-prog-hint" id="fidProgHint">Completá 3 viajes para subir de nivel</div>
-                        </div>
-                        <div class="fid-benefits">
-                            <div class="fid-benefit">
-                                <span class="fid-benefit-ico">🏷️</span>
-                                <div>
-                                    <div class="fid-benefit-name">5% de descuento</div>
-                                    <div class="fid-benefit-sub">En tu próxima reserva</div>
-                                </div>
-                            </div>
-                            <div class="fid-benefit">
-                                <span class="fid-benefit-ico">💬</span>
-                                <div>
-                                    <div class="fid-benefit-name">Soporte prioritario</div>
-                                    <div class="fid-benefit-sub">Atención directa por WhatsApp</div>
-                                </div>
-                            </div>
-                            <div class="fid-benefit fid-benefit-locked">
-                                <span class="fid-benefit-ico">🔒</span>
-                                <div>
-                                    <div class="fid-benefit-name" id="fidNextBenefit">Check-in anticipado</div>
-                                    <div class="fid-benefit-sub" id="fidNextBenefitSub">Disponible desde nivel Viajero</div>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="fid-action-btn">
-                            Ver beneficios completos <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-
-                    <!-- VIAJES RECIENTES -->
-                    <div class="card">
-                        <div class="card-hdr">
-                            <span class="card-title"><i class="fas fa-history" style="color:var(--accent)"></i> Viajes recientes</span>
-                            <a href="#" class="card-link">Ver todos <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                        <div id="recentTrips">
-                            <div style="color:var(--text-muted);font-size:.8rem;padding:22px 0;text-align:center">
-                                Sin viajes completados aún
-                            </div>
-                        </div>
-                        <button class="trip-action-btn" style="margin-top:auto">
-                            Ver todos mis viajes <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-
-                </div>
-
-                <!-- ROW 2: PASAPORTES -->
-                <div class="cards-row cols-2">
-
-                    <!-- PASAPORTE DE VIAJE -->
-                    <div class="card">
-                        <div class="pcover-card">
-                            <div class="pcover green" onclick="openViajeModal()">
-                                <div class="pcover-wm">🌍</div>
-                                <div class="pcover-top">PASAPORTE<br>DE VIAJE</div>
-                                <div class="pcover-icon">🌍</div>
-                                <div class="pcover-brand">✶ HERSE</div>
-                            </div>
-                            <div class="pcover-info">
-                                <h3>Pasaporte de Viaje</h3>
-                                <p>Sellá tus destinos y coleccióná experiencias inolvidables.</p>
-                                <div class="pcover-stat-lbl">Sellos obtenidos</div>
-                                <div class="pcover-stat-val" id="viajeSellosLbl">0 / 28</div>
-                                <div class="pcover-bar">
-                                    <div class="pcover-bar-fill green" id="viajeProgressBar" style="width:0%"></div>
-                                </div>
-                                <button class="btn-ver-pasaporte" onclick="openViajeModal()">
-                                    <i class="fas fa-passport"></i> Ver pasaporte
-                                    <i class="fas fa-lock" style="margin-left:auto;font-size:.6rem;opacity:.55"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PASAPORTE FUTBOLERO -->
-                    <div class="card" id="passportSection">
-                        <div class="pcover-card">
-                            <div class="pcover purple" onclick="openFutbolModal()">
-                                <div class="pcover-wm">⚽</div>
-                                <div class="pcover-top">PASAPORTE<br>FUTBOLERO</div>
-                                <div class="pcover-icon">⚽</div>
-                                <div class="pcover-brand">✶ HERSE</div>
-                            </div>
-                            <div class="pcover-info">
-                                <h3>Pasaporte Futbolero</h3>
-                                <p>Explorá estadios, viví pasiones y dejá tu huella en cada cancha.</p>
-                                <div class="pcover-stat-lbl">Estadios visitados</div>
-                                <div class="pcover-stat-val" id="futbolSellosLbl">0 / 35</div>
-                                <div class="pcover-bar">
-                                    <div class="pcover-bar-fill blue" id="futbolProgressBar" style="width:0%"></div>
-                                </div>
-                                <button class="btn-ver-pasaporte" onclick="openFutbolModal()">
-                                    <i class="fas fa-futbol"></i> Ver pasaporte
-                                    <i class="fas fa-lock" style="margin-left:auto;font-size:.6rem;opacity:.55"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- HISTORIAL (fuente de datos) -->
-                <div id="historialSection" style="display:none">
-                    <div id="historialList"></div>
-                </div>
-
-                <!-- QUICK ACTIONS -->
-                <div class="quick-actions">
-                    <a href="#" class="qa-item">
-                        <div class="qa-ico">📍</div>
-                        <div><div class="qa-title">Explorar destinos</div><div class="qa-sub">Descubrí tu próximo destino</div></div>
-                    </a>
-                    <a href="https://wa.me/5492215661704" target="_blank" class="qa-item">
-                        <div class="qa-ico">🏷️</div>
-                        <div><div class="qa-title">Ofertas exclusivas</div><div class="qa-sub">Descuentos para vos</div></div>
-                    </a>
-                    <a href="#" class="qa-item">
-                        <div class="qa-ico">📅</div>
-                        <div><div class="qa-title">Agregar viaje</div><div class="qa-sub">Tenés todo organizado</div></div>
-                    </a>
-                    <a href="https://wa.me/5492215661704" target="_blank" class="qa-item">
-                        <div class="qa-ico">👥</div>
-                        <div><div class="qa-title">Invitar amigos</div><div class="qa-sub">Viajá más, juntos</div></div>
-                    </a>
-                </div>
-
-            </div><!-- /mainDashboard -->
-
-        </div><!-- /page-content -->
-    </div><!-- /main-wrap -->
-
-</div><!-- /app -->
-
-<!-- VIAJE PASSPORT MODAL -->
-<div class="passport-modal" id="viajeModalOverlay" onclick="if(event.target===this)closeViajeModal()">
-    <div class="passport-3d" id="passportViaje3d">
-        <div class="passport-cover">
-            <span class="cover-emblem">🌍</span>
-            <h2>PASAPORTE</h2>
-            <p class="cover-sub">HERSE TURISMO</p>
-        </div>
-        <div class="passport-book">
-            <div class="book-header">
-                <div class="book-ttl"><i class="fas fa-passport" style="color:#22c55e"></i> Pasaporte de Viaje <span id="viajeModalCount" style="font-size:.68rem;font-weight:600;color:#9a8060;margin-left:4px">0 / 28</span></div>
-                <button class="book-close-btn" onclick="closeViajeModal()">&#10005;</button>
-            </div>
-            <div class="book-body" id="viajeSpread"></div>
-            <div class="book-nav">
-                <button class="book-nav-btn" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
-                <span class="book-nav-lbl" id="viajeNavLbl">1 / 3</span>
-                <button class="book-nav-btn" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
-            </div>
-        </div>
+<aside class="sidebar">
+  <div class="sb-logo">
+    <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
+    <div class="sb-brand"><strong>HERSE</strong><small>TURISMO</small></div>
+  </div>
+  <nav class="sb-nav">
+    <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
+    <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-suitcase"></i> Mis Viajes</button>
+    <button class="ni" id="nav-pasaporte-viaje" onclick="showView('pasaporte-viaje')"><i class="fas fa-passport"></i> Pasaporte de Viaje</button>
+    <button class="ni" id="nav-pasaporte-futbol" onclick="showView('pasaporte-futbol')"><i class="fas fa-futbol"></i> Pasaporte Futbolero</button>
+    <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
+    <div class="sb-sec">Más</div>
+    <a class="ni" href="/"><i class="fas fa-tag"></i> Ofertas para vos</a>
+    <a class="ni" href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+    <a class="ni" href="https://wa.me/5492215661704" target="_blank"><i class="fas fa-headset"></i> Ayuda y Soporte</a>
+  </nav>
+  <div class="sb-promo">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="">
+    <div class="sb-promo-body">
+      <h4 id="promoTitle">¿Listo para tu próximo destino?</h4>
+      <p id="promoSub">Explorá nuestras ofertas exclusivas.</p>
+      <a href="/" class="btn-promo" id="promoBtn">Ver ofertas</a>
     </div>
-</div>
-
-<!-- FUTBOL PASSPORT MODAL -->
-<div class="passport-modal" id="futbolModalOverlay" onclick="if(event.target===this)closeFutbolModal()">
-    <div class="passport-3d futbol" id="passportFutbol3d">
-        <div class="passport-cover">
-            <span class="cover-emblem">⚽</span>
-            <h2>PASAPORTE</h2>
-            <p class="cover-sub">FUTBOLERO</p>
-        </div>
-        <div class="passport-book">
-            <div class="book-header">
-                <div class="book-ttl"><i class="fas fa-futbol" style="color:var(--accent)"></i> Pasaporte Futbolero <span id="pasaporteCount" style="font-size:.68rem;font-weight:600;color:#9a8060;margin-left:4px">0 / 35</span></div>
-                <button class="book-close-btn" onclick="closeFutbolModal()">&#10005;</button>
-            </div>
-            <div class="league-tabs" id="futbolTabs"></div>
-            <div class="book-body" id="futbolSpread"></div>
-            <div class="book-nav">
-                <button class="book-nav-btn" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
-                <span class="book-nav-lbl" id="futbolNavLbl">1 / 1</span>
-                <button class="book-nav-btn" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
-            </div>
-        </div>
+  </div>
+</aside>
+<div class="main">
+  <header class="top-hdr">
+    <div class="hdr-l">
+      <div class="hdr-ico blue" id="hdrIcon"><i class="fas fa-plane"></i></div>
+      <div class="hdr-ttl"><h1 id="hdrTitle">Mi Viaje</h1><p id="hdrSub">Tu mundo, tus viajes, tu historia.</p></div>
     </div>
-</div>
+    <div class="hdr-r">
+      <button class="hdr-btn" onclick="toggleTheme()" id="themeBtn" title="Cambiar tema">🌙</button>
+      <button class="hdr-btn" style="position:relative"><i class="fas fa-bell"></i><span class="ndot"></span></button>
+      <button class="av-btn" onclick="logout()">
+        <div class="av-circle" id="avatarInitial">?</div>
+        <div><div class="av-name name">Cargando…</div><div class="av-sub">Ver perfil</div></div>
+        <i class="fas fa-chevron-down" style="font-size:.58rem;color:var(--tx3);margin-left:3px"></i>
+      </button>
+    </div>
+  </header>
+  <div class="view-wrap">
 
+  <!-- VIEW: MI VIAJE -->
+  <div class="view active" id="view-mi-viaje">
+   <div class="vcontent">
+    <div id="mainDashboard">
+     <div class="hero" style="background:url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1200&q=80') center/cover">
+      <div class="hero-ov"></div>
+      <div class="hero-cnt">
+       <div class="hero-tag"><i class="fas fa-rocket"></i> PRÓXIMA AVENTURA 🌏</div>
+       <div class="hero-title" id="mosaicTripDest">Cargando…</div>
+       <div class="hero-btm">
+        <div style="display:flex;align-items:center">
+         <div class="hero-dates"><i class="fas fa-calendar-alt" style="font-size:.68rem"></i><span class="countdown-footer">—</span></div>
+         <div style="width:1px;height:30px;background:rgba(255,255,255,.3);margin:0 12px"></div>
+         <div class="hero-cd">
+          <div class="cd-u"><div class="cd-v" id="cd-d">--</div><div class="cd-l">Días</div></div>
+          <div class="cd-u"><div class="cd-v" id="cd-h">--</div><div class="cd-l">Horas</div></div>
+          <div class="cd-u"><div class="cd-v" id="cd-m">--</div><div class="cd-l">Min</div></div>
+          <div class="cd-u"><div class="cd-v" id="cd-s">--</div><div class="cd-l">Seg</div></div>
+         </div>
+        </div>
+        <button class="hero-cta"><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</button>
+       </div>
+      </div>
+     </div>
+     <div class="viaje-grid">
+      <div class="col-stack">
+       <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
+         <div class="card-ttl" style="margin-bottom:0"><i class="fas fa-plane"></i> Tu viaje actual</div>
+         <span class="badge badge-ok" id="tripStatusBadge">Confirmado</span>
+        </div>
+        <div class="trip-head">
+         <div class="trip-code" id="tripFlagCircle">🌍</div>
+         <div><div class="trip-dest" id="cardTripDest">—</div><div class="trip-dates countdown-footer">—</div></div>
+        </div>
+        <div class="trip-meta">
+         <div><div class="tm-lbl"><i class="fas fa-plane-departure"></i> SALIDA</div><div class="tm-val mt-val-salida">—</div></div>
+         <div><div class="tm-lbl"><i class="fas fa-plane-arrival"></i> REGRESO</div><div class="tm-val mt-val-regreso">—</div></div>
+         <div><div class="tm-lbl"><i class="fas fa-users"></i> PASAJEROS</div><div class="tm-val mt-val-pax">—</div></div>
+         <div><div class="tm-lbl"><i class="fas fa-hotel"></i> HOTEL</div><div class="tm-val mt-val-hotel">—</div></div>
+        </div>
+        <button class="exp-btn"><span><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</span><i class="fas fa-chevron-right" style="font-size:.68rem"></i></button>
+       </div>
+       <div class="card">
+        <div class="card-ttl"><i class="fas fa-info-circle"></i> Información importante</div>
+        <div class="info-grid">
+         <div class="info-i"><div class="info-ico">📄</div><div class="info-lbl">Pasaporte</div><div class="info-val">Vigente</div></div>
+         <div class="info-i"><div class="info-ico">💉</div><div class="info-lbl">Vacunas</div><div class="info-val">No requeridas</div></div>
+         <div class="info-i"><div class="info-ico">🌡️</div><div class="info-lbl">Clima</div><div class="info-val">22°C – 28°C</div></div>
+         <div class="info-i"><div class="info-ico">💱</div><div class="info-lbl">Moneda</div><div class="info-val">Real Brasileño</div></div>
+        </div>
+       </div>
+       <div class="card">
+        <div class="card-ttl"><i class="fas fa-tasks"></i> Próximos pasos</div>
+        <div class="paso">
+         <div class="paso-l"><div class="paso-ico"><i class="fas fa-plane"></i></div><div><div class="paso-name">Check-in online</div><div class="paso-sub">Disponible desde 18 sept</div></div></div>
+         <button class="btn-a btn-ghost"><i class="fas fa-bell"></i> Recordarme</button>
+        </div>
+        <div class="paso">
+         <div class="paso-l"><div class="paso-ico"><i class="fas fa-file-upload"></i></div><div><div class="paso-name">Documentación</div><div class="paso-sub">Subí los documentos requeridos</div></div></div>
+         <button class="btn-a btn-prim"><i class="fas fa-upload"></i> Subir ahora</button>
+        </div>
+       </div>
+      </div>
+      <div class="col-stack">
+       <div class="card">
+        <div class="card-ttl"><i class="fas fa-list-check"></i> Estado de tu viaje</div>
+        <div class="tl">
+         <div class="tl-i"><div class="tl-side"><div class="tl-dot ok"><i class="fas fa-check" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Reserva confirmada</div><div class="tl-date">15 may 2025</div></div></div>
+         <div class="tl-i"><div class="tl-side"><div class="tl-dot ok"><i class="fas fa-check" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Pago recibido</div><div class="tl-date">15 may 2025</div></div></div>
+         <div class="tl-i"><div class="tl-side"><div class="tl-dot cur"><i class="fas fa-circle-notch fa-spin" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Documentación</div><div class="tl-date">En proceso</div></div></div>
+         <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">Check-in</div><div class="tl-date">Próximamente</div></div></div>
+         <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">¡A disfrutar!</div><div class="tl-date">Próximamente</div></div></div>
+        </div>
+       </div>
+       <div class="ayuda">
+        <div>
+         <div class="ayuda-ttl">¿Necesitás ayuda?</div>
+         <div class="ayuda-sub">Nuestro equipo disponible 24/7</div>
+         <button class="btn-contact" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-headset"></i> Contactar soporte</button>
+        </div>
+        <div class="ayuda-ico"><i class="fas fa-headset"></i></div>
+       </div>
+       <div class="card">
+        <div class="card-ttl"><i class="fas fa-lightbulb"></i> Consejos para tu viaje</div>
+        <div class="consejo">
+         <div class="consejo-ico">🔌</div>
+         <div><div style="font-size:.76rem;color:var(--tx);line-height:1.45">Brasil tiene enchufes tipo N.</div><div style="font-size:.63rem;color:var(--tx2);margin-top:2px">No olvides llevar un adaptador.</div></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">
+         <button class="bnb">&#8249;</button>
+         <div style="display:flex;gap:6px"><div style="width:6px;height:6px;border-radius:50%;background:var(--ac)"></div><div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div><div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div></div>
+         <button class="bnb">&#8250;</button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div id="pendingState" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">⏳</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Estamos preparando tu viaje</div><div style="font-size:.8rem;color:var(--tx2)">Pronto tendrás toda la info de tu próxima aventura.</div></div>
+    <div id="proximamente" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">🔒</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Acceso pendiente</div><div style="font-size:.8rem;color:var(--tx2)">Tu cuenta está siendo verificada.</div></div>
+    <button id="btnAdmin" style="display:none;position:fixed;bottom:20px;right:20px;background:var(--ac);color:#fff;border:none;border-radius:99px;padding:7px 14px;font-size:.7rem;font-weight:700;cursor:pointer;box-shadow:var(--shl)"><i class="fas fa-tools"></i> Admin</button>
+   </div>
+  </div>
+
+  <!-- VIEW: MIS VIAJES -->
+  <div class="view" id="view-mis-viajes">
+   <div class="vcontent">
+    <div class="tabs-bar">
+     <button class="tab-btn active" onclick="setViajesTab(this,'todos')">Todos los viajes</button>
+     <button class="tab-btn" onclick="setViajesTab(this,'proximos')">Próximos</button>
+     <button class="tab-btn" onclick="setViajesTab(this,'completados')">Completados</button>
+     <button class="tab-btn" onclick="setViajesTab(this,'cancelados')">Cancelados</button>
+     <div class="tabs-search">
+      <div class="srch-wrap"><i class="fas fa-search" style="color:var(--tx3);font-size:.72rem"></i><input type="text" placeholder="Buscar viajes…" id="viajesSearch" oninput="filterTrips()"></div>
+      <button class="btn-filtros"><i class="fas fa-filter"></i> Filtros</button>
+     </div>
+    </div>
+    <div class="stats-row">
+     <div class="stat-c"><div class="stat-ico b"><i class="fas fa-suitcase"></i></div><div><div class="stat-lbl">Total de viajes</div><div class="stat-val" id="statTotal">—</div><div class="stat-sub">Todas tus aventuras</div></div></div>
+     <div class="stat-c"><div class="stat-ico g"><i class="fas fa-plane"></i></div><div><div class="stat-lbl">Próximos viajes</div><div class="stat-val" id="statProximos">—</div><div class="stat-sub">Tus próximas experiencias</div></div></div>
+     <div class="stat-c"><div class="stat-ico o"><i class="fas fa-check-circle"></i></div><div><div class="stat-lbl">Viajes completados</div><div class="stat-val" id="statCompletados">—</div><div class="stat-sub">¡Grandes recuerdos!</div></div></div>
+     <div class="stat-c"><div class="stat-ico p"><i class="fas fa-map-marker-alt"></i></div><div><div class="stat-lbl">Países visitados</div><div class="stat-val" id="statPaises">—</div><div class="stat-sub">Seguís explorando</div></div></div>
+    </div>
+    <div class="sec-hdr">
+     <div class="sec-ttl">Historial de viajes</div>
+     <div class="sort-w">Ordenar por: <select><option>Más recientes</option><option>Más antiguos</option></select></div>
+    </div>
+    <div id="allTripsList"><div style="text-align:center;padding:36px 0;color:var(--tx2);font-size:.8rem">Cargando viajes…</div></div>
+   </div>
+  </div>
+
+  <!-- VIEW: PASAPORTE VIAJE -->
+  <div class="view" id="view-pasaporte-viaje">
+   <div class="vcontent">
+    <div class="pp-layout">
+     <div>
+      <div class="pp-tabs" id="viajeRegionTabs"></div>
+      <div class="open-book">
+       <div class="book-pages" id="viajeBookInner"></div>
+      </div>
+      <div class="book-nav-row">
+       <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip viajero</strong><br>¡Cada sello es un recuerdo que dura para siempre!</div></div>
+       <div class="book-nav-btns">
+        <button class="bnb" id="viajeNavPrev" onclick="navViajePassport(-1)">&#8249;</button>
+        <span class="bnb-lbl" id="viajeNavLbl">1 / 3</span>
+        <button class="bnb" id="viajeNavNext" onclick="navViajePassport(1)">&#8250;</button>
+       </div>
+      </div>
+     </div>
+     <div class="pp-sb">
+      <div class="sb-card">
+       <div class="sb-card-ttl">Tu progreso</div>
+       <div class="donut-wrap">
+        <svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="viajeDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg>
+        <div class="d-val" id="viajeDonutLbl">0/28</div><div class="d-sub">Países visitados</div><div class="d-pct" id="viajeDonutPct">0% completado</div>
+       </div>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Estadísticas</div>
+       <div class="sl-list">
+        <div class="sl-i"><div class="sl-ico">🌍</div><span class="sl-lbl">Países disponibles</span><strong class="sl-v">28</strong></div>
+        <div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Países visitados</span><strong class="sl-v" id="viajeStatV">0</strong></div>
+        <div class="sl-i"><div class="sl-ico">🗺️</div><span class="sl-lbl">Continentes</span><strong class="sl-v" id="viajeStatC">0</strong></div>
+        <div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km recorridos</span><strong class="sl-v">—</strong></div>
+       </div>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Logro reciente</div>
+       <div class="logro-c"><div class="logro-ico">✈️</div><div><div class="logro-name" id="viajeLogroName">Explorador</div><div class="logro-desc" id="viajeLogroDesc">Visitaste tu primer país</div></div></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- VIEW: PASAPORTE FUTBOL -->
+  <div class="view" id="view-pasaporte-futbol">
+   <div class="vcontent">
+    <div class="pp-layout">
+     <div>
+      <div class="ftabs" id="futbolTabs"></div>
+      <div class="open-book">
+       <div class="book-pages" id="futbolBookInner"></div>
+      </div>
+      <div style="margin-top:14px">
+       <div class="sec-ttl" style="margin-bottom:10px">Logros desbloqueables</div>
+       <div class="logros-grid">
+        <div class="lg-c"><div class="lg-ico">🎫</div><div class="lg-name">Primer partido</div><div class="lg-desc">Asistí a tu primer partido</div></div>
+        <div class="lg-c" style="opacity:.5"><div class="lg-ico">🏟️</div><div class="lg-name">5 estadios</div><div class="lg-desc">Visitaste 5 estadios</div></div>
+        <div class="lg-c" style="opacity:.5"><div class="lg-ico">⚡</div><div class="lg-name">Clásico vivido</div><div class="lg-desc">Viviste un clásico</div></div>
+        <div class="lg-c" style="opacity:.5"><div class="lg-ico">🌐</div><div class="lg-name">Partido internacional</div><div class="lg-desc">Fuera de tu país</div></div>
+        <div class="lg-c" style="opacity:.5"><div class="lg-ico">🏆</div><div class="lg-name">Final asistida</div><div class="lg-desc">Viviste una final</div></div>
+       </div>
+      </div>
+      <div class="book-nav-row">
+       <div class="book-tip"><i class="fas fa-info-circle"></i><div class="tip-text"><strong>Tip futbolero</strong><br>¡No olvides cargar tu entrada! Cada partido cuenta tu historia.</div></div>
+       <div class="book-nav-btns">
+        <button class="bnb" id="futbolNavPrev" onclick="navFutbolPassport(-1)">&#8249;</button>
+        <span class="bnb-lbl" id="futbolNavLbl">1 / 1</span>
+        <button class="bnb" id="futbolNavNext" onclick="navFutbolPassport(1)">&#8250;</button>
+       </div>
+      </div>
+     </div>
+     <div class="pp-sb">
+      <div class="sb-card">
+       <div class="sb-card-ttl">Tu progreso</div>
+       <div class="donut-wrap">
+        <svg width="104" height="104" class="donut-svg"><circle class="d-bg" cx="52" cy="52" r="40"/><circle class="d-fill" id="futbolDonutFill" cx="52" cy="52" r="40" stroke-dasharray="251" stroke-dashoffset="251"/></svg>
+        <div class="d-val" id="futbolDonutLbl">0/30</div><div class="d-sub">Estadios visitados</div><div class="d-pct" id="futbolDonutPct">0% completado</div>
+       </div>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Estadísticas</div>
+       <div class="sl-list">
+        <div class="sl-i"><div class="sl-ico">🏟️</div><span class="sl-lbl">Estadios disponibles</span><strong class="sl-v" id="futbolStatT">—</strong></div>
+        <div class="sl-i"><div class="sl-ico">✅</div><span class="sl-lbl">Estadios visitados</span><strong class="sl-v" id="futbolStatV">0</strong></div>
+        <div class="sl-i"><div class="sl-ico">⚽</div><span class="sl-lbl">Ligas exploradas</span><strong class="sl-v" id="futbolStatL">0</strong></div>
+        <div class="sl-i"><div class="sl-ico">📏</div><span class="sl-lbl">Km futboleros</span><strong class="sl-v">—</strong></div>
+       </div>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Logro reciente</div>
+       <div class="logro-c"><div class="logro-ico">⚽</div><div><div class="logro-name" id="futbolLogroN">Hincha Argento</div><div class="logro-desc" id="futbolLogroD">Visitaste estadios en Argentina</div></div></div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <!-- VIEW: FIDELIZACIÓN -->
+  <div class="view" id="view-fidelizacion">
+   <div class="vcontent">
+    <div class="fid-layout">
+     <div>
+      <div class="pts-hero">
+       <div class="pts-l">
+        <div class="pts-lbl">Tus puntos disponibles</div>
+        <div class="pts-row"><span style="font-size:1.7rem">⭐</span><span class="pts-num" id="fidPtsHero">0</span><span class="pts-unit">puntos</span></div>
+        <div class="pts-sub"><i class="fas fa-arrow-up"></i><span id="fidMotivoHero">¡Vas por buen camino!</span></div>
+        <hr class="hr fid-sep">
+        <div class="prox-row">
+         <div class="prox-txt">Estás a <strong id="fidFaltanHero">—</strong> puntos de tu próximo beneficio</div>
+         <div class="prox-b"><i class="fas fa-ticket-alt" style="color:var(--ac3)"></i><span id="fidProxBen">5% OFF en tu próximo viaje</span></div>
+        </div>
+        <div class="fpbar"><div class="fpfill" id="fidProgHero" style="width:0%"></div></div>
+        <div class="fp-lbls"><span id="fidProgL">0 / 1000</span><span style="color:var(--ac3)" id="fidProgR">680 / 1000</span></div>
+       </div>
+       <img class="pts-img" src="https://cdn-icons-png.flaticon.com/512/3141/3141785.png" alt="" onerror="this.style.display='none'">
+      </div>
+      <div class="sec-ttl" style="margin-bottom:10px">Cómo sumás puntos</div>
+      <div class="como-grid">
+       <div class="como-i"><div class="como-ico">✈️</div><div class="como-name">Reserva de viajes</div><div class="como-pts">+ 10 pts por cada USD 1 gastado</div></div>
+       <div class="como-i"><div class="como-ico">🏨</div><div class="como-name">Alojamientos</div><div class="como-pts">+ 5 pts por cada USD 1 gastado</div></div>
+       <div class="como-i"><div class="como-ico">⚽</div><div class="como-name">Viajes futboleros</div><div class="como-pts">+ 15 pts por cada USD 1 gastado</div></div>
+       <div class="como-i"><div class="como-ico">👥</div><div class="como-name">Referí amigos</div><div class="como-pts">+ 200 pts por cada amigo que viaje</div></div>
+       <div class="como-i"><div class="como-ico">⭐</div><div class="como-name">Dejá tu opinión</div><div class="como-pts">+ 50 pts por cada reseña aprobada</div></div>
+      </div>
+      <div class="sec-ttl" style="margin-bottom:10px">Beneficios disponibles</div>
+      <div class="benef-grid">
+       <div class="ben-c ok"><span class="ben-tag">Desbloqueado</span><div style="margin-top:8px"></div><div class="ben-ico"><i class="fas fa-percent" style="color:#16a34a"></i></div><div class="ben-name">5% OFF en tu próximo viaje</div><div class="ben-pts">1.000 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:68%"></div></div><button class="btn-canjear">Canjear beneficio</button></div>
+       <div class="ben-c"><div class="ben-ico"><i class="fas fa-suitcase" style="color:var(--tx3)"></i></div><div class="ben-name">Equipaje extra gratis</div><div class="ben-pts">1.500 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:45%"></div></div></div>
+       <div class="ben-c"><div class="ben-ico"><i class="fas fa-arrow-up" style="color:var(--tx3)"></i></div><div class="ben-name">Upgrade de categoría</div><div class="ben-pts">2.500 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:27%"></div></div></div>
+       <div class="ben-c"><div class="ben-ico"><i class="fas fa-check-circle" style="color:var(--tx3)"></i></div><div class="ben-name">Check-in prioritario</div><div class="ben-pts">3.500 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:19%"></div></div></div>
+       <div class="ben-c"><div class="ben-ico"><i class="fas fa-concierge-bell" style="color:var(--tx3)"></i></div><div class="ben-name">Asistencia premium</div><div class="ben-pts">5.000 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:14%"></div></div></div>
+      </div>
+      <div class="ver-todos">Ver todos los beneficios</div>
+      <div class="tip-bar"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>Tip Herse</strong><br>Acumulá más puntos reservando paquetes completos (vuelo + hotel) y participá de nuestras promociones exclusivas.</div></div>
+     </div>
+     <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="sb-card">
+       <div class="niv-hdr"><div class="sb-card-ttl" style="margin-bottom:0">Tu nivel actual</div><span class="niv-ver">Ver niveles</span></div>
+       <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <div class="niv-badge" id="fidNivelBadge">✈️</div>
+        <div><div class="niv-name" id="fidNivelName">Explorador</div><div class="niv-sub" id="fidNivelSub">Nivel 2</div></div>
+       </div>
+       <div class="sb-card-ttl">Tu progreso de nivel</div>
+       <div class="niv-list">
+        <div class="niv-it"><div class="niv-dot" style="background:#94a3b8"></div>Aventurero<span class="niv-range">0 - 999 pts</span></div>
+        <div class="niv-it active-n" id="fidNivActivo"><div class="niv-dot" style="background:#22c55e"></div><strong>Explorador</strong><span class="niv-range">1.000 - 2.499 pts</span></div>
+        <div class="niv-it"><div class="niv-dot" style="background:#3b82f6"></div>Viajero Frecuente<span class="niv-range">2.500 - 4.999 pts</span></div>
+        <div class="niv-it"><div class="niv-dot" style="background:#8b5cf6"></div>Globetrotter<span class="niv-range">5.000 - 9.999 pts</span></div>
+        <div class="niv-it"><div class="niv-dot" style="background:#f59e0b"></div>Leyenda Herse<span class="niv-range">10.000+ pts</span></div>
+       </div>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Actividad reciente</div>
+       <div class="act-list">
+        <div class="act-i"><div class="act-ico"><i class="fas fa-plane"></i></div><div><div class="act-name">Reserva a Brasil</div><div class="act-date">15 may 2025</div></div><span class="act-pts">+120 pts</span></div>
+        <div class="act-i"><div class="act-ico"><i class="fas fa-star"></i></div><div><div class="act-name">Reseña publicada</div><div class="act-date">10 may 2025</div></div><span class="act-pts">+50 pts</span></div>
+        <div class="act-i"><div class="act-ico"><i class="fas fa-plane"></i></div><div><div class="act-name">Viaje a España</div><div class="act-date">21 abr 2025</div></div><span class="act-pts">+200 pts</span></div>
+       </div>
+       <span class="ver-act">Ver toda tu actividad</span>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Tus estadísticas</div>
+       <div class="fst-grid">
+        <div class="fst-i"><div class="fst-v" id="fidStatPts">0</div><div class="fst-l">Puntos totales</div></div>
+        <div class="fst-i"><div class="fst-v" id="fidStatViajes">0</div><div class="fst-l">Viajes realizados</div></div>
+        <div class="fst-i"><div class="fst-v">0</div><div class="fst-l">Referidos</div></div>
+        <div class="fst-i"><div class="fst-v" id="fidStatDesde">—</div><div class="fst-l">Miembro desde</div></div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  </div><!-- end view-wrap -->
+ </div><!-- end main -->
+</div><!-- end app -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-    const SUPA_URL = 'https://yuukqdcjitxhaeevjxjb.supabase.co';
-    const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
-    const { createClient } = supabase;
-    const _db = createClient(SUPA_URL, SUPA_KEY);
+const SUPA_URL='https://yuukqdcjitxhaeevjxjb.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
+const {createClient}=supabase;
+const _db=createClient(SUPA_URL,SUPA_KEY);
+let TRIP_DATE=new Date('2025-08-15T08:30:00-03:00');
+let _tickInterval,_isAdmin=false;
 
-    let TRIP_DATE = new Date('2025-08-15T08:30:00-03:00');
-    let _tickInterval;
-    let _isAdmin = false;
-
-    /* ── THEME ── */
-    (function () {
-        const saved = localStorage.getItem('herse_theme') || 'light';
-        document.documentElement.dataset.theme = saved;
-        const btn = document.getElementById('themeBtn');
-        if (btn) btn.textContent = saved === 'dark' ? '☀️' : '🌙';
-    })();
-
-    function toggleTheme() {
-        const html = document.documentElement;
-        const isDark = html.dataset.theme === 'dark';
-        html.dataset.theme = isDark ? 'light' : 'dark';
-        const btn = document.getElementById('themeBtn');
-        if (btn) btn.textContent = isDark ? '🌙' : '☀️';
-        localStorage.setItem('herse_theme', isDark ? 'light' : 'dark');
-    }
-
-    /* ── MAIN: AUTH + DATA ── */
-    (async () => {
-        const { data: { session } } = await _db.auth.getSession();
-        if (!session) { window.location.href = '/login'; return; }
-
-        const user = session.user;
-
-        const { data: _perfAdmin } = await _db.from('perfiles').select('is_admin').eq('id', user.id).single();
-        if (_perfAdmin?.is_admin) {
-            document.getElementById('btnAdmin').classList.add('visible');
-            _isAdmin = true;
-        } else {
-            document.getElementById('mainDashboard').style.display = 'none';
-            document.getElementById('pendingState').style.display  = 'none';
-            document.getElementById('proximamente').style.display  = 'block';
-            return;
-        }
-
-        const raw  = user.user_metadata?.nombre || user.email.split('@')[0].replace(/[._-]/g, ' ');
-        const name = raw.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        document.querySelectorAll('.name').forEach(el => el.textContent = name);
-        const ini = document.getElementById('avatarInitial');
-        if (ini) ini.textContent = name.charAt(0).toUpperCase();
-
-        const { data: viajes } = await _db
-            .from('viajes')
-            .select('*, documentos(*)')
-            .eq('activo', true)
-            .order('fecha_salida', { ascending: true })
-            .limit(1);
-
-        if (viajes?.length > 0) {
-            const v = viajes[0];
-            TRIP_DATE = new Date(v.fecha_salida);
-            updateTripUI(v);
-            checkCheckinReminder(v.fecha_salida, v.vuelo_ida);
-        } else {
-            document.getElementById('mainDashboard').style.display = 'none';
-            document.getElementById('pendingState').style.display  = 'block';
-            clearInterval(_tickInterval);
-        }
-
-        loadHistorial();
-        initPasaporte(user.id);
-
-        const { data: fid } = await _db.from('fidelizacion').select('*').maybeSingle();
-        if (fid) updateLoyalty(fid);
-
-        tick();
-        _tickInterval = setInterval(tick, 1000);
-
-        const pct = fid ? Math.min((fid.viajes_completados / 5) * 100, 100) : 0;
-        setTimeout(() => { const b = document.getElementById('loyaltyBar'); if (b) b.style.width = pct + '%'; }, 500);
-    })();
-
-    /* ── LOGOUT ── */
-    function logout() {
-        _db.auth.signOut().then(() => { window.location.href = '/login'; });
-    }
-
-    /* ── HELPERS DE FECHA ── */
-    function fmtDate(d) { return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }); }
-    function fmtDateTime(d) {
-        return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' +
-               d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-    }
-
-    /* ── FLAG MAP ── */
-    const FLAG_MAP = {
-        brasil:'🇧🇷', brazil:'🇧🇷', argentina:'🇦🇷', espana:'🇪🇸', spain:'🇪🇸',
-        italia:'🇮🇹', italy:'🇮🇹', francia:'🇫🇷', france:'🇫🇷',
-        mexico:'🇲🇽', alemania:'🇩🇪', germany:'🇩🇪', portugal:'🇵🇹',
-        eeuu:'🇺🇸', usa:'🇺🇸', uruguay:'🇺🇾', england:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-        grecia:'🇬🇷', japon:'🇯🇵', turquia:'🇹🇷', egipto:'🇪🇬',
-    };
-    function getFlag(text) {
-        const k = text.toLowerCase()
-            .replace(/[áéíóúñü]/g, c => ({á:'a',é:'e',í:'i',ó:'o',ú:'u',ñ:'n',ü:'u'}[c] || c));
-        return Object.entries(FLAG_MAP).find(([key]) => k.includes(key))?.[1] || '🌍';
-    }
-
-    /* ── UPDATE TRIP UI ── */
-    function updateTripUI(v) {
-        const sd = new Date(v.fecha_salida);
-        const ed = new Date(v.fecha_regreso);
-
-        const ctd = document.getElementById('cardTripDest');
-        if (ctd) ctd.textContent = v.destino;
-
-        document.querySelectorAll('.countdown-footer').forEach(f => {
-            f.textContent = fmtDate(sd) + ' → ' + fmtDate(ed);
-        });
-
-        const dest = document.getElementById('mosaicTripDest');
-        if (dest) dest.textContent = v.destino;
-
-        const fc = document.getElementById('tripFlagCircle');
-        if (fc) fc.textContent = getFlag(v.destino);
-
-        const vs = document.querySelector('.mt-val-salida');  if (vs) vs.textContent = fmtDateTime(sd);
-        const vr = document.querySelector('.mt-val-regreso'); if (vr) vr.textContent = fmtDateTime(ed);
-        const vp = document.querySelector('.mt-val-pax');     if (vp) vp.textContent = v.pasajeros + (v.pasajeros === 1 ? ' adulto' : ' adultos');
-        const vh = document.querySelector('.mt-val-hotel');   if (vh) vh.textContent = v.hotel || '—';
-    }
-
-    /* ── HISTORIAL ── */
-    async function loadHistorial() {
-        const { data } = await _db.from('viajes')
-            .select('destino,fecha_salida,fecha_regreso')
-            .eq('activo', false)
-            .order('fecha_salida', { ascending: false });
-        initViajePassport(data || []);
-        renderRecentTrips(data || []);
-    }
-
-    function renderRecentTrips(viajes) {
-        const wrap = document.getElementById('recentTrips');
-        if (!wrap) return;
-        if (!viajes.length) return;
-        wrap.innerHTML = viajes.slice(0, 3).map(v => {
-            const sd = new Date(v.fecha_salida);
-            const ed = new Date(v.fecha_regreso);
-            const flag = getFlag(v.destino);
-            const d1 = sd.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
-            const d2 = ed.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
-            return `<div class="recent-trip-item">
-                <div class="rtrip-thumb">${flag}</div>
-                <div style="flex:1;min-width:0">
-                    <div class="rtrip-name">${v.destino}</div>
-                    <div class="rtrip-dates">${d1} – ${d2}</div>
-                </div>
-                <span class="rtrip-badge"><i class="fas fa-check" style="font-size:.55rem"></i> Completado</span>
-            </div>`;
-        }).join('');
-    }
-
-    /* ── LOYALTY ── */
-    function updateLoyalty(fid) {
-        const done = fid.viajes_completados || 0;
-        let level, icon, nextLevel, hint, nextBenefit, nextBenefitSub;
-        if (done >= 5) {
-            level = 'Elite VIP'; icon = '🏆';
-            nextLevel = '— Máximo'; hint = '¡Sos parte de nuestra élite de viajeros!';
-            nextBenefit = 'Upgrade de habitación'; nextBenefitSub = 'Ya disponible en tu nivel Elite VIP';
-        } else if (done >= 3) {
-            level = 'Viajero'; icon = '✈️';
-            nextLevel = '→ Elite VIP'; hint = `${5 - done} viaje${5 - done > 1 ? 's' : ''} más para Elite VIP`;
-            nextBenefit = 'Upgrade de habitación'; nextBenefitSub = 'Disponible desde nivel Elite VIP';
-        } else {
-            level = 'Explorador'; icon = '🌱';
-            nextLevel = '→ Viajero'; hint = `${3 - done} viaje${3 - done > 1 ? 's' : ''} más para Viajero`;
-            nextBenefit = 'Check-in anticipado'; nextBenefitSub = 'Disponible desde nivel Viajero';
-        }
-        const lbl    = document.getElementById('fidLevelLabel');
-        const cnt    = document.getElementById('fidCountLabel');
-        const badge  = document.getElementById('fidTierBadge');
-        const next   = document.getElementById('fidNextTier');
-        const curLbl = document.getElementById('fidCurrentTierLbl');
-        const hint_  = document.getElementById('fidProgHint');
-        const nb     = document.getElementById('fidNextBenefit');
-        const nbs    = document.getElementById('fidNextBenefitSub');
-        if (lbl)    lbl.textContent = level;
-        if (cnt)    cnt.textContent = done * 250;
-        if (badge)  badge.querySelector('span').textContent = icon;
-        if (next)   next.textContent = nextLevel;
-        if (curLbl) curLbl.textContent = level;
-        if (hint_)  hint_.textContent = hint;
-        if (nb)     nb.textContent = nextBenefit;
-        if (nbs)    nbs.textContent = nextBenefitSub;
-    }
-
-    function updateDocs() {}
-
-    /* ── COUNTDOWN ── */
-    function pad(n) { return String(n).padStart(2, '0'); }
-    function tick() {
-        const diff = TRIP_DATE - new Date();
-        if (diff <= 0) {
-            ['cd-d','cd-h','cd-m','cd-s'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '00'; });
-            clearInterval(_tickInterval);
-            return;
-        }
-        const vals = [
-            Math.floor(diff / 864e5),
-            Math.floor((diff % 864e5) / 36e5),
-            Math.floor((diff % 36e5) / 6e4),
-            Math.floor((diff % 6e4) / 1e3)
-        ];
-        ['cd-d','cd-h','cd-m','cd-s'].forEach((id, i) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const v = pad(vals[i]);
-            if (el.textContent !== v) {
-                el.classList.add('tick');
-                setTimeout(() => el.classList.remove('tick'), 120);
-                el.textContent = v;
-            }
-        });
-    }
-
-    /* ── CHECK-IN BANNER ── */
-    function checkCheckinReminder(tripDate, vueloIda) {
-        const key = `herse_chk_dismissed_${tripDate}`;
-        if (localStorage.getItem(key)) return;
-        const diff  = new Date(tripDate) - new Date();
-        const hours = diff / 36e5;
-        if (hours > 0 && hours <= 48) {
-            const banner = document.getElementById('checkinBanner');
-            const txt    = document.getElementById('checkinBannerText');
-            const btn    = document.getElementById('btnCheckinDo');
-            const h = Math.floor(hours);
-            if (txt) txt.textContent = ` Tu vuelo ${vueloIda ? `(${vueloIda}) ` : ''}sale en ${h} hora${h !== 1 ? 's' : ''}. ¡Hace el check-in!`;
-            if (banner) { banner.classList.add('show'); banner._dismissKey = key; }
-            if (btn && vueloIda?.toUpperCase().includes('AR')) {
-                btn.onclick = () => window.open('https://www.aerolineas.com.ar/check-in', '_blank');
-            }
-        }
-    }
-    function dismissCheckin() {
-        const banner = document.getElementById('checkinBanner');
-        if (banner) {
-            if (banner._dismissKey) localStorage.setItem(banner._dismissKey, '1');
-            banner.classList.remove('show');
-        }
-    }
-
-    /* ── PASSPORT DATA ── */
-    const PASAPORTE_DATA = {
-        england:  { nombre:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', liga:'Premier League', estadios:[
-            { id:'eng_anfield',      nombre:'Anfield',           equipo:'Liverpool FC' },
-            { id:'eng_old_trafford', nombre:'Old Trafford',      equipo:'Manchester United' },
-            { id:'eng_etihad',       nombre:'Etihad Stadium',    equipo:'Manchester City' },
-            { id:'eng_emirates',     nombre:'Emirates Stadium',  equipo:'Arsenal FC' },
-            { id:'eng_stamford',     nombre:'Stamford Bridge',   equipo:'Chelsea FC' },
-            { id:'eng_wembley',      nombre:'Wembley Stadium',   equipo:'Selección Inglesa' },
-        ]},
-        spain:    { nombre:'España',     flag:'🇪🇸', liga:'La Liga', estadios:[
-            { id:'esp_bernabeu',     nombre:'Santiago Bernabéu', equipo:'Real Madrid' },
-            { id:'esp_camp_nou',     nombre:'Spotify Camp Nou',  equipo:'FC Barcelona' },
-            { id:'esp_wanda',        nombre:'Metropolitano',     equipo:'Atlético de Madrid' },
-            { id:'esp_mestalla',     nombre:'Mestalla',          equipo:'Valencia CF' },
-            { id:'esp_san_mames',    nombre:'San Mamés',         equipo:'Athletic Bilbao' },
-            { id:'esp_pizjuan',      nombre:'Sánchez-Pizjuán',  equipo:'Sevilla FC' },
-        ]},
-        italy:    { nombre:'Italia',     flag:'🇮🇹', liga:'Serie A', estadios:[
-            { id:'ita_san_siro',     nombre:'San Siro',          equipo:'Inter / AC Milan' },
-            { id:'ita_olimpico',     nombre:'Stadio Olimpico',   equipo:'Roma / Lazio' },
-            { id:'ita_allianz',      nombre:'Allianz Stadium',   equipo:'Juventus FC' },
-            { id:'ita_maradona',     nombre:'Stadio Maradona',   equipo:'SSC Napoli' },
-            { id:'ita_bentegodi',    nombre:'Bentegodi',         equipo:'Verona / Chievo' },
-        ]},
-        germany:  { nombre:'Alemania',   flag:'🇩🇪', liga:'Bundesliga', estadios:[
-            { id:'ger_signal',       nombre:'Signal Iduna Park', equipo:'Borussia Dortmund' },
-            { id:'ger_allianz',      nombre:'Allianz Arena',     equipo:'Bayern München' },
-            { id:'ger_volksparkst',  nombre:'Volksparkstadion',  equipo:'Hamburger SV' },
-            { id:'ger_rheinenergie', nombre:'RheinEnergieStad.', equipo:'1. FC Köln' },
-            { id:'ger_olympia',      nombre:'Olympiastadion',    equipo:'Hertha BSC' },
-        ]},
-        argentina:{ nombre:'Argentina',  flag:'🇦🇷', liga:'Liga Profesional', estadios:[
-            { id:'arg_monumental',   nombre:'El Monumental',     equipo:'River Plate' },
-            { id:'arg_bombonera',    nombre:'La Bombonera',      equipo:'Boca Juniors' },
-            { id:'arg_cilindro',     nombre:'El Cilindro',       equipo:'Racing Club' },
-            { id:'arg_gasometro',    nombre:'Nuevo Gasómetro',   equipo:'San Lorenzo' },
-            { id:'arg_libertadores', nombre:'Libertadores Am.',  equipo:'Independiente' },
-            { id:'arg_bosque',       nombre:'Est. Ciudad de LP', equipo:'Estudiantes LP' },
-        ]},
-        brazil:   { nombre:'Brasil',     flag:'🇧🇷', liga:'Brasileirão', estadios:[
-            { id:'bra_maracana',     nombre:'Maracaná',          equipo:'Flamengo / Fluminense' },
-            { id:'bra_morumbi',      nombre:'Morumbis',          equipo:'São Paulo FC' },
-            { id:'bra_neo_quimica',  nombre:'Neo Química Arena', equipo:'Corinthians' },
-            { id:'bra_mineirao',     nombre:'Mineirão',          equipo:'Atlético / Cruzeiro' },
-            { id:'bra_beira_rio',    nombre:'Beira-Rio',         equipo:'Internacional' },
-        ]},
-    };
-
-    const PASSPORT_KEYS = Object.keys(PASAPORTE_DATA);
-    let _selladosSet    = new Set();
-    let _passportUserId = null;
-
-    /* ── VIAJE PASSPORT DATA ── */
-    const VIAJE_PAGES = [
-        {
-            left:  { title:'América del Sur', icon:'🌎', items:[
-                {id:'arg',nombre:'Argentina'},{id:'bra',nombre:'Brasil'},
-                {id:'chi',nombre:'Chile'},{id:'col',nombre:'Colombia'},
-                {id:'per',nombre:'Perú'},{id:'uru',nombre:'Uruguay'},
-            ]},
-            right: { title:'América del Norte', icon:'🌎', items:[
-                {id:'mex',nombre:'México'},{id:'usa',nombre:'Estados Unidos'},{id:'can',nombre:'Canadá'},
-            ]},
-        },
-        {
-            left:  { title:'Europa', icon:'🌍', items:[
-                {id:'esp',nombre:'España'},{id:'ita',nombre:'Italia'},
-                {id:'fra',nombre:'Francia'},{id:'ale',nombre:'Alemania'},
-                {id:'por',nombre:'Portugal'},
-            ]},
-            right: { title:'Europa (cont.)', icon:'🌍', items:[
-                {id:'ing',nombre:'Inglaterra'},{id:'gre',nombre:'Grecia'},
-                {id:'hol',nombre:'Holanda'},{id:'bel',nombre:'Bélgica'},
-            ]},
-        },
-        {
-            left:  { title:'Asia & Medio Oriente', icon:'🌏', items:[
-                {id:'jpn',nombre:'Japón'},{id:'tai',nombre:'Tailandia'},
-                {id:'tur',nombre:'Turquía'},{id:'dub',nombre:'Dubai'},
-            ]},
-            right: { title:'Oceanía & África', icon:'🌏', items:[
-                {id:'aus',nombre:'Australia'},{id:'egy',nombre:'Egipto'},
-                {id:'mar',nombre:'Marruecos'},{id:'nzl',nombre:'Nueva Zelanda'},
-            ]},
-        },
-    ];
-    let _viajeSelladosSet = new Set();
-    let _viajeCurrentPage = 0;
-    let _futbolCurrentTab = 0;
-    let _futbolCurrentPage = 0;
-
-    function matchesDestino(destino, pais) {
-        const n = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-        const d = n(destino), p = n(pais);
-        return d.includes(p) || p.includes(d);
-    }
-
-    /* ── INIT PASSPORT ── */
-    async function initPasaporte(userId) {
-        _passportUserId = userId;
-        const { data } = await _db.from('pasaporte_tribunero').select('estadio_id').eq('user_id', userId);
-        if (data) data.forEach(r => _selladosSet.add(r.estadio_id));
-        updatePasaporteCounter();
-        initFutbolBook();
-    }
-
-    /* ── VIAJE PASSPORT ── */
-    function initViajePassport(historialData) {
-        _viajeSelladosSet = new Set();
-        (historialData || []).forEach(v => {
-            VIAJE_PAGES.forEach(pg => {
-                [pg.left, pg.right].forEach(side => {
-                    side.items.forEach(item => {
-                        if (matchesDestino(v.destino, item.nombre)) _viajeSelladosSet.add(item.id);
-                    });
-                });
-            });
-        });
-        const totalViaje = VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
-        const viajeCount = _viajeSelladosSet.size;
-        const lbl = document.getElementById('viajeSellosLbl');
-        if (lbl) lbl.textContent = `${viajeCount} / ${totalViaje}`;
-        const bar = document.getElementById('viajeProgressBar');
-        if (bar) bar.style.width = Math.round((viajeCount/totalViaje)*100) + '%';
-        const mc = document.getElementById('viajeModalCount');
-        if (mc) mc.textContent = `${viajeCount} / ${totalViaje} sellos`;
-        _viajeCurrentPage = 0;
-        renderViajeSpread(false, 0);
-    }
-
-    const STAMP_PALETTE = ['#1a6cff','#22c55e','#ef4444','#8b5cf6','#f97316','#0ea5e9','#ec4899','#eab308','#14b8a6','#6366f1'];
-
-    function makeStampSVG(flag, name, color, visited) {
-        const uid = 'sv' + (Math.random() * 99999 | 0);
-        const c   = visited ? color : '#b5a282';
-        const bg  = visited ? color + '18' : 'rgba(180,162,130,.06)';
-        const op  = visited ? 1 : 0.38;
-        const lbl = name.toUpperCase().substring(0, 13);
-        return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;opacity:${op}">
-            <defs><path id="${uid}" d="M 8,40 A 32,32 0 0,1 72,40"/></defs>
-            <circle cx="40" cy="40" r="36" fill="${bg}" stroke="${c}" stroke-width="2.4" ${visited ? '' : 'stroke-dasharray="3 2"'}/>
-            <circle cx="40" cy="40" r="28" fill="none" stroke="${c}" stroke-width="1.1" opacity=".5"/>
-            <text font-size="7" font-weight="900" fill="${c}" font-family="system-ui,sans-serif" letter-spacing="1.8">
-                <textPath href="#${uid}" startOffset="50%" text-anchor="middle">${lbl}</textPath>
-            </text>
-            <text x="40" y="52" text-anchor="middle" font-size="24" font-family="system-ui,sans-serif">${flag}</text>
-            ${visited ? `<text x="40" y="70" text-anchor="middle" font-size="6.5" font-weight="900" fill="${c}" font-family="system-ui,sans-serif" letter-spacing="1.2">✶ SELLADO ✶</text>` : ''}
-        </svg>`;
-    }
-
-    const PP_ROTS = [2,-4,3,-2,4,-3,1,-5,3,-1,2,-4,5,-2,1];
-
-    function renderViajeSpread(animate, dir) {
-        const spread = document.getElementById('viajeSpread');
-        if (!spread) return;
-        const pg = VIAJE_PAGES[_viajeCurrentPage];
-
-        function buildSide(side, cls) {
-            const items = side.items.map(item => {
-                const s   = _viajeSelladosSet.has(item.id);
-                const fl  = getFlag(item.nombre);
-                const code = item.nombre.substring(0, 3).toUpperCase();
-                const stampEl = s ? `<span class="stamp">VISADO</span>` : '';
-                const btn = s
-                    ? `<button class="stamp-btn done" disabled>✓ Sellado</button>`
-                    : `<button class="stamp-btn" disabled>Próx.</button>`;
-                return `<div class="country ${s ? 'stamped' : ''}">
-                    ${stampEl}
-                    <span class="country-flag-emoji">${fl}</span>
-                    <div class="country-body">
-                        <span class="code">${code}</span>
-                        <span class="name">${item.nombre}</span>
-                    </div>
-                    ${btn}
-                </div>`;
-            }).join('');
-            return `<div class="page ${cls}"><div class="page-title">${side.icon} ${side.title}</div>${items}</div>`;
-        }
-
-        if (animate) {
-            spread.classList.add(dir > 0 ? 'anim-fwd' : 'anim-bck');
-            setTimeout(() => spread.classList.remove('anim-fwd','anim-bck'), 280);
-        }
-        spread.innerHTML = `<div class="book-pages">${buildSide(pg.left,'left-page')}${buildSide(pg.right,'right-page')}</div>`;
-
-        const total = VIAJE_PAGES.length;
-        const lbl = document.getElementById('viajeNavLbl');
-        if (lbl) lbl.textContent = `${_viajeCurrentPage + 1} / ${total}`;
-        const prev = document.getElementById('viajeNavPrev');
-        const next = document.getElementById('viajeNavNext');
-        if (prev) prev.disabled = _viajeCurrentPage === 0;
-        if (next) next.disabled = _viajeCurrentPage >= total - 1;
-    }
-
-    function navViajePassport(dir) {
-        const total = VIAJE_PAGES.length;
-        _viajeCurrentPage = Math.max(0, Math.min(total - 1, _viajeCurrentPage + dir));
-        renderViajeSpread(true, dir);
-    }
-
-    /* ── FUTBOL BOOK ── */
-    function initFutbolBook() {
-        renderFutbolTabs();
-        _futbolCurrentPage = 0;
-        renderFutbolSpread(false, 0);
-    }
-
-    function renderFutbolTabs() {
-        const tabs = document.getElementById('futbolTabs');
-        if (!tabs) return;
-        tabs.innerHTML = PASSPORT_KEYS.map((key, i) => {
-            const p = PASAPORTE_DATA[key];
-            return `<button class="league-tab-btn ${i === _futbolCurrentTab ? 'active' : ''}" onclick="selectFutbolTab(${i})">${p.flag} ${p.nombre}</button>`;
-        }).join('');
-    }
-
-    function selectFutbolTab(idx) {
-        _futbolCurrentTab = idx;
-        _futbolCurrentPage = 0;
-        document.querySelectorAll('#futbolTabs .league-tab-btn').forEach((t,i) => t.classList.toggle('active', i === idx));
-        renderFutbolSpread(false, 0);
-    }
-
-    function renderFutbolSpread(animate, dir) {
-        const spread = document.getElementById('futbolSpread');
-        if (!spread) return;
-        const pais = PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
-        const perPage = 4;
-        const totalPages = Math.max(1, Math.ceil(pais.estadios.length / perPage));
-        const slice = pais.estadios.slice(_futbolCurrentPage * perPage, (_futbolCurrentPage + 1) * perPage);
-        const left  = slice.slice(0, 2);
-        const right = slice.slice(2, 4);
-
-        function buildRow(e) {
-            const v = _selladosSet.has(e.id);
-            const stampEl = v ? `<span class="stamp">MATCH</span>` : '';
-            const action = _isAdmin
-                ? (v ? `<button class="stamp-btn done" disabled>✓ Sellado</button>`
-                     : `<button class="stamp-btn" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)">Sellar</button>`)
-                : (v ? `<button class="stamp-btn done" disabled>✓ Visitado</button>` : '');
-            return `<div class="stadium ${v ? 'stamped' : ''}" id="srow-${e.id}">
-                ${stampEl}
-                <div class="stadium-info">
-                    <span class="stadium-icon">🏙️</span>
-                    <div>
-                        <div class="stadium-name">${e.nombre}</div>
-                        <div class="stadium-club">${e.equipo}</div>
-                    </div>
-                </div>
-                ${action}
-            </div>`;
-        }
-
-        if (animate) {
-            spread.classList.add(dir > 0 ? 'anim-fwd' : 'anim-bck');
-            setTimeout(() => spread.classList.remove('anim-fwd','anim-bck'), 280);
-        }
-        const visitedLeague = pais.estadios.filter(e => _selladosSet.has(e.id)).length;
-        const totalLeague   = pais.estadios.length;
-        const pct = Math.round((visitedLeague / totalLeague) * 100);
-        const complete = visitedLeague === totalLeague;
-        const leagueHdr = complete
-            ? `<div style="background:#fef9c3;border-radius:8px;padding:6px 9px;margin-bottom:9px;font-size:.7rem;font-weight:800;color:#854d0e;display:flex;align-items:center;gap:6px">
-                   <i class="fas fa-trophy" style="color:#f59e0b"></i> ¡Completaste ${pais.nombre}!
-               </div>`
-            : `<div style="margin-bottom:9px">
-                   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-                       <span style="font-size:.62rem;font-weight:700;color:var(--text-muted)">${pais.liga}</span>
-                       <span style="font-size:.68rem;font-weight:800;color:var(--accent)">${visitedLeague}/${totalLeague}</span>
-                   </div>
-                   <div style="height:4px;background:var(--border);border-radius:99px;overflow:hidden">
-                       <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:99px;transition:width .6s"></div>
-                   </div>
-               </div>`;
-        const leftRows  = left.map(buildRow).join('');
-        const rightRows = right.map(buildRow).join('');
-        spread.innerHTML = `<div class="book-pages">
-            <div class="page left-page"><div class="page-title">${pais.flag} ${pais.nombre}</div>${leagueHdr}${leftRows}</div>
-            <div class="page right-page"><div style="height:42px"></div>${rightRows}</div>
-        </div>`;
-
-        const lbl = document.getElementById('futbolNavLbl');
-        if (lbl) lbl.textContent = `${_futbolCurrentPage + 1} / ${totalPages}`;
-        const prev = document.getElementById('futbolNavPrev');
-        const next = document.getElementById('futbolNavNext');
-        if (prev) prev.disabled = _futbolCurrentPage === 0;
-        if (next) next.disabled = _futbolCurrentPage >= totalPages - 1;
-    }
-
-    function navFutbolPassport(dir) {
-        const pais = PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
-        const totalPages = Math.max(1, Math.ceil(pais.estadios.length / 4));
-        _futbolCurrentPage = Math.max(0, Math.min(totalPages - 1, _futbolCurrentPage + dir));
-        renderFutbolSpread(true, dir);
-    }
-
-    /* ── SELLAR ESTADIO ── */
-    async function sellarEstadio(estadioId, btn) {
-        if (_selladosSet.has(estadioId) || !_passportUserId) return;
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-        const { error } = await _db.from('pasaporte_tribunero').insert({ user_id: _passportUserId, estadio_id: estadioId });
-        if (error) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-stamp"></i> Sellar'; return; }
-        _selladosSet.add(estadioId);
-        const row = document.getElementById(`srow-${estadioId}`);
-        if (row) {
-            row.classList.add('stamped');
-            if (!row.querySelector('.stamp')) {
-                const st = document.createElement('span');
-                st.className = 'stamp';
-                st.textContent = 'MATCH';
-                row.insertBefore(st, row.firstChild);
-            }
-            const b = row.querySelector('.stamp-btn');
-            if (b) { b.textContent = '✓ Sellado'; b.disabled = true; b.classList.add('done'); }
-        }
-        updatePasaporteCounter();
-    }
-
-    /* ── COUNTER ── */
-    function updatePasaporteCounter() {
-        const total = Object.values(PASAPORTE_DATA).reduce((s, p) => s + p.estadios.length, 0);
-        const count = _selladosSet.size;
-        const el = document.getElementById('pasaporteCount');
-        if (el) el.textContent = `${count} / ${total} estadios`;
-        const lbl = document.getElementById('futbolSellosLbl');
-        if (lbl) lbl.textContent = `${count} / ${total}`;
-        const bar = document.getElementById('futbolProgressBar');
-        if (bar) bar.style.width = Math.round((count/total)*100) + '%';
-    }
-
-    /* ── PASSPORT MODALS ── */
-    function _coverClickThen(selector, cb) {
-        const cover = document.querySelector(selector);
-        if (!cover) { cb(); return; }
-        cover.style.transform = 'scale(0.96) rotate(-3deg)';
-        cover.style.transition = 'transform 90ms ease';
-        setTimeout(() => { cover.style.transform = ''; cover.style.transition = ''; cb(); }, 110);
-    }
-    function openViajeModal() {
-        _coverClickThen('.pcover.green', () => {
-            renderViajeSpread(false, 0);
-            document.getElementById('viajeModalOverlay').classList.add('open');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-                const p3d = document.getElementById('passportViaje3d');
-                if (p3d) p3d.classList.add('open');
-            }, 80);
-        });
-    }
-    function closeViajeModal() {
-        const p3d = document.getElementById('passportViaje3d');
-        if (p3d) p3d.classList.remove('open');
-        setTimeout(() => {
-            document.getElementById('viajeModalOverlay').classList.remove('open');
-            document.body.style.overflow = '';
-        }, 650);
-    }
-    function openFutbolModal() {
-        _coverClickThen('.pcover.purple', () => {
-            initFutbolBook();
-            document.getElementById('futbolModalOverlay').classList.add('open');
-            document.body.style.overflow = 'hidden';
-            setTimeout(() => {
-                const p3d = document.getElementById('passportFutbol3d');
-                if (p3d) p3d.classList.add('open');
-            }, 80);
-        });
-    }
-    function closeFutbolModal() {
-        const p3d = document.getElementById('passportFutbol3d');
-        if (p3d) p3d.classList.remove('open');
-        setTimeout(() => {
-            document.getElementById('futbolModalOverlay').classList.remove('open');
-            document.body.style.overflow = '';
-        }, 650);
-    }
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { closeViajeModal(); closeFutbolModal(); }
+/* VIEW SWITCHING */
+const VIEW_META={
+  'mi-viaje':   {title:'Mi Viaje',      sub:'Tu mundo, tus viajes, tu historia.',        ico:'fas fa-plane',     cls:'blue'},
+  'mis-viajes': {title:'Mis Viajes',    sub:'Todos tus viajes en un solo lugar.',         ico:'fas fa-suitcase',  cls:'blue'},
+  'pasaporte-viaje':  {title:'Pasaporte de Viaje',   sub:'Sellá cada destino y creá tu historia por el mundo.', ico:'fas fa-passport', cls:'green'},
+  'pasaporte-futbol': {title:'Pasaporte Futbolero',  sub:'Sellá cada estadio y viví el fútbol como nunca.',    ico:'fas fa-futbol',   cls:'soccer'},
+  'fidelizacion':     {title:'Fidelización Herse',   sub:'Viajá más, sumá puntos y desbloqueá beneficios.',    ico:'fas fa-star',     cls:'gold'},
+};
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const v=document.getElementById('view-'+id);
+  if(v) v.classList.add('active');
+  const n=document.getElementById('nav-'+id);
+  if(n) n.classList.add('active');
+  const m=VIEW_META[id]||{};
+  const ico=document.getElementById('hdrIcon');
+  const ttl=document.getElementById('hdrTitle');
+  const sub=document.getElementById('hdrSub');
+  if(ico){ico.className='hdr-ico '+(m.cls||'blue');ico.innerHTML='<i class="'+m.ico+'"></i>';}
+  if(ttl) ttl.textContent=m.title||'';
+  if(sub) sub.textContent=m.sub||'';
+  if(id==='pasaporte-viaje') renderViajeBook();
+  if(id==='pasaporte-futbol') renderFutbolBook();
+  if(id==='fidelizacion') renderFidelizacion();
+  if(id==='mis-viajes') renderAllTrips();
+}
+/* THEME */
+(function(){
+  const s=localStorage.getItem('herse_theme')||'light';
+  document.documentElement.dataset.theme=s;
+  const b=document.getElementById('themeBtn');
+  if(b) b.textContent=s==='dark'?'☀️':'🌙';
+})();
+function toggleTheme(){
+  const h=document.documentElement;
+  const d=h.dataset.theme==='dark';
+  h.dataset.theme=d?'light':'dark';
+  const b=document.getElementById('themeBtn');
+  if(b) b.textContent=d?'🌙':'☀️';
+  localStorage.setItem('herse_theme',d?'light':'dark');
+}
+/* AUTH + DATA */
+(async()=>{
+  const {data:{session}}=await _db.auth.getSession();
+  if(!session){window.location.href='/login';return;}
+  const user=session.user;
+  const {data:_perf}=await _db.from('perfiles').select('is_admin').eq('id',user.id).single();
+  if(_perf?.is_admin){
+    document.getElementById('btnAdmin').classList.add('visible');
+    _isAdmin=true;
+  } else {
+    document.getElementById('mainDashboard').style.display='none';
+    document.getElementById('pendingState').style.display='none';
+    document.getElementById('proximamente').style.display='block';
+    return;
+  }
+  const raw=user.user_metadata?.nombre||user.email.split('@')[0].replace(/[._-]/g,' ');
+  const name=raw.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+  document.querySelectorAll('.name').forEach(el=>el.textContent=name);
+  const ini=document.getElementById('avatarInitial');
+  if(ini) ini.textContent=name.charAt(0).toUpperCase();
+  const {data:viajes}=await _db.from('viajes').select('*,documentos(*)').eq('activo',true).order('fecha_salida',{ascending:true}).limit(1);
+  if(viajes?.length>0){
+    const v=viajes[0];
+    TRIP_DATE=new Date(v.fecha_salida);
+    updateTripUI(v);
+    checkCheckinReminder(v.fecha_salida,v.vuelo_ida);
+  } else {
+    document.getElementById('mainDashboard').style.display='none';
+    document.getElementById('pendingState').style.display='block';
+    clearInterval(_tickInterval);
+  }
+  loadHistorial();
+  initPasaporte(user.id);
+  const {data:fid}=await _db.from('fidelizacion').select('*').maybeSingle();
+  if(fid) updateLoyalty(fid);
+  tick();
+  _tickInterval=setInterval(tick,1000);
+  if(fid){
+    const done=fid.viajes_completados||0;
+    const pct=Math.min((done/5)*100,100);
+    const pts=done*250;
+    const next=Math.max(0,1000-pts);
+    const h=document.getElementById('fidProgHero');
+    if(h){setTimeout(()=>{h.style.width=Math.min((pts/1000)*100,100)+'%';},500);}
+    const fl=document.getElementById('fidFaltanHero');if(fl)fl.textContent=next;
+    const fp=document.getElementById('fidPtsHero');if(fp)fp.textContent=pts;
+    const fr=document.getElementById('fidProgR');if(fr)fr.textContent=pts+' / 1000';
+    const pl=document.getElementById('fidProgL');if(pl)pl.textContent='0 / 1000';
+    const sp=document.getElementById('fidStatPts');if(sp)sp.textContent=pts;
+    const sv=document.getElementById('fidStatViajes');if(sv)sv.textContent=done;
+  }
+})();
+function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
+/* DATE HELPERS */
+function fmtDate(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'});}
+function fmtDateTime(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});}
+/* FLAG MAP */
+const FLAG_MAP={brasil:'🇧🇷',brazil:'🇧🇷',argentina:'🇦🇷',espana:'🇪🇸',spain:'🇪🇸',italia:'🇮🇹',italy:'🇮🇹',francia:'🇫🇷',france:'🇫🇷',mexico:'🇲🇽',alemania:'🇩🇪',germany:'🇩🇪',portugal:'🇵🇹',eeuu:'🇺🇸',usa:'🇺🇸',uruguay:'🇺🇾',england:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',grecia:'🇬🇷',japon:'🇯🇵',turquia:'🇹🇷',egipto:'🇪🇬','estados unidos':'🇺🇸',chile:'🇨🇱',colombia:'🇨🇴',peru:'🇵🇪',canada:'🇨🇦'};
+function getFlag(text){const k=text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');return Object.entries(FLAG_MAP).find(([key])=>k.includes(key))?.[1]||'🌍';}
+/* UPDATE TRIP UI */
+function updateTripUI(v){
+  const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
+  const ct=document.getElementById('cardTripDest');if(ct)ct.textContent=v.destino;
+  document.querySelectorAll('.countdown-footer').forEach(f=>{f.textContent=fmtDate(sd)+' → '+fmtDate(ed);});
+  const dt=document.getElementById('mosaicTripDest');if(dt)dt.textContent=v.destino+' '+getFlag(v.destino);
+  const fc=document.getElementById('tripFlagCircle');if(fc)fc.textContent=getFlag(v.destino);
+  const vs=document.querySelector('.mt-val-salida');if(vs)vs.textContent=fmtDateTime(sd);
+  const vr=document.querySelector('.mt-val-regreso');if(vr)vr.textContent=fmtDateTime(ed);
+  const vp=document.querySelector('.mt-val-pax');if(vp)vp.textContent=v.pasajeros+(v.pasajeros===1?' adulto':' adultos');
+  const vh=document.querySelector('.mt-val-hotel');if(vh)vh.textContent=v.hotel||'—';
+}
+/* HISTORIAL */
+let _allTrips=[];
+async function loadHistorial(){
+  const {data}=await _db.from('viajes').select('destino,fecha_salida,fecha_regreso,activo').order('fecha_salida',{ascending:false});
+  _allTrips=data||[];
+  initViajePassport(_allTrips.filter(t=>!t.activo));
+  renderAllTrips();
+  const activo=_allTrips.filter(t=>t.activo).length;
+  const completados=_allTrips.filter(t=>!t.activo).length;
+  const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().split(' ')[0])).size;
+  const st=document.getElementById('statTotal');if(st)st.textContent=_allTrips.length;
+  const sp=document.getElementById('statProximos');if(sp)sp.textContent=activo;
+  const sc=document.getElementById('statCompletados');if(sc)sc.textContent=completados;
+  const sk=document.getElementById('statPaises');if(sk)sk.textContent=paises;
+}
+let _tripTab='todos';
+function setViajesTab(btn,tab){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  _tripTab=tab;
+  renderAllTrips();
+}
+function filterTrips(){renderAllTrips();}
+function renderAllTrips(){
+  const wrap=document.getElementById('allTripsList');if(!wrap)return;
+  const q=(document.getElementById('viajesSearch')?.value||'').toLowerCase();
+  const now=new Date();
+  let list=_allTrips.filter(t=>{
+    if(q&&!t.destino.toLowerCase().includes(q))return false;
+    if(_tripTab==='proximos')return t.activo||new Date(t.fecha_salida)>now;
+    if(_tripTab==='completados')return !t.activo&&new Date(t.fecha_regreso)<=now;
+    if(_tripTab==='cancelados')return false;
+    return true;
+  });
+  if(!list.length){wrap.innerHTML='<div style="text-align:center;padding:36px 0;color:var(--tx2);font-size:.8rem">No hay viajes en esta categoría.</div>';return;}
+  const DEST_IMGS={brasil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=200&q=70',brazil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=200&q=70',espana:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=200&q=70',spain:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=200&q=70','estados unidos':'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=200&q=70',mexico:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=200&q=70',francia:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=200&q=70',france:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=200&q=70'};
+  function getImg(dest){const k=dest.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');const found=Object.entries(DEST_IMGS).find(([key])=>k.includes(key));return found?found[1]:null;}
+  wrap.innerHTML=list.map(t=>{
+    const sd=new Date(t.fecha_salida),ed=new Date(t.fecha_regreso);
+    const flag=getFlag(t.destino);
+    const img=getImg(t.destino);
+    const isNext=t.activo||sd>now;
+    const d1=sd.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+    const d2=ed.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+    const badgeCls=isNext?'badge-ok':'badge-done';
+    const badgeTxt=isNext?'Confirmado':'Completado';
+    const codeTxt=isNext?'Código: '+(t.codigo||'BR-2509-7X2K'):'';
+    const rateTxt=isNext?'':`<div class="tli-stars">★★★★★</div><div class="tli-rate">Calificá tu viaje</div>`;
+    const thumb=img?`<img class="tli-img" src="${img}" alt="" onerror="this.className='tli-ph';this.innerHTML='${flag}'">` :`<div class="tli-ph">${flag}</div>`;
+    return `<div class="tli">${thumb}<div class="tli-body"><div class="tli-dest">${t.destino} ${flag}</div><div class="tli-city">Ciudad principal</div><div class="tli-meta"><span><i class="fas fa-calendar"></i> ${d1} - ${d2}</span><span><i class="fas fa-users"></i> ${t.pasajeros||2} adultos</span></div>${isNext?'<div class="tag-prox">Próximo viaje</div>':''}</div><div class="tli-r"><span class="badge ${badgeCls}">${badgeTxt}</span><div class="tli-code">${codeTxt}</div>${rateTxt}<i class="fas fa-chevron-right" style="color:var(--tx3);font-size:.8rem"></i></div></div>`;
+  }).join('');
+}
+/* LOYALTY */
+function updateLoyalty(fid){
+  const done=fid.viajes_completados||0;
+  let level,icon,sub;
+  if(done>=10){level='Leyenda Herse';icon='🌟';sub='Nivel 5';}
+  else if(done>=7){level='Globetrotter';icon='🌍';sub='Nivel 4';}
+  else if(done>=5){level='Viajero Frecuente';icon='🧭';sub='Nivel 3';}
+  else if(done>=3){level='Explorador';icon='✈️';sub='Nivel 2';}
+  else{level='Aventurero';icon='🎒';sub='Nivel 1';}
+  const nb=document.getElementById('fidNivelBadge');if(nb)nb.textContent=icon;
+  const nn=document.getElementById('fidNivelName');if(nn)nn.textContent=level;
+  const ns=document.getElementById('fidNivelSub');if(ns)ns.textContent=sub;
+}
+function renderFidelizacion(){}
+/* COUNTDOWN */
+function pad(n){return String(n).padStart(2,'0');}
+function tick(){
+  const diff=TRIP_DATE-new Date();
+  if(diff<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='00';});clearInterval(_tickInterval);return;}
+  const vals=[Math.floor(diff/864e5),Math.floor((diff%864e5)/36e5),Math.floor((diff%36e5)/6e4),Math.floor((diff%6e4)/1e3)];
+  ['cd-d','cd-h','cd-m','cd-s'].forEach((id,i)=>{const el=document.getElementById(id);if(!el)return;const v=pad(vals[i]);if(el.textContent!==v){el.classList.add('tick');setTimeout(()=>el.classList.remove('tick'),120);el.textContent=v;}});
+}
+/* CHECK-IN BANNER */
+function checkCheckinReminder(tripDate,vueloIda){
+  const key=`herse_chk_dismissed_${tripDate}`;
+  if(localStorage.getItem(key))return;
+  const diff=new Date(tripDate)-new Date();
+  const hours=diff/36e5;
+  if(hours>0&&hours<=48){
+    const banner=document.getElementById('checkinBanner');
+    const txt=document.getElementById('checkinBannerText');
+    const btn=document.getElementById('btnCheckinDo');
+    const h=Math.floor(hours);
+    if(txt)txt.textContent=` Tu vuelo ${vueloIda?`(${vueloIda}) `:''}sale en ${h} hora${h!==1?'s':''}. ¡Hace el check-in!`;
+    if(banner){banner.classList.add('show');banner._dismissKey=key;}
+    if(btn&&vueloIda?.toUpperCase().includes('AR'))btn.onclick=()=>window.open('https://www.aerolineas.com.ar/check-in','_blank');
+  }
+}
+function dismissCheckin(){
+  const banner=document.getElementById('checkinBanner');
+  if(banner){if(banner._dismissKey)localStorage.setItem(banner._dismissKey,'1');banner.classList.remove('show');}
+}
+/* PASSPORT DATA */
+const PASAPORTE_DATA={
+  argentina:{nombre:'Argentina',flag:'🇦🇷',liga:'Liga Profesional',code:'ARG',estadios:[
+    {id:'arg_monumental',nombre:'El Monumental',equipo:'River Plate',code:'RIV'},
+    {id:'arg_bombonera',nombre:'La Bombonera',equipo:'Boca Juniors',code:'BOC'},
+    {id:'arg_cilindro',nombre:'El Cilindro',equipo:'Racing Club',code:'RAC'},
+    {id:'arg_gasometro',nombre:'Nuevo Gasómetro',equipo:'San Lorenzo',code:'SLO'},
+    {id:'arg_libertadores',nombre:'Libertadores Am.',equipo:'Independiente',code:'IND'},
+    {id:'arg_bosque',nombre:'Est. Ciudad de LP',equipo:'Estudiantes LP',code:'EST'},
+  ]},
+  spain:{nombre:'España',flag:'🇪🇸',liga:'La Liga',code:'ESP',estadios:[
+    {id:'esp_bernabeu',nombre:'Santiago Bernabéu',equipo:'Real Madrid',code:'RMA'},
+    {id:'esp_camp_nou',nombre:'Spotify Camp Nou',equipo:'FC Barcelona',code:'FCB'},
+    {id:'esp_wanda',nombre:'Metropolitano',equipo:'Atlético Madrid',code:'ATM'},
+    {id:'esp_mestalla',nombre:'Mestalla',equipo:'Valencia CF',code:'VLC'},
+    {id:'esp_san_mames',nombre:'San Mamés',equipo:'Athletic Bilbao',code:'ATH'},
+    {id:'esp_pizjuan',nombre:'Sánchez-Pizjuán',equipo:'Sevilla FC',code:'SEV'},
+  ]},
+  england:{nombre:'Inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',liga:'Premier League',code:'ENG',estadios:[
+    {id:'eng_anfield',nombre:'Anfield',equipo:'Liverpool FC',code:'LIV'},
+    {id:'eng_old_trafford',nombre:'Old Trafford',equipo:'Manchester United',code:'MUN'},
+    {id:'eng_etihad',nombre:'Etihad Stadium',equipo:'Manchester City',code:'MCI'},
+    {id:'eng_emirates',nombre:'Emirates Stadium',equipo:'Arsenal FC',code:'ARS'},
+    {id:'eng_stamford',nombre:'Stamford Bridge',equipo:'Chelsea FC',code:'CHE'},
+    {id:'eng_wembley',nombre:'Wembley Stadium',equipo:'Selección Inglesa',code:'ENG'},
+  ]},
+  italy:{nombre:'Italia',flag:'🇮🇹',liga:'Serie A',code:'ITA',estadios:[
+    {id:'ita_san_siro',nombre:'San Siro',equipo:'Inter / AC Milan',code:'MIL'},
+    {id:'ita_olimpico',nombre:'Stadio Olimpico',equipo:'Roma / Lazio',code:'ROM'},
+    {id:'ita_allianz',nombre:'Allianz Stadium',equipo:'Juventus FC',code:'JUV'},
+    {id:'ita_maradona',nombre:'Stadio Maradona',equipo:'SSC Napoli',code:'NAP'},
+    {id:'ita_bentegodi',nombre:'Bentegodi',equipo:'Verona / Chievo',code:'VER'},
+  ]},
+  germany:{nombre:'Alemania',flag:'🇩🇪',liga:'Bundesliga',code:'GER',estadios:[
+    {id:'ger_signal',nombre:'Signal Iduna Park',equipo:'Borussia Dortmund',code:'BVB'},
+    {id:'ger_allianz',nombre:'Allianz Arena',equipo:'Bayern München',code:'FCB'},
+    {id:'ger_volksparkst',nombre:'Volksparkstadion',equipo:'Hamburger SV',code:'HSV'},
+    {id:'ger_rheinenergie',nombre:'RheinEnergieStad.',equipo:'1. FC Köln',code:'FCK'},
+    {id:'ger_olympia',nombre:'Olympiastadion',equipo:'Hertha BSC',code:'BSC'},
+  ]},
+  brazil:{nombre:'Brasil',flag:'🇧🇷',liga:'Brasileirão',code:'BRA',estadios:[
+    {id:'bra_maracana',nombre:'Maracaná',equipo:'Flamengo / Fluminense',code:'FLA'},
+    {id:'bra_morumbi',nombre:'Morumbis',equipo:'São Paulo FC',code:'SPF'},
+    {id:'bra_neo_quimica',nombre:'Neo Química Arena',equipo:'Corinthians',code:'COR'},
+    {id:'bra_mineirao',nombre:'Mineirão',equipo:'Atlético / Cruzeiro',code:'MIN'},
+    {id:'bra_beira_rio',nombre:'Beira-Rio',equipo:'Internacional',code:'INT'},
+  ]},
+};
+const PASSPORT_KEYS=Object.keys(PASAPORTE_DATA);
+let _selladosSet=new Set();
+let _passportUserId=null;
+/* VIAJE PASSPORT DATA */
+const VIAJE_PAGES=[
+  {tab:'América del Sur',left:{title:'AMÉRICA DEL SUR',icon:'🌎',items:[{id:'arg',nombre:'Argentina',code:'AR'},{id:'bra',nombre:'Brasil',code:'BR'},{id:'chi',nombre:'Chile',code:'CL'},{id:'col',nombre:'Colombia',code:'CO'},{id:'per',nombre:'Perú',code:'PE'},{id:'uru',nombre:'Uruguay',code:'UY'}]},right:{title:'AMÉRICA DEL NORTE',icon:'🌎',items:[{id:'mex',nombre:'México',code:'MX'},{id:'usa',nombre:'Estados Unidos',code:'US'},{id:'can',nombre:'Canadá',code:'CA'}]}},
+  {tab:'Europa',left:{title:'EUROPA',icon:'🌍',items:[{id:'esp',nombre:'España',code:'ES'},{id:'ita',nombre:'Italia',code:'IT'},{id:'fra',nombre:'Francia',code:'FR'},{id:'ale',nombre:'Alemania',code:'DE'},{id:'por',nombre:'Portugal',code:'PT'},{id:'ing',nombre:'Inglaterra',code:'GB'}]},right:{title:'EUROPA (cont.)',icon:'🌍',items:[{id:'gre',nombre:'Grecia',code:'GR'},{id:'hol',nombre:'Holanda',code:'NL'},{id:'bel',nombre:'Bélgica',code:'BE'},{id:'sui',nombre:'Suiza',code:'CH'}]}},
+  {tab:'Asia & Oceanía',left:{title:'ASIA & MEDIO ORIENTE',icon:'🌏',items:[{id:'jpn',nombre:'Japón',code:'JP'},{id:'tai',nombre:'Tailandia',code:'TH'},{id:'tur',nombre:'Turquía',code:'TR'},{id:'dub',nombre:'Dubai',code:'AE'}]},right:{title:'OCEANÍA & ÁFRICA',icon:'🌏',items:[{id:'aus',nombre:'Australia',code:'AU'},{id:'egy',nombre:'Egipto',code:'EG'},{id:'mar',nombre:'Marruecos',code:'MA'},{id:'nzl',nombre:'Nueva Zelanda',code:'NZ'}]}},
+];
+let _viajeSelladosSet=new Set();
+let _viajeCurrentTab=0;
+let _futbolCurrentTab=0;
+let _futbolCurrentPage=0;
+function matchesDestino(destino,pais){
+  const n=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const d=n(destino),p=n(pais);
+  return d.includes(p)||p.includes(d);
+}
+async function initPasaporte(userId){
+  _passportUserId=userId;
+  const {data}=await _db.from('pasaporte_tribunero').select('estadio_id').eq('user_id',userId);
+  if(data) data.forEach(r=>_selladosSet.add(r.estadio_id));
+  updateFutbolDonut();
+}
+function initViajePassport(historialData){
+  _viajeSelladosSet=new Set();
+  (historialData||[]).forEach(v=>{
+    VIAJE_PAGES.forEach(pg=>{
+      [pg.left,pg.right].forEach(side=>{
+        side.items.forEach(item=>{if(matchesDestino(v.destino,item.nombre))_viajeSelladosSet.add(item.id);});
+      });
     });
-
-    /* CSS maneja hover/active en .pcover, no se necesita JS para tilt */
-
-    /* ── SERVICE WORKER ── */
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); });
-    }
+  });
+  updateViajeDonut();
+}
+function updateViajeDonut(){
+  const total=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
+  const count=_viajeSelladosSet.size;
+  const pct=total?Math.round((count/total)*100):0;
+  const circ=251;
+  const offset=circ-((pct/100)*circ);
+  const df=document.getElementById('viajeDonutFill');if(df)setTimeout(()=>{df.style.strokeDashoffset=offset;},400);
+  const dl=document.getElementById('viajeDonutLbl');if(dl)dl.textContent=count+'/'+total;
+  const dp=document.getElementById('viajeDonutPct');if(dp)dp.textContent=pct+'% completado';
+  const sv=document.getElementById('viajeStatV');if(sv)sv.textContent=count;
+  const sc=document.getElementById('viajeStatC');if(sc)sc.textContent=count>0?Math.min(Math.ceil(count/4),3):0;
+}
+function updateFutbolDonut(){
+  const total=Object.values(PASAPORTE_DATA).reduce((s,p)=>s+p.estadios.length,0);
+  const count=_selladosSet.size;
+  const pct=total?Math.round((count/total)*100):0;
+  const circ=251;
+  const offset=circ-((pct/100)*circ);
+  const df=document.getElementById('futbolDonutFill');if(df)setTimeout(()=>{df.style.strokeDashoffset=offset;},400);
+  const dl=document.getElementById('futbolDonutLbl');if(dl)dl.textContent=count+'/'+total;
+  const dp=document.getElementById('futbolDonutPct');if(dp)dp.textContent=pct+'% completado';
+  const st=document.getElementById('futbolStatT');if(st)st.textContent=total;
+  const sv=document.getElementById('futbolStatV');if(sv)sv.textContent=count;
+  const sl=document.getElementById('futbolStatL');if(sl)sl.textContent=PASSPORT_KEYS.filter(k=>PASAPORTE_DATA[k].estadios.some(e=>_selladosSet.has(e.id))).length;
+}
+/* VIAJE BOOK RENDER */
+function renderViajeBook(){
+  renderViajeRegionTabs();
+  renderViajeSpread();
+}
+function renderViajeRegionTabs(){
+  const wrap=document.getElementById('viajeRegionTabs');if(!wrap)return;
+  wrap.innerHTML=VIAJE_PAGES.map((pg,i)=>`<button class="pp-tab ${i===_viajeCurrentTab?'active':''}" onclick="selectViajeTab(${i})">${pg.tab}</button>`).join('');
+}
+function selectViajeTab(idx){
+  _viajeCurrentTab=idx;
+  document.querySelectorAll('#viajeRegionTabs .pp-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  renderViajeSpread();
+}
+function renderViajeSpread(){
+  const inner=document.getElementById('viajeBookInner');if(!inner)return;
+  const pg=VIAJE_PAGES[_viajeCurrentTab];
+  function buildSide(side){
+    const items=side.items.map(item=>{
+      const s=_viajeSelladosSet.has(item.id);
+      const fl=getFlag(item.nombre);
+      const stamp=s?`<div class="visitado-ov"><span class="vstamp">VISITADO</span></div>`:'';
+      const btn=s?`<button class="cc-btn done" disabled>✓ Visitado</button>`:`<button class="cc-btn" disabled>Sellar</button>`;
+      return `<div class="cc ${s?'visited':''}">${stamp}<div class="cc-flag">${fl}</div><div class="cc-code">${item.code||item.nombre.substring(0,2).toUpperCase()}</div><div class="cc-name">${item.nombre}</div>${btn}</div>`;
+    }).join('');
+    return `<div class="bp"><div class="bp-ttl">${side.icon} ${side.title}</div><div class="country-grid">${items}</div></div>`;
+  }
+  inner.innerHTML=buildSide(pg.left)+buildSide(pg.right);
+  const lbl=document.getElementById('viajeNavLbl');if(lbl)lbl.textContent=(_viajeCurrentTab+1)+' / '+VIAJE_PAGES.length;
+  const prev=document.getElementById('viajeNavPrev');if(prev)prev.disabled=_viajeCurrentTab===0;
+  const next=document.getElementById('viajeNavNext');if(next)next.disabled=_viajeCurrentTab>=VIAJE_PAGES.length-1;
+}
+function navViajePassport(dir){
+  _viajeCurrentTab=Math.max(0,Math.min(VIAJE_PAGES.length-1,_viajeCurrentTab+dir));
+  renderViajeRegionTabs();
+  renderViajeSpread();
+}
+/* FUTBOL BOOK RENDER */
+function renderFutbolBook(){
+  renderFutbolTabs();
+  _futbolCurrentPage=0;
+  renderFutbolSpread();
+}
+function renderFutbolTabs(){
+  const tabs=document.getElementById('futbolTabs');if(!tabs)return;
+  tabs.innerHTML=PASSPORT_KEYS.map((key,i)=>{
+    const p=PASAPORTE_DATA[key];
+    return `<button class="ftab ${i===_futbolCurrentTab?'active':''}" onclick="selectFutbolTab(${i})">${p.nombre}</button>`;
+  }).join('');
+}
+function selectFutbolTab(idx){
+  _futbolCurrentTab=idx;
+  _futbolCurrentPage=0;
+  document.querySelectorAll('#futbolTabs .ftab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  renderFutbolSpread();
+}
+function renderFutbolSpread(){
+  const inner=document.getElementById('futbolBookInner');if(!inner)return;
+  const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
+  const perPage=6,totalPages=Math.max(1,Math.ceil(pais.estadios.length/perPage));
+  const slice=pais.estadios.slice(_futbolCurrentPage*perPage,(_futbolCurrentPage+1)*perPage);
+  const left=slice.slice(0,3),right=slice.slice(3,6);
+  function buildTeamSide(items,ttl){
+    const cards=items.map(e=>{
+      const v=_selladosSet.has(e.id);
+      const stamp=v?`<div class="visitado-ov"><span class="vstamp">VISITADO</span></div>`:'';
+      const btn=_isAdmin?(v?`<button class="tc-btn done" disabled>✓ Sellado</button>`:`<button class="tc-btn" id="sbtn-${e.id}" onclick="sellarEstadio('${e.id}',this)">SELLAR</button>`):(v?`<button class="tc-btn done" disabled>✓ Visitado</button>`:`<button class="tc-btn" disabled>SELLAR</button>`);
+      return `<div class="tc ${v?'visited':''}" id="srow-${e.id}">${stamp}<div class="tc-badge">${e.code||e.equipo.substring(0,3).toUpperCase()}</div><div class="tc-code">${e.code||''}</div><div class="tc-club">${e.equipo}</div><div class="tc-stad">${e.nombre}</div>${btn}</div>`;
+    }).join('');
+    return `<div class="bp"><div class="bp-ttl">${pais.flag} ${ttl||pais.nombre}</div><div class="country-grid">${cards}</div></div>`;
+  }
+  inner.innerHTML=buildTeamSide(left,pais.nombre)+buildTeamSide(right,'');
+  const lbl=document.getElementById('futbolNavLbl');if(lbl)lbl.textContent=(_futbolCurrentPage+1)+' / '+totalPages;
+  const prev=document.getElementById('futbolNavPrev');if(prev)prev.disabled=_futbolCurrentPage===0;
+  const next=document.getElementById('futbolNavNext');if(next)next.disabled=_futbolCurrentPage>=totalPages-1;
+}
+function navFutbolPassport(dir){
+  const pais=PASAPORTE_DATA[PASSPORT_KEYS[_futbolCurrentTab]];
+  const total=Math.max(1,Math.ceil(pais.estadios.length/6));
+  _futbolCurrentPage=Math.max(0,Math.min(total-1,_futbolCurrentPage+dir));
+  renderFutbolSpread();
+}
+/* SELLAR ESTADIO */
+async function sellarEstadio(estadioId,btn){
+  if(_selladosSet.has(estadioId)||!_passportUserId)return;
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i>';
+  const {error}=await _db.from('pasaporte_tribunero').insert({user_id:_passportUserId,estadio_id:estadioId});
+  if(error){btn.disabled=false;btn.textContent='SELLAR';return;}
+  _selladosSet.add(estadioId);
+  const row=document.getElementById(`srow-${estadioId}`);
+  if(row){
+    row.classList.add('visited');
+    if(!row.querySelector('.visitado-ov')){const ov=document.createElement('div');ov.className='visitado-ov';ov.innerHTML='<span class="vstamp">VISITADO</span>';row.insertBefore(ov,row.firstChild);}
+    const b=row.querySelector('.tc-btn');if(b){b.textContent='✓ Sellado';b.disabled=true;b.classList.add('done');}
+  }
+  updateFutbolDonut();
+}
 </script>
-
 </body>
 </html>
