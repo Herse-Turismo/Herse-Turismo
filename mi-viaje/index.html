@@ -234,15 +234,38 @@ body {
 .trip-action-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ── FIDELIZACIÓN CARD ── */
-.fid-row { display: flex; align-items: center; gap: 18px; }
-.fid-badge-hex { width: 70px; height: 70px; flex-shrink: 0; background: linear-gradient(135deg, var(--accent), #6e44ff); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.9rem; box-shadow: 0 8px 24px rgba(77,142,255,.28); }
-.fid-level-lbl  { font-size: .65rem; color: var(--text-muted); font-weight: 700; margin-bottom: 3px; }
-.fid-level-name { font-size: 1.4rem; font-weight: 900; color: var(--text); margin-bottom: 8px; }
-.fid-pts-lbl    { font-size: .7rem; color: var(--text-muted); margin-top: 3px; }
-.fid-action-btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; background: var(--accent-bg); border: 1.5px solid var(--accent); border-radius: 10px; color: var(--accent); font-size: .78rem; font-weight: 800; cursor: pointer; margin-top: 14px; transition: .18s; }
-.fid-action-btn:hover { background: var(--accent); color: #fff; }
-.progress-track { height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
-.progress-fill  { height: 100%; background: linear-gradient(90deg, var(--accent), #6e44ff); border-radius: 99px; width: 0; transition: width 1s ease; }
+.fid-tier-header {
+    display:flex; align-items:center; gap:14px;
+    padding:16px 20px; margin:-22px -24px 18px;
+    background:linear-gradient(130deg,#0f2d5e 0%,#1a6cff 60%,#5e3aee 100%);
+    border-radius:var(--radius) var(--radius) 0 0;
+}
+.fid-tier-icon-wrap {
+    width:46px; height:46px; border-radius:12px; flex-shrink:0;
+    background:rgba(255,255,255,.14); border:1.5px solid rgba(255,255,255,.22);
+    display:flex; align-items:center; justify-content:center; font-size:1.45rem;
+}
+.fid-tier-meta { flex:1; min-width:0; }
+.fid-tier-lbl { font-size:.54rem; font-weight:700; color:rgba(255,255,255,.55); text-transform:uppercase; letter-spacing:1.8px; }
+.fid-tier-name { font-size:1.15rem; font-weight:900; color:#fff; line-height:1.2; }
+.fid-pts-pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:99px; padding:6px 13px; text-align:center; flex-shrink:0; }
+.fid-pts-pill .fid-pts-val { font-size:1.05rem; font-weight:900; color:#fff; display:block; line-height:1; }
+.fid-pts-pill .fid-pts-unit { font-size:.52rem; font-weight:700; color:rgba(255,255,255,.5); letter-spacing:1px; text-transform:uppercase; display:block; margin-top:2px; }
+.fid-prog-wrap { margin-bottom:14px; }
+.fid-prog-labels { display:flex; justify-content:space-between; margin-bottom:6px; font-size:.63rem; font-weight:700; }
+.fid-prog-labels span:first-child { color:var(--text-muted); }
+.fid-prog-labels span:last-child { color:var(--accent); }
+.progress-track { height:6px; background:var(--border); border-radius:99px; overflow:hidden; }
+.progress-fill  { height:100%; background:linear-gradient(90deg,var(--accent),#6e44ff); border-radius:99px; width:0; transition:width 1s ease; }
+.fid-prog-hint { font-size:.62rem; color:var(--text-muted); margin-top:5px; }
+.fid-benefits { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.fid-benefit { display:flex; align-items:center; gap:11px; padding:9px 11px; border-radius:9px; background:var(--accent-bg); }
+.fid-benefit-ico { font-size:1.1rem; flex-shrink:0; }
+.fid-benefit-name { font-size:.74rem; font-weight:700; color:var(--text); }
+.fid-benefit-sub  { font-size:.62rem; color:var(--text-muted); margin-top:1px; }
+.fid-benefit.fid-benefit-locked { background:transparent; border:1px dashed var(--border); opacity:.7; }
+.fid-action-btn { display:inline-flex; align-items:center; gap:7px; padding:9px 16px; background:var(--accent-bg); border:1.5px solid var(--accent); border-radius:10px; color:var(--accent); font-size:.76rem; font-weight:800; cursor:pointer; transition:.18s; }
+.fid-action-btn:hover { background:var(--accent); color:#fff; }
 
 /* ── PASSPORT STAMP CAROUSEL ── */
 .stamp-carousel { display: flex; gap: 14px; overflow-x: auto; padding: 4px 0 10px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
@@ -315,20 +338,20 @@ body {
 [data-theme="dark"] .rtrip-badge { background:rgba(22,163,74,.15); }
 
 /* ── PASSPORT COVER CARD ── */
-.pcover-card { display:flex; align-items:center; gap:18px; perspective:900px; }
+.pcover-card { display:flex; align-items:center; gap:14px; perspective:900px; }
 .pcover {
-    width:108px; height:152px; border-radius:5px 13px 13px 5px;
+    width:64px; height:90px; border-radius:3px 8px 8px 3px;
     display:flex; flex-direction:column; align-items:center; justify-content:space-between;
-    padding:14px 10px 12px; position:relative; flex-shrink:0; cursor:pointer;
-    box-shadow:-5px 8px 22px rgba(0,0,0,.52), -10px 2px 0 rgba(0,0,0,.18), inset 1px 0 0 rgba(255,255,255,.16);
-    border-left:10px solid rgba(0,0,0,.3);
+    padding:8px 6px 7px; position:relative; flex-shrink:0; cursor:pointer;
+    box-shadow:-3px 5px 14px rgba(0,0,0,.52), -6px 1px 0 rgba(0,0,0,.18), inset 1px 0 0 rgba(255,255,255,.16);
+    border-left:6px solid rgba(0,0,0,.3);
     overflow:hidden;
     transform: rotate(-3deg) translateY(2px);
     transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
 }
 .pcover:hover {
-    transform: scale(1.06) rotate(-2deg) translateY(-5px);
-    box-shadow: -8px 16px 34px rgba(0,0,0,.65), -12px 3px 0 rgba(0,0,0,.22), inset 1px 0 0 rgba(255,255,255,.22);
+    transform: scale(1.06) rotate(-2deg) translateY(-4px);
+    box-shadow: -5px 10px 22px rgba(0,0,0,.65), -8px 2px 0 rgba(0,0,0,.22), inset 1px 0 0 rgba(255,255,255,.22);
 }
 .pcover:active {
     transform: scale(0.97) rotate(-3deg) translateY(2px);
@@ -341,10 +364,10 @@ body {
 }
 .pcover.green  { background:linear-gradient(160deg,#174f28 0%,#2d8a45 55%,#1d6635 100%); }
 .pcover.purple { background:linear-gradient(160deg,#38155a 0%,#6b2fa0 55%,#461a76 100%); }
-.pcover-wm { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:4.5rem; opacity:.07; pointer-events:none; }
-.pcover-top  { font-size:.43rem; font-weight:900; color:rgba(255,255,255,.9); text-transform:uppercase; letter-spacing:1.5px; text-align:center; line-height:1.7; }
-.pcover-icon { font-size:2rem; filter:drop-shadow(0 2px 8px rgba(0,0,0,.45)); margin:2px 0; }
-.pcover-brand{ font-size:.48rem; font-weight:900; color:rgba(255,255,255,.65); text-transform:uppercase; letter-spacing:2px; border-top:1px solid rgba(255,255,255,.28); padding-top:6px; width:100%; text-align:center; }
+.pcover-wm { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.5rem; opacity:.07; pointer-events:none; }
+.pcover-top  { font-size:.36rem; font-weight:900; color:rgba(255,255,255,.9); text-transform:uppercase; letter-spacing:1px; text-align:center; line-height:1.7; }
+.pcover-icon { font-size:1.2rem; filter:drop-shadow(0 2px 8px rgba(0,0,0,.45)); margin:1px 0; }
+.pcover-brand{ font-size:.36rem; font-weight:900; color:rgba(255,255,255,.65); text-transform:uppercase; letter-spacing:1.5px; border-top:1px solid rgba(255,255,255,.28); padding-top:3px; width:100%; text-align:center; }
 .pcover-info { flex:1; min-width:0; }
 .pcover-info h3 { font-size:.9rem; font-weight:800; color:var(--text); margin-bottom:4px; }
 .pcover-info p  { font-size:.7rem; color:var(--text-muted); margin-bottom:12px; line-height:1.45; }
@@ -582,10 +605,6 @@ body {
     <aside class="sidebar">
         <div class="sidebar-logo">
             <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
-            <div class="sidebar-logo-wordmark">
-                Herse
-                <small>Turismo</small>
-            </div>
         </div>
         <nav class="sidebar-nav">
             <a class="nav-item active" href="/mi-viaje">
@@ -616,7 +635,7 @@ body {
         <div class="sidebar-bottom">
             <div class="sidebar-promo">
                 <img class="sidebar-promo-img"
-                     src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=80"
+                     src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80"
                      alt="" onerror="this.style.display='none'">
                 <div class="sidebar-promo-body">
                     <h4>¿Listo para tu próximo destino?</h4>
@@ -779,28 +798,52 @@ body {
 
                     <!-- FIDELIZACIÓN CARD -->
                     <div class="card" id="fidSection">
-                        <div class="card-hdr">
-                            <span class="card-title">
-                                <span style="color:#f59e0b">⭐</span> Fidelización Herse
-                            </span>
-                            <a href="#" class="card-link">Ver más <i class="fas fa-chevron-right"></i></a>
+                        <div class="fid-tier-header">
+                            <div class="fid-tier-icon-wrap" id="fidTierBadge"><span>🌱</span></div>
+                            <div class="fid-tier-meta">
+                                <div class="fid-tier-lbl">Nivel Herse</div>
+                                <div class="fid-tier-name" id="fidLevelLabel">Explorador</div>
+                            </div>
+                            <div class="fid-pts-pill">
+                                <span class="fid-pts-val" id="fidCountLabel">0</span>
+                                <span class="fid-pts-unit">pts</span>
+                            </div>
                         </div>
-                        <div class="fid-row">
-                            <div class="fid-badge-hex">🏆</div>
-                            <div style="flex:1">
-                                <div class="fid-level-lbl">Nivel actual</div>
-                                <div class="fid-level-name" id="fidLevelLabel">Explorador</div>
-                                <div class="progress-track">
-                                    <div class="progress-fill" id="loyaltyBar"></div>
+                        <div class="fid-prog-wrap">
+                            <div class="fid-prog-labels">
+                                <span id="fidCurrentTierLbl">Explorador</span>
+                                <span id="fidNextTier">&#8594; Viajero</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="loyaltyBar"></div>
+                            </div>
+                            <div class="fid-prog-hint" id="fidProgHint">Completá 3 viajes para subir de nivel</div>
+                        </div>
+                        <div class="fid-benefits">
+                            <div class="fid-benefit">
+                                <span class="fid-benefit-ico">🏷️</span>
+                                <div>
+                                    <div class="fid-benefit-name">5% de descuento</div>
+                                    <div class="fid-benefit-sub">En tu próxima reserva</div>
                                 </div>
-                                <div class="fid-pts-lbl">
-                                    <span id="fidCountLabel">0</span> pts
-                                    <span> · 2.000 pts para Viajero</span>
+                            </div>
+                            <div class="fid-benefit">
+                                <span class="fid-benefit-ico">💬</span>
+                                <div>
+                                    <div class="fid-benefit-name">Soporte prioritario</div>
+                                    <div class="fid-benefit-sub">Atención directa por WhatsApp</div>
+                                </div>
+                            </div>
+                            <div class="fid-benefit fid-benefit-locked">
+                                <span class="fid-benefit-ico">🔒</span>
+                                <div>
+                                    <div class="fid-benefit-name" id="fidNextBenefit">Check-in anticipado</div>
+                                    <div class="fid-benefit-sub" id="fidNextBenefitSub">Disponible desde nivel Viajero</div>
                                 </div>
                             </div>
                         </div>
                         <button class="fid-action-btn">
-                            Ver mi progreso <i class="fas fa-chevron-right"></i>
+                            Ver beneficios completos <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
 
@@ -1123,13 +1166,36 @@ body {
     /* ── LOYALTY ── */
     function updateLoyalty(fid) {
         const done = fid.viajes_completados || 0;
-        let level = 'Explorador';
-        if (done >= 5) level = 'Elite VIP';
-        else if (done >= 3) level = 'Viajero';
-        const lbl = document.getElementById('fidLevelLabel');
-        const cnt = document.getElementById('fidCountLabel');
-        if (lbl) lbl.textContent = level;
-        if (cnt) cnt.textContent = done * 250;
+        let level, icon, nextLevel, hint, nextBenefit, nextBenefitSub;
+        if (done >= 5) {
+            level = 'Elite VIP'; icon = '🏆';
+            nextLevel = '— Máximo'; hint = '¡Sos parte de nuestra élite de viajeros!';
+            nextBenefit = 'Upgrade de habitación'; nextBenefitSub = 'Ya disponible en tu nivel Elite VIP';
+        } else if (done >= 3) {
+            level = 'Viajero'; icon = '✈️';
+            nextLevel = '→ Elite VIP'; hint = `${5 - done} viaje${5 - done > 1 ? 's' : ''} más para Elite VIP`;
+            nextBenefit = 'Upgrade de habitación'; nextBenefitSub = 'Disponible desde nivel Elite VIP';
+        } else {
+            level = 'Explorador'; icon = '🌱';
+            nextLevel = '→ Viajero'; hint = `${3 - done} viaje${3 - done > 1 ? 's' : ''} más para Viajero`;
+            nextBenefit = 'Check-in anticipado'; nextBenefitSub = 'Disponible desde nivel Viajero';
+        }
+        const lbl    = document.getElementById('fidLevelLabel');
+        const cnt    = document.getElementById('fidCountLabel');
+        const badge  = document.getElementById('fidTierBadge');
+        const next   = document.getElementById('fidNextTier');
+        const curLbl = document.getElementById('fidCurrentTierLbl');
+        const hint_  = document.getElementById('fidProgHint');
+        const nb     = document.getElementById('fidNextBenefit');
+        const nbs    = document.getElementById('fidNextBenefitSub');
+        if (lbl)    lbl.textContent = level;
+        if (cnt)    cnt.textContent = done * 250;
+        if (badge)  badge.querySelector('span').textContent = icon;
+        if (next)   next.textContent = nextLevel;
+        if (curLbl) curLbl.textContent = level;
+        if (hint_)  hint_.textContent = hint;
+        if (nb)     nb.textContent = nextBenefit;
+        if (nbs)    nbs.textContent = nextBenefitSub;
     }
 
     function updateDocs() {}
