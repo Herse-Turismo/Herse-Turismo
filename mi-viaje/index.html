@@ -380,6 +380,54 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .qa-btn{border:1.5px solid var(--bd);background:var(--card);border-radius:10px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:.15s;font-size:.67rem;font-weight:700;color:var(--tx2)}
 .qa-btn i{font-size:.95rem;color:var(--ac)}
 .qa-btn:hover{border-color:var(--ac);background:#eff6ff;color:var(--ac)}
+/* ── MI VIAJE REDESIGN ── */
+.mj-hero{position:relative;height:310px;border-radius:var(--r);overflow:hidden;margin-bottom:18px;box-shadow:0 8px 32px rgba(0,0,0,.18)}
+.mj-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:background-image .5s}
+.mj-hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.3) 55%,rgba(0,0,0,.08) 100%)}
+.mj-hero-cnt{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:26px 30px}
+.mj-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:99px;background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.45);color:#4ade80;font-size:.62rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;width:fit-content}
+.mj-dest{font-size:2.6rem;font-weight:900;color:#fff;line-height:1;margin-bottom:7px;text-shadow:0 2px 14px rgba(0,0,0,.35);display:flex;align-items:center;gap:12px}
+.mj-dates-row{font-size:.78rem;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:6px;margin-bottom:18px}
+.mj-bottom{display:flex;align-items:flex-end;justify-content:space-between}
+.mj-cd{display:flex;gap:18px}
+.mj-cd-u{text-align:center}
+.mj-cd-v{font-size:2rem;font-weight:900;color:#fff;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.3)}
+.mj-cd-l{font-size:.5rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:1.2px;margin-top:3px}
+.mj-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:rgba(255,255,255,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.38);border-radius:10px;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit}
+.mj-cta:hover{background:rgba(255,255,255,.26);border-color:rgba(255,255,255,.65)}
+/* Snap row */
+.mj-snap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.snap-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;box-shadow:var(--sh);transition:.18s}
+.snap-c:hover{border-color:var(--ac);box-shadow:var(--shl);transform:translateY(-2px)}
+.snap-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;margin-bottom:11px}
+.snap-ico.bl{background:#ebf1ff;color:var(--ac)}.snap-ico.gr{background:#dcfce7;color:#16a34a}
+.snap-ico.pu{background:#f5f3ff;color:#7c3aed}.snap-ico.or{background:#fef3c7;color:#d97706}
+.snap-lbl{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--tx2);margin-bottom:4px}
+.snap-val{font-size:.9rem;font-weight:800;color:var(--tx);line-height:1.25;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.snap-sub{font-size:.62rem;color:var(--tx2)}
+/* Docs */
+.doc-list{display:flex;flex-direction:column;gap:9px}
+.doc-i{display:flex;align-items:center;gap:13px;padding:11px 13px;background:var(--bg);border-radius:10px;border:1px solid var(--bd);transition:.15s}
+.doc-i:hover{background:var(--card);border-color:var(--bd)}
+.doc-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.doc-ico.ok{background:#dcfce7;color:#16a34a}.doc-ico.warn{background:#fef3c7;color:#d97706}.doc-ico.err{background:#fee2e2;color:#dc2626}
+.doc-body{flex:1}
+.doc-name{font-size:.76rem;font-weight:700;color:var(--tx);margin-bottom:1px}
+.doc-st{font-size:.62rem;font-weight:600}
+.doc-st.ok{color:#16a34a}.doc-st.warn{color:#d97706}.doc-st.err{color:#dc2626}
+.doc-chk{font-size:.88rem}
+.doc-chk.ok{color:#22c55e}.doc-chk.warn{color:#f59e0b}.doc-chk.err{color:#ef4444}
+/* Actions list */
+.mj-acts{display:flex;flex-direction:column}
+.mj-act{display:flex;align-items:center;gap:14px;padding:13px 14px;background:none;border:none;border-radius:10px;cursor:pointer;text-align:left;width:100%;transition:.15s;font-family:inherit}
+.mj-act:hover{background:var(--bg)}
+.mj-act-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.mj-act-ico.bl{background:#ebf1ff;color:var(--ac)}.mj-act-ico.gr{background:#dcfce7;color:#16a34a}.mj-act-ico.wa{background:#dcfce7;color:#16a34a}
+.mj-act-name{font-size:.78rem;font-weight:700;color:var(--tx);margin-bottom:1px}
+.mj-act-sub{font-size:.62rem;color:var(--tx2)}
+.mj-act-arr{margin-left:auto;font-size:.65rem;color:var(--tx3)}
+.mj-cols{display:grid;grid-template-columns:1fr 268px;gap:16px;align-items:start}
+.mj-left{display:flex;flex-direction:column;gap:16px}
 /* ── PASSPORT SYSTEM ── */
 @keyframes stampIn{0%{transform:scale(1.5) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(-10deg);opacity:1}}
 @keyframes pulseHint{0%,100%{opacity:.35}50%{opacity:.85}}
@@ -537,98 +585,133 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <div class="view active" id="view-mi-viaje">
    <div class="vcontent">
     <div id="mainDashboard">
-     <div class="hero" style="background:url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1200&q=80') center/cover">
-      <div class="hero-ov"></div>
-      <div class="hero-cnt">
-       <div class="hero-tag"><i class="fas fa-rocket"></i> PRÓXIMA AVENTURA 🌏</div>
-       <div class="hero-title" id="mosaicTripDest">Cargando…</div>
-       <div class="hero-btm">
-        <div style="display:flex;align-items:center">
-         <div class="hero-dates"><i class="fas fa-calendar-alt" style="font-size:.68rem"></i><span class="countdown-footer">—</span></div>
-         <div style="width:1px;height:30px;background:rgba(255,255,255,.3);margin:0 12px"></div>
-         <div class="hero-cd">
-          <div class="cd-u"><div class="cd-v" id="cd-d">--</div><div class="cd-l">Días</div></div>
-          <div class="cd-u"><div class="cd-v" id="cd-h">--</div><div class="cd-l">Horas</div></div>
-          <div class="cd-u"><div class="cd-v" id="cd-m">--</div><div class="cd-l">Min</div></div>
-          <div class="cd-u"><div class="cd-v" id="cd-s">--</div><div class="cd-l">Seg</div></div>
-         </div>
+
+     <!-- BLOQUE 1: HÉROE -->
+     <div class="mj-hero">
+      <div class="mj-hero-bg" id="mjHeroBg" style="background-image:url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1400&q=80')"></div>
+      <div class="mj-hero-ov"></div>
+      <div class="mj-hero-cnt">
+       <div class="mj-badge"><i class="fas fa-check-circle"></i> <span id="tripStatusBadge">Confirmado</span></div>
+       <div class="mj-dest"><span id="tripFlagCircle">🌍</span><span id="mosaicTripDest">Cargando…</span></div>
+       <div class="mj-dates-row"><i class="fas fa-calendar-alt"></i><span class="countdown-footer">—</span></div>
+       <div class="mj-bottom">
+        <div class="mj-cd">
+         <div class="mj-cd-u"><div class="mj-cd-v" id="cd-d">--</div><div class="mj-cd-l">Días</div></div>
+         <div class="mj-cd-u"><div class="mj-cd-v" id="cd-h">--</div><div class="mj-cd-l">Horas</div></div>
+         <div class="mj-cd-u"><div class="mj-cd-v" id="cd-m">--</div><div class="mj-cd-l">Min</div></div>
+         <div class="mj-cd-u"><div class="mj-cd-v" id="cd-s">--</div><div class="mj-cd-l">Seg</div></div>
         </div>
-        <button class="hero-cta" onclick="toggleItinerario()"><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</button>
+        <button class="mj-cta" onclick="toggleItinerario()"><i class="fas fa-route"></i> Ver detalles del viaje</button>
        </div>
       </div>
      </div>
-     <div id="itinerarioSection" style="display:none;margin-bottom:4px">
+
+     <!-- Itinerario colapsable -->
+     <div id="itinerarioSection" style="display:none;margin-bottom:16px">
       <div class="itin-hdr" onclick="toggleItinerario()">
        <div class="itin-hdr-ttl"><i class="fas fa-route" style="color:var(--ac)"></i> Itinerario completo</div>
        <button class="btn-a btn-ghost" style="font-size:.65rem;pointer-events:none">Cerrar <i class="fas fa-times"></i></button>
       </div>
       <div class="itin-body" id="itin-body"></div>
      </div>
-     <div class="viaje-grid">
-      <div class="col-stack">
-       <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px">
-         <div class="card-ttl" style="margin-bottom:0"><i class="fas fa-plane"></i> Tu viaje actual</div>
-         <span class="badge badge-ok" id="tripStatusBadge">Confirmado</span>
-        </div>
-        <div class="trip-head">
-         <div class="trip-code" id="tripFlagCircle">🌍</div>
-         <div><div class="trip-dest" id="cardTripDest">—</div><div class="trip-dates countdown-footer">—</div></div>
-        </div>
-        <div class="trip-meta">
-         <div><div class="tm-lbl"><i class="fas fa-plane-departure"></i> SALIDA</div><div class="tm-val mt-val-salida">—</div></div>
-         <div><div class="tm-lbl"><i class="fas fa-plane-arrival"></i> REGRESO</div><div class="tm-val mt-val-regreso">—</div></div>
-         <div><div class="tm-lbl"><i class="fas fa-users"></i> PASAJEROS</div><div class="tm-val mt-val-pax">—</div></div>
-         <div><div class="tm-lbl"><i class="fas fa-hotel"></i> HOTEL</div><div class="tm-val mt-val-hotel">—</div></div>
-        </div>
-        <button class="exp-btn" onclick="toggleItinerario()"><span><i class="fas fa-chevron-down" style="font-size:.68rem"></i> Ver itinerario completo</span><i class="fas fa-chevron-right" style="font-size:.68rem"></i></button>
-       </div>
-       <div class="card">
-        <div class="card-ttl"><i class="fas fa-info-circle"></i> Información importante</div>
-        <div class="info-grid">
-         <div class="info-i"><div class="info-ico">📄</div><div class="info-lbl">Pasaporte</div><div class="info-val">Vigente</div></div>
-         <div class="info-i"><div class="info-ico">💉</div><div class="info-lbl">Vacunas</div><div class="info-val">No requeridas</div></div>
-         <div class="info-i"><div class="info-ico">🌡️</div><div class="info-lbl">Clima</div><div class="info-val">22°C – 28°C</div></div>
-         <div class="info-i"><div class="info-ico">💱</div><div class="info-lbl">Moneda</div><div class="info-val">Real Brasileño</div></div>
-        </div>
-       </div>
-       <div class="card">
-        <div class="card-ttl"><i class="fas fa-tasks"></i> Próximos pasos</div>
-        <div class="paso">
-         <div class="paso-l"><div class="paso-ico"><i class="fas fa-plane"></i></div><div><div class="paso-name">Check-in online</div><div class="paso-sub">Disponible desde 18 sept</div></div></div>
-         <button class="btn-a btn-ghost"><i class="fas fa-bell"></i> Recordarme</button>
-        </div>
-        <div class="paso">
-         <div class="paso-l"><div class="paso-ico"><i class="fas fa-file-upload"></i></div><div><div class="paso-name">Documentación</div><div class="paso-sub">Subí los documentos requeridos</div></div></div>
-         <button class="btn-a btn-prim"><i class="fas fa-upload"></i> Subir ahora</button>
-        </div>
-       </div>
+
+     <!-- BLOQUE 3: SNAPSHOT RÁPIDO (4 cards) -->
+     <div class="mj-snap">
+      <div class="snap-c">
+       <div class="snap-ico bl"><i class="fas fa-plane-departure"></i></div>
+       <div class="snap-lbl">Próximo vuelo</div>
+       <div class="snap-val mt-val-vuelo">—</div>
+       <div class="snap-sub mt-val-salida">—</div>
       </div>
-      <div class="col-stack">
+      <div class="snap-c">
+       <div class="snap-ico gr"><i class="fas fa-hotel"></i></div>
+       <div class="snap-lbl">Hotel</div>
+       <div class="snap-val mt-val-hotel">—</div>
+       <div class="snap-sub">Alojamiento incluido</div>
+      </div>
+      <div class="snap-c">
+       <div class="snap-ico pu"><i class="fas fa-map-marker-alt"></i></div>
+       <div class="snap-lbl">Destino</div>
+       <div class="snap-val" id="cardTripDest">—</div>
+       <div class="snap-sub mt-val-pax">—</div>
+      </div>
+      <div class="snap-c">
+       <div class="snap-ico or"><i class="fas fa-plane-arrival"></i></div>
+       <div class="snap-lbl">Regreso</div>
+       <div class="snap-val mt-val-regreso">—</div>
+       <div class="snap-sub">Fecha de regreso</div>
+      </div>
+     </div>
+
+     <!-- BLOQUE 2 + 4 en 2 columnas -->
+     <div class="mj-cols">
+      <div class="mj-left">
+
+       <!-- BLOQUE 2: DOCUMENTACIÓN DE VIAJE -->
        <div class="card">
-        <div class="card-ttl"><i class="fas fa-list-check"></i> Estado de tu viaje</div>
-        <div class="tl">
-         <div class="tl-i"><div class="tl-side"><div class="tl-dot ok"><i class="fas fa-check" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Reserva confirmada</div><div class="tl-date">15 may 2025</div></div></div>
-         <div class="tl-i"><div class="tl-side"><div class="tl-dot ok"><i class="fas fa-check" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Pago recibido</div><div class="tl-date">15 may 2025</div></div></div>
-         <div class="tl-i"><div class="tl-side"><div class="tl-dot cur"><i class="fas fa-circle-notch fa-spin" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Documentación</div><div class="tl-date">En proceso</div></div></div>
-         <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">Check-in</div><div class="tl-date">Próximamente</div></div></div>
-         <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">¡A disfrutar!</div><div class="tl-date">Próximamente</div></div></div>
+        <div class="card-ttl"><i class="fas fa-folder-open"></i> Documentación de viaje</div>
+        <div class="doc-list">
+         <div class="doc-i">
+          <div class="doc-ico ok"><i class="fas fa-passport"></i></div>
+          <div class="doc-body"><div class="doc-name">Pasaporte</div><div class="doc-st ok">Vigente</div></div>
+          <i class="fas fa-check-circle doc-chk ok"></i>
+         </div>
+         <div class="doc-i">
+          <div class="doc-ico ok"><i class="fas fa-id-card"></i></div>
+          <div class="doc-body"><div class="doc-name">DNI</div><div class="doc-st ok">Presentado</div></div>
+          <i class="fas fa-check-circle doc-chk ok"></i>
+         </div>
+         <div class="doc-i">
+          <div class="doc-ico warn"><i class="fas fa-stamp"></i></div>
+          <div class="doc-body"><div class="doc-name">Visa</div><div class="doc-st warn">No requerida</div></div>
+          <i class="fas fa-minus-circle doc-chk warn"></i>
+         </div>
+         <div class="doc-i">
+          <div class="doc-ico err"><i class="fas fa-file-medical-alt"></i></div>
+          <div class="doc-body"><div class="doc-name">Seguro de viaje</div><div class="doc-st err">Pendiente</div></div>
+          <i class="fas fa-exclamation-circle doc-chk err"></i>
+         </div>
+        </div>
+        <button class="btn-a btn-ghost" style="margin-top:14px;width:100%;justify-content:center"><i class="fas fa-upload"></i> Subir documentación</button>
+       </div>
+
+       <!-- BLOQUE 4: ACCIONES -->
+       <div class="card">
+        <div class="card-ttl"><i class="fas fa-bolt"></i> Acciones</div>
+        <div class="mj-acts">
+         <button class="mj-act" onclick="toggleItinerario()">
+          <div class="mj-act-ico bl"><i class="fas fa-route"></i></div>
+          <div><div class="mj-act-name">Ver itinerario</div><div class="mj-act-sub">Día a día de tu viaje</div></div>
+          <i class="fas fa-chevron-right mj-act-arr"></i>
+         </button>
+         <button class="mj-act">
+          <div class="mj-act-ico gr"><i class="fas fa-download"></i></div>
+          <div><div class="mj-act-name">Descargar vouchers</div><div class="mj-act-sub">PDF con toda tu documentación</div></div>
+          <i class="fas fa-chevron-right mj-act-arr"></i>
+         </button>
+         <button class="mj-act" onclick="window.open('https://wa.me/5492215661704','_blank')">
+          <div class="mj-act-ico wa"><i class="fab fa-whatsapp"></i></div>
+          <div><div class="mj-act-name">Contactar agente</div><div class="mj-act-sub">Consultanos por WhatsApp</div></div>
+          <i class="fas fa-chevron-right mj-act-arr"></i>
+         </button>
         </div>
        </div>
-       <div class="card">
-        <div class="card-ttl"><i class="fas fa-lightbulb"></i> Consejos para tu viaje</div>
-        <div class="consejo">
-         <div class="consejo-ico">🔌</div>
-         <div><div style="font-size:.76rem;color:var(--tx);line-height:1.45">Brasil tiene enchufes tipo N.</div><div style="font-size:.63rem;color:var(--tx2);margin-top:2px">No olvides llevar un adaptador.</div></div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px">
-         <button class="bnb">&#8249;</button>
-         <div style="display:flex;gap:6px"><div style="width:6px;height:6px;border-radius:50%;background:var(--ac)"></div><div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div><div style="width:6px;height:6px;border-radius:50%;background:var(--bd)"></div></div>
-         <button class="bnb">&#8250;</button>
-        </div>
+
+      </div>
+
+      <!-- Estado del viaje (timeline) -->
+      <div class="card">
+       <div class="card-ttl"><i class="fas fa-list-check"></i> Estado del viaje</div>
+       <div class="tl">
+        <div class="tl-i"><div class="tl-side"><div class="tl-dot ok"><i class="fas fa-check" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Reserva confirmada</div><div class="tl-date">15 may 2025</div></div></div>
+        <div class="tl-i"><div class="tl-side"><div class="tl-dot ok"><i class="fas fa-check" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Pago recibido</div><div class="tl-date">15 may 2025</div></div></div>
+        <div class="tl-i"><div class="tl-side"><div class="tl-dot cur"><i class="fas fa-circle-notch fa-spin" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Documentación</div><div class="tl-date">En proceso</div></div></div>
+        <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">Check-in</div><div class="tl-date">Próximamente</div></div></div>
+        <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">¡A disfrutar!</div><div class="tl-date">Próximamente</div></div></div>
        </div>
       </div>
      </div>
+
     </div>
     <div id="pendingState" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">⏳</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Estamos preparando tu viaje</div><div style="font-size:.8rem;color:var(--tx2)">Pronto tendrás toda la info de tu próxima aventura.</div></div>
     <div id="proximamente" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">🔒</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Acceso pendiente</div><div style="font-size:.8rem;color:var(--tx2)">Tu cuenta está siendo verificada.</div></div>
@@ -1218,16 +1301,39 @@ function fmtDateTime(d){return d.toLocaleDateString('es-AR',{day:'numeric',month
 const FLAG_MAP={brasil:'🇧🇷',brazil:'🇧🇷',argentina:'🇦🇷',espana:'🇪🇸',spain:'🇪🇸',italia:'🇮🇹',italy:'🇮🇹',francia:'🇫🇷',france:'🇫🇷',mexico:'🇲🇽',alemania:'🇩🇪',germany:'🇩🇪',portugal:'🇵🇹',eeuu:'🇺🇸',usa:'🇺🇸',uruguay:'🇺🇾',england:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',grecia:'🇬🇷',japon:'🇯🇵',turquia:'🇹🇷',egipto:'🇪🇬','estados unidos':'🇺🇸',chile:'🇨🇱',colombia:'🇨🇴',peru:'🇵🇪',canada:'🇨🇦'};
 function getFlag(text){const k=text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');return Object.entries(FLAG_MAP).find(([key])=>k.includes(key))?.[1]||'🌍';}
 /* UPDATE TRIP UI */
+const DEST_HERO_IMGS={
+  brasil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1400&q=80',
+  brazil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1400&q=80',
+  espana:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1400&q=80',
+  spain:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=1400&q=80',
+  italia:'https://images.unsplash.com/photo-1529260830199-42c24126f198?w=1400&q=80',
+  italy:'https://images.unsplash.com/photo-1529260830199-42c24126f198?w=1400&q=80',
+  francia:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=1400&q=80',
+  france:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=1400&q=80',
+  mexico:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1400&q=80',
+  alemania:'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1400&q=80',
+  portugal:'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1400&q=80',
+  'estados unidos':'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1400&q=80',
+  eeuu:'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1400&q=80',
+  argentina:'https://images.unsplash.com/photo-1612294037637-ec328d0e075e?w=1400&q=80',
+};
+function getHeroImg(dest){
+  const k=dest.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const found=Object.entries(DEST_HERO_IMGS).find(([key])=>k.includes(key));
+  return found?found[1]:'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=80';
+}
 function updateTripUI(v){
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
   const ct=document.getElementById('cardTripDest');if(ct)ct.textContent=v.destino;
   document.querySelectorAll('.countdown-footer').forEach(f=>{f.textContent=fmtDate(sd)+' → '+fmtDate(ed);});
   const dt=document.getElementById('mosaicTripDest');if(dt)dt.textContent=v.destino;
   const fc=document.getElementById('tripFlagCircle');if(fc)fc.textContent=getFlag(v.destino);
-  const vs=document.querySelector('.mt-val-salida');if(vs)vs.textContent=fmtDateTime(sd);
-  const vr=document.querySelector('.mt-val-regreso');if(vr)vr.textContent=fmtDateTime(ed);
-  const vp=document.querySelector('.mt-val-pax');if(vp)vp.textContent=v.pasajeros+(v.pasajeros===1?' adulto':' adultos');
-  const vh=document.querySelector('.mt-val-hotel');if(vh)vh.textContent=v.hotel||'—';
+  const vs=document.querySelectorAll('.mt-val-salida');vs.forEach(el=>el.textContent=fmtDateTime(sd));
+  const vr=document.querySelectorAll('.mt-val-regreso');vr.forEach(el=>el.textContent=fmtDateTime(ed));
+  const vp=document.querySelectorAll('.mt-val-pax');vp.forEach(el=>el.textContent=(v.pasajeros||v.pax||1)+((v.pasajeros||v.pax||1)===1?' adulto':' adultos'));
+  const vh=document.querySelectorAll('.mt-val-hotel');vh.forEach(el=>el.textContent=v.hotel||'—');
+  const vvu=document.querySelectorAll('.mt-val-vuelo');vvu.forEach(el=>el.textContent=v.vuelo_ida||'—');
+  const bg=document.getElementById('mjHeroBg');if(bg)bg.style.backgroundImage=`url('${getHeroImg(v.destino)}')`;
 }
 /* HISTORIAL */
 let _allTrips=[];
