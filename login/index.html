@@ -104,14 +104,51 @@ a { text-decoration: none; color: inherit; }
 
 /* ===== RIGHT PANEL ===== */
 .r-panel {
-    width: 420px;
+    width: 500px;
     min-height: 100vh;
     background: white;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 60px 52px;
+    position: relative;
+    overflow: hidden;
 }
+.r-panel::before {
+    content: '\f072';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: -30px;
+    right: -20px;
+    font-size: 13rem;
+    color: var(--blue);
+    opacity: 0.04;
+    transform: rotate(-35deg);
+    pointer-events: none;
+    line-height: 1;
+}
+.r-deco {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #f0f4f8;
+}
+.r-deco-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #e0e8f0;
+}
+.r-deco-plane {
+    font-size: 0.75rem;
+    color: var(--blue);
+    opacity: 0.4;
+    margin: 0 2px;
+}
+.r-deco-dot.fill { background: var(--blue); opacity: 0.25; }
 .form-box { width: 100%; max-width: 380px; }
 .mobile-logo { display: none; margin-bottom: 32px; text-align: center; }
 .mobile-logo img { height: 42px; margin: 0 auto; }
@@ -358,6 +395,15 @@ a { text-decoration: none; color: inherit; }
             <p class="switch-link" id="switchText">
                 ¿No tenés cuenta? <a onclick="showRegister()">Registrarte</a>
             </p>
+            <div class="r-deco">
+                <div class="r-deco-dot"></div>
+                <div class="r-deco-dot"></div>
+                <div class="r-deco-dot fill"></div>
+                <i class="fas fa-plane r-deco-plane"></i>
+                <div class="r-deco-dot fill"></div>
+                <div class="r-deco-dot"></div>
+                <div class="r-deco-dot"></div>
+            </div>
         </div>
     </div>
 

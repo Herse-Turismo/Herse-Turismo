@@ -317,8 +317,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
 ::-webkit-scrollbar-track{background:transparent}
 /* PASSPORT SCENE BACKGROUNDS */
-#view-pasaporte-viaje .view-wrap,#view-pasaporte-viaje{background:linear-gradient(rgba(235,243,255,.88),rgba(235,243,255,.88)),url('https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=1600&q=80') center/cover}
-#view-pasaporte-futbol .view-wrap,#view-pasaporte-futbol{background:linear-gradient(rgba(0,12,28,.06),rgba(0,12,28,.06)),url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Signal_Iduna_Park_-_Dortmund_DSC_1175.jpg/1280px-Signal_Iduna_Park_-_Dortmund_DSC_1175.jpg') center/cover}
+#view-pasaporte-viaje .view-wrap,#view-pasaporte-viaje{background:linear-gradient(rgba(220,235,255,.82),rgba(220,235,255,.82)),url('https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=1600&q=80') center/cover}
+#view-pasaporte-futbol .view-wrap,#view-pasaporte-futbol{background:linear-gradient(rgba(0,18,36,.54),rgba(0,18,36,.54)),url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1600&q=80') center/cover fixed}
 /* ITINERARIO */
 .itin-wrap{margin-bottom:18px}
 .itin-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r) var(--r) 0 0;cursor:pointer;border-bottom:none}
@@ -383,14 +383,14 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* ── PASSPORT SYSTEM ── */
 @keyframes stampIn{0%{transform:scale(1.5) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(-10deg);opacity:1}}
 @keyframes pulseHint{0%,100%{opacity:.35}50%{opacity:.85}}
-.passport-scene{display:flex;flex-direction:column;align-items:center;padding:24px 28px;gap:16px}
+.passport-scene{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;gap:20px;min-height:calc(100vh - var(--hh))}
 .passport-wrapper{display:flex;justify-content:center}
-.passport{width:720px;height:480px;perspective:1800px;position:relative;flex-shrink:0}
+.passport{width:720px;height:530px;perspective:1800px;position:relative;flex-shrink:0}
 /* COVER */
 /* portrait cover centered in 760px stage */
-.passport-cover{position:absolute;width:360px;height:480px;left:180px;top:0;border-radius:5px 18px 18px 5px;border-left:12px solid rgba(0,0,0,.36);transform-origin:left center;transform:rotateY(0deg);transition:transform .8s cubic-bezier(.645,.045,.355,1);z-index:10;cursor:pointer;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;box-shadow:-4px 0 16px rgba(0,0,0,.35),10px 10px 44px rgba(0,0,0,.52),0 30px 72px rgba(0,0,0,.42)}
+.passport-cover{position:absolute;width:360px;height:530px;left:180px;top:0;border-radius:5px 18px 18px 5px;border-left:12px solid rgba(0,0,0,.36);transform-origin:left center;transform:rotateY(0deg);transition:transform .8s cubic-bezier(.645,.045,.355,1);z-index:10;cursor:pointer;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;box-shadow:-4px 0 16px rgba(0,0,0,.35),10px 10px 44px rgba(0,0,0,.52),0 30px 72px rgba(0,0,0,.42)}
 .passport-cover.navy{background:linear-gradient(135deg,#1e3258,#0d1e3c)}
-.passport-cover.forest{background:linear-gradient(135deg,#1b3d28,#0e2619)}
+.passport-cover.forest{background:linear-gradient(135deg,rgba(15,38,24,.88),rgba(7,20,13,.93)),url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=900&q=80') center/cover}
 .passport-cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 1px,transparent 1px,transparent 9px);pointer-events:none}
 .passport-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.14) 0%,transparent 50%,rgba(0,0,0,.15) 100%);pointer-events:none}
 .passport-cover:hover{filter:brightness(1.08)}
@@ -649,7 +649,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
          <div class="perfil-name" id="perfilName">Cargando…</div>
          <div class="perfil-meta"><span id="perfilEmail"><i class="fas fa-envelope"></i> —</span><span class="perfil-veri"><i class="fas fa-check-circle"></i> Verificado</span></div>
          <div class="perfil-meta"><span><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</span></div>
-         <button class="btn-editar"><i class="fas fa-pen"></i> Editar perfil</button>
+         <button class="btn-editar" onclick="openEditPerfil()"><i class="fas fa-pen"></i> Editar perfil</button>
         </div>
         <div class="perfil-nivel">
          <div class="pn-lbl">Nivel actual</div>
@@ -887,7 +887,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="fpbar"><div class="fpfill" id="fidProgHero" style="width:0%"></div></div>
         <div class="fp-lbls"><span id="fidProgL">0 / 1000</span><span style="color:var(--ac3)" id="fidProgR">680 / 1000</span></div>
        </div>
-       <img class="pts-img" src="https://cdn-icons-png.flaticon.com/512/3141/3141785.png" alt="" onerror="this.style.display='none'">
       </div>
       <div class="sec-ttl" style="margin-bottom:10px">Cómo sumás puntos</div>
       <div class="como-grid">
@@ -950,6 +949,25 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   </div><!-- end view-wrap -->
  </div><!-- end main -->
 </div><!-- end app -->
+
+<!-- MODAL: EDITAR PERFIL -->
+<div id="modalEditarPerfil" onclick="if(event.target===this)closeEditPerfil()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.46);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(5px)">
+ <div style="background:var(--card);border-radius:16px;padding:28px 30px;width:90%;max-width:440px;box-shadow:0 24px 64px rgba(0,0,0,.22);position:relative">
+  <button onclick="closeEditPerfil()" style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:1.1rem;color:var(--tx2);cursor:pointer"><i class="fas fa-times"></i></button>
+  <div style="font-size:.98rem;font-weight:900;color:var(--tx);margin-bottom:4px"><i class="fas fa-pen" style="color:var(--ac);margin-right:8px"></i>Editar perfil</div>
+  <p style="font-size:.7rem;color:var(--tx2);margin-bottom:22px">Actualizá tu información personal.</p>
+  <div style="margin-bottom:14px">
+   <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Nombre completo</label>
+   <input id="ep-nombre" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu nombre completo">
+  </div>
+  <div style="margin-bottom:22px">
+   <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Email <span style="font-size:.6rem;font-weight:600;color:var(--tx3)">(no se puede cambiar)</span></label>
+   <input id="ep-email" type="email" disabled style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx2);background:var(--bg);outline:none;font-family:inherit;opacity:.6;cursor:not-allowed">
+  </div>
+  <div id="ep-msg" style="display:none;padding:10px 14px;border-radius:9px;font-size:.74rem;font-weight:700;margin-bottom:16px"></div>
+  <button onclick="saveEditPerfil()" id="ep-save" style="width:100%;padding:13px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-size:.86rem;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s"><i class="fas fa-save"></i> Guardar cambios</button>
+ </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 const SUPA_URL='https://yuukqdcjitxhaeevjxjb.supabase.co';
@@ -1023,6 +1041,36 @@ function renderItinerario(){
       <p style="font-size:.7rem;color:var(--tx2);margin-bottom:10px">El itinerario detallado y definitivo se envía por WhatsApp antes del viaje.</p>
       <button class="btn-a btn-prim" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultar a Herse</button>
     </div>`;
+}
+function openEditPerfil(){
+  const el=document.getElementById('modalEditarPerfil');if(!el)return;
+  const nm=document.getElementById('ep-nombre');if(nm)nm.value=_userName||'';
+  const em=document.getElementById('ep-email');if(em)em.value=_userEmail||'';
+  const msg=document.getElementById('ep-msg');if(msg)msg.style.display='none';
+  el.style.display='flex';
+  document.getElementById('ep-nombre').focus();
+}
+function closeEditPerfil(){
+  const el=document.getElementById('modalEditarPerfil');if(el)el.style.display='none';
+}
+async function saveEditPerfil(){
+  const nombre=document.getElementById('ep-nombre').value.trim();
+  const btn=document.getElementById('ep-save');
+  const msg=document.getElementById('ep-msg');
+  if(!nombre){msg.style.display='block';msg.style.background='#fee2e2';msg.style.color='#dc2626';msg.textContent='El nombre no puede estar vacío.';return;}
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Guardando...';
+  const {error}=await _db.auth.updateUser({data:{nombre}});
+  btn.disabled=false;btn.innerHTML='<i class="fas fa-save"></i> Guardar cambios';
+  if(error){
+    msg.style.display='block';msg.style.background='#fee2e2';msg.style.color='#dc2626';msg.textContent='Error: '+error.message;
+  } else {
+    _userName=nombre.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+    document.querySelectorAll('.name').forEach(el=>el.textContent=_userName);
+    const ini=document.getElementById('avatarInitial');if(ini)ini.textContent=_userName.charAt(0).toUpperCase();
+    renderPerfil();
+    msg.style.display='block';msg.style.background='#dcfce7';msg.style.color='#15803d';msg.textContent='¡Cambios guardados correctamente!';
+    setTimeout(()=>{closeEditPerfil();msg.style.display='none';},1800);
+  }
 }
 function renderPerfil(){
   const n=document.getElementById('perfilName');if(n)n.textContent=_userName||'—';
