@@ -1124,6 +1124,39 @@ function toggleTheme(){
   localStorage.setItem('herse_theme',d?'light':'dark');
 }
 /* AUTH + DATA */
+/* ======= DEMO MODE (temporal — restaurar bloque de abajo) ======= */
+(async()=>{
+  _isAdmin=true;
+  _userName='Viajero Demo'; _userEmail='demo@herseturismo.com';
+  document.querySelectorAll('.name').forEach(el=>el.textContent=_userName);
+  const ini=document.getElementById('avatarInitial');if(ini)ini.textContent='V';
+  const demoViaje={
+    id:'demo-1',activo:true,destino:'Brasil',
+    fecha_salida:'2025-08-15T08:30:00-03:00',
+    fecha_regreso:'2025-08-22T20:00:00-03:00',
+    vuelo_ida:'LA 8042',vuelo_vuelta:'LA 8043',
+    hotel:'Hotel Atlântico Rio',pax:2,codigo:'HT-0001',
+    itinerario:'',documentos:[]
+  };
+  TRIP_DATE=new Date(demoViaje.fecha_salida);
+  updateTripUI(demoViaje);
+  _allTrips=[demoViaje];
+  loadHistorial();
+  initPasaporte('demo-user');
+  const demoPts=680;
+  const h=document.getElementById('fidProgHero');if(h){setTimeout(()=>{h.style.width=Math.min((demoPts/1000)*100,100)+'%';},500);}
+  const fl=document.getElementById('fidFaltanHero');if(fl)fl.textContent=1000-demoPts;
+  const fp=document.getElementById('fidPtsHero');if(fp)fp.textContent=demoPts;
+  const fr=document.getElementById('fidProgR');if(fr)fr.textContent=demoPts+' / 1000';
+  const sp=document.getElementById('fidStatPts');if(sp)sp.textContent=demoPts;
+  const sv=document.getElementById('fidStatViajes');if(sv)sv.textContent=3;
+  tick();
+  _tickInterval=setInterval(tick,1000);
+})();
+function logout(){window.location.href='/';}
+/* ======= FIN DEMO MODE ======= */
+/*
+// BLOQUE ORIGINAL — descomentar para restaurar auth:
 (async()=>{
   const {data:{session}}=await _db.auth.getSession();
   if(!session){window.location.href='/login';return;}
@@ -1177,6 +1210,7 @@ function toggleTheme(){
   }
 })();
 function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
+*/
 /* DATE HELPERS */
 function fmtDate(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'});}
 function fmtDateTime(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});}
