@@ -380,6 +380,46 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .qa-btn{border:1.5px solid var(--bd);background:var(--card);border-radius:10px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:.15s;font-size:.67rem;font-weight:700;color:var(--tx2)}
 .qa-btn i{font-size:.95rem;color:var(--ac)}
 .qa-btn:hover{border-color:var(--ac);background:#eff6ff;color:var(--ac)}
+/* ── HISTORIAL DE VIAJES ── */
+.hv-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.hv-title{font-size:1.45rem;font-weight:900;color:var(--tx);margin-bottom:3px}
+.hv-sub{font-size:.75rem;color:var(--tx2)}
+.hv-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.hvs-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:11px;box-shadow:var(--sh)}
+.hvs-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
+.hvs-lbl{font-size:.56rem;font-weight:700;color:var(--tx2);margin-bottom:1px;text-transform:uppercase;letter-spacing:.5px}
+.hvs-val{font-size:1.3rem;font-weight:900;color:var(--tx);line-height:1}
+.hv-filters{display:flex;align-items:center;gap:7px;margin-bottom:22px;flex-wrap:wrap}
+.hv-ftab{padding:7px 15px;border-radius:99px;font-size:.73rem;font-weight:600;border:1.5px solid var(--bd);background:var(--card);color:var(--tx2);cursor:pointer;transition:.15s;white-space:nowrap;font-family:inherit}
+.hv-ftab.active{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:700}
+.hv-ftab:hover:not(.active){border-color:var(--ac);color:var(--ac)}
+.hv-search{margin-left:auto;display:flex;align-items:center;gap:6px;padding:7px 13px;border:1.5px solid var(--bd);border-radius:99px;background:var(--card)}
+.hv-search input{border:none;outline:none;font-size:.73rem;color:var(--tx);background:none;width:138px;font-family:inherit}
+.hv-search input::placeholder{color:var(--tx3)}
+.hv-year-group{margin-bottom:28px}
+.hv-year-lbl{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.hv-year-txt{font-size:1rem;font-weight:900;color:var(--tx)}
+.hv-year-line{flex:1;height:1px;background:var(--bd)}
+.hv-year-cnt{font-size:.62rem;font-weight:700;color:var(--tx3);background:var(--bg);padding:2px 9px;border-radius:99px;border:1px solid var(--bd)}
+.hv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hv-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:.22s;cursor:pointer;position:relative}
+.hv-card:hover{border-color:var(--ac);box-shadow:0 8px 30px rgba(0,74,143,.15);transform:translateY(-3px)}
+.hv-card-img{height:138px;overflow:hidden;position:relative;background:var(--bg);flex-shrink:0}
+.hv-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .38s ease}
+.hv-card:hover .hv-card-img img{transform:scale(1.08)}
+.hv-card-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:linear-gradient(135deg,var(--bg),var(--bd))}
+.hv-img-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.52) 0%,transparent 55%)}
+.hv-emo{position:absolute;top:9px;left:9px;padding:3px 9px;border-radius:99px;font-size:.56rem;font-weight:700;background:rgba(0,0,0,.52);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;border:1px solid rgba(255,255,255,.18);white-space:nowrap}
+.hv-st{position:absolute;top:9px;right:9px;padding:3px 9px;border-radius:99px;font-size:.56rem;font-weight:700}
+.hv-st.ok{background:#dcfce7;color:#15803d}.hv-st.next{background:#ebf1ff;color:var(--ac)}.hv-st.past{background:#f1f5f9;color:#64748b}
+.hv-card-body{padding:14px 15px}
+.hv-dest{font-size:.92rem;font-weight:800;color:var(--tx);margin-bottom:4px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hv-dates{font-size:.64rem;color:var(--tx2);display:flex;align-items:center;gap:5px;margin-bottom:9px}
+.hv-chips{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:0}
+.hv-chip{font-size:.59rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--bd);color:var(--tx2)}
+.hv-cta{width:100%;margin-top:11px;padding:8px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.73rem;font-weight:700;cursor:pointer;font-family:inherit;opacity:0;transition:opacity .2s;display:block}
+.hv-card:hover .hv-cta{opacity:1}
+.hv-empty{text-align:center;padding:48px 0;color:var(--tx2);font-size:.82rem}
 /* ── MI VIAJE REDESIGN ── */
 .mj-hero{position:relative;height:310px;border-radius:var(--r);overflow:hidden;margin-bottom:18px;box-shadow:0 8px 32px rgba(0,0,0,.18)}
 .mj-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:background-image .5s}
@@ -545,7 +585,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   </div>
   <nav class="sb-nav">
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
-    <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-suitcase"></i> Mis Viajes</button>
+    <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial</button>
     <button class="ni" id="nav-pasaporte-viaje" onclick="showView('pasaporte-viaje')"><i class="fas fa-passport"></i> Pasaporte de Viaje</button>
     <button class="ni" id="nav-pasaporte-futbol" onclick="showView('pasaporte-futbol')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
@@ -827,30 +867,32 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    </div>
   </div>
 
-  <!-- VIEW: MIS VIAJES -->
+  <!-- VIEW: HISTORIAL DE VIAJES -->
   <div class="view" id="view-mis-viajes">
    <div class="vcontent">
-    <div class="tabs-bar">
-     <button class="tab-btn active" onclick="setViajesTab(this,'todos')">Todos los viajes</button>
-     <button class="tab-btn" onclick="setViajesTab(this,'proximos')">Próximos</button>
-     <button class="tab-btn" onclick="setViajesTab(this,'completados')">Completados</button>
-     <button class="tab-btn" onclick="setViajesTab(this,'cancelados')">Cancelados</button>
-     <div class="tabs-search">
-      <div class="srch-wrap"><i class="fas fa-search" style="color:var(--tx3);font-size:.72rem"></i><input type="text" placeholder="Buscar viajes…" id="viajesSearch" oninput="filterTrips()"></div>
-      <button class="btn-filtros"><i class="fas fa-filter"></i> Filtros</button>
+    <!-- Encabezado -->
+    <div class="hv-top">
+     <div class="hv-heading">
+      <div class="hv-title"><i class="fas fa-clock-rotate-left" style="color:var(--ac);font-size:1.1rem;margin-right:9px"></i>Historial de viajes</div>
+      <div class="hv-sub">Reví todas tus experiencias con Herse</div>
      </div>
     </div>
-    <div class="stats-row">
-     <div class="stat-c"><div class="stat-ico b"><i class="fas fa-suitcase"></i></div><div><div class="stat-lbl">Total de viajes</div><div class="stat-val" id="statTotal">—</div><div class="stat-sub">Todas tus aventuras</div></div></div>
-     <div class="stat-c"><div class="stat-ico g"><i class="fas fa-plane"></i></div><div><div class="stat-lbl">Próximos viajes</div><div class="stat-val" id="statProximos">—</div><div class="stat-sub">Tus próximas experiencias</div></div></div>
-     <div class="stat-c"><div class="stat-ico o"><i class="fas fa-check-circle"></i></div><div><div class="stat-lbl">Viajes completados</div><div class="stat-val" id="statCompletados">—</div><div class="stat-sub">¡Grandes recuerdos!</div></div></div>
-     <div class="stat-c"><div class="stat-ico p"><i class="fas fa-map-marker-alt"></i></div><div><div class="stat-lbl">Países visitados</div><div class="stat-val" id="statPaises">—</div><div class="stat-sub">Seguís explorando</div></div></div>
+    <!-- Stats -->
+    <div class="hv-stats">
+     <div class="hvs-c"><div class="hvs-ico" style="background:#ebf1ff;color:var(--ac)"><i class="fas fa-plane"></i></div><div><div class="hvs-lbl">Total</div><div class="hvs-val" id="statTotal">—</div></div></div>
+     <div class="hvs-c"><div class="hvs-ico" style="background:#dcfce7;color:#16a34a"><i class="fas fa-check-circle"></i></div><div><div class="hvs-lbl">Completados</div><div class="hvs-val" id="statCompletados">—</div></div></div>
+     <div class="hvs-c"><div class="hvs-ico" style="background:#fef3c7;color:#d97706"><i class="fas fa-hourglass-half"></i></div><div><div class="hvs-lbl">Próximos</div><div class="hvs-val" id="statProximos">—</div></div></div>
+     <div class="hvs-c"><div class="hvs-ico" style="background:#f5f3ff;color:#7c3aed"><i class="fas fa-map-marker-alt"></i></div><div><div class="hvs-lbl">Países</div><div class="hvs-val" id="statPaises">—</div></div></div>
     </div>
-    <div class="sec-hdr">
-     <div class="sec-ttl">Historial de viajes</div>
-     <div class="sort-w">Ordenar por: <select><option>Más recientes</option><option>Más antiguos</option></select></div>
+    <!-- Filtros -->
+    <div class="hv-filters">
+     <button class="hv-ftab active" onclick="setViajesTab(this,'todos')">Todos</button>
+     <button class="hv-ftab" onclick="setViajesTab(this,'proximos')">Próximos</button>
+     <button class="hv-ftab" onclick="setViajesTab(this,'completados')">Completados</button>
+     <div class="hv-search"><i class="fas fa-search" style="color:var(--tx3);font-size:.7rem"></i><input type="text" placeholder="Buscar destino…" id="viajesSearch" oninput="filterTrips()"></div>
     </div>
-    <div id="allTripsList"><div style="text-align:center;padding:36px 0;color:var(--tx2);font-size:.8rem">Cargando viajes…</div></div>
+    <!-- Lista (JS la rellena) -->
+    <div id="allTripsList"><div class="hv-empty">Cargando viajes…</div></div>
    </div>
   </div>
 
@@ -1063,7 +1105,7 @@ let _tickInterval,_isAdmin=false,_userName='',_userEmail='';
 /* VIEW SWITCHING */
 const VIEW_META={
   'mi-viaje':   {title:'Mi Viaje',      sub:'Tu mundo, tus viajes, tu historia.',        ico:'fas fa-plane',     cls:'blue'},
-  'mis-viajes': {title:'Mis Viajes',    sub:'Todos tus viajes en un solo lugar.',         ico:'fas fa-suitcase',  cls:'blue'},
+  'mis-viajes': {title:'Historial de viajes', sub:'Todos tus recuerdos y experiencias con Herse.', ico:'fas fa-clock-rotate-left', cls:'blue'},
   'pasaporte-viaje':  {title:'Pasaporte de Viaje',   sub:'Sellá cada destino y creá tu historia por el mundo.', ico:'fas fa-passport', cls:'green'},
   'pasaporte-futbol': {title:'Pasaporte Tribunero',  sub:'Sellá cada estadio y viví el fútbol como nunca.',    ico:'fas fa-futbol',   cls:'soccer'},
   'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple'},
@@ -1352,7 +1394,7 @@ async function loadHistorial(){
 }
 let _tripTab='todos';
 function setViajesTab(btn,tab){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.hv-ftab').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   _tripTab=tab;
   renderAllTrips();
@@ -1362,29 +1404,80 @@ function renderAllTrips(){
   const wrap=document.getElementById('allTripsList');if(!wrap)return;
   const q=(document.getElementById('viajesSearch')?.value||'').toLowerCase();
   const now=new Date();
-  let list=_allTrips.filter(t=>{
+  let list=[..._allTrips].filter(t=>{
     if(q&&!t.destino.toLowerCase().includes(q))return false;
     if(_tripTab==='proximos')return t.activo||new Date(t.fecha_salida)>now;
     if(_tripTab==='completados')return !t.activo&&new Date(t.fecha_regreso)<=now;
-    if(_tripTab==='cancelados')return false;
     return true;
-  });
-  if(!list.length){wrap.innerHTML='<div style="text-align:center;padding:36px 0;color:var(--tx2);font-size:.8rem">No hay viajes en esta categoría.</div>';return;}
-  const DEST_IMGS={brasil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=200&q=70',brazil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=200&q=70',espana:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=200&q=70',spain:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=200&q=70','estados unidos':'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=200&q=70',mexico:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=200&q=70',francia:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=200&q=70',france:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=200&q=70'};
+  }).sort((a,b)=>new Date(b.fecha_salida)-new Date(a.fecha_salida));
+  if(!list.length){wrap.innerHTML='<div class="hv-empty"><i class="fas fa-compass" style="font-size:2rem;opacity:.25;display:block;margin-bottom:10px"></i>No hay viajes en esta categoría.</div>';return;}
+  const DEST_IMGS={
+    brasil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=480&q=75',
+    brazil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=480&q=75',
+    espana:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=480&q=75',
+    spain:'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=480&q=75',
+    italia:'https://images.unsplash.com/photo-1529260830199-42c24126f198?w=480&q=75',
+    italy:'https://images.unsplash.com/photo-1529260830199-42c24126f198?w=480&q=75',
+    francia:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=480&q=75',
+    france:'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=480&q=75',
+    mexico:'https://images.unsplash.com/photo-1518638150340-f706e86654de?w=480&q=75',
+    alemania:'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=480&q=75',
+    portugal:'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=480&q=75',
+    eeuu:'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=480&q=75',
+    'estados unidos':'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=480&q=75',
+    argentina:'https://images.unsplash.com/photo-1612294037637-ec328d0e075e?w=480&q=75',
+    japon:'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=480&q=75',
+    japan:'https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=480&q=75',
+  };
   function getImg(dest){const k=dest.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');const found=Object.entries(DEST_IMGS).find(([key])=>k.includes(key));return found?found[1]:null;}
-  wrap.innerHTML=list.map(t=>{
-    const sd=new Date(t.fecha_salida),ed=new Date(t.fecha_regreso);
-    const flag=getFlag(t.destino);
-    const img=getImg(t.destino);
-    const isNext=t.activo||sd>now;
-    const d1=sd.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
-    const d2=ed.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
-    const badgeCls=isNext?'badge-ok':'badge-done';
-    const badgeTxt=isNext?'Confirmado':'Completado';
-    const codeTxt=isNext?'Código: '+(t.codigo||'BR-2509-7X2K'):'';
-    const rateTxt=isNext?'':`<div class="tli-stars">★★★★★</div><div class="tli-rate">Calificá tu viaje</div>`;
-    const thumb=img?`<img class="tli-img" src="${img}" alt="" onerror="this.className='tli-ph';this.innerHTML='${flag}'">` :`<div class="tli-ph">${flag}</div>`;
-    return `<div class="tli">${thumb}<div class="tli-body"><div class="tli-dest">${t.destino} ${flag}</div><div class="tli-city">Ciudad principal</div><div class="tli-meta"><span><i class="fas fa-calendar"></i> ${d1} - ${d2}</span><span><i class="fas fa-users"></i> ${t.pasajeros||2} adultos</span></div>${isNext?'<div class="tag-prox">Próximo viaje</div>':''}</div><div class="tli-r"><span class="badge ${badgeCls}">${badgeTxt}</span><div class="tli-code">${codeTxt}</div>${rateTxt}<i class="fas fa-chevron-right" style="color:var(--tx3);font-size:.8rem"></i></div></div>`;
+  /* badges emocionales */
+  const sorted=[..._allTrips].sort((a,b)=>new Date(a.fecha_salida)-new Date(b.fecha_salida));
+  const firstId=sorted[0]?sorted[0].destino+sorted[0].fecha_salida:null;
+  const longestId=(()=>{let mx=0,id=null;_allTrips.forEach(t=>{const d=(new Date(t.fecha_regreso)-new Date(t.fecha_salida))/(864e5);if(d>mx){mx=d;id=t.destino+t.fecha_salida;}});return id;})();
+  const nextId=(()=>{const f=list.find(t=>t.activo||new Date(t.fecha_salida)>now);return f?f.destino+f.fecha_salida:null;})();
+  function getEmo(t){
+    const id=t.destino+t.fecha_salida;
+    if(id===nextId)return '⏳ Próximo';
+    if(id===firstId&&!t.activo)return '✈️ Tu primer viaje';
+    if(id===longestId&&!t.activo)return '🌍 Viaje más largo';
+    return null;
+  }
+  /* agrupar por año */
+  const byYear={};
+  list.forEach(t=>{
+    const y=new Date(t.fecha_salida).getFullYear();
+    if(!byYear[y])byYear[y]=[];
+    byYear[y].push(t);
+  });
+  const years=Object.keys(byYear).sort((a,b)=>b-a);
+  wrap.innerHTML=years.map(year=>{
+    const trips=byYear[year];
+    const cards=trips.map(t=>{
+      const sd=new Date(t.fecha_salida),ed=new Date(t.fecha_regreso);
+      const flag=getFlag(t.destino);
+      const img=getImg(t.destino);
+      const isNext=t.activo||sd>now;
+      const isPast=!t.activo&&ed<=now;
+      const stCls=isNext?'next':'past';
+      const stTxt=isNext?'⏳ Próximo':'✔ Completado';
+      const d1=sd.toLocaleDateString('es-AR',{day:'numeric',month:'short'});
+      const d2=ed.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+      const dur=Math.round((ed-sd)/(864e5));
+      const emo=getEmo(t);
+      const thumb=img
+        ?`<img src="${img}" alt="${t.destino}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'hv-card-ph\'>${flag}</div>'">`
+        :`<div class="hv-card-ph">${flag}</div>`;
+      return `<div class="hv-card">
+        <div class="hv-card-img">${thumb}<div class="hv-img-ov"></div>${emo?`<div class="hv-emo">${emo}</div>`:''}<div class="hv-st ${stCls}">${stTxt}</div></div>
+        <div class="hv-card-body">
+          <div class="hv-dest">${flag} ${t.destino}</div>
+          <div class="hv-dates"><i class="fas fa-calendar-alt"></i> ${d1} &rarr; ${d2}</div>
+          <div class="hv-chips"><span class="hv-chip"><i class="fas fa-moon"></i> ${dur} noches</span><span class="hv-chip"><i class="fas fa-users"></i> ${t.pasajeros||t.pax||2} pax</span>${t.codigo?`<span class="hv-chip">${t.codigo}</span>`:''}</div>
+          <button class="hv-cta"><i class="fas fa-eye"></i> Ver detalles</button>
+        </div>
+      </div>`;
+    }).join('');
+    return `<div class="hv-year-group"><div class="hv-year-lbl"><div class="hv-year-txt">${year}</div><div class="hv-year-line"></div><div class="hv-year-cnt">${trips.length} viaje${trips.length!==1?'s':''}</div></div><div class="hv-grid">${cards}</div></div>`;
   }).join('');
 }
 /* LOYALTY */
