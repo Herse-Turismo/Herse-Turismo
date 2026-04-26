@@ -1464,14 +1464,9 @@ function showSinViajeHero(){
           <div class="nt-contact"><i class="fas fa-phone"></i> +54 221 566 1704</div>
         </div>
       </div>
-      <div class="card">
-        <div class="nt-of-ttl"><i class="fas fa-tag"></i> Ofertas destacadas</div>
-        <div class="nt-of-list">
-          <div class="nt-of-i" onclick="window.location.href='/'"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=120&q=75" alt="Caribe"><div><div class="nt-of-name">Caribe</div><div class="nt-of-det">7 noches · Desde USD 899</div></div></div>
-          <div class="nt-of-i" onclick="window.location.href='/'"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=120&q=75" alt="Europa"><div><div class="nt-of-name">Europa</div><div class="nt-of-det">10 noches · Desde USD 1299</div></div></div>
-          <div class="nt-of-i" onclick="window.location.href='/'"><img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=120&q=75" alt="Brasil"><div><div class="nt-of-name">Brasil</div><div class="nt-of-det">7 noches · Desde USD 799</div></div></div>
-        </div>
-        <a href="/" class="nt-of-all">Ver todas las ofertas →</a>
+      <div class="card" id="ntNivelCard">
+        <div style="font-size:.78rem;font-weight:800;color:var(--tx);margin-bottom:14px;display:flex;align-items:center;gap:7px"><i class="fas fa-medal" style="color:var(--ac)"></i> Tu nivel Herse</div>
+        <div id="ntNivelBody" style="opacity:.4;font-size:.7rem;text-align:center;padding:16px 0"><i class="fas fa-spinner fa-spin"></i> Cargando…</div>
       </div>
     </div>
   </div>`;
@@ -1518,6 +1513,44 @@ async function loadHistorial(){
   const sp=document.getElementById('statProximos');if(sp)sp.textContent=activo;
   const sc=document.getElementById('statCompletados');if(sc)sc.textContent=completados;
   const sk=document.getElementById('statPaises');if(sk)sk.textContent=paises;
+  if(!_hasTrip) updateNoTripNivelCard();
+}
+function updateNoTripNivelCard(){
+  const body=document.getElementById('ntNivelBody');
+  if(!body)return;
+  const comp=_allTrips.filter(t=>!t.activo).length;
+  const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(' ')[0])).size;
+  const pts=comp*250;
+  let level,icon,nextPts;
+  if(comp>=10){level='Leyenda Herse';icon='\uD83C\uDF1F';nextPts=0;}
+  else if(comp>=7){level='Globetrotter';icon='\uD83C\uDF0D';nextPts=10*250;}
+  else if(comp>=5){level='Viajero Frecuente';icon='\uD83E\uDDED';nextPts=7*250;}
+  else if(comp>=3){level='Explorador';icon='\u2708\uFE0F';nextPts=5*250;}
+  else{level='Aventurero';icon='\uD83C\uDF92';nextPts=3*250;}
+  const pct=nextPts?Math.min((pts/nextPts)*100,100):100;
+  const falta=Math.max(0,nextPts-pts);
+  const faltaTxt=falta>0?`Faltan <strong style="color:var(--ac)">${falta} pts</strong> para el siguiente nivel`:'¡Nivel máximo alcanzado! 🎉';
+  const ppViaje=_viajeSelladosSet.size;
+  const totalViaje=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
+  body.style.opacity='1';
+  body.innerHTML=`
+    <div style="display:flex;align-items:center;gap:11px;margin-bottom:15px">
+      <div style="width:52px;height:52px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.55rem;flex-shrink:0;border:1px solid #bfdbfe">${icon}</div>
+      <div>
+        <div style="font-size:.92rem;font-weight:900;color:var(--tx)">${level}</div>
+        <div style="font-size:.64rem;color:var(--tx2);margin-top:2px">${pts} puntos acumulados</div>
+      </div>
+    </div>
+    <div style="font-size:.62rem;color:var(--tx2);margin-bottom:5px;font-weight:600">${faltaTxt}</div>
+    <div style="height:7px;background:var(--bd);border-radius:99px;overflow:hidden;margin-bottom:16px"><div style="height:100%;width:0%;background:linear-gradient(90deg,var(--ac),#60a5fa);border-radius:99px;transition:width 1.1s ease" id="ntNivelBar"></div></div>
+    <div style="border-top:1px solid var(--bd);padding-top:13px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin-bottom:13px">
+      <div><div style="font-size:.95rem;font-weight:900;color:var(--tx)">${comp}</div><div style="font-size:.54rem;text-transform:uppercase;letter-spacing:.8px;color:var(--tx2);margin-top:2px">Viajes</div></div>
+      <div><div style="font-size:.95rem;font-weight:900;color:var(--tx)">${paises}</div><div style="font-size:.54rem;text-transform:uppercase;letter-spacing:.8px;color:var(--tx2);margin-top:2px">Países</div></div>
+      <div><div style="font-size:.95rem;font-weight:900;color:var(--tx)">${ppViaje}<span style="font-size:.58rem;font-weight:600;color:var(--tx3)">/${totalViaje}</span></div><div style="font-size:.54rem;text-transform:uppercase;letter-spacing:.8px;color:var(--tx2);margin-top:2px">Sellados</div></div>
+    </div>
+    <button onclick="showView('fidelizacion')" style="width:100%;padding:9px;background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;font-size:.72rem;font-weight:700;color:var(--ac);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:7px;transition:.15s"><i class="fas fa-star"></i> Ver programa de fidelización</button>
+  `;
+  setTimeout(()=>{const b=document.getElementById('ntNivelBar');if(b)b.style.width=pct+'%';},120);
 }
 let _tripTab='todos';
 function setViajesTab(btn,tab){
