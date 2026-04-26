@@ -638,7 +638,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   </div>
   <nav class="sb-nav">
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
-    <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial</button>
+    <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
     <button class="ni" id="nav-pasaporte-viaje" onclick="showView('pasaporte-viaje')"><i class="fas fa-passport"></i> Pasaporte de Viaje</button>
     <button class="ni" id="nav-pasaporte-futbol" onclick="showView('pasaporte-futbol')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
@@ -743,27 +743,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
        <!-- BLOQUE 2: DOCUMENTACIÓN DE VIAJE -->
        <div class="card">
         <div class="card-ttl"><i class="fas fa-folder-open"></i> Documentación de viaje</div>
-        <div class="doc-list">
-         <div class="doc-i">
-          <div class="doc-ico ok"><i class="fas fa-passport"></i></div>
-          <div class="doc-body"><div class="doc-name">Pasaporte</div><div class="doc-st ok">Vigente</div></div>
-          <i class="fas fa-check-circle doc-chk ok"></i>
-         </div>
-         <div class="doc-i">
-          <div class="doc-ico ok"><i class="fas fa-id-card"></i></div>
-          <div class="doc-body"><div class="doc-name">DNI</div><div class="doc-st ok">Presentado</div></div>
-          <i class="fas fa-check-circle doc-chk ok"></i>
-         </div>
-         <div class="doc-i">
-          <div class="doc-ico warn"><i class="fas fa-stamp"></i></div>
-          <div class="doc-body"><div class="doc-name">Visa</div><div class="doc-st warn">No requerida</div></div>
-          <i class="fas fa-minus-circle doc-chk warn"></i>
-         </div>
-         <div class="doc-i">
-          <div class="doc-ico err"><i class="fas fa-file-medical-alt"></i></div>
-          <div class="doc-body"><div class="doc-name">Seguro de viaje</div><div class="doc-st err">Pendiente</div></div>
-          <i class="fas fa-exclamation-circle doc-chk err"></i>
-         </div>
+        <div class="doc-list" id="docList">
+         <div style="color:var(--tx3);font-size:.73rem;padding:14px 0;text-align:center"><i class="fas fa-folder-open" style="font-size:1.1rem;display:block;margin-bottom:7px;opacity:.3"></i>Sin documentos registrados</div>
         </div>
         <button class="btn-a btn-ghost" style="margin-top:14px;width:100%;justify-content:center"><i class="fas fa-upload"></i> Subir documentación</button>
        </div>
@@ -1301,46 +1282,13 @@ function toggleTheme(){
   localStorage.setItem('herse_theme',d?'light':'dark');
 }
 /* AUTH + DATA */
-/* ======= DEMO MODE (temporal — restaurar bloque de abajo) ======= */
-(async()=>{
-  _isAdmin=true;
-  _userName='Viajero Demo'; _userEmail='demo@herseturismo.com';
-  document.querySelectorAll('.name').forEach(el=>el.textContent=_userName);
-  const ini=document.getElementById('avatarInitial');if(ini)ini.textContent='V';
-  const demoViaje={
-    id:'demo-1',activo:true,destino:'Brasil',
-    fecha_salida:'2025-08-15T08:30:00-03:00',
-    fecha_regreso:'2025-08-22T20:00:00-03:00',
-    vuelo_ida:'LA 8042',vuelo_vuelta:'LA 8043',
-    hotel:'Hotel Atlântico Rio',pax:2,codigo:'HT-0001',
-    itinerario:'',documentos:[]
-  };
-  TRIP_DATE=new Date(demoViaje.fecha_salida);
-  updateTripUI(demoViaje);
-  _allTrips=[demoViaje];
-  loadHistorial();
-  initPasaporte('demo-user');
-  const demoPts=680;
-  const h=document.getElementById('fidProgHero');if(h){setTimeout(()=>{h.style.width=Math.min((demoPts/1000)*100,100)+'%';},500);}
-  const fl=document.getElementById('fidFaltanHero');if(fl)fl.textContent=1000-demoPts;
-  const fp=document.getElementById('fidPtsHero');if(fp)fp.textContent=demoPts;
-  const fr=document.getElementById('fidProgR');if(fr)fr.textContent=demoPts+' / 1000';
-  const sp=document.getElementById('fidStatPts');if(sp)sp.textContent=demoPts;
-  const sv=document.getElementById('fidStatViajes');if(sv)sv.textContent=3;
-  tick();
-  _tickInterval=setInterval(tick,1000);
-})();
-function logout(){window.location.href='/';}
-/* ======= FIN DEMO MODE ======= */
-/*
-// BLOQUE ORIGINAL — descomentar para restaurar auth:
 (async()=>{
   const {data:{session}}=await _db.auth.getSession();
   if(!session){window.location.href='/login';return;}
   const user=session.user;
   const {data:_perf}=await _db.from('perfiles').select('is_admin').eq('id',user.id).single();
   if(_perf?.is_admin){
-    document.getElementById('btnAdmin').classList.add('visible');
+    document.getElementById('btnAdmin').style.display='block';
     _isAdmin=true;
   } else {
     document.getElementById('mainDashboard').style.display='none';
@@ -1387,7 +1335,6 @@ function logout(){window.location.href='/';}
   }
 })();
 function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
-*/
 /* DATE HELPERS */
 function fmtDate(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'});}
 function fmtDateTime(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});}
@@ -1428,6 +1375,21 @@ function updateTripUI(v){
   const vh=document.querySelectorAll('.mt-val-hotel');vh.forEach(el=>el.textContent=v.hotel||'—');
   const vvu=document.querySelectorAll('.mt-val-vuelo');vvu.forEach(el=>el.textContent=v.vuelo_ida||'—');
   const bg=document.getElementById('mjHeroBg');if(bg)bg.style.backgroundImage=`url('${getHeroImg(v.destino)}')`;
+  const docList=document.getElementById('docList');
+  if(docList){
+    const docs=v.documentos||[];
+    if(!docs.length){
+      docList.innerHTML='<div style="color:var(--tx3);font-size:.73rem;padding:14px 0;text-align:center"><i class="fas fa-folder-open" style="font-size:1.1rem;display:block;margin-bottom:7px;opacity:.3"></i>Sin documentos registrados</div>';
+    } else {
+      const ICONS={'pasaporte':'fas fa-passport','dni':'fas fa-id-card','visa':'fas fa-stamp','seguro':'fas fa-file-medical-alt','voucher':'fas fa-file-alt','ticket':'fas fa-ticket-alt'};
+      const CHK={'ok':'fas fa-check-circle','warn':'fas fa-minus-circle','err':'fas fa-exclamation-circle'};
+      docList.innerHTML=docs.map(d=>{
+        const st=d.estado||'ok';
+        const ico=ICONS[(d.tipo||'').toLowerCase()]||'fas fa-file';
+        return `<div class="doc-i"><div class="doc-ico ${st}"><i class="${ico}"></i></div><div class="doc-body"><div class="doc-name">${d.nombre||d.tipo||'Documento'}</div><div class="doc-st ${st}">${d.estado_texto||d.estado||'—'}</div></div><i class="${CHK[st]||'fas fa-check-circle'} doc-chk ${st}"></i></div>`;
+      }).join('');
+    }
+  }
 }
 /* HISTORIAL */
 let _allTrips=[];
