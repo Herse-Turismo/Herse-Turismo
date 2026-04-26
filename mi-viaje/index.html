@@ -664,6 +664,57 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .nt-of-det{font-size:.61rem;color:var(--tx2);margin-top:1px}
 .nt-of-all{font-size:.74rem;font-weight:800;color:var(--ac);display:block;text-align:center;margin-top:4px;text-decoration:none}
 .nt-of-all:hover{text-decoration:underline}
+/* ── TRIP DASHBOARD (viaje activo) ── */
+.trip-hero{position:relative;height:265px;border-radius:18px;overflow:hidden;margin-bottom:18px;background-size:cover;background-position:center}
+.trip-hero-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.72) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,.04) 100%)}
+.trip-hero-cnt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 34px}
+.trip-tag{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.68);margin-bottom:9px}
+.trip-title{font-size:2.05rem;font-weight:900;color:#fff;margin-bottom:18px;line-height:1.1;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+.trip-meta-row{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.trip-date-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(8px);border-radius:99px;padding:7px 15px;color:#fff;font-size:.74rem;font-weight:700}
+.trip-cd-row{display:flex;align-items:center;gap:7px}
+.trip-cd-u{display:flex;align-items:baseline;gap:4px}
+.trip-cd-v{font-size:1.45rem;font-weight:900;color:#fff;line-height:1;min-width:30px;text-align:center}
+.trip-cd-l{font-size:.59rem;color:rgba(255,255,255,.7);font-weight:600}
+.trip-cd-sep{color:rgba(255,255,255,.28);font-size:1.1rem;padding:0 1px}
+.trip-det-btn{position:absolute;bottom:18px;right:20px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);color:#fff;border-radius:99px;padding:9px 20px;font-size:.74rem;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.2s;font-family:inherit}
+.trip-det-btn:hover{background:rgba(255,255,255,.26)}
+.trip-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.tc-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.tc-ttl{display:flex;align-items:center;gap:8px;font-size:.81rem;font-weight:800;color:var(--tx)}
+.tc-lnk{font-size:.67rem;font-weight:700;color:var(--ac);cursor:pointer;display:flex;align-items:center;gap:4px;border:none;background:none;font-family:inherit;padding:0;transition:.1s}
+.tc-lnk:hover{text-decoration:underline}
+.tc-trip-img{width:50px;height:50px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--bd)}
+.tc-trip-dest{font-size:1.04rem;font-weight:900;color:var(--tx);line-height:1.2}
+.tc-trip-dates{font-size:.66rem;color:var(--tx2);margin-top:3px}
+.tc-details{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;padding:11px 0;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);margin:11px 0}
+.tc-det-lbl{font-size:.5rem;text-transform:uppercase;letter-spacing:.7px;color:var(--tx2);display:flex;align-items:center;gap:3px;margin-bottom:3px}
+.tc-det-val{font-size:.7rem;font-weight:700;color:var(--tx);line-height:1.25}
+.tc-status{display:flex;align-items:center;gap:8px;font-size:.7rem;color:#16a34a;font-weight:700}
+.fid-level-lbl{font-size:.57rem;text-transform:uppercase;letter-spacing:1.2px;color:#f59e0b;font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.fid-level-name{font-size:1.3rem;font-weight:900;color:var(--tx);margin-bottom:11px}
+.fid-bar-wrap{height:8px;background:var(--bd);border-radius:99px;overflow:hidden;margin-bottom:7px}
+.fid-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#3b82f6,#60a5fa);transition:width 1.2s ease}
+.fid-bar-info{display:flex;justify-content:space-between;font-size:.6rem;color:var(--tx2);margin-bottom:14px;font-weight:600}
+.fid-badge{width:62px;height:62px;background:linear-gradient(135deg,#1d4ed8,#3b82f6);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;box-shadow:0 4px 18px rgba(59,130,246,.3)}
+.fid-prog-btn{width:100%;padding:9px;background:var(--bg);border:1.5px solid var(--bd);border-radius:9px;font-size:.71rem;font-weight:700;color:var(--ac);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
+.fid-prog-btn:hover{border-color:var(--ac)}
+.stamp-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.stamp-row::-webkit-scrollbar{display:none}
+.stamp-item{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;width:70px}
+.stamp-circle{width:54px;height:54px;border-radius:50%;overflow:hidden;border:2.5px solid var(--bd);display:flex;align-items:center;justify-content:center;background:var(--bg)}
+.stamp-circle img{width:100%;height:100%;object-fit:cover}
+.stamp-circle.sealed{border-color:var(--ac);box-shadow:0 0 0 3px rgba(0,74,143,.1)}
+.stamp-circle.future{opacity:.38;filter:grayscale(1)}
+.stamp-year{font-size:.53rem;font-weight:900;color:var(--ac)}
+.stamp-lbl{font-size:.58rem;font-weight:700;color:var(--tx);text-align:center;line-height:1.2}
+.stamp-prox{font-size:.52rem;color:var(--tx3);text-align:center;font-style:italic}
+.trip-cta-banner{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1px solid #bfdbfe;border-radius:14px;padding:15px 20px;display:flex;align-items:center;gap:14px}
+.trip-cta-ico{font-size:1.3rem;flex-shrink:0}
+.trip-cta-ttl{font-size:.79rem;font-weight:900;color:var(--tx);margin-bottom:2px}
+.trip-cta-sub{font-size:.66rem;color:var(--tx2);line-height:1.45}
+.trip-cta-btn{margin-left:auto;flex-shrink:0;padding:9px 16px;background:#fff;border:1.5px solid #bfdbfe;border-radius:10px;font-size:.7rem;font-weight:800;color:var(--ac);cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;font-family:inherit;transition:.15s}
+.trip-cta-btn:hover{border-color:var(--ac);background:#eff6ff}
 </style>
 </head>
 <body>
@@ -1472,31 +1523,145 @@ function showSinViajeHero(){
   </div>`;
 }
 function updateTripUI(v){
+  const dash=document.getElementById('mainDashboard');
+  if(!dash)return;
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
-  const ct=document.getElementById('cardTripDest');if(ct)ct.textContent=v.destino;
-  document.querySelectorAll('.countdown-footer').forEach(f=>{f.textContent=fmtDate(sd)+' → '+fmtDate(ed);});
-  const dt=document.getElementById('mosaicTripDest');if(dt)dt.textContent=v.destino;
-  const fc=document.getElementById('tripFlagCircle');if(fc)fc.textContent=getFlag(v.destino);
-  const vs=document.querySelectorAll('.mt-val-salida');vs.forEach(el=>el.textContent=fmtDateTime(sd));
-  const vr=document.querySelectorAll('.mt-val-regreso');vr.forEach(el=>el.textContent=fmtDateTime(ed));
-  const vp=document.querySelectorAll('.mt-val-pax');vp.forEach(el=>el.textContent=(v.pasajeros||v.pax||1)+((v.pasajeros||v.pax||1)===1?' adulto':' adultos'));
-  const vh=document.querySelectorAll('.mt-val-hotel');vh.forEach(el=>el.textContent=v.hotel||'—');
-  const vvu=document.querySelectorAll('.mt-val-vuelo');vvu.forEach(el=>el.textContent=v.vuelo_ida||'—');
-  const bg=document.getElementById('mjHeroBg');if(bg)bg.style.backgroundImage=`url('${getHeroImg(v.destino)}')`;
-  const docList=document.getElementById('docList');
-  if(docList){
-    const docs=v.documentos||[];
-    if(!docs.length){
-      docList.innerHTML='<div style="color:var(--tx3);font-size:.73rem;padding:14px 0;text-align:center"><i class="fas fa-folder-open" style="font-size:1.1rem;display:block;margin-bottom:7px;opacity:.3"></i>Sin documentos registrados</div>';
-    } else {
-      const ICONS={'pasaporte':'fas fa-passport','dni':'fas fa-id-card','visa':'fas fa-stamp','seguro':'fas fa-file-medical-alt','voucher':'fas fa-file-alt','ticket':'fas fa-ticket-alt'};
-      const CHK={'ok':'fas fa-check-circle','warn':'fas fa-minus-circle','err':'fas fa-exclamation-circle'};
-      docList.innerHTML=docs.map(d=>{
-        const st=d.estado||'ok';
-        const ico=ICONS[(d.tipo||'').toLowerCase()]||'fas fa-file';
-        return `<div class="doc-i"><div class="doc-ico ${st}"><i class="${ico}"></i></div><div class="doc-body"><div class="doc-name">${d.nombre||d.tipo||'Documento'}</div><div class="doc-st ${st}">${d.estado_texto||d.estado||'—'}</div></div><i class="${CHK[st]||'fas fa-check-circle'} doc-chk ${st}"></i></div>`;
-      }).join('');
+  const flag=getFlag(v.destino);
+  const heroImg=getHeroImg(v.destino);
+  const pax=(v.pasajeros||v.pax||1);
+  TRIP_DATE=new Date(v.fecha_salida);
+  dash.innerHTML=`
+    <div class="trip-hero" style="background-image:url('${heroImg}')">
+      <div class="trip-hero-ov"></div>
+      <div class="trip-hero-cnt">
+        <div class="trip-tag">TU PRÓXIMA AVENTURA</div>
+        <h1 class="trip-title">${v.destino} te espera ${flag}</h1>
+        <div class="trip-meta-row">
+          <div class="trip-date-pill"><i class="fas fa-calendar-alt"></i> ${fmtDate(sd)} → ${fmtDate(ed)}</div>
+          <div class="trip-cd-row">
+            <div class="trip-cd-u"><span class="trip-cd-v" id="cd-d">--</span><span class="trip-cd-l">días</span></div>
+            <span class="trip-cd-sep">·</span>
+            <div class="trip-cd-u"><span class="trip-cd-v" id="cd-h">--</span><span class="trip-cd-l">horas</span></div>
+            <span class="trip-cd-sep">·</span>
+            <div class="trip-cd-u"><span class="trip-cd-v" id="cd-m">--</span><span class="trip-cd-l">min</span></div>
+            <span class="trip-cd-sep">·</span>
+            <div class="trip-cd-u"><span class="trip-cd-v" id="cd-s">--</span><span class="trip-cd-l">seg</span></div>
+          </div>
+        </div>
+      </div>
+      <button class="trip-det-btn" onclick="toggleItinerario()"><i class="fas fa-route"></i> Ver detalles del viaje <i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div id="itinerarioSection" style="display:none;margin-bottom:16px">
+      <div class="itin-hdr" onclick="toggleItinerario()">
+        <div class="itin-hdr-ttl"><i class="fas fa-route" style="color:var(--ac)"></i> Itinerario completo</div>
+        <button class="btn-a btn-ghost" style="font-size:.65rem;pointer-events:none">Cerrar <i class="fas fa-times"></i></button>
+      </div>
+      <div class="itin-body" id="itin-body"></div>
+    </div>
+    <div class="trip-grid">
+      <div class="card">
+        <div class="tc-hdr">
+          <div class="tc-ttl"><i class="fas fa-plane" style="color:var(--ac)"></i> Tu viaje actual</div>
+          <button class="tc-lnk" onclick="toggleItinerario()">Ver itinerario <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <img class="tc-trip-img" src="${heroImg}" alt="${v.destino}">
+          <div>
+            <div class="tc-trip-dest">${v.destino} ${flag}</div>
+            <div class="tc-trip-dates">${fmtDate(sd)} – ${fmtDate(ed)} ${sd.getFullYear()}</div>
+          </div>
+        </div>
+        <div class="tc-details">
+          <div><div class="tc-det-lbl"><i class="fas fa-plane-departure"></i> Salida</div><div class="tc-det-val">${fmtDateTime(sd)}</div></div>
+          <div><div class="tc-det-lbl"><i class="fas fa-plane-arrival"></i> Regreso</div><div class="tc-det-val">${fmtDateTime(ed)}</div></div>
+          <div><div class="tc-det-lbl"><i class="fas fa-users"></i> Pasajeros</div><div class="tc-det-val">${pax} ${pax===1?'adulto':'adultos'}</div></div>
+          <div><div class="tc-det-lbl"><i class="fas fa-hotel"></i> Hotel</div><div class="tc-det-val">${v.hotel||'—'}</div></div>
+        </div>
+        <div class="tc-status"><i class="fas fa-check-circle"></i> Tenés todo listo para disfrutar tu viaje</div>
+      </div>
+      <div class="card">
+        <div class="tc-hdr">
+          <div class="tc-ttl"><i class="fas fa-star" style="color:#f59e0b"></i> Fidelización Herse</div>
+          <button class="tc-lnk" onclick="showView('fidelizacion')">Ver más <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div id="fidDashCard"><div style="opacity:.3;font-size:.7rem;text-align:center;padding:20px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
+      </div>
+      <div class="card">
+        <div class="tc-hdr">
+          <div class="tc-ttl"><i class="fas fa-passport" style="color:#10b981"></i> Pasaporte de Viaje</div>
+          <button class="tc-lnk" onclick="showView('pasaporte-viaje')">Ver todos mis sellos <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="stamp-row" id="dashViajeStamps"><div style="opacity:.3;font-size:.7rem;padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
+      </div>
+      <div class="card">
+        <div class="tc-hdr">
+          <div class="tc-ttl"><i class="fas fa-futbol" style="color:#8b5cf6"></i> Pasaporte Futbolero</div>
+          <button class="tc-lnk" onclick="showView('pasaporte-futbol')">Ver todos mis estadios <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="stamp-row" id="dashFutbolStamps"><div style="opacity:.3;font-size:.7rem;padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
+      </div>
+    </div>
+    <div class="trip-cta-banner">
+      <div class="trip-cta-ico">🎁</div>
+      <div>
+        <div class="trip-cta-ttl">Cada viaje te transforma, cada sello cuenta tu historia.</div>
+        <div class="trip-cta-sub">Seguí sumando experiencias y desbloqueá nuevos beneficios.</div>
+      </div>
+      <button class="trip-cta-btn" onclick="showView('fidelizacion')"><i class="fas fa-gift"></i> Conocé los beneficios</button>
+    </div>`;
+}
+function updateFidDashCard(fid){
+  const card=document.getElementById('fidDashCard');
+  if(!card)return;
+  const done=fid.viajes_completados||0;
+  let level,icon,nextPts,nextName;
+  if(done>=10){level='Leyenda Herse';icon='🌟';nextPts=done*250;nextName='¡Nivel máximo!';}
+  else if(done>=7){level='Globetrotter';icon='🌍';nextPts=10*250;nextName='Leyenda Herse';}
+  else if(done>=5){level='Viajero Frecuente';icon='🧭';nextPts=7*250;nextName='Globetrotter';}
+  else if(done>=3){level='Explorador';icon='✈️';nextPts=5*250;nextName='Viajero Frecuente';}
+  else{level='Aventurero';icon='🎒';nextPts=3*250;nextName='Explorador';}
+  const pts=done*250;
+  const pct=nextPts?Math.min((pts/nextPts)*100,100):100;
+  card.innerHTML=`
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
+      <div style="flex:1">
+        <div class="fid-level-lbl"><i class="fas fa-star"></i> Nivel actual</div>
+        <div class="fid-level-name">${level}</div>
+        <div class="fid-bar-wrap"><div class="fid-bar-fill" style="width:0%" id="fidDashBar"></div></div>
+        <div class="fid-bar-info"><span>${pts} pts</span><span>${done>=10?'¡Nivel máximo!':nextPts+' pts para '+nextName}</span></div>
+      </div>
+      <div class="fid-badge">${icon}</div>
+    </div>
+    <button class="fid-prog-btn" onclick="showView('fidelizacion')"><i class="fas fa-chart-line"></i> Ver mi progreso <i class="fas fa-chevron-right"></i></button>`;
+  setTimeout(()=>{const b=document.getElementById('fidDashBar');if(b)b.style.width=pct+'%';},120);
+}
+function updateDashPassports(){
+  const vRow=document.getElementById('dashViajeStamps');
+  if(vRow&&VIAJE_PAGES){
+    const all=[];
+    VIAJE_PAGES.forEach(pg=>{[...pg.left.items,...pg.right.items].forEach(item=>{all.push({...item,sealed:_viajeSelladosSet.has(item.id)});});});
+    all.sort((a,b)=>(b.sealed?1:0)-(a.sealed?1:0));
+    function getYr(nombre){
+      const k=nombre.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      const m=_allTrips.find(t=>{const tk=t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');return tk.includes(k.split(' ')[0])||k.includes(tk.split(' ')[0]);});
+      return m?new Date(m.fecha_salida).getFullYear():null;
     }
+    vRow.innerHTML=all.slice(0,5).map(item=>{
+      const flagUrl=`https://flagcdn.com/w80/${(item.code||'xx').toLowerCase()}.png`;
+      const em=getFlag(item.nombre)||'🌍';
+      const yr=item.sealed?getYr(item.nombre):null;
+      return `<div class="stamp-item"><div class="stamp-circle ${item.sealed?'sealed':'future'}">${item.sealed?`<img src="${flagUrl}" alt="${item.nombre}" onerror="this.outerHTML='<span style=font-size:1.3rem>${em}</span>'">`:`<span style="font-size:1.3rem">${em}</span>`}</div>${yr?`<div class="stamp-year">${yr}</div>`:''}<div class="stamp-lbl">${item.nombre}</div>${!item.sealed?'<div class="stamp-prox">Próximamente</div>':''}</div>`;
+    }).join('');
+  }
+  const fRow=document.getElementById('dashFutbolStamps');
+  if(fRow&&PASSPORT_KEYS&&PASAPORTE_DATA){
+    const all=[];
+    PASSPORT_KEYS.forEach(key=>{const p=PASAPORTE_DATA[key];p.estadios.forEach(e=>{all.push({...e,paisNombre:p.nombre,sealed:_selladosSet.has(e.id)});});});
+    all.sort((a,b)=>(b.sealed?1:0)-(a.sealed?1:0));
+    fRow.innerHTML=all.slice(0,5).map(e=>{
+      const img=STADIUM_IMGS[e.id];
+      return `<div class="stamp-item"><div class="stamp-circle ${e.sealed?'sealed':'future'}">${img?`<img src="${img}" alt="${e.nombre}">`:`<span style="font-size:1rem">🏙️</span>`}</div><div class="stamp-lbl">${e.nombre}</div><div class="stamp-prox">${e.ciudad||e.paisNombre}</div></div>`;
+    }).join('');
   }
 }
 /* HISTORIAL */
@@ -1514,6 +1679,7 @@ async function loadHistorial(){
   const sc=document.getElementById('statCompletados');if(sc)sc.textContent=completados;
   const sk=document.getElementById('statPaises');if(sk)sk.textContent=paises;
   if(!_hasTrip) updateNoTripNivelCard();
+  if(_hasTrip) updateDashPassports();
 }
 function updateNoTripNivelCard(){
   const body=document.getElementById('ntNivelBody');
@@ -1652,6 +1818,7 @@ function updateLoyalty(fid){
   const nb=document.getElementById('fidNivelBadge');if(nb)nb.textContent=icon;
   const nn=document.getElementById('fidNivelName');if(nn)nn.textContent=level;
   const ns=document.getElementById('fidNivelSub');if(ns)ns.textContent=sub;
+  if(_hasTrip) updateFidDashCard(fid);
 }
 function renderFidelizacion(){}
 /* COUNTDOWN */
@@ -1792,6 +1959,7 @@ async function initPasaporte(userId){
   const {data}=await _db.from('pasaporte_tribunero').select('estadio_id').eq('user_id',userId);
   if(data) data.forEach(r=>_selladosSet.add(r.estadio_id));
   updateFutbolDonut();
+  if(_hasTrip) updateDashPassports();
 }
 function initViajePassport(historialData){
   _viajeSelladosSet=new Set();
