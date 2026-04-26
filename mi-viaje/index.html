@@ -584,6 +584,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* STAMP */
 .pp-stamp{position:absolute;top:6px;right:42px;border:2px solid #c0392b;color:#c0392b;padding:3px 7px;font-size:.52rem;font-weight:900;letter-spacing:2px;transform:rotate(-10deg);background:rgba(255,255,255,.65);animation:stampIn .3s ease;pointer-events:none;line-height:1}
 .pp-stamp.futbol{border-color:#15803d;color:#15803d}
+.pp-stamp.viaje{border-color:#1a6cff;color:#1a6cff}
+.pp-btn.viaje.done{background:#1a6cff}
 /* PAGE TURN ANIMATION */
 @keyframes ppOutFwd{from{transform:translateX(0) scale(1);opacity:1}to{transform:translateX(-30px) scale(.97);opacity:0}}
 @keyframes ppInFwd{from{transform:translateX(30px) scale(.97);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
@@ -947,32 +949,52 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    </div>
   </div>
 
-  <!-- VIEW: PASAPORTE DE VIAJE (ÁLBUM) -->
+  <!-- VIEW: PASAPORTE DE VIAJE -->
   <div class="view" id="view-pasaporte-viaje">
-   <div class="vcontent">
-    <!-- Header -->
-    <div class="al-header">
-     <div class="al-title-row">
-      <div>
-       <div class="al-title"><i class="fas fa-globe" style="color:var(--ac);font-size:1.15rem;margin-right:9px"></i>Pasaporte de Viaje</div>
-       <div class="al-sub">Sellá cada destino y construí tu historia</div>
+   <div class="vcontent passport-scene">
+    <div class="passport-wrapper">
+     <div class="passport" id="passport-viaje">
+      <div class="passport-cover navy" onclick="openPassport('viaje')">
+       <div class="cover-inner">
+        <div class="ci-corners"><div class="ci-c tl"></div><div class="ci-c tr"></div><div class="ci-c bl"></div><div class="ci-c br"></div></div>
+        <div class="ci-emblem">✈️</div>
+        <div class="ci-chip"></div>
+        <div class="ci-h2">PASAPORTE</div>
+        <div class="ci-p">• DE VIAJE •</div>
+        <div class="ci-brand"><img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'"><div class="ci-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div></div>
+        <div class="ci-hint">TOCA PARA ABRIR</div>
+       </div>
       </div>
-      <div class="al-prog-area">
-       <div class="al-prog-top"><span id="al-count">0</span> países visitados</div>
-       <div class="al-prog-bg"><div class="al-prog-fill" id="al-prog-fill" style="width:0%"></div></div>
+      <div class="passport-book">
+       <button class="pp-close-btn" onclick="closePassport('viaje')">&#10005; Cerrar</button>
+       <div class="pp">
+        <div class="pp-hdr" id="viaje-hdr-l">✈️ Destinos</div>
+        <div class="pp-tabs" id="viaje-tabs"></div>
+        <div class="pp-list" id="viaje-list"></div>
+       </div>
+       <div class="pp">
+        <div class="pp-hdr" id="viaje-hdr-r">Continuación</div>
+        <div class="pp-list" id="viaje-list-r"></div>
+       </div>
+       <div class="pp-nav">
+        <button class="pp-nav-btn" id="viaje-nav-prev" onclick="navPassport('viaje',-1)" disabled>&#8249;</button>
+        <span class="pp-nav-lbl" id="viaje-nav-lbl">1/1</span>
+        <button class="pp-nav-btn" id="viaje-nav-next" onclick="navPassport('viaje',1)">&#8250;</button>
+       </div>
       </div>
      </div>
     </div>
-    <!-- Tabs por región -->
-    <div class="al-tabs">
-     <button class="al-tab active" onclick="selectAlbumTab(this,0)">🌎 América</button>
-     <button class="al-tab" onclick="selectAlbumTab(this,1)">🌍 Europa</button>
-     <button class="al-tab" onclick="selectAlbumTab(this,2)">🌏 Asia &amp; Oceanía</button>
+    <div class="passport-bar">
+     <div class="pb-ico blue">✈️</div>
+     <div class="pb-body"><strong>Pasaporte de Viaje</strong><p>Sellá cada destino y construí tu historia por el mundo.</p></div>
+     <div class="pb-stats">
+      <div class="pb-stat"><span class="pb-stat-n" id="viaje-stat-v">0</span><span class="pb-stat-l">Visitados</span></div>
+      <div class="pb-stat"><span class="pb-stat-n" id="viaje-stat-t">—</span><span class="pb-stat-l">Total</span></div>
+      <div class="pb-stat"><span class="pb-stat-n" id="viaje-stat-r">0</span><span class="pb-stat-l">Regiones</span></div>
+     </div>
+     <div class="pb-donut"><svg width="52" height="52"><circle class="pb-d-bg" cx="26" cy="26" r="22"/><circle class="pb-d-fill" id="viaje-donut" cx="26" cy="26" r="22" stroke-dasharray="138" stroke-dashoffset="138"/></svg><div class="pb-donut-lbl" id="viaje-pct">0%</div></div>
+     <button class="pb-close" onclick="closePassport('viaje')"><i class="fas fa-times"></i> Cerrar</button>
     </div>
-    <!-- Grid de países -->
-    <div class="al-grid" id="alGrid"></div>
-    <!-- Logros -->
-    <div id="alLogros"></div>
    </div>
   </div>
 
@@ -1156,7 +1178,7 @@ function showView(id){
   if(ico){ico.className='hdr-ico '+(m.cls||'blue');ico.innerHTML='<i class="'+m.ico+'"></i>';}
   if(ttl) ttl.textContent=m.title||'';
   if(sub) sub.textContent=m.sub||'';
-  if(id==='pasaporte-viaje') renderAlbum();
+  if(id==='pasaporte-viaje'){const w=document.getElementById('passport-viaje');if(w)w.classList.remove('open');}
   if(id==='pasaporte-futbol'){const w=document.getElementById('passport-futbol');if(w)w.classList.remove('open');}
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
@@ -1681,7 +1703,17 @@ function updateAlbumProgress(){
   const fill=document.getElementById('al-prog-fill');if(fill)setTimeout(()=>fill.style.width=pct+'%',300);
   const cnt=document.getElementById('al-count');if(cnt)cnt.textContent=count+' / '+total;
 }
-function updateViajeDonut(){updateAlbumProgress();}
+function updateViajeDonut(){
+  const total=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
+  const count=_viajeSelladosSet.size;
+  const pct=total?Math.round((count/total)*100):0;
+  const offset=138-((pct/100)*138);
+  const df=document.getElementById('viaje-donut');if(df)setTimeout(()=>{df.style.strokeDashoffset=offset;},400);
+  const bn=document.getElementById('viaje-pct');if(bn)bn.textContent=pct+'%';
+  const st=document.getElementById('viaje-stat-t');if(st)st.textContent=total;
+  const sv=document.getElementById('viaje-stat-v');if(sv)sv.textContent=count;
+  const sr=document.getElementById('viaje-stat-r');if(sr)sr.textContent=VIAJE_PAGES.filter(pg=>[...pg.left.items,...pg.right.items].some(i=>_viajeSelladosSet.has(i.id))).length;
+}
 function updateFutbolDonut(){
   const total=Object.values(PASAPORTE_DATA).reduce((s,p)=>s+p.estadios.length,0);
   const count=_selladosSet.size;
@@ -1755,9 +1787,51 @@ function renderAlbumLogros(){
     </div>`).join('')
   }</div></div>`;
 }
+/* VIAJE BOOK RENDER */
+function renderViajeBookList(){
+  const VIAJE_ICONS=['🌎','🌍','🌏'];
+  const tabsWrap=document.getElementById('viaje-tabs');
+  if(tabsWrap)tabsWrap.innerHTML=VIAJE_PAGES.map((pg,i)=>`<button class="pp-tab ${i===_viajeCurrentTab?'active':''}" onclick="selectViajeTabBook(${i})">${VIAJE_ICONS[i]} ${pg.tab}</button>`).join('');
+  const pg=VIAJE_PAGES[_viajeCurrentTab];
+  const items=[...pg.left.items,...pg.right.items];
+  const total=Math.max(1,Math.ceil(items.length/_IPS));
+  const s=_viajeSpread*_IPS;
+  const wL=document.getElementById('viaje-list');if(wL)wL.innerHTML=items.slice(s,s+4).map(item=>_buildViajeRow(item)).join('');
+  const wR=document.getElementById('viaje-list-r');if(wR)wR.innerHTML=items.slice(s+4,s+_IPS).map(item=>_buildViajeRow(item)).join('');
+  const hL=document.getElementById('viaje-hdr-l');if(hL)hL.textContent=s<pg.left.items.length?(pg.left.icon+' '+pg.left.title):(pg.right.icon+' '+pg.right.title);
+  const hR=document.getElementById('viaje-hdr-r');if(hR)hR.textContent=items.slice(s+4,s+_IPS).length?(pg.right.icon+' '+pg.right.title):'';
+  const np=document.getElementById('viaje-nav-prev');if(np)np.disabled=_viajeSpread===0;
+  const nn=document.getElementById('viaje-nav-next');if(nn)nn.disabled=_viajeSpread>=total-1;
+  const nl=document.getElementById('viaje-nav-lbl');if(nl)nl.textContent=(_viajeSpread+1)+'/'+total;
+}
+function selectViajeTabBook(idx){
+  _viajeCurrentTab=idx;
+  _viajeSpread=0;
+  renderViajeBookList();
+}
+function _buildViajeRow(item){
+  const v=_viajeSelladosSet.has(item.id);
+  const flagUrl=`https://flagcdn.com/w40/${item.code.toLowerCase()}.png`;
+  const stamp=v?`<span class="pp-stamp viaje">VISADO</span>`:'';
+  const btn=v
+    ?`<button class="pp-btn viaje done" disabled>\u2713 Visitado</button>`
+    :`<button class="pp-btn" id="vbtn-${item.id}" onclick="sellarDestino('${item.id}',this)">Sellar</button>`;
+  return `<div class="pp-item${v?' stamped':''}" id="vrow-${item.id}"><div class="pp-ico" style="padding:0;overflow:hidden"><img src="${flagUrl}" alt="${item.nombre}" style="width:36px;height:36px;object-fit:cover;border-radius:8px" onerror="this.outerHTML='<span style=font-size:1.2rem>${getFlag(item.nombre)||'🌍'}</span>'"></div><div class="pp-info"><strong>${item.nombre}</strong><span>${item.code}</span></div>${stamp}${btn}</div>`;
+}
+function sellarDestino(itemId,btn){
+  if(_viajeSelladosSet.has(itemId))return;
+  _viajeSelladosSet.add(itemId);
+  const row=document.getElementById('vrow-'+itemId);
+  if(row){
+    row.classList.add('stamped');
+    if(!row.querySelector('.pp-stamp')){const s=document.createElement('span');s.className='pp-stamp viaje';s.textContent='VISADO';row.insertBefore(s,btn);}
+    btn.textContent='\u2713 Visitado';btn.disabled=true;btn.className='pp-btn viaje done';
+  }
+  updateViajeDonut();
+}
 /* compat stubs for old calls */
-function renderViajeList(){renderAlbum();}
-function selectViajeTab(idx){_albumCurrentTab=idx;renderAlbum();}
+function renderViajeList(){renderViajeBookList();}
+function selectViajeTab(idx){_viajeCurrentTab=idx;_viajeSpread=0;renderViajeBookList();}
 /* FUTBOL BOOK RENDER */
 function _buildFutbolRow(e,pais){
   const v=_selladosSet.has(e.id);
