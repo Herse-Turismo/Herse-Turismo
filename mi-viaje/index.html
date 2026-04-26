@@ -746,11 +746,11 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="doc-list" id="docList">
          <div style="color:var(--tx3);font-size:.73rem;padding:14px 0;text-align:center"><i class="fas fa-folder-open" style="font-size:1.1rem;display:block;margin-bottom:7px;opacity:.3"></i>Sin documentos registrados</div>
         </div>
-        <button class="btn-a btn-ghost" style="margin-top:14px;width:100%;justify-content:center"><i class="fas fa-upload"></i> Subir documentación</button>
+        <button class="btn-a btn-ghost" id="btnSubirDoc" style="margin-top:14px;width:100%;justify-content:center"><i class="fas fa-upload"></i> Subir documentación</button>
        </div>
 
        <!-- BLOQUE 4: ACCIONES -->
-       <div class="card">
+       <div class="card" id="accionesCard">
         <div class="card-ttl"><i class="fas fa-bolt"></i> Acciones</div>
         <div class="mj-acts">
          <button class="mj-act" onclick="toggleItinerario()">
@@ -774,7 +774,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       </div>
 
       <!-- Estado del viaje (timeline) -->
-      <div class="card">
+      <div class="card" id="estadoViajeCard">
        <div class="card-ttl"><i class="fas fa-list-check"></i> Estado del viaje</div>
        <div class="tl">
         <div class="tl-i"><div class="tl-side"><div class="tl-dot ok"><i class="fas fa-check" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Reserva confirmada</div><div class="tl-date">15 may 2025</div></div></div>
@@ -1392,6 +1392,23 @@ function showSinViajeHero(){
         <div style="font-size:.65rem;color:var(--tx2)">Cuando tu agente confirme tu viaje, toda la info aparece acá.</div>
       </div>
     </div>`;
+  const evc=document.getElementById('estadoViajeCard');
+  if(evc)evc.style.display='none';
+  const bsd=document.getElementById('btnSubirDoc');
+  if(bsd)bsd.style.display='none';
+  const ac=document.getElementById('accionesCard');
+  if(ac)ac.querySelector('.mj-acts').innerHTML=`
+    <div style="font-size:.7rem;color:var(--tx2);margin-bottom:10px;padding:4px 0">¿Tenés dudas sobre tu próximo viaje?</div>
+    <button class="mj-act" onclick="window.open('https://wa.me/5492215661704','_blank')">
+      <div class="mj-act-ico wa"><i class="fab fa-whatsapp"></i></div>
+      <div><div class="mj-act-name">Contactar a tu agente</div><div class="mj-act-sub">Consultanos por WhatsApp, sin compromiso</div></div>
+      <i class="fas fa-chevron-right mj-act-arr"></i>
+    </button>
+    <button class="mj-act" onclick="window.location.href='/'">
+      <div class="mj-act-ico or"><i class="fas fa-tag"></i></div>
+      <div><div class="mj-act-name">Ver ofertas disponibles</div><div class="mj-act-sub">Encontrá tu próxima aventura</div></div>
+      <i class="fas fa-chevron-right mj-act-arr"></i>
+    </button>`;
 }
 function updateTripUI(v){
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
