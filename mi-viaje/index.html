@@ -1134,7 +1134,7 @@ const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const {createClient}=supabase;
 const _db=createClient(SUPA_URL,SUPA_KEY);
 let TRIP_DATE=new Date('2025-08-15T08:30:00-03:00');
-let _tickInterval,_isAdmin=false,_userName='',_userEmail='';
+let _tickInterval,_isAdmin=false,_userName='',_userEmail='',_hasTrip=false;
 
 /* VIEW SWITCHING */
 const VIEW_META={
@@ -1304,21 +1304,20 @@ function toggleTheme(){
   if(ini) ini.textContent=name.charAt(0).toUpperCase();
   const {data:viajes}=await _db.from('viajes').select('*,documentos(*)').eq('activo',true).order('fecha_salida',{ascending:true}).limit(1);
   if(viajes?.length>0){
+    _hasTrip=true;
     const v=viajes[0];
     TRIP_DATE=new Date(v.fecha_salida);
     updateTripUI(v);
     checkCheckinReminder(v.fecha_salida,v.vuelo_ida);
+    tick();
+    _tickInterval=setInterval(tick,1000);
   } else {
-    document.getElementById('mainDashboard').style.display='none';
-    document.getElementById('pendingState').style.display='block';
-    clearInterval(_tickInterval);
+    showSinViajeHero();
   }
   loadHistorial();
   initPasaporte(user.id);
   const {data:fid}=await _db.from('fidelizacion').select('*').maybeSingle();
   if(fid) updateLoyalty(fid);
-  tick();
-  _tickInterval=setInterval(tick,1000);
   if(fid){
     const done=fid.viajes_completados||0;
     const pct=Math.min((done/5)*100,100);
@@ -1362,6 +1361,37 @@ function getHeroImg(dest){
   const k=dest.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const found=Object.entries(DEST_HERO_IMGS).find(([key])=>k.includes(key));
   return found?found[1]:'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=80';
+}
+const _HERO_IMGS_EMPTY=[
+  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1400&q=80',
+  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80',
+  'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=80',
+  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1400&q=80',
+  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1400&q=80',
+];
+function showSinViajeHero(){
+  const bg=document.getElementById('mjHeroBg');
+  if(bg)bg.style.backgroundImage=`url('${_HERO_IMGS_EMPTY[Math.floor(Math.random()*_HERO_IMGS_EMPTY.length)]}')`;
+  const badge=document.querySelector('.mj-badge');
+  if(badge)badge.innerHTML='<i class="fas fa-compass"></i> <span>Próxima aventura</span>';
+  const dest=document.getElementById('mosaicTripDest');
+  if(dest)dest.textContent='¿A dónde vas a viajar?';
+  const flag=document.getElementById('tripFlagCircle');
+  if(flag)flag.textContent='✈️';
+  document.querySelectorAll('.countdown-footer').forEach(f=>{f.textContent='Tu historia está por comenzar';});
+  const cd=document.querySelector('.mj-cd');
+  if(cd)cd.style.display='none';
+  const cta=document.querySelector('.mj-cta');
+  if(cta){cta.innerHTML='<i class="fab fa-whatsapp"></i> Consultá con Herse';cta.onclick=()=>window.open('https://wa.me/5492215661704','_blank');}
+  const snap=document.querySelector('.mj-snap');
+  if(snap)snap.innerHTML=`
+    <div class="snap-c" style="grid-column:1/-1;flex-direction:row;gap:14px;align-items:center;justify-content:center;padding:18px 0">
+      <i class="fas fa-map-marked-alt" style="font-size:1.6rem;color:var(--ac);opacity:.55"></i>
+      <div style="text-align:left">
+        <div style="font-size:.78rem;font-weight:800;color:var(--tx);margin-bottom:2px">Todavía no tenés un viaje activo</div>
+        <div style="font-size:.65rem;color:var(--tx2)">Cuando tu agente confirme tu viaje, toda la info aparece acá.</div>
+      </div>
+    </div>`;
 }
 function updateTripUI(v){
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
