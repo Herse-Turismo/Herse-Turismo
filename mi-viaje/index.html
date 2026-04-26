@@ -622,6 +622,48 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .pb-donut-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:900;color:var(--tx)}
 .pb-close{display:flex;align-items:center;gap:5px;padding:6px 13px;background:var(--bg);border:1.5px solid var(--bd);border-radius:8px;color:var(--tx2);font-size:.7rem;font-weight:700;cursor:pointer;transition:.12s;flex-shrink:0}
 .pb-close:hover{border-color:var(--ac);color:var(--ac)}
+/* ── NO TRIP STATE ── */
+.nt-wrap{display:flex;gap:20px;align-items:flex-start}
+.nt-main{flex:1;display:flex;flex-direction:column;gap:16px}
+.nt-hero-card{text-align:center;padding:36px 28px 28px}
+.nt-illo{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.nt-title{font-size:1.28rem;font-weight:900;color:var(--tx);margin-bottom:8px}
+.nt-sub{font-size:.82rem;color:var(--tx2);max-width:380px;margin:0 auto 24px;line-height:1.7}
+.btn-nt-cta{background:var(--ac);color:#fff;border:none;border-radius:12px;padding:13px 28px;font-size:.88rem;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:9px;margin-bottom:28px;transition:.2s;box-shadow:0 4px 18px rgba(0,74,143,.2);font-family:inherit}
+.btn-nt-cta:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,74,143,.32)}
+.nt-features{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding-top:22px;border-top:1px solid var(--bd)}
+.nt-feat{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 8px}
+.nt-feat-ico{width:42px;height:42px;background:#eff6ff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--ac);flex-shrink:0}
+.nt-feat-n{font-size:.7rem;font-weight:800;color:var(--tx);text-align:center}
+.nt-feat-s{font-size:.6rem;color:var(--tx2);text-align:center;line-height:1.4}
+.nt-inspo-ttl{font-size:.96rem;font-weight:900;color:var(--tx);margin-bottom:14px}
+.nt-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.nt-cat{position:relative;height:138px;border-radius:14px;background-size:cover;background-position:center;overflow:hidden;cursor:pointer;transition:.18s}
+.nt-cat:hover{transform:scale(1.025)}
+.nt-cat-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.68) 0%,rgba(0,0,0,.06) 65%)}
+.nt-cat-cnt{position:absolute;bottom:11px;left:12px;right:38px;color:#fff}
+.nt-cat-name{font-size:.73rem;font-weight:800;line-height:1.25}
+.nt-cat-sub{font-size:.57rem;opacity:.82;margin-top:2px}
+.nt-cat-btn{position:absolute;right:9px;bottom:9px;width:27px;height:27px;border-radius:50%;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.68rem;backdrop-filter:blur(4px)}
+.nt-sidebar{width:270px;flex-shrink:0;display:flex;flex-direction:column;gap:14px}
+.nt-help-ico{width:46px;height:46px;background:#eff6ff;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:1.1rem;color:var(--ac)}
+.nt-help-ttl{font-size:.88rem;font-weight:900;color:var(--tx);margin-bottom:5px}
+.nt-help-sub{font-size:.7rem;color:var(--tx2);line-height:1.6;margin-bottom:15px}
+.nt-help-btn{width:100%;padding:11px;background:#25D366;color:#fff;border:none;border-radius:10px;font-size:.78rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:13px;font-family:inherit;transition:.15s}
+.nt-help-btn:hover{filter:brightness(1.07)}
+.nt-contacts{display:flex;flex-direction:column;gap:7px}
+.nt-contact{display:flex;align-items:center;gap:8px;font-size:.7rem;color:var(--tx2)}
+.nt-contact i{color:var(--ac);width:13px;text-align:center}
+.nt-of-ttl{font-size:.78rem;font-weight:800;color:var(--tx);margin-bottom:13px;display:flex;align-items:center;gap:7px}
+.nt-of-ttl i{color:var(--ac)}
+.nt-of-list{display:flex;flex-direction:column;gap:9px;margin-bottom:12px}
+.nt-of-i{display:flex;align-items:center;gap:10px;cursor:pointer;padding:7px;border-radius:10px;transition:.15s}
+.nt-of-i:hover{background:var(--bg)}
+.nt-of-i img{width:54px;height:38px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.nt-of-name{font-size:.74rem;font-weight:800;color:var(--tx)}
+.nt-of-det{font-size:.61rem;color:var(--tx2);margin-top:1px}
+.nt-of-all{font-size:.74rem;font-weight:800;color:var(--ac);display:block;text-align:center;margin-top:4px;text-decoration:none}
+.nt-of-all:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -1362,53 +1404,77 @@ function getHeroImg(dest){
   const found=Object.entries(DEST_HERO_IMGS).find(([key])=>k.includes(key));
   return found?found[1]:'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=80';
 }
-const _HERO_IMGS_EMPTY=[
-  'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1400&q=80',
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80',
-  'https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=80',
-  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1400&q=80',
-  'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1400&q=80',
-];
 function showSinViajeHero(){
-  const bg=document.getElementById('mjHeroBg');
-  if(bg)bg.style.backgroundImage=`url('${_HERO_IMGS_EMPTY[Math.floor(Math.random()*_HERO_IMGS_EMPTY.length)]}')`;
-  const badge=document.querySelector('.mj-badge');
-  if(badge)badge.innerHTML='<i class="fas fa-compass"></i> <span>Próxima aventura</span>';
-  const dest=document.getElementById('mosaicTripDest');
-  if(dest)dest.textContent='¿A dónde vas a viajar?';
-  const flag=document.getElementById('tripFlagCircle');
-  if(flag)flag.textContent='✈️';
-  document.querySelectorAll('.countdown-footer').forEach(f=>{f.textContent='Tu historia está por comenzar';});
-  const cd=document.querySelector('.mj-cd');
-  if(cd)cd.style.display='none';
-  const cta=document.querySelector('.mj-cta');
-  if(cta){cta.innerHTML='<i class="fab fa-whatsapp"></i> Consultá con Herse';cta.onclick=()=>window.open('https://wa.me/5492215661704','_blank');}
-  const snap=document.querySelector('.mj-snap');
-  if(snap)snap.innerHTML=`
-    <div class="snap-c" style="grid-column:1/-1;flex-direction:row;gap:14px;align-items:center;justify-content:center;padding:18px 0">
-      <i class="fas fa-map-marked-alt" style="font-size:1.6rem;color:var(--ac);opacity:.55"></i>
-      <div style="text-align:left">
-        <div style="font-size:.78rem;font-weight:800;color:var(--tx);margin-bottom:2px">Todavía no tenés un viaje activo</div>
-        <div style="font-size:.65rem;color:var(--tx2)">Cuando tu agente confirme tu viaje, toda la info aparece acá.</div>
+  const dash=document.getElementById('mainDashboard');
+  if(!dash)return;
+  dash.innerHTML=`
+  <div class="nt-wrap">
+    <div class="nt-main">
+      <div class="card nt-hero-card">
+        <div class="nt-illo">
+          <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;height:auto">
+            <rect width="400" height="220" fill="#EEF2FF" rx="18"/>
+            <ellipse cx="85" cy="52" rx="38" ry="20" fill="white" opacity=".85"/><ellipse cx="118" cy="46" rx="30" ry="16" fill="white" opacity=".85"/><ellipse cx="58" cy="58" rx="22" ry="13" fill="white" opacity=".75"/>
+            <ellipse cx="318" cy="58" rx="32" ry="17" fill="white" opacity=".75"/><ellipse cx="345" cy="52" rx="24" ry="14" fill="white" opacity=".75"/>
+            <polygon points="140,210 215,75 290,210" fill="#C7D2FE"/>
+            <polygon points="195,210 275,62 355,210" fill="#A5B4FC" opacity=".75"/>
+            <polygon points="0,210 75,95 155,210" fill="#818CF8" opacity=".55"/>
+            <polygon points="40,210 130,82 220,210" fill="#6366F1" opacity=".35"/>
+            <ellipse cx="200" cy="212" rx="210" ry="22" fill="#C7D2FE" opacity=".45"/>
+            <rect x="52" y="158" width="9" height="38" fill="#6366F1" opacity=".45" rx="3"/><ellipse cx="57" cy="152" rx="17" ry="22" fill="#818CF8" opacity=".5"/>
+            <rect x="336" y="162" width="8" height="32" fill="#6366F1" opacity=".45" rx="3"/><ellipse cx="340" cy="157" rx="14" ry="18" fill="#818CF8" opacity=".5"/>
+            <line x1="200" y1="128" x2="191" y2="158" stroke="#4F46E5" stroke-width="1.5" opacity=".55"/><line x1="200" y1="128" x2="209" y2="158" stroke="#4F46E5" stroke-width="1.5" opacity=".55"/>
+            <rect x="186" y="156" width="28" height="18" fill="#4F46E5" rx="5" opacity=".75"/>
+            <ellipse cx="200" cy="88" rx="40" ry="48" fill="#6366F1"/>
+            <ellipse cx="200" cy="88" rx="40" ry="48" fill="none" stroke="white" stroke-width="1" opacity=".25"/>
+            <path d="M 162,72 Q 200,55 238,72" stroke="white" stroke-width="1.5" fill="none" opacity=".35"/>
+            <path d="M 160,95 Q 200,76 240,95" stroke="white" stroke-width="1.5" fill="none" opacity=".35"/>
+            <path d="M 163,118 Q 200,103 237,118" stroke="white" stroke-width="1.5" fill="none" opacity=".35"/>
+            <ellipse cx="183" cy="68" rx="13" ry="20" fill="white" opacity=".14"/>
+          </svg>
+        </div>
+        <h2 class="nt-title">Aún no tenés viajes programados 🧳</h2>
+        <p class="nt-sub">Cuando reserves tu próxima aventura, toda la información estará disponible acá.</p>
+        <button class="btn-nt-cta" onclick="window.location.href='/'"><i class="fas fa-search"></i> Buscar tu próximo viaje</button>
+        <div class="nt-features">
+          <div class="nt-feat"><div class="nt-feat-ico"><i class="fas fa-compass"></i></div><div class="nt-feat-n">Explorá destinos</div><div class="nt-feat-s">Encontrá tu lugar ideal</div></div>
+          <div class="nt-feat"><div class="nt-feat-ico"><i class="fas fa-shield-alt"></i></div><div class="nt-feat-n">Viajá con confianza</div><div class="nt-feat-s">Atención personalizada</div></div>
+          <div class="nt-feat"><div class="nt-feat-ico"><i class="fas fa-credit-card"></i></div><div class="nt-feat-n">Pagos seguros</div><div class="nt-feat-s">En cuotas y sin sorpresas</div></div>
+          <div class="nt-feat"><div class="nt-feat-ico"><i class="fas fa-headset"></i></div><div class="nt-feat-n">Asistencia 24/7</div><div class="nt-feat-s">Te acompañamos siempre</div></div>
+        </div>
       </div>
-    </div>`;
-  const evc=document.getElementById('estadoViajeCard');
-  if(evc)evc.style.display='none';
-  const bsd=document.getElementById('btnSubirDoc');
-  if(bsd)bsd.style.display='none';
-  const ac=document.getElementById('accionesCard');
-  if(ac)ac.querySelector('.mj-acts').innerHTML=`
-    <div style="font-size:.7rem;color:var(--tx2);margin-bottom:10px;padding:4px 0">¿Tenés dudas sobre tu próximo viaje?</div>
-    <button class="mj-act" onclick="window.open('https://wa.me/5492215661704','_blank')">
-      <div class="mj-act-ico wa"><i class="fab fa-whatsapp"></i></div>
-      <div><div class="mj-act-name">Contactar a tu agente</div><div class="mj-act-sub">Consultanos por WhatsApp, sin compromiso</div></div>
-      <i class="fas fa-chevron-right mj-act-arr"></i>
-    </button>
-    <button class="mj-act" onclick="window.location.href='/'">
-      <div class="mj-act-ico or"><i class="fas fa-tag"></i></div>
-      <div><div class="mj-act-name">Ver ofertas disponibles</div><div class="mj-act-sub">Encontrá tu próxima aventura</div></div>
-      <i class="fas fa-chevron-right mj-act-arr"></i>
-    </button>`;
+      <div>
+        <div class="nt-inspo-ttl">Inspirate para tu próximo viaje</div>
+        <div class="nt-cats">
+          <div class="nt-cat" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80')"><div class="nt-cat-ov"></div><div class="nt-cat-cnt"><div class="nt-cat-name">Playas paradisíacas</div><div class="nt-cat-sub">Relajate en aguas turquesas</div></div><button class="nt-cat-btn" onclick="window.location.href='/'"><i class="fas fa-chevron-right"></i></button></div>
+          <div class="nt-cat" style="background-image:url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400&q=80')"><div class="nt-cat-ov"></div><div class="nt-cat-cnt"><div class="nt-cat-name">Ciudades increíbles</div><div class="nt-cat-sub">Viví experiencias únicas</div></div><button class="nt-cat-btn" onclick="window.location.href='/'"><i class="fas fa-chevron-right"></i></button></div>
+          <div class="nt-cat" style="background-image:url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&q=80')"><div class="nt-cat-ov"></div><div class="nt-cat-cnt"><div class="nt-cat-name">Aventura y naturaleza</div><div class="nt-cat-sub">Descubrí paisajes inolvidables</div></div><button class="nt-cat-btn" onclick="window.location.href='/'"><i class="fas fa-chevron-right"></i></button></div>
+          <div class="nt-cat" style="background-image:url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80')"><div class="nt-cat-ov"></div><div class="nt-cat-cnt"><div class="nt-cat-name">Escapadas cercanas</div><div class="nt-cat-sub">Ideales para desconectar</div></div><button class="nt-cat-btn" onclick="window.location.href='/'"><i class="fas fa-chevron-right"></i></button></div>
+        </div>
+      </div>
+    </div>
+    <div class="nt-sidebar">
+      <div class="card">
+        <div class="nt-help-ico"><i class="fas fa-headset"></i></div>
+        <div class="nt-help-ttl">¿Necesitás ayuda?</div>
+        <div class="nt-help-sub">Nuestro equipo está para acompañarte en todo momento.</div>
+        <button class="nt-help-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Contactar asesor</button>
+        <div class="nt-contacts">
+          <div class="nt-contact"><i class="fas fa-envelope"></i> info@herseturismo.com.ar</div>
+          <div class="nt-contact"><i class="fas fa-phone"></i> +54 221 566 1704</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="nt-of-ttl"><i class="fas fa-tag"></i> Ofertas destacadas</div>
+        <div class="nt-of-list">
+          <div class="nt-of-i" onclick="window.location.href='/'"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=120&q=75" alt="Caribe"><div><div class="nt-of-name">Caribe</div><div class="nt-of-det">7 noches · Desde USD 899</div></div></div>
+          <div class="nt-of-i" onclick="window.location.href='/'"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=120&q=75" alt="Europa"><div><div class="nt-of-name">Europa</div><div class="nt-of-det">10 noches · Desde USD 1299</div></div></div>
+          <div class="nt-of-i" onclick="window.location.href='/'"><img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=120&q=75" alt="Brasil"><div><div class="nt-of-name">Brasil</div><div class="nt-of-det">7 noches · Desde USD 799</div></div></div>
+        </div>
+        <a href="/" class="nt-of-all">Ver todas las ofertas →</a>
+      </div>
+    </div>
+  </div>`;
 }
 function updateTripUI(v){
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
