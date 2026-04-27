@@ -615,42 +615,58 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .vj-stat-card-val{font-size:1.18rem;font-weight:900;color:var(--tx);line-height:1.1}
 .vj-stat-card-sub{font-size:.62rem;color:var(--tx2);margin-top:3px}
 .vj-stat-card-arrow{margin-left:auto;color:var(--tx3);font-size:.75rem;flex-shrink:0}
-.vj-album{border-radius:16px;overflow:hidden;position:relative;background:#1a0800;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.45);margin-bottom:16px}
-.vj-album-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?w=1200&q=70');background-size:cover;background-position:center;opacity:.3;filter:sepia(.45) brightness(.8)}
-.vj-book{position:relative;display:flex;border-radius:8px;overflow:hidden;min-height:400px;box-shadow:0 6px 32px rgba(0,0,0,.5)}
+/* ── ÁLBUM — contenedor con fondo fotográfico ── */
+.vj-album{border-radius:22px;overflow:visible;position:relative;background:#1a0a00;padding:28px 22px;margin-bottom:20px}
+.vj-album-bg{position:absolute;inset:0;border-radius:22px;overflow:hidden;background-image:url('https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?w=1400&q=75');background-size:cover;background-position:center;opacity:.38;filter:sepia(.55) brightness(.72)}
+/* ── LIBRO — cubierta de cuero + drop-shadow físico ── */
+.vj-book-outer{position:relative;filter:drop-shadow(0 32px 52px rgba(0,0,0,.65)) drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+.vj-book-outer::before,.vj-book-outer::after{content:'';position:absolute;top:6px;bottom:6px;width:13px;z-index:3;background:linear-gradient(180deg,#6b3f0a 0%,#b8720e 35%,#e8a82a 55%,#b8720e 75%,#6b3f0a 100%)}
+.vj-book-outer::before{left:-12px;border-radius:5px 0 0 5px;box-shadow:-4px 0 10px rgba(0,0,0,.4)}
+.vj-book-outer::after{right:-12px;border-radius:0 5px 5px 0;box-shadow:4px 0 10px rgba(0,0,0,.4)}
+.vj-book{display:flex;border-radius:4px;overflow:hidden;min-height:430px;position:relative}
+/* ── PÁGINAS — textura de papel con líneas horizontales ── */
 .vj-page{flex:1;padding:22px 24px;position:relative;min-width:0}
-.vj-page-l{background:linear-gradient(108deg,#faf5ea 0%,#ede5cc 100%)}
-.vj-page-r{background:linear-gradient(252deg,#faf5ea 0%,#ede5cc 100%)}
-.vj-spine{width:22px;background:linear-gradient(to right,rgba(0,0,0,.25),rgba(255,255,255,.05) 50%,rgba(0,0,0,.25));flex-shrink:0;position:relative}
-.vj-spine::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,#b8843a,#e8c97a 50%,#b8843a);opacity:.5}
+.vj-page-l{background:repeating-linear-gradient(transparent,transparent 31px,rgba(110,70,15,.07) 31px,rgba(110,70,15,.07) 32px),linear-gradient(108deg,#faf7ee 0%,#ece3c8 100%);box-shadow:inset -8px 0 20px rgba(0,0,0,.06)}
+.vj-page-r{background:repeating-linear-gradient(transparent,transparent 31px,rgba(110,70,15,.07) 31px,rgba(110,70,15,.07) 32px),linear-gradient(252deg,#faf7ee 0%,#ece3c8 100%);box-shadow:inset 8px 0 20px rgba(0,0,0,.04)}
+/* ── PLIEGUE CENTRAL ── */
+.vj-spine{width:26px;flex-shrink:0;position:relative;background:linear-gradient(to right,rgba(0,0,0,.32) 0%,rgba(0,0,0,.06) 35%,rgba(255,255,255,.08) 50%,rgba(0,0,0,.06) 65%,rgba(0,0,0,.28) 100%)}
+.vj-spine::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,#9a6015,#d4903a 45%,#f0c060 55%,#d4903a 65%,#9a6015 100%);opacity:.6}
+.vj-spine::after{content:'';position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(0,0,0,.12)}
 .vj-page-hdr{font-size:.59rem;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:#7a4e1a;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1.5px solid rgba(122,78,26,.22);margin-bottom:16px}
+/* ── SELLOS — grilla y sellos tipo tinta ── */
 .vj-stamps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .vj-stamp{display:flex;flex-direction:column;align-items:center;gap:5px}
-.vj-stamp-seal{width:82px;height:82px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:#fff;box-shadow:0 0 0 2.5px #fff,0 0 0 5.5px var(--sc,#3b82f6),0 0 0 7.5px #fff,0 0 0 9.5px var(--sc,#3b82f6);overflow:hidden;transition:transform .2s,box-shadow .2s}
-.vj-stamp:nth-child(1) .vj-stamp-seal{transform:rotate(-4deg)}
-.vj-stamp:nth-child(2) .vj-stamp-seal{transform:rotate(2.5deg)}
-.vj-stamp:nth-child(3) .vj-stamp-seal{transform:rotate(-2deg)}
-.vj-stamp:nth-child(4) .vj-stamp-seal{transform:rotate(3.5deg)}
+/* Sello sellado */
+.vj-stamp-seal{width:86px;height:86px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:rgba(255,255,255,.9);box-shadow:0 0 0 2px #fff,0 0 0 5px var(--sc,#3b82f6),0 0 0 6.5px #fff,0 0 0 9px var(--sc,#3b82f6),0 4px 16px rgba(0,0,0,.18);overflow:hidden;transition:transform .25s;filter:saturate(.85) contrast(1.05)}
+.vj-stamp:nth-child(1) .vj-stamp-seal{transform:rotate(-5deg)}
+.vj-stamp:nth-child(2) .vj-stamp-seal{transform:rotate(3deg)}
+.vj-stamp:nth-child(3) .vj-stamp-seal{transform:rotate(-2.5deg)}
+.vj-stamp:nth-child(4) .vj-stamp-seal{transform:rotate(4deg)}
 .vj-stamp:nth-child(5) .vj-stamp-seal{transform:rotate(-1.5deg)}
-.vj-stamp:nth-child(6) .vj-stamp-seal{transform:rotate(2deg)}
-.vj-stamp:nth-child(7) .vj-stamp-seal{transform:rotate(-3deg)}
-.vj-stamp:nth-child(8) .vj-stamp-seal{transform:rotate(1.5deg)}
-.vj-stamp:nth-child(9) .vj-stamp-seal{transform:rotate(-2.5deg)}
-.vj-stamp-seal:hover{transform:rotate(0deg) scale(1.1) !important;z-index:2;position:relative;box-shadow:0 0 0 2.5px #fff,0 0 0 5.5px var(--sc,#3b82f6),0 0 0 7.5px #fff,0 0 0 9.5px var(--sc,#3b82f6),0 6px 20px rgba(0,0,0,.25)}
-.vj-stamp-flag-img{width:44px;height:30px;object-fit:cover;border-radius:3px;border:1px solid rgba(0,0,0,.1);margin-bottom:2px}
-.vj-stamp-name-lbl{font-size:5.8px;font-weight:900;letter-spacing:.9px;text-transform:uppercase;text-align:center;line-height:1.1;padding:0 4px}
-.vj-stamp-date-lbl{font-size:5.2px;color:#888;text-align:center;margin-top:1px}
-.vj-stamp-visited-txt{font-size:.5rem;color:#7a4e1a;font-weight:700;text-align:center}
-.vj-stamp-empty .vj-stamp-seal{background:rgba(0,0,0,.04);box-shadow:0 0 0 2px rgba(180,150,100,.5),0 0 0 4px rgba(255,255,255,.7);opacity:.55}
-.vj-stamp-empty-ico{font-size:1.4rem;opacity:.2;line-height:1}
-.vj-stamp-empty-txt{font-size:5.2px;color:#a08050;text-align:center;line-height:1.4}
+.vj-stamp:nth-child(6) .vj-stamp-seal{transform:rotate(2.5deg)}
+.vj-stamp:nth-child(7) .vj-stamp-seal{transform:rotate(-4deg)}
+.vj-stamp:nth-child(8) .vj-stamp-seal{transform:rotate(2deg)}
+.vj-stamp:nth-child(9) .vj-stamp-seal{transform:rotate(-3deg)}
+.vj-stamp-seal:hover{transform:rotate(0deg) scale(1.12)!important;z-index:5;position:relative;filter:saturate(1.1);box-shadow:0 0 0 2px #fff,0 0 0 5px var(--sc,#3b82f6),0 0 0 6.5px #fff,0 0 0 9px var(--sc,#3b82f6),0 10px 28px rgba(0,0,0,.3)}
+.vj-stamp-flag-img{width:46px;height:31px;object-fit:cover;border-radius:3px;border:1px solid rgba(0,0,0,.12);margin-bottom:2px;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.vj-stamp-name-lbl{font-size:6px;font-weight:900;letter-spacing:1px;text-transform:uppercase;text-align:center;line-height:1.1;padding:0 5px;font-family:Georgia,serif}
+.vj-stamp-date-lbl{font-size:5px;color:rgba(0,0,0,.4);text-align:center;margin-top:1px;font-style:italic}
+.vj-stamp-visited-txt{font-size:.49rem;color:#7a4e1a;font-weight:700;text-align:center;letter-spacing:.2px}
+/* Sello vacío — círculos punteados, sin emoji */
+.vj-stamp-empty .vj-stamp-seal{background:rgba(255,255,255,.18);box-shadow:none;border:2px dashed rgba(140,100,40,.22);filter:none}
+.vj-stamp-empty .vj-stamp-seal::before{content:'';position:absolute;inset:8px;border-radius:50%;border:1px dashed rgba(140,100,40,.12)}
+.vj-stamp-empty-ico{font-size:0;opacity:0}
+.vj-stamp-empty-txt{font-size:5.5px;color:rgba(120,85,35,.4);text-align:center;line-height:1.6;font-family:Georgia,serif;font-style:italic}
 .vj-page-quote{margin-top:14px;font-family:Georgia,serif;font-style:italic;font-size:.62rem;color:#9b7040;text-align:center;line-height:1.85;padding-top:10px;border-top:1px dashed rgba(122,78,26,.22)}
-.vj-ghost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.vj-ghost-card{background:rgba(255,255,255,.45);border:1.5px solid rgba(0,0,0,.1);border-radius:10px;padding:11px 5px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:.15s;cursor:default}
-.vj-ghost-card:hover{background:rgba(255,255,255,.72);transform:translateY(-2px);box-shadow:0 5px 16px rgba(0,0,0,.1)}
-.vj-ghost-ico{font-size:1.55rem;opacity:.5;line-height:1}
-.vj-ghost-name{font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#6b4a18;text-align:center;line-height:1.25}
-.vj-ghost-more{background:rgba(255,255,255,.28);border:1.5px dashed rgba(122,78,26,.3);border-radius:10px;padding:10px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:.54rem;color:#9b7040;font-style:italic;text-align:center;line-height:1.5}
+/* ── POR DESCUBRIR — entradas de diario editorial ── */
+.vj-ghost-grid{display:flex;flex-direction:column;gap:0}
+.vj-ghost-card{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid rgba(100,65,15,.1);background:none;border-radius:0;cursor:default;transition:.12s}
+.vj-ghost-card:first-child{border-top:1px solid rgba(100,65,15,.1)}
+.vj-ghost-card:hover{background:rgba(255,255,255,.38);padding-left:8px;border-radius:4px;border-color:transparent}
+.vj-ghost-ico{font-size:1.05rem;opacity:.45;width:22px;text-align:center;flex-shrink:0;line-height:1}
+.vj-ghost-name{font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#6b4a18;font-family:Georgia,serif;flex:1}
+.vj-ghost-dot{width:5px;height:5px;border-radius:50%;background:rgba(120,80,20,.2);flex-shrink:0}
+.vj-ghost-more{padding:8px 4px;font-size:.6rem;color:#9b7040;font-style:italic;font-family:Georgia,serif;text-align:center;border-top:1px dashed rgba(100,65,15,.15)}
 .vj-bottom-bar{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:0}
 .vj-bstat{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
 .vj-bstat-ico{font-size:1.25rem;flex-shrink:0}
@@ -1259,16 +1275,18 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <!-- Album double-page -->
     <div class="vj-album">
      <div class="vj-album-bg"></div>
-     <div class="vj-book">
-      <div class="vj-page vj-page-l">
-       <div class="vj-page-hdr">✈ Países Visitados</div>
-       <div class="vj-stamps-grid" id="vjVisitedGrid"></div>
-       <div class="vj-page-quote">Cada viaje te transforma.<br>Cada sello cuenta tu historia. <span style="font-style:normal">✈</span></div>
-      </div>
-      <div class="vj-spine"></div>
-      <div class="vj-page vj-page-r">
-       <div class="vj-page-hdr">🗺 Por Descubrir</div>
-       <div class="vj-ghost-grid" id="vjDiscoverGrid"></div>
+     <div class="vj-book-outer">
+      <div class="vj-book">
+       <div class="vj-page vj-page-l">
+        <div class="vj-page-hdr">✈ Países Visitados</div>
+        <div class="vj-stamps-grid" id="vjVisitedGrid"></div>
+        <div class="vj-page-quote">Cada viaje te transforma.<br>Cada sello cuenta tu historia. <span style="font-style:normal">✈</span></div>
+       </div>
+       <div class="vj-spine"></div>
+       <div class="vj-page vj-page-r">
+        <div class="vj-page-hdr">🗺 Por Descubrir</div>
+        <div class="vj-ghost-grid" id="vjDiscoverGrid"></div>
+       </div>
       </div>
      </div>
     </div>
@@ -2288,8 +2306,8 @@ function renderViajeAlbum(){
   const dGrid=document.getElementById('vjDiscoverGrid');
   if(dGrid){
     const MAX=8;const show=undiscovered.slice(0,MAX);const remaining=undiscovered.length-MAX;
-    let html=show.map(item=>`<div class="vj-ghost-card"><div class="vj-ghost-ico">${VJ_LANDMARKS[item.id]||'🌍'}</div><div class="vj-ghost-name">${item.nombre}</div></div>`).join('');
-    if(remaining>0)html+=`<div class="vj-ghost-more"><span style="font-size:1.1rem;opacity:.4">🗺️</span>Y muchos más<br>por conocer...</div>`;
+    let html=show.map(item=>`<div class="vj-ghost-card"><span class="vj-ghost-ico">${VJ_LANDMARKS[item.id]||'🌍'}</span><span class="vj-ghost-name">${item.nombre}</span><span class="vj-ghost-dot"></span></div>`).join('');
+    if(remaining>0)html+=`<div class="vj-ghost-more">Y ${remaining} destinos más esperándote...</div>`;
     dGrid.innerHTML=html;
   }
 }
