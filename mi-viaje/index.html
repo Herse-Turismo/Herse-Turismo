@@ -1369,10 +1369,14 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       </div>
      </div>
     </div>
-    <div class="al-tabs">
-     <button class="al-tab active" onclick="selectAlbumTab(this,0)">🌎 América</button>
-     <button class="al-tab" onclick="selectAlbumTab(this,1)">🌍 Europa</button>
-     <button class="al-tab" onclick="selectAlbumTab(this,2)">🌏 Asia & Oceanía</button>
+    <div class="al-tabs" style="overflow-x:auto;white-space:nowrap;flex-wrap:nowrap">
+     <button class="al-tab active" onclick="selectAlbumTab(this,0)">🌎 Sudamérica</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,1)">🌎 Centroamérica</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,2)">🌎 Norteamérica</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,3)">🌍 Europa</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,4)">🌏 Asia</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,5)">🌏 Oceanía</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,6)">🌍 África</button>
     </div>
     <div class="al-grid" id="alGrid"></div>
     <div id="alLogros"></div>
@@ -2183,6 +2187,15 @@ const VIAJE_PAGES=[
   {tab:'Europa',left:{title:'EUROPA',icon:'🌍',items:[{id:'esp',nombre:'España',code:'ES'},{id:'ita',nombre:'Italia',code:'IT'},{id:'fra',nombre:'Francia',code:'FR'},{id:'ale',nombre:'Alemania',code:'DE'},{id:'por',nombre:'Portugal',code:'PT'},{id:'ing',nombre:'Inglaterra',code:'GB'}]},right:{title:'EUROPA (cont.)',icon:'🌍',items:[{id:'gre',nombre:'Grecia',code:'GR'},{id:'hol',nombre:'Holanda',code:'NL'},{id:'bel',nombre:'Bélgica',code:'BE'},{id:'sui',nombre:'Suiza',code:'CH'}]}},
   {tab:'Asia & Oceanía',left:{title:'ASIA & MEDIO ORIENTE',icon:'🌏',items:[{id:'jpn',nombre:'Japón',code:'JP'},{id:'tai',nombre:'Tailandia',code:'TH'},{id:'tur',nombre:'Turquía',code:'TR'},{id:'dub',nombre:'Dubai',code:'AE'}]},right:{title:'OCEANÍA & ÁFRICA',icon:'🌏',items:[{id:'aus',nombre:'Australia',code:'AU'},{id:'egy',nombre:'Egipto',code:'EG'},{id:'mar',nombre:'Marruecos',code:'MA'},{id:'nzl',nombre:'Nueva Zelanda',code:'NZ'}]}},
 ];
+const ALBUM_REGIONS=[
+  {tab:'🌎 Sudamérica',items:[{id:'arg',nombre:'Argentina',code:'AR'},{id:'bra',nombre:'Brasil',code:'BR'},{id:'chi',nombre:'Chile',code:'CL'},{id:'col',nombre:'Colombia',code:'CO'},{id:'per',nombre:'Perú',code:'PE'},{id:'uru',nombre:'Uruguay',code:'UY'},{id:'bol',nombre:'Bolivia',code:'BO'},{id:'ecu',nombre:'Ecuador',code:'EC'},{id:'par',nombre:'Paraguay',code:'PY'},{id:'ven',nombre:'Venezuela',code:'VE'}]},
+  {tab:'🌎 Centroamérica',items:[{id:'mex',nombre:'México',code:'MX'},{id:'cub',nombre:'Cuba',code:'CU'},{id:'cri',nombre:'Costa Rica',code:'CR'},{id:'pan',nombre:'Panamá',code:'PA'},{id:'dom',nombre:'Rep. Dominicana',code:'DO'},{id:'gua',nombre:'Guatemala',code:'GT'},{id:'jam',nombre:'Jamaica',code:'JM'}]},
+  {tab:'🌎 Norteamérica',items:[{id:'usa',nombre:'Estados Unidos',code:'US'},{id:'can',nombre:'Canadá',code:'CA'}]},
+  {tab:'🌍 Europa',items:[{id:'esp',nombre:'España',code:'ES'},{id:'ita',nombre:'Italia',code:'IT'},{id:'fra',nombre:'Francia',code:'FR'},{id:'ale',nombre:'Alemania',code:'DE'},{id:'por',nombre:'Portugal',code:'PT'},{id:'ing',nombre:'Inglaterra',code:'GB'},{id:'gre',nombre:'Grecia',code:'GR'},{id:'hol',nombre:'Holanda',code:'NL'},{id:'bel',nombre:'Bélgica',code:'BE'},{id:'sui',nombre:'Suiza',code:'CH'},{id:'irl',nombre:'Irlanda',code:'IE'},{id:'cro',nombre:'Croacia',code:'HR'}]},
+  {tab:'🌏 Asia',items:[{id:'jpn',nombre:'Japón',code:'JP'},{id:'tai',nombre:'Tailandia',code:'TH'},{id:'dub',nombre:'Dubai',code:'AE'},{id:'tur',nombre:'Turquía',code:'TR'},{id:'chn',nombre:'China',code:'CN'},{id:'ind',nombre:'India',code:'IN'},{id:'vie',nombre:'Vietnam',code:'VN'},{id:'idn',nombre:'Indonesia',code:'ID'}]},
+  {tab:'🌏 Oceanía',items:[{id:'aus',nombre:'Australia',code:'AU'},{id:'nzl',nombre:'Nueva Zelanda',code:'NZ'}]},
+  {tab:'🌍 África',items:[{id:'egy',nombre:'Egipto',code:'EG'},{id:'mar',nombre:'Marruecos',code:'MA'},{id:'zaf',nombre:'Sudáfrica',code:'ZA'},{id:'tan',nombre:'Tanzania',code:'TZ'},{id:'ken',nombre:'Kenia',code:'KE'}]},
+];
 let _viajeSelladosSet=new Set();
 let _viajeCurrentTab=0;
 let _futbolCurrentTab=0;
@@ -2343,12 +2356,15 @@ function initViajePassport(historialData){
         side.items.forEach(item=>{if(matchesDestino(v.destino,item.nombre))_viajeSelladosSet.add(item.id);});
       });
     });
+    ALBUM_REGIONS.forEach(rg=>{
+      rg.items.forEach(item=>{if(matchesDestino(v.destino,item.nombre))_viajeSelladosSet.add(item.id);});
+    });
   });
   updateViajeDonut();
   renderViajeAlbum();
 }
 function updateAlbumProgress(){
-  const total=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
+  const total=ALBUM_REGIONS.reduce((s,r)=>s+r.items.length,0);
   const count=_viajeSelladosSet.size;
   const pct=total?Math.round((count/total)*100):0;
   const fill=document.getElementById('al-prog-fill');if(fill)setTimeout(()=>fill.style.width=pct+'%',300);
@@ -2387,8 +2403,8 @@ function selectAlbumTab(btn,idx){
 }
 function renderAlbum(){
   const grid=document.getElementById('alGrid');if(!grid)return;
-  const pg=VIAJE_PAGES[_albumCurrentTab];
-  const items=[...pg.left.items,...pg.right.items];
+  const rg=ALBUM_REGIONS[_albumCurrentTab]||ALBUM_REGIONS[0];
+  const items=rg.items;
   grid.innerHTML=items.map((item,i)=>{
     const visited=_viajeSelladosSet.has(item.id);
     const flagUrl=`https://flagcdn.com/w80/${item.code.toLowerCase()}.png`;
@@ -2421,15 +2437,20 @@ function stampViaje(itemId){
 function renderAlbumLogros(){
   const wrap=document.getElementById('alLogros');if(!wrap)return;
   const count=_viajeSelladosSet.size;
-  const americasItems=[...VIAJE_PAGES[0].left.items,...VIAJE_PAGES[0].right.items];
-  const europaItems=[...VIAJE_PAGES[1].left.items,...VIAJE_PAGES[1].right.items];
-  const americas=americasItems.filter(i=>_viajeSelladosSet.has(i.id)).length;
-  const europa=europaItems.filter(i=>_viajeSelladosSet.has(i.id)).length;
+  const sudamCount=[...ALBUM_REGIONS[0].items].filter(i=>_viajeSelladosSet.has(i.id)).length;
+  const centroCount=[...ALBUM_REGIONS[1].items].filter(i=>_viajeSelladosSet.has(i.id)).length;
+  const europaCount=[...ALBUM_REGIONS[3].items].filter(i=>_viajeSelladosSet.has(i.id)).length;
+  const asiaCount=[...ALBUM_REGIONS[4].items].filter(i=>_viajeSelladosSet.has(i.id)).length;
+  const africaCount=[...ALBUM_REGIONS[6].items].filter(i=>_viajeSelladosSet.has(i.id)).length;
   const logros=[
     {ico:'✈️',name:'Primer despegue',desc:'Sellá tu primer destino',done:count>=1},
-    {ico:'🌎',name:'Explorador de América',desc:'Visitá 3 países americanos',done:americas>=3},
-    {ico:'🌍',name:'Europeo honorario',desc:'Visitá 3 países europeos',done:europa>=3},
-    {ico:'🗺️',name:'Viajero global',desc:'Sellá 10 países en total',done:count>=10},
+    {ico:'🌎',name:'Sudamericano de corazón',desc:'Visitá 5 países de Sudamérica',done:sudamCount>=5},
+    {ico:'🌴',name:'Caribeño honorario',desc:'Visitá 3 países de Centroamérica',done:centroCount>=3},
+    {ico:'🌍',name:'Europeo honorario',desc:'Visitá 4 países europeos',done:europaCount>=4},
+    {ico:'🌏',name:'Viajero de Asia',desc:'Visitá 3 países asiáticos',done:asiaCount>=3},
+    {ico:'🌍',name:'Explorador africano',desc:'Visitá 2 países de África',done:africaCount>=2},
+    {ico:'🗺️',name:'Viajero global',desc:'Sellá 15 países en total',done:count>=15},
+    {ico:'🏆',name:'Globetrotter',desc:'Sellá 25 países en total',done:count>=25},
   ];
   wrap.innerHTML=`<div class="al-logros-wrap"><div class="al-logros-hdr"><i class="fas fa-trophy" style="color:#f59e0b;margin-right:7px"></i>Logros del viajero</div><div class="al-logros-grid">${
     logros.map(l=>`<div class="al-logro${l.done?' done':''}">
