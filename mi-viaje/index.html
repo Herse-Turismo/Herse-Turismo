@@ -616,13 +616,17 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .vj-stat-card-sub{font-size:.62rem;color:var(--tx2);margin-top:3px}
 .vj-stat-card-arrow{margin-left:auto;color:var(--tx3);font-size:.75rem;flex-shrink:0}
 /* ── ÁLBUM — contenedor con fondo fotográfico ── */
-.vj-album{border-radius:22px;overflow:visible;position:relative;background:#120700;padding:36px 26px;margin-bottom:20px}
-.vj-album-bg{position:absolute;inset:0;border-radius:22px;overflow:hidden;background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1400&q=80'),url('https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?w=1400&q=75');background-size:cover;background-position:center top;opacity:.6;filter:sepia(.6) brightness(.68) saturate(1.2)}
+.vj-album{border-radius:22px;overflow:visible;position:relative;padding:36px 26px;margin-bottom:20px;background:repeating-linear-gradient(87.5deg,transparent,transparent 6px,rgba(0,0,0,.022) 6px,rgba(0,0,0,.022) 7px),repeating-linear-gradient(92.5deg,transparent,transparent 10px,rgba(255,255,255,.012) 10px,rgba(255,255,255,.012) 11px),linear-gradient(150deg,#1e0b03 0%,#4a1d08 22%,#78360e 42%,#8a4214 58%,#5a2809 78%,#281003 100%)}
+.vj-album-bg{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 12% 90%,rgba(220,160,70,.16) 0%,transparent 50%),radial-gradient(ellipse 60% 50% at 88% 12%,rgba(190,130,50,.12) 0%,transparent 45%),repeating-linear-gradient(0deg,rgba(215,175,90,.055) 0,rgba(215,175,90,.055) 1px,transparent 1px,transparent 72px),repeating-linear-gradient(90deg,rgba(215,175,90,.055) 0,rgba(215,175,90,.055) 1px,transparent 1px,transparent 98px),radial-gradient(ellipse at 50% 50%,transparent 15%,rgba(0,0,0,.55) 100%);opacity:1;filter:none}
 /* ── LIBRO — cubierta de cuero + drop-shadow físico ── */
-.vj-book-outer{position:relative;filter:drop-shadow(0 42px 64px rgba(0,0,0,.75)) drop-shadow(0 8px 24px rgba(0,0,0,.55)) drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.vj-book-outer{position:relative;z-index:1;filter:drop-shadow(0 44px 68px rgba(0,0,0,.78)) drop-shadow(0 10px 28px rgba(0,0,0,.58)) drop-shadow(0 2px 8px rgba(0,0,0,.42))}
 .vj-book-outer::before,.vj-book-outer::after{content:'';position:absolute;top:6px;bottom:6px;width:13px;z-index:3;background:linear-gradient(180deg,#6b3f0a 0%,#b8720e 35%,#e8a82a 55%,#b8720e 75%,#6b3f0a 100%)}
 .vj-book-outer::before{left:-12px;border-radius:5px 0 0 5px;box-shadow:-4px 0 10px rgba(0,0,0,.4)}
 .vj-book-outer::after{right:-12px;border-radius:0 5px 5px 0;box-shadow:4px 0 10px rgba(0,0,0,.4)}
+/* ── BRUJULA decorativa (inf-izq) ── */
+.vj-album::before{content:'';position:absolute;bottom:28px;left:28px;width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(215,172,88,.3);box-shadow:0 0 0 5px rgba(215,172,88,.07),0 0 0 12px rgba(215,172,88,.04),3px 5px 18px rgba(0,0,0,.42);background:linear-gradient(45deg,rgba(215,172,88,.06) 0%,transparent 50%),linear-gradient(0deg,transparent 46%,rgba(215,172,88,.22) 46%,rgba(215,172,88,.22) 54%,transparent 54%),linear-gradient(90deg,transparent 46%,rgba(215,172,88,.22) 46%,rgba(215,172,88,.22) 54%,transparent 54%),linear-gradient(135deg,transparent 46%,rgba(215,172,88,.1) 46%,rgba(215,172,88,.1) 54%,transparent 54%),radial-gradient(circle at center,rgba(155,110,40,.1) 0%,transparent 65%);z-index:0;pointer-events:none}
+/* ── POLAROID decorativo (sup-der) ── */
+.vj-album::after{content:'';position:absolute;top:26px;right:26px;width:54px;height:66px;background:linear-gradient(160deg,rgba(250,244,230,.12),rgba(240,230,205,.08));border:1px solid rgba(250,244,230,.2);border-bottom-width:16px;border-radius:2px;transform:rotate(10deg);box-shadow:3px 5px 18px rgba(0,0,0,.42),inset 0 0 0 3px rgba(250,244,230,.04);z-index:0;pointer-events:none}
 .vj-book{display:flex;border-radius:4px;overflow:hidden;min-height:560px;position:relative}
 /* ── PÁGINAS — textura de papel con líneas horizontales ── */
 .vj-page{flex:1;padding:24px 26px;position:relative;min-width:0}
