@@ -623,11 +623,11 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .vj-book-outer::before,.vj-book-outer::after{content:'';position:absolute;top:6px;bottom:6px;width:13px;z-index:3;background:linear-gradient(180deg,#6b3f0a 0%,#b8720e 35%,#e8a82a 55%,#b8720e 75%,#6b3f0a 100%)}
 .vj-book-outer::before{left:-12px;border-radius:5px 0 0 5px;box-shadow:-4px 0 10px rgba(0,0,0,.4)}
 .vj-book-outer::after{right:-12px;border-radius:0 5px 5px 0;box-shadow:4px 0 10px rgba(0,0,0,.4)}
-.vj-book{display:flex;border-radius:4px;overflow:hidden;min-height:430px;position:relative}
+.vj-book{display:flex;border-radius:4px;overflow:hidden;min-height:480px;position:relative}
 /* ── PÁGINAS — textura de papel con líneas horizontales ── */
 .vj-page{flex:1;padding:22px 24px;position:relative;min-width:0}
-.vj-page-l{background:repeating-linear-gradient(transparent,transparent 31px,rgba(110,70,15,.07) 31px,rgba(110,70,15,.07) 32px),linear-gradient(108deg,#faf7ee 0%,#ece3c8 100%);box-shadow:inset -8px 0 20px rgba(0,0,0,.06)}
-.vj-page-r{background:repeating-linear-gradient(transparent,transparent 31px,rgba(110,70,15,.07) 31px,rgba(110,70,15,.07) 32px),linear-gradient(252deg,#faf7ee 0%,#ece3c8 100%);box-shadow:inset 8px 0 20px rgba(0,0,0,.04)}
+.vj-page-l{background:radial-gradient(ellipse at 20% 80%,rgba(200,160,80,.06) 0%,transparent 60%),linear-gradient(108deg,#faf7ee 0%,#ece3c8 100%);box-shadow:inset -8px 0 22px rgba(0,0,0,.07)}
+.vj-page-r{background:radial-gradient(ellipse at 80% 80%,rgba(200,160,80,.06) 0%,transparent 60%),linear-gradient(252deg,#faf7ee 0%,#ece3c8 100%);box-shadow:inset 8px 0 22px rgba(0,0,0,.05)}
 /* ── PLIEGUE CENTRAL ── */
 .vj-spine{width:26px;flex-shrink:0;position:relative;background:linear-gradient(to right,rgba(0,0,0,.32) 0%,rgba(0,0,0,.06) 35%,rgba(255,255,255,.08) 50%,rgba(0,0,0,.06) 65%,rgba(0,0,0,.28) 100%)}
 .vj-spine::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,#9a6015,#d4903a 45%,#f0c060 55%,#d4903a 65%,#9a6015 100%);opacity:.6}
@@ -658,15 +658,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .vj-stamp-empty-ico{font-size:0;opacity:0}
 .vj-stamp-empty-txt{font-size:5.5px;color:rgba(120,85,35,.4);text-align:center;line-height:1.6;font-family:Georgia,serif;font-style:italic}
 .vj-page-quote{margin-top:14px;font-family:Georgia,serif;font-style:italic;font-size:.62rem;color:#9b7040;text-align:center;line-height:1.85;padding-top:10px;border-top:1px dashed rgba(122,78,26,.22)}
-/* ── POR DESCUBRIR — entradas de diario editorial ── */
-.vj-ghost-grid{display:flex;flex-direction:column;gap:0}
-.vj-ghost-card{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid rgba(100,65,15,.1);background:none;border-radius:0;cursor:default;transition:.12s}
-.vj-ghost-card:first-child{border-top:1px solid rgba(100,65,15,.1)}
-.vj-ghost-card:hover{background:rgba(255,255,255,.38);padding-left:8px;border-radius:4px;border-color:transparent}
-.vj-ghost-ico{font-size:1.05rem;opacity:.45;width:22px;text-align:center;flex-shrink:0;line-height:1}
-.vj-ghost-name{font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#6b4a18;font-family:Georgia,serif;flex:1}
-.vj-ghost-dot{width:5px;height:5px;border-radius:50%;background:rgba(120,80,20,.2);flex-shrink:0}
-.vj-ghost-more{padding:8px 4px;font-size:.6rem;color:#9b7040;font-style:italic;font-family:Georgia,serif;text-align:center;border-top:1px dashed rgba(100,65,15,.15)}
+/* ── POR DESCUBRIR — grilla visual con SVG landmarks ── */
+.vj-ghost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.vj-ghost-card{background:rgba(255,255,255,.5);border:1.5px solid rgba(100,65,15,.12);border-radius:8px;padding:12px 5px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;transition:.15s;cursor:default}
+.vj-ghost-card:hover{background:rgba(255,255,255,.75);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.vj-ghost-svg-wrap{width:44px;height:44px;display:flex;align-items:center;justify-content:center;opacity:.42}
+.vj-ghost-svg-wrap svg{width:100%;height:100%;stroke:rgba(80,50,10,.85);fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vj-ghost-ico{display:none}
+.vj-ghost-name{font-size:.54rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:rgba(90,55,12,.72);text-align:center;font-family:Georgia,serif;line-height:1.2}
+.vj-ghost-dot{display:none}
+.vj-ghost-more{background:rgba(255,255,255,.32);border:1.5px dashed rgba(100,65,15,.18);border-radius:8px;padding:12px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.51rem;color:rgba(100,65,15,.55);font-style:italic;text-align:center;line-height:1.5}
 .vj-bottom-bar{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:0}
 .vj-bstat{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
 .vj-bstat-ico{font-size:1.25rem;flex-shrink:0}
@@ -2244,6 +2245,37 @@ const _IPS=8; /* items per spread (4 per page) */
 /* ── PASAPORTE VIAJE — constantes álbum ── */
 const VJ_STAMP_COLORS={arg:'#1d4ed8',bra:'#16a34a',chi:'#dc2626',col:'#d97706',per:'#92400e',uru:'#7c3aed',mex:'#15803d',usa:'#2563eb',can:'#dc2626',esp:'#dc2626',ita:'#16a34a',fra:'#1d4ed8',ale:'#374151',por:'#b91c1c',ing:'#1e3a8a',gre:'#0284c7',hol:'#dc2626',bel:'#d97706',sui:'#dc2626',jpn:'#dc2626',tai:'#d97706',tur:'#dc2626',dub:'#ca8a04',aus:'#c2410c',egy:'#ca8a04',mar:'#dc2626',nzl:'#15803d'};
 const VJ_LANDMARKS={arg:'🏔️',bra:'🌊',chi:'🏔️',col:'☕',per:'🦙',uru:'⚽',mex:'🌵',usa:'🗽',can:'🍁',esp:'⛪',ita:'🏛️',fra:'🗼',ale:'🏰',por:'⛵',ing:'🎡',gre:'🏛️',hol:'🌷',bel:'🍫',sui:'⛷️',jpn:'⛩️',tai:'🛕',tur:'🕌',dub:'🌆',aus:'🦘',egy:'🔺',mar:'🕌',nzl:'🌿'};
+/* SVG landmarks para ghost cards (línea art) */
+const VJ_SVG_GHOST={
+arg:`<svg viewBox="0 0 36 36" stroke-width="1.5"><polygon points="18,4 15,30 21,30"/><rect x="14" y="30" width="8" height="4" rx="1"/></svg>`,
+bra:`<svg viewBox="0 0 36 36" stroke-width="1.5"><circle cx="18" cy="6" r="2.5"/><line x1="18" y1="8" x2="18" y2="18"/><line x1="10" y1="13" x2="26" y2="13"/><path d="M14 18l4 12 4-12"/><path d="M5 28 Q18 24 31 28 Q29 34 7 34z"/></svg>`,
+chi:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M2 30L13 8l9 12 4-6 10 16z"/><line x1="2" y1="30" x2="34" y2="30"/></svg>`,
+col:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M4 28L12 12l8 10 8-12 6 18z"/><line x1="4" y1="28" x2="34" y2="28"/></svg>`,
+per:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M4 28h8v-6h6v-6h6v-6h8"/><line x1="4" y1="28" x2="34" y2="28"/><line x1="4" y1="30" x2="4" y2="28"/><line x1="12" y1="30" x2="12" y2="22"/><line x1="18" y1="30" x2="18" y2="16"/><line x1="24" y1="30" x2="24" y2="10"/><line x1="32" y1="30" x2="32" y2="10"/></svg>`,
+uru:`<svg viewBox="0 0 36 36" stroke-width="1.5"><rect x="8" y="20" width="20" height="12"/><path d="M12 20v-4a6 6 0 0 1 12 0v4"/><line x1="14" y1="20" x2="14" y2="32"/><line x1="18" y1="20" x2="18" y2="32"/><line x1="22" y1="20" x2="22" y2="32"/><line x1="18" y1="10" x2="18" y2="4"/></svg>`,
+mex:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M4 30L18 4 32 30z"/><path d="M8 30v-4h20v4"/><path d="M12 26v-4h12v4"/><path d="M15 22v-4h6v4"/></svg>`,
+usa:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M18 2l-1 5h2l-1-5"/><path d="M17 7c-5 3-7 9-4 14"/><path d="M19 7c5 3 7 9 4 14"/><path d="M13 10h-2l1 11"/><path d="M23 10h2l-1 11"/><rect x="14" y="21" width="8" height="13"/><line x1="14" y1="28" x2="22" y2="28"/></svg>`,
+can:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M18 4l-3 7-5-1 4 5-2 2 6-1 6 1-2-2 4-5-5 1z"/><line x1="18" y1="15" x2="18" y2="32"/></svg>`,
+esp:`<svg viewBox="0 0 36 36" stroke-width="1.5"><line x1="7" y1="8" x2="7" y2="22"/><path d="M5 8l2-5 2 5"/><line x1="18" y1="3" x2="18" y2="22"/><path d="M16 3l2-5 2 5"/><line x1="29" y1="8" x2="29" y2="22"/><path d="M27 8l2-5 2 5"/><rect x="5" y="22" width="26" height="12"/><path d="M14 34v-8a4 4 0 0 1 8 0v8"/></svg>`,
+ita:`<svg viewBox="0 0 36 36" stroke-width="1.5"><ellipse cx="18" cy="27" rx="15" ry="7"/><ellipse cx="18" cy="21" rx="15" ry="7"/><ellipse cx="18" cy="15" rx="15" ry="7"/><line x1="3" y1="15" x2="3" y2="27"/><line x1="33" y1="15" x2="33" y2="27"/></svg>`,
+fra:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M18 2l-1 6h2l-1-6"/><path d="M17 8l-2 7h6l-2-7"/><path d="M15 15l-4 8h14l-4-8"/><path d="M11 23l-6 11h26l-6-11"/><line x1="7" y1="29" x2="29" y2="29"/></svg>`,
+ale:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M4 18L18 8l14 10"/><rect x="4" y="18" width="28" height="14"/><line x1="8" y1="18" x2="8" y2="32"/><line x1="14" y1="18" x2="14" y2="32"/><line x1="18" y1="10" x2="18" y2="32"/><line x1="22" y1="18" x2="22" y2="32"/><line x1="28" y1="18" x2="28" y2="32"/><line x1="18" y1="4" x2="18" y2="8"/></svg>`,
+por:`<svg viewBox="0 0 36 36" stroke-width="1.5"><rect x="12" y="14" width="12" height="20"/><path d="M14 14V8a4 4 0 0 1 8 0v6"/><line x1="15" y1="18" x2="15" y2="34"/><line x1="18" y1="16" x2="18" y2="34"/><line x1="21" y1="18" x2="21" y2="34"/><path d="M12 26h12"/></svg>`,
+ing:`<svg viewBox="0 0 36 36" stroke-width="1.5"><rect x="12" y="16" width="12" height="18"/><rect x="10" y="12" width="16" height="6"/><path d="M14 12V6a4 4 0 0 1 8 0v6"/><circle cx="18" cy="20" r="3"/><line x1="18" y1="4" x2="18" y2="2"/></svg>`,
+gre:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M3 16h30l-15-9z"/><line x1="6" y1="16" x2="6" y2="28"/><line x1="11" y1="16" x2="11" y2="28"/><line x1="16" y1="16" x2="16" y2="28"/><line x1="20" y1="16" x2="20" y2="28"/><line x1="25" y1="16" x2="25" y2="28"/><line x1="30" y1="16" x2="30" y2="28"/><rect x="3" y="28" width="30" height="4"/></svg>`,
+hol:`<svg viewBox="0 0 36 36" stroke-width="1.5"><rect x="14" y="18" width="8" height="16"/><circle cx="18" cy="17" r="3"/><line x1="18" y1="14" x2="11" y2="7"/><line x1="11" y1="7" x2="18" y2="11"/><line x1="18" y1="14" x2="25" y2="7"/><line x1="25" y1="7" x2="18" y2="11"/><line x1="15" y1="16" x2="7" y2="20"/><line x1="7" y1="20" x2="11" y2="14.5"/></svg>`,
+bel:`<svg viewBox="0 0 36 36" stroke-width="1.5"><circle cx="18" cy="9" r="3.5"/><circle cx="8" cy="22" r="3.5"/><circle cx="28" cy="22" r="3.5"/><circle cx="18" cy="33" r="3.5"/><line x1="18" y1="12.5" x2="18" y2="29.5"/><line x1="11.5" y1="20" x2="24.5" y2="20"/><line x1="10.5" y1="24" x2="15.5" y2="30"/><line x1="25.5" y1="24" x2="20.5" y2="30"/><line x1="11" y1="19" x2="15.5" y2="12"/><line x1="25" y1="19" x2="20.5" y2="12"/></svg>`,
+sui:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M18 4L8 28h20z"/><path d="M13 16 Q18 12 23 16"/><line x1="8" y1="28" x2="28" y2="28"/></svg>`,
+jpn:`<svg viewBox="0 0 36 36" stroke-width="2"><line x1="9" y1="10" x2="9" y2="32"/><line x1="27" y1="10" x2="27" y2="32"/><path d="M4 12 Q18 5 32 12"/><line x1="5" y1="18" x2="31" y2="18"/></svg>`,
+tai:`<svg viewBox="0 0 36 36" stroke-width="1.5"><line x1="18" y1="2" x2="18" y2="8"/><path d="M16 8l-2 4h8l-2-4"/><path d="M14 12l-3 4h14l-3-4"/><rect x="10" y="16" width="16" height="18"/><rect x="14" y="22" width="8" height="12"/></svg>`,
+tur:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M18 4l-2 6h4l-2-6"/><path d="M16 10l-4 5h12l-4-5"/><rect x="8" y="15" width="20" height="18"/><path d="M14 33v-8h8v8"/><circle cx="12" cy="20" r="2"/><circle cx="24" cy="20" r="2"/></svg>`,
+dub:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M18 2l-1 4h2l-1-4"/><path d="M17 6l-2 8h6l-2-8"/><path d="M15 14l-2 6h10l-2-6"/><path d="M13 20l-2 12h14l-2-12"/><line x1="11" y1="32" x2="25" y2="32"/></svg>`,
+aus:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M5 28 Q10 8 20 15 Q22 6 30 28"/><path d="M18 28 Q24 12 32 28"/><line x1="3" y1="28" x2="33" y2="28"/></svg>`,
+egy:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M8 30L18 6l10 24z"/><path d="M2 30l8-16 8 16z"/><line x1="2" y1="30" x2="34" y2="30"/></svg>`,
+mar:`<svg viewBox="0 0 36 36" stroke-width="1.5"><rect x="10" y="10" width="16" height="24"/><path d="M14 10V6a4 4 0 0 1 8 0v4"/><path d="M13 22v-6a5 5 0 0 1 10 0v6"/><line x1="10" y1="34" x2="26" y2="34"/></svg>`,
+nzl:`<svg viewBox="0 0 36 36" stroke-width="1.5"><path d="M2 30L12 10 18 20 24 14 34 30z"/><line x1="2" y1="30" x2="34" y2="30"/></svg>`,
+};
+const VJ_SVG_GLOBE=`<svg viewBox="0 0 36 36" fill="none" stroke="rgba(140,100,40,.22)" stroke-width="1.2" stroke-linecap="round"><circle cx="18" cy="18" r="11"/><ellipse cx="18" cy="18" rx="5" ry="11"/><path d="M7.5 14.5 Q18 12 28.5 14.5"/><path d="M7.5 21.5 Q18 24 28.5 21.5"/></svg>`;
 function getVjStampDate(nombre){
   const now=new Date();
   const trip=(_allTrips||[]).filter(t=>!t.activo&&new Date(t.fecha_regreso)<=now&&matchesDestino(t.destino,nombre)).sort((a,b)=>new Date(b.fecha_salida)-new Date(a.fecha_salida))[0];
@@ -2298,7 +2330,7 @@ function renderViajeAlbum(){
         const dt=getVjStampDate(item.nombre);
         html+=`<div class="vj-stamp"><div class="vj-stamp-seal" style="--sc:${sc}"><img class="vj-stamp-flag-img" src="${flagUrl}" alt="${item.nombre}" onerror="this.outerHTML='<span style=\\'font-size:1.6rem\\'>${getFlag(item.nombre)||'🌍'}</span>'"><div class="vj-stamp-name-lbl" style="color:${sc}">${item.nombre.toUpperCase()}</div>${dt?`<div class="vj-stamp-date-lbl">Visitado ${dt}</div>`:''}</div><div class="vj-stamp-visited-txt">✔ Visitado</div></div>`;
       }else{
-        html+=`<div class="vj-stamp vj-stamp-empty"><div class="vj-stamp-seal"><span class="vj-stamp-empty-ico">🌍</span><span class="vj-stamp-empty-txt">Tu próxima<br>aventura</span></div></div>`;
+        html+=`<div class="vj-stamp vj-stamp-empty"><div class="vj-stamp-seal">${VJ_SVG_GLOBE}<span class="vj-stamp-empty-txt">Tu próxima<br>aventura</span></div></div>`;
       }
     }
     vGrid.innerHTML=html;
@@ -2306,8 +2338,12 @@ function renderViajeAlbum(){
   const dGrid=document.getElementById('vjDiscoverGrid');
   if(dGrid){
     const MAX=8;const show=undiscovered.slice(0,MAX);const remaining=undiscovered.length-MAX;
-    let html=show.map(item=>`<div class="vj-ghost-card"><span class="vj-ghost-ico">${VJ_LANDMARKS[item.id]||'🌍'}</span><span class="vj-ghost-name">${item.nombre}</span><span class="vj-ghost-dot"></span></div>`).join('');
-    if(remaining>0)html+=`<div class="vj-ghost-more">Y ${remaining} destinos más esperándote...</div>`;
+    const fallbackSvg=`<svg viewBox="0 0 36 36" stroke-width="1.5"><circle cx="18" cy="18" r="10"/><ellipse cx="18" cy="18" rx="4" ry="10"/><line x1="8" y1="18" x2="28" y2="18"/></svg>`;
+    let html=show.map(item=>{
+      const svgIcon=VJ_SVG_GHOST[item.id]||fallbackSvg;
+      return `<div class="vj-ghost-card"><div class="vj-ghost-svg-wrap">${svgIcon}</div><span class="vj-ghost-name">${item.nombre}</span></div>`;
+    }).join('');
+    if(remaining>0)html+=`<div class="vj-ghost-more"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" width="18" height="18" style="opacity:.35;display:block;margin:0 auto 3px"><circle cx="10" cy="10" r="7"/><ellipse cx="10" cy="10" rx="3" ry="7"/><line x1="3" y1="10" x2="17" y2="10"/></svg>Y ${remaining} más<br>por conocer…</div>`;
     dGrid.innerHTML=html;
   }
 }
