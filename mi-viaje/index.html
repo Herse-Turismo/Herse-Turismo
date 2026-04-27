@@ -577,9 +577,25 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .hv-dates{font-size:.64rem;color:var(--tx2);display:flex;align-items:center;gap:5px;margin-bottom:9px}
 .hv-chips{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:0}
 .hv-chip{font-size:.59rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--bd);color:var(--tx2)}
-.hv-cta{width:100%;margin-top:11px;padding:8px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.73rem;font-weight:700;cursor:pointer;font-family:inherit;opacity:0;transition:opacity .2s;display:block}
-.hv-card:hover .hv-cta{opacity:1}
+.hv-cta{width:100%;margin-top:11px;padding:8px;background:var(--bg);color:var(--ac);border:1.5px solid var(--bd);border-radius:8px;font-size:.73rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
+.hv-cta:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
 .hv-empty{text-align:center;padding:48px 0;color:var(--tx2);font-size:.82rem}
+/* HISTORIAL — mejoras */
+.hvs-sub{font-size:.58rem;color:var(--tx3);margin-top:2px;line-height:1.3}
+.hv-empty-big{text-align:center;padding:56px 20px;max-width:460px;margin:0 auto}
+.hv-empty-big-ico{font-size:4rem;margin-bottom:18px;display:block;filter:drop-shadow(0 4px 12px rgba(0,74,143,.12))}
+.hv-empty-big-ttl{font-size:1.15rem;font-weight:900;color:var(--tx);margin-bottom:10px}
+.hv-empty-big-sub{font-size:.78rem;color:var(--tx2);line-height:1.7;margin-bottom:24px}
+.hv-empty-big-cta{display:inline-flex;align-items:center;gap:9px;padding:12px 24px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none}
+.hv-empty-big-cta:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.hv-empty-filter{text-align:center;padding:40px 20px;color:var(--tx2)}
+.hv-empty-filter i{font-size:2.2rem;opacity:.2;display:block;margin-bottom:12px}
+.hv-empty-filter p{font-size:.78rem}
+.hv-passport-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:99px;font-size:.57rem;font-weight:700;background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}
+.hv-chip-hotel{background:#f0f9ff;border-color:#bae6fd;color:#0369a1}
+.hv-chip-vuelo{background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9}
+.hv-year-lbl{position:relative}
+.hv-year-txt{font-size:1.05rem;font-weight:900;color:var(--tx);display:flex;align-items:center;gap:8px}
 /* ── MI VIAJE REDESIGN ── */
 .mj-hero{position:relative;height:310px;border-radius:var(--r);overflow:hidden;margin-bottom:18px;box-shadow:0 8px 32px rgba(0,0,0,.18)}
 .mj-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:background-image .5s}
@@ -1161,10 +1177,10 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     </div>
     <!-- Stats -->
     <div class="hv-stats">
-     <div class="hvs-c"><div class="hvs-ico" style="background:#ebf1ff;color:var(--ac)"><i class="fas fa-plane"></i></div><div><div class="hvs-lbl">Total</div><div class="hvs-val" id="statTotal">—</div></div></div>
-     <div class="hvs-c"><div class="hvs-ico" style="background:#dcfce7;color:#16a34a"><i class="fas fa-check-circle"></i></div><div><div class="hvs-lbl">Completados</div><div class="hvs-val" id="statCompletados">—</div></div></div>
-     <div class="hvs-c"><div class="hvs-ico" style="background:#fef3c7;color:#d97706"><i class="fas fa-hourglass-half"></i></div><div><div class="hvs-lbl">Próximos</div><div class="hvs-val" id="statProximos">—</div></div></div>
-     <div class="hvs-c"><div class="hvs-ico" style="background:#f5f3ff;color:#7c3aed"><i class="fas fa-map-marker-alt"></i></div><div><div class="hvs-lbl">Países</div><div class="hvs-val" id="statPaises">—</div></div></div>
+     <div class="hvs-c"><div class="hvs-ico" style="background:#ebf1ff;color:var(--ac)"><i class="fas fa-plane"></i></div><div><div class="hvs-lbl">Total</div><div class="hvs-val" id="statTotal">—</div><div class="hvs-sub">Tus aventuras con Herse</div></div></div>
+     <div class="hvs-c"><div class="hvs-ico" style="background:#dcfce7;color:#16a34a"><i class="fas fa-check-circle"></i></div><div><div class="hvs-lbl">Completados</div><div class="hvs-val" id="statCompletados">—</div><div class="hvs-sub">Viajes que ya viviste</div></div></div>
+     <div class="hvs-c"><div class="hvs-ico" style="background:#fef3c7;color:#d97706"><i class="fas fa-hourglass-half"></i></div><div><div class="hvs-lbl">Próximos</div><div class="hvs-val" id="statProximos">—</div><div class="hvs-sub">Lo que se viene</div></div></div>
+     <div class="hvs-c"><div class="hvs-ico" style="background:#f5f3ff;color:#7c3aed"><i class="fas fa-map-marker-alt"></i></div><div><div class="hvs-lbl">Países</div><div class="hvs-val" id="statPaises">—</div><div class="hvs-sub">Destinos explorados</div></div></div>
     </div>
     <!-- Filtros -->
     <div class="hv-filters">
@@ -1905,7 +1921,19 @@ function renderAllTrips(){
     if(_tripTab==='completados')return !t.activo&&new Date(t.fecha_regreso)<=now;
     return true;
   }).sort((a,b)=>new Date(b.fecha_salida)-new Date(a.fecha_salida));
-  if(!list.length){wrap.innerHTML='<div class="hv-empty"><i class="fas fa-compass" style="font-size:2rem;opacity:.25;display:block;margin-bottom:10px"></i>No hay viajes en esta categoría.</div>';return;}
+  if(!list.length){
+    if(!_allTrips.length){
+      wrap.innerHTML='<div class="hv-empty-big">'
+        +'<span class="hv-empty-big-ico">🗺️</span>'
+        +'<div class="hv-empty-big-ttl">Todavía no tenés viajes cargados</div>'
+        +'<div class="hv-empty-big-sub">Cuando reserves con Herse, vas a poder ver todo tu historial acá.<br>Cada viaje queda registrado con fechas, destino, documentos y más.</div>'
+        +'<a href="https://wa.me/5492215661704" target="_blank" class="hv-empty-big-cta"><i class="fab fa-whatsapp"></i> Reservar con Herse</a>'
+        +'</div>';
+    } else {
+      wrap.innerHTML='<div class="hv-empty-filter"><i class="fas fa-filter"></i><p>No hay viajes en esta categoría.</p></div>';
+    }
+    return;
+  }
   const DEST_IMGS={
     brasil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=480&q=75',
     brazil:'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=480&q=75',
@@ -1962,17 +1990,22 @@ function renderAllTrips(){
       const thumb=img
         ?`<img src="${img}" alt="${t.destino}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'hv-card-ph\'>${flag}</div>'">`
         :`<div class="hv-card-ph">${flag}</div>`;
+      const vPais=VIAJE_PAGES.some(pg=>[...pg.left.items,...pg.right.items].some(i=>matchesDestino(t.destino,i.nombre)));
+      const ppBadge=vPais&&isPast?'<span class="hv-passport-badge">🗺️ Sello de viaje</span>':'';
+      const hotelChip=t.hotel?`<span class="hv-chip hv-chip-hotel"><i class="fas fa-hotel"></i> ${t.hotel}</span>`:'';
+      const vueloChip=t.vuelo_ida?`<span class="hv-chip hv-chip-vuelo"><i class="fas fa-plane-departure"></i> ${t.vuelo_ida}</span>`:'';
       return `<div class="hv-card">
         <div class="hv-card-img">${thumb}<div class="hv-img-ov"></div>${emo?`<div class="hv-emo">${emo}</div>`:''}<div class="hv-st ${stCls}">${stTxt}</div></div>
         <div class="hv-card-body">
           <div class="hv-dest">${flag} ${t.destino}</div>
-          <div class="hv-dates"><i class="fas fa-calendar-alt"></i> ${d1} &rarr; ${d2}</div>
-          <div class="hv-chips"><span class="hv-chip"><i class="fas fa-moon"></i> ${dur} noches</span><span class="hv-chip"><i class="fas fa-users"></i> ${t.pasajeros||t.pax||2} pax</span>${t.codigo?`<span class="hv-chip">${t.codigo}</span>`:''}</div>
-          <button class="hv-cta"><i class="fas fa-eye"></i> Ver detalles</button>
+          <div class="hv-dates"><i class="fas fa-calendar-alt"></i> ${d1} &rarr; ${d2} · <i class="fas fa-moon"></i> ${dur} noches</div>
+          <div class="hv-chips" style="margin-bottom:8px"><span class="hv-chip"><i class="fas fa-users"></i> ${t.pasajeros||t.pax||2} pax</span>${hotelChip}${vueloChip}${t.codigo?`<span class="hv-chip">${t.codigo}</span>`:''}</div>
+          ${ppBadge}
+          <button class="hv-cta" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-eye"></i> Ver detalles</button>
         </div>
       </div>`;
     }).join('');
-    return `<div class="hv-year-group"><div class="hv-year-lbl"><div class="hv-year-txt">${year}</div><div class="hv-year-line"></div><div class="hv-year-cnt">${trips.length} viaje${trips.length!==1?'s':''}</div></div><div class="hv-grid">${cards}</div></div>`;
+    return `<div class="hv-year-group"><div class="hv-year-lbl"><div class="hv-year-txt">✈️ ${year}</div><div class="hv-year-line"></div><div class="hv-year-cnt">${trips.length} viaje${trips.length!==1?'s':''}</div></div><div class="hv-grid">${cards}</div></div>`;
   }).join('');
 }
 /* LOYALTY */
