@@ -457,6 +457,14 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .trip-title{font-size:1.1rem}
   .hv-grid{grid-template-columns:1fr}
   .nt-cats{grid-template-columns:1fr 1fr}
+  .vj-top-stats{flex-direction:column}
+  .vj-book{flex-direction:column}
+  .vj-spine{width:100%;height:12px}
+  .vj-stamps-grid{grid-template-columns:repeat(3,1fr);gap:10px}
+  .vj-ghost-grid{grid-template-columns:repeat(3,1fr)}
+  .vj-stamp-seal{width:70px;height:70px}
+  .vj-bottom-bar{flex-wrap:wrap;gap:10px}
+  .vj-ver-btn{width:100%;justify-content:center;margin-left:0;margin-top:4px}
 }
 /* PASSPORT MINI DASHBOARD */
 .pp-mini-wrap{display:flex;align-items:center;gap:14px;padding:8px 0}
@@ -598,6 +606,59 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .hv-year-txt{font-size:1.05rem;font-weight:900;color:var(--tx);display:flex;align-items:center;gap:8px}
 .hv-year-sel{padding:7px 14px 7px 12px;border:1.5px solid var(--bd);border-radius:99px;background:var(--card);font-size:.73rem;font-weight:700;color:var(--tx2);cursor:pointer;font-family:inherit;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%2394a3b8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:26px}
 .hv-year-sel:focus{border-color:var(--ac);color:var(--tx)}
+/* ── PASAPORTE VIAJE — álbum ── */
+.vj-top-stats{display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.vj-stat-card{flex:1;min-width:160px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:.15s}
+.vj-stat-card[onclick]{cursor:pointer}.vj-stat-card[onclick]:hover{border-color:var(--ac);box-shadow:0 4px 14px rgba(0,74,143,.1)}
+.vj-stat-card-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.vj-stat-card-lbl{font-size:.57rem;text-transform:uppercase;letter-spacing:.9px;color:var(--tx3);margin-bottom:3px}
+.vj-stat-card-val{font-size:1.18rem;font-weight:900;color:var(--tx);line-height:1.1}
+.vj-stat-card-sub{font-size:.62rem;color:var(--tx2);margin-top:3px}
+.vj-stat-card-arrow{margin-left:auto;color:var(--tx3);font-size:.75rem;flex-shrink:0}
+.vj-album{border-radius:16px;overflow:hidden;position:relative;background:#1a0800;padding:14px;box-shadow:0 20px 60px rgba(0,0,0,.45);margin-bottom:16px}
+.vj-album-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?w=1200&q=70');background-size:cover;background-position:center;opacity:.3;filter:sepia(.45) brightness(.8)}
+.vj-book{position:relative;display:flex;border-radius:8px;overflow:hidden;min-height:400px;box-shadow:0 6px 32px rgba(0,0,0,.5)}
+.vj-page{flex:1;padding:22px 24px;position:relative;min-width:0}
+.vj-page-l{background:linear-gradient(108deg,#faf5ea 0%,#ede5cc 100%)}
+.vj-page-r{background:linear-gradient(252deg,#faf5ea 0%,#ede5cc 100%)}
+.vj-spine{width:22px;background:linear-gradient(to right,rgba(0,0,0,.25),rgba(255,255,255,.05) 50%,rgba(0,0,0,.25));flex-shrink:0;position:relative}
+.vj-spine::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,#b8843a,#e8c97a 50%,#b8843a);opacity:.5}
+.vj-page-hdr{font-size:.59rem;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:#7a4e1a;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1.5px solid rgba(122,78,26,.22);margin-bottom:16px}
+.vj-stamps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.vj-stamp{display:flex;flex-direction:column;align-items:center;gap:5px}
+.vj-stamp-seal{width:82px;height:82px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;background:#fff;box-shadow:0 0 0 2.5px #fff,0 0 0 5.5px var(--sc,#3b82f6),0 0 0 7.5px #fff,0 0 0 9.5px var(--sc,#3b82f6);overflow:hidden;transition:transform .2s,box-shadow .2s}
+.vj-stamp:nth-child(1) .vj-stamp-seal{transform:rotate(-4deg)}
+.vj-stamp:nth-child(2) .vj-stamp-seal{transform:rotate(2.5deg)}
+.vj-stamp:nth-child(3) .vj-stamp-seal{transform:rotate(-2deg)}
+.vj-stamp:nth-child(4) .vj-stamp-seal{transform:rotate(3.5deg)}
+.vj-stamp:nth-child(5) .vj-stamp-seal{transform:rotate(-1.5deg)}
+.vj-stamp:nth-child(6) .vj-stamp-seal{transform:rotate(2deg)}
+.vj-stamp:nth-child(7) .vj-stamp-seal{transform:rotate(-3deg)}
+.vj-stamp:nth-child(8) .vj-stamp-seal{transform:rotate(1.5deg)}
+.vj-stamp:nth-child(9) .vj-stamp-seal{transform:rotate(-2.5deg)}
+.vj-stamp-seal:hover{transform:rotate(0deg) scale(1.1) !important;z-index:2;position:relative;box-shadow:0 0 0 2.5px #fff,0 0 0 5.5px var(--sc,#3b82f6),0 0 0 7.5px #fff,0 0 0 9.5px var(--sc,#3b82f6),0 6px 20px rgba(0,0,0,.25)}
+.vj-stamp-flag-img{width:44px;height:30px;object-fit:cover;border-radius:3px;border:1px solid rgba(0,0,0,.1);margin-bottom:2px}
+.vj-stamp-name-lbl{font-size:5.8px;font-weight:900;letter-spacing:.9px;text-transform:uppercase;text-align:center;line-height:1.1;padding:0 4px}
+.vj-stamp-date-lbl{font-size:5.2px;color:#888;text-align:center;margin-top:1px}
+.vj-stamp-visited-txt{font-size:.5rem;color:#7a4e1a;font-weight:700;text-align:center}
+.vj-stamp-empty .vj-stamp-seal{background:rgba(0,0,0,.04);box-shadow:0 0 0 2px rgba(180,150,100,.5),0 0 0 4px rgba(255,255,255,.7);opacity:.55}
+.vj-stamp-empty-ico{font-size:1.4rem;opacity:.2;line-height:1}
+.vj-stamp-empty-txt{font-size:5.2px;color:#a08050;text-align:center;line-height:1.4}
+.vj-page-quote{margin-top:14px;font-family:Georgia,serif;font-style:italic;font-size:.62rem;color:#9b7040;text-align:center;line-height:1.85;padding-top:10px;border-top:1px dashed rgba(122,78,26,.22)}
+.vj-ghost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.vj-ghost-card{background:rgba(255,255,255,.45);border:1.5px solid rgba(0,0,0,.1);border-radius:10px;padding:11px 5px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:.15s;cursor:default}
+.vj-ghost-card:hover{background:rgba(255,255,255,.72);transform:translateY(-2px);box-shadow:0 5px 16px rgba(0,0,0,.1)}
+.vj-ghost-ico{font-size:1.55rem;opacity:.5;line-height:1}
+.vj-ghost-name{font-size:.54rem;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:#6b4a18;text-align:center;line-height:1.25}
+.vj-ghost-more{background:rgba(255,255,255,.28);border:1.5px dashed rgba(122,78,26,.3);border-radius:10px;padding:10px 5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:.54rem;color:#9b7040;font-style:italic;text-align:center;line-height:1.5}
+.vj-bottom-bar{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:0}
+.vj-bstat{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.vj-bstat-ico{font-size:1.25rem;flex-shrink:0}
+.vj-bstat strong{display:block;font-size:1.1rem;font-weight:900;color:var(--tx);line-height:1}
+.vj-bstat small{font-size:.57rem;color:var(--tx2);white-space:nowrap}
+.vj-bstat-div{width:1px;height:30px;background:var(--bd);margin:0 14px;flex-shrink:0}
+.vj-ver-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-size:.74rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;margin-left:auto}
+.vj-ver-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
 /* ── MI VIAJE REDESIGN ── */
 .mj-hero{position:relative;height:310px;border-radius:var(--r);overflow:hidden;margin-bottom:18px;box-shadow:0 8px 32px rgba(0,0,0,.18)}
 .mj-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:background-image .5s}
@@ -1192,49 +1253,33 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE DE VIAJE -->
   <div class="view" id="view-pasaporte-viaje">
-   <div class="vcontent passport-scene">
-    <div class="passport-wrapper">
-     <div class="passport" id="passport-viaje">
-      <div class="passport-cover navy" onclick="openPassport('viaje')">
-       <div class="cover-inner">
-        <div class="ci-corners"><div class="ci-c tl"></div><div class="ci-c tr"></div><div class="ci-c bl"></div><div class="ci-c br"></div></div>
-        <div class="ci-emblem">✈️</div>
-        <div class="ci-chip"></div>
-        <div class="ci-h2">PASAPORTE</div>
-        <div class="ci-p">• DE VIAJE •</div>
-        <div class="ci-brand"><img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'"><div class="ci-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div></div>
-        <div class="ci-hint">TOCA PARA ABRIR</div>
-       </div>
+   <div class="vcontent">
+    <!-- Top 3 stat cards -->
+    <div class="vj-top-stats" id="vjTopStats"></div>
+    <!-- Album double-page -->
+    <div class="vj-album">
+     <div class="vj-album-bg"></div>
+     <div class="vj-book">
+      <div class="vj-page vj-page-l">
+       <div class="vj-page-hdr">✈ Países Visitados</div>
+       <div class="vj-stamps-grid" id="vjVisitedGrid"></div>
+       <div class="vj-page-quote">Cada viaje te transforma.<br>Cada sello cuenta tu historia. <span style="font-style:normal">✈</span></div>
       </div>
-      <div class="passport-book">
-       <button class="pp-close-btn" onclick="closePassport('viaje')">&#10005; Cerrar</button>
-       <div class="pp">
-        <div class="pp-hdr" id="viaje-hdr-l">✈️ Destinos</div>
-        <div class="pp-tabs" id="viaje-tabs"></div>
-        <div class="pp-list" id="viaje-list"></div>
-       </div>
-       <div class="pp">
-        <div class="pp-hdr" id="viaje-hdr-r">Continuación</div>
-        <div class="pp-list" id="viaje-list-r"></div>
-       </div>
-       <div class="pp-nav">
-        <button class="pp-nav-btn" id="viaje-nav-prev" onclick="navPassport('viaje',-1)" disabled>&#8249;</button>
-        <span class="pp-nav-lbl" id="viaje-nav-lbl">1/1</span>
-        <button class="pp-nav-btn" id="viaje-nav-next" onclick="navPassport('viaje',1)">&#8250;</button>
-       </div>
+      <div class="vj-spine"></div>
+      <div class="vj-page vj-page-r">
+       <div class="vj-page-hdr">🗺 Por Descubrir</div>
+       <div class="vj-ghost-grid" id="vjDiscoverGrid"></div>
       </div>
      </div>
     </div>
-    <div class="passport-bar">
-     <div class="pb-ico blue">✈️</div>
-     <div class="pb-body"><strong>Pasaporte de Viaje</strong><p>Sellá cada destino y construí tu historia por el mundo.</p></div>
-     <div class="pb-stats">
-      <div class="pb-stat"><span class="pb-stat-n" id="viaje-stat-v">0</span><span class="pb-stat-l">Visitados</span></div>
-      <div class="pb-stat"><span class="pb-stat-n" id="viaje-stat-t">—</span><span class="pb-stat-l">Total</span></div>
-      <div class="pb-stat"><span class="pb-stat-n" id="viaje-stat-r">0</span><span class="pb-stat-l">Regiones</span></div>
-     </div>
-     <div class="pb-donut"><svg width="52" height="52"><circle class="pb-d-bg" cx="26" cy="26" r="22"/><circle class="pb-d-fill" id="viaje-donut" cx="26" cy="26" r="22" stroke-dasharray="138" stroke-dashoffset="138"/></svg><div class="pb-donut-lbl" id="viaje-pct">0%</div></div>
-     <button class="pb-close" onclick="closePassport('viaje')"><i class="fas fa-times"></i> Cerrar</button>
+    <!-- Bottom bar -->
+    <div class="vj-bottom-bar">
+     <div class="vj-bstat"><span class="vj-bstat-ico">🌍</span><div><strong id="vjBotPaises">0</strong><small>Países visitados</small></div></div>
+     <div class="vj-bstat-div"></div>
+     <div class="vj-bstat"><span class="vj-bstat-ico">🏟️</span><div><strong id="vjBotEstadios">0</strong><small>Estadios visitados</small></div></div>
+     <div class="vj-bstat-div"></div>
+     <div class="vj-bstat"><span class="vj-bstat-ico">📸</span><div><strong id="vjBotViajes">0</strong><small>Viajes realizados</small></div></div>
+     <button class="vj-ver-btn" onclick="showView('view-mis-viajes')"><i class="fas fa-history"></i> Ver mis viajes</button>
     </div>
    </div>
   </div>
@@ -2178,6 +2223,76 @@ let _futbolCurrentPage=0;
 let _viajeSpread=0;
 let _futbolSpread=0;
 const _IPS=8; /* items per spread (4 per page) */
+/* ── PASAPORTE VIAJE — constantes álbum ── */
+const VJ_STAMP_COLORS={arg:'#1d4ed8',bra:'#16a34a',chi:'#dc2626',col:'#d97706',per:'#92400e',uru:'#7c3aed',mex:'#15803d',usa:'#2563eb',can:'#dc2626',esp:'#dc2626',ita:'#16a34a',fra:'#1d4ed8',ale:'#374151',por:'#b91c1c',ing:'#1e3a8a',gre:'#0284c7',hol:'#dc2626',bel:'#d97706',sui:'#dc2626',jpn:'#dc2626',tai:'#d97706',tur:'#dc2626',dub:'#ca8a04',aus:'#c2410c',egy:'#ca8a04',mar:'#dc2626',nzl:'#15803d'};
+const VJ_LANDMARKS={arg:'🏔️',bra:'🌊',chi:'🏔️',col:'☕',per:'🦙',uru:'⚽',mex:'🌵',usa:'🗽',can:'🍁',esp:'⛪',ita:'🏛️',fra:'🗼',ale:'🏰',por:'⛵',ing:'🎡',gre:'🏛️',hol:'🌷',bel:'🍫',sui:'⛷️',jpn:'⛩️',tai:'🛕',tur:'🕌',dub:'🌆',aus:'🦘',egy:'🔺',mar:'🕌',nzl:'🌿'};
+function getVjStampDate(nombre){
+  const now=new Date();
+  const trip=(_allTrips||[]).filter(t=>!t.activo&&new Date(t.fecha_regreso)<=now&&matchesDestino(t.destino,nombre)).sort((a,b)=>new Date(b.fecha_salida)-new Date(a.fecha_salida))[0];
+  if(!trip)return null;
+  return new Date(trip.fecha_salida).toLocaleDateString('es-AR',{month:'short',year:'numeric'}).toUpperCase();
+}
+function updateVjTopStats(){
+  const el=document.getElementById('vjTopStats');if(!el)return;
+  const total=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
+  const count=_viajeSelladosSet.size;
+  const now=new Date();
+  const nextTrip=(_allTrips||[]).find(t=>t.activo||new Date(t.fecha_salida)>now);
+  const nextDest=nextTrip?.destino;
+  const nextFlag=nextDest?getFlag(nextDest):'✈️';
+  let lvl,lvlIco;
+  if(count>=20){lvl='Leyenda Herse';lvlIco='🌟';}
+  else if(count>=12){lvl='Globetrotter';lvlIco='🌍';}
+  else if(count>=7){lvl='Viajero Frecuente';lvlIco='🧭';}
+  else if(count>=3){lvl='Explorador';lvlIco='✈️';}
+  else{lvl='Explorador inicial';lvlIco='🎒';}
+  el.innerHTML=`
+    <div class="vj-stat-card">
+      <div class="vj-stat-card-ico" style="background:#e0f2fe">🌍</div>
+      <div><div class="vj-stat-card-lbl">Tu progreso</div><div class="vj-stat-card-val">${count} <span style="font-size:.65rem;font-weight:500;color:var(--tx2)">de ${total}</span></div><div class="vj-stat-card-sub">países visitados</div></div>
+    </div>
+    <div class="vj-stat-card">
+      <div class="vj-stat-card-ico" style="background:#fef3c7;font-size:1.25rem">${nextFlag}</div>
+      <div><div class="vj-stat-card-lbl">Próximo destino</div><div class="vj-stat-card-val" style="${!nextDest?'font-size:.82rem;color:var(--tx2)':''}">${nextDest||'Sin viaje próximo'}</div><div class="vj-stat-card-sub">${nextDest?'¡Tu próxima aventura te espera!':'Reservá con Herse'}</div></div>
+    </div>
+    <div class="vj-stat-card" onclick="showView('fidelizacion')">
+      <div class="vj-stat-card-ico" style="background:#f5f3ff;font-size:1.2rem">${lvlIco}</div>
+      <div><div class="vj-stat-card-lbl">Nivel actual</div><div class="vj-stat-card-val" style="font-size:.88rem">${lvl}</div><div class="vj-stat-card-sub">Seguí viajando y subí de nivel</div></div>
+      <i class="fas fa-chevron-right vj-stat-card-arrow"></i>
+    </div>`;
+}
+function renderViajeAlbum(){
+  const all=[];
+  VIAJE_PAGES.forEach(pg=>{[...pg.left.items,...pg.right.items].forEach(item=>{all.push({...item,sealed:_viajeSelladosSet.has(item.id)});});});
+  const visited=all.filter(i=>i.sealed);
+  const undiscovered=all.filter(i=>!i.sealed);
+  updateVjTopStats();
+  const bp=document.getElementById('vjBotPaises');if(bp)bp.textContent=visited.length;
+  const be=document.getElementById('vjBotEstadios');if(be)be.textContent=_selladosSet.size;
+  const bv=document.getElementById('vjBotViajes');if(bv)bv.textContent=(_allTrips||[]).filter(t=>!t.activo&&new Date(t.fecha_regreso)<=new Date()).length;
+  const vGrid=document.getElementById('vjVisitedGrid');
+  if(vGrid){
+    const SLOTS=9;let html='';
+    for(let i=0;i<SLOTS;i++){
+      if(i<visited.length){
+        const item=visited[i];const sc=VJ_STAMP_COLORS[item.id]||'#4f46e5';
+        const flagUrl=`https://flagcdn.com/w80/${item.code.toLowerCase()}.png`;
+        const dt=getVjStampDate(item.nombre);
+        html+=`<div class="vj-stamp"><div class="vj-stamp-seal" style="--sc:${sc}"><img class="vj-stamp-flag-img" src="${flagUrl}" alt="${item.nombre}" onerror="this.outerHTML='<span style=\\'font-size:1.6rem\\'>${getFlag(item.nombre)||'🌍'}</span>'"><div class="vj-stamp-name-lbl" style="color:${sc}">${item.nombre.toUpperCase()}</div>${dt?`<div class="vj-stamp-date-lbl">Visitado ${dt}</div>`:''}</div><div class="vj-stamp-visited-txt">✔ Visitado</div></div>`;
+      }else{
+        html+=`<div class="vj-stamp vj-stamp-empty"><div class="vj-stamp-seal"><span class="vj-stamp-empty-ico">🌍</span><span class="vj-stamp-empty-txt">Tu próxima<br>aventura</span></div></div>`;
+      }
+    }
+    vGrid.innerHTML=html;
+  }
+  const dGrid=document.getElementById('vjDiscoverGrid');
+  if(dGrid){
+    const MAX=8;const show=undiscovered.slice(0,MAX);const remaining=undiscovered.length-MAX;
+    let html=show.map(item=>`<div class="vj-ghost-card"><div class="vj-ghost-ico">${VJ_LANDMARKS[item.id]||'🌍'}</div><div class="vj-ghost-name">${item.nombre}</div></div>`).join('');
+    if(remaining>0)html+=`<div class="vj-ghost-more"><span style="font-size:1.1rem;opacity:.4">🗺️</span>Y muchos más<br>por conocer...</div>`;
+    dGrid.innerHTML=html;
+  }
+}
 function matchesDestino(destino,pais){
   const n=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const d=n(destino),p=n(pais);
@@ -2200,6 +2315,7 @@ function initViajePassport(historialData){
     });
   });
   updateViajeDonut();
+  renderViajeAlbum();
 }
 function updateAlbumProgress(){
   const total=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
