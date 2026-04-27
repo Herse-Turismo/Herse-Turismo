@@ -615,65 +615,72 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .vj-stat-card-val{font-size:1.18rem;font-weight:900;color:var(--tx);line-height:1.1}
 .vj-stat-card-sub{font-size:.62rem;color:var(--tx2);margin-top:3px}
 .vj-stat-card-arrow{margin-left:auto;color:var(--tx3);font-size:.75rem;flex-shrink:0}
-/* ── ÁLBUM — contenedor con fondo fotográfico ── */
-.vj-album{border-radius:22px;overflow:visible;position:relative;padding:36px 26px;margin-bottom:20px;background:repeating-linear-gradient(87.5deg,transparent,transparent 6px,rgba(0,0,0,.022) 6px,rgba(0,0,0,.022) 7px),repeating-linear-gradient(92.5deg,transparent,transparent 10px,rgba(255,255,255,.012) 10px,rgba(255,255,255,.012) 11px),linear-gradient(150deg,#1e0b03 0%,#4a1d08 22%,#78360e 42%,#8a4214 58%,#5a2809 78%,#281003 100%)}
-.vj-album-bg{position:absolute;inset:0;border-radius:22px;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 12% 90%,rgba(220,160,70,.16) 0%,transparent 50%),radial-gradient(ellipse 60% 50% at 88% 12%,rgba(190,130,50,.12) 0%,transparent 45%),repeating-linear-gradient(0deg,rgba(215,175,90,.055) 0,rgba(215,175,90,.055) 1px,transparent 1px,transparent 72px),repeating-linear-gradient(90deg,rgba(215,175,90,.055) 0,rgba(215,175,90,.055) 1px,transparent 1px,transparent 98px),radial-gradient(ellipse at 50% 50%,transparent 15%,rgba(0,0,0,.55) 100%);opacity:1;filter:none}
-/* ── LIBRO — cubierta de cuero + drop-shadow físico ── */
-.vj-book-outer{position:relative;z-index:1;filter:drop-shadow(0 44px 68px rgba(0,0,0,.78)) drop-shadow(0 10px 28px rgba(0,0,0,.58)) drop-shadow(0 2px 8px rgba(0,0,0,.42))}
-.vj-book-outer::before,.vj-book-outer::after{content:'';position:absolute;top:6px;bottom:6px;width:13px;z-index:3;background:linear-gradient(180deg,#6b3f0a 0%,#b8720e 35%,#e8a82a 55%,#b8720e 75%,#6b3f0a 100%)}
-.vj-book-outer::before{left:-12px;border-radius:5px 0 0 5px;box-shadow:-4px 0 10px rgba(0,0,0,.4)}
-.vj-book-outer::after{right:-12px;border-radius:0 5px 5px 0;box-shadow:4px 0 10px rgba(0,0,0,.4)}
-/* ── BRUJULA decorativa (inf-izq) ── */
-.vj-album::before{content:'';position:absolute;bottom:28px;left:28px;width:72px;height:72px;border-radius:50%;border:1.5px solid rgba(215,172,88,.3);box-shadow:0 0 0 5px rgba(215,172,88,.07),0 0 0 12px rgba(215,172,88,.04),3px 5px 18px rgba(0,0,0,.42);background:linear-gradient(45deg,rgba(215,172,88,.06) 0%,transparent 50%),linear-gradient(0deg,transparent 46%,rgba(215,172,88,.22) 46%,rgba(215,172,88,.22) 54%,transparent 54%),linear-gradient(90deg,transparent 46%,rgba(215,172,88,.22) 46%,rgba(215,172,88,.22) 54%,transparent 54%),linear-gradient(135deg,transparent 46%,rgba(215,172,88,.1) 46%,rgba(215,172,88,.1) 54%,transparent 54%),radial-gradient(circle at center,rgba(155,110,40,.1) 0%,transparent 65%);z-index:0;pointer-events:none}
-/* ── POLAROID decorativo (sup-der) ── */
-.vj-album::after{content:'';position:absolute;top:26px;right:26px;width:54px;height:66px;background:linear-gradient(160deg,rgba(250,244,230,.12),rgba(240,230,205,.08));border:1px solid rgba(250,244,230,.2);border-bottom-width:16px;border-radius:2px;transform:rotate(10deg);box-shadow:3px 5px 18px rgba(0,0,0,.42),inset 0 0 0 3px rgba(250,244,230,.04);z-index:0;pointer-events:none}
-.vj-book{display:flex;border-radius:4px;overflow:hidden;min-height:560px;position:relative}
-/* ── PÁGINAS — textura de papel con líneas horizontales ── */
-.vj-page{flex:1;padding:24px 26px;position:relative;min-width:0}
-.vj-page-l{background:radial-gradient(ellipse at 5% 95%,rgba(140,85,15,.12) 0%,transparent 35%),radial-gradient(ellipse at 88% 8%,rgba(170,110,35,.08) 0%,transparent 28%),radial-gradient(ellipse at 40% 55%,rgba(200,160,80,.05) 0%,transparent 45%),linear-gradient(108deg,#faf7ee 0%,#ede4c7 100%);box-shadow:inset -10px 0 28px rgba(0,0,0,.09)}
-.vj-page-r{background:radial-gradient(ellipse at 95% 92%,rgba(140,85,15,.11) 0%,transparent 35%),radial-gradient(ellipse at 12% 8%,rgba(170,110,35,.08) 0%,transparent 28%),radial-gradient(ellipse at 60% 55%,rgba(200,160,80,.05) 0%,transparent 45%),linear-gradient(252deg,#faf7ee 0%,#ede4c7 100%);box-shadow:inset 10px 0 28px rgba(0,0,0,.07)}
-/* ── PLIEGUE CENTRAL ── */
-.vj-spine{width:26px;flex-shrink:0;position:relative;background:linear-gradient(to right,rgba(0,0,0,.32) 0%,rgba(0,0,0,.06) 35%,rgba(255,255,255,.08) 50%,rgba(0,0,0,.06) 65%,rgba(0,0,0,.28) 100%)}
-.vj-spine::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,#9a6015,#d4903a 45%,#f0c060 55%,#d4903a 65%,#9a6015 100%);opacity:.6}
-.vj-spine::after{content:'';position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(0,0,0,.12)}
-.vj-page-hdr{font-size:.59rem;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:#7a4e1a;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1.5px solid rgba(122,78,26,.22);margin-bottom:16px}
-/* ── SELLOS — grilla y sellos tipo tinta ── */
-.vj-stamps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.vj-stamp{display:flex;flex-direction:column;align-items:center;gap:5px}
-/* Sello sellado */
-.vj-stamp-seal{width:102px;height:102px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:rgba(255,255,255,.92);box-shadow:0 0 0 2.5px #fff,0 0 0 6px var(--sc,#3b82f6),0 0 0 8px #fff,0 0 0 11px var(--sc,#3b82f6),0 5px 20px rgba(0,0,0,.22);overflow:hidden;transition:transform .28s;filter:saturate(.88) contrast(1.06)}
-.vj-stamp:nth-child(1) .vj-stamp-seal{transform:rotate(-5deg)}
-.vj-stamp:nth-child(2) .vj-stamp-seal{transform:rotate(3deg)}
-.vj-stamp:nth-child(3) .vj-stamp-seal{transform:rotate(-2.5deg)}
-.vj-stamp:nth-child(4) .vj-stamp-seal{transform:rotate(4deg)}
-.vj-stamp:nth-child(5) .vj-stamp-seal{transform:rotate(-1.5deg)}
-.vj-stamp:nth-child(6) .vj-stamp-seal{transform:rotate(2.5deg)}
-.vj-stamp:nth-child(7) .vj-stamp-seal{transform:rotate(-4deg)}
-.vj-stamp:nth-child(8) .vj-stamp-seal{transform:rotate(2deg)}
-.vj-stamp:nth-child(9) .vj-stamp-seal{transform:rotate(-3deg)}
-.vj-stamp-seal:hover{transform:rotate(0deg) scale(1.1)!important;z-index:5;position:relative;filter:saturate(1.1);box-shadow:0 0 0 2.5px #fff,0 0 0 6px var(--sc,#3b82f6),0 0 0 8px #fff,0 0 0 11px var(--sc,#3b82f6),0 12px 32px rgba(0,0,0,.35)}
+/* ══════════════════════════════════
+   PASAPORTE VIAJE — ÁLBUM REDESIGN
+   ══════════════════════════════════ */
+.vj-album{border-radius:20px;overflow:hidden;position:relative;padding:0;margin-bottom:20px;background:#1a0900}
+.vj-album-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1600&q=85');background-size:cover;background-position:center;filter:brightness(.8) saturate(1.15) sepia(.25);transition:opacity .3s}
+.vj-album-inner{position:relative;z-index:1;padding:28px 30px 24px}
+/* ── LIBRO ── */
+.vj-book-outer{position:relative;filter:drop-shadow(0 36px 56px rgba(0,0,0,.72)) drop-shadow(0 8px 22px rgba(0,0,0,.5))}
+/* Tabs de continentes */
+.vj-continent-tabs{display:flex;gap:3px;padding:0 2px;margin-bottom:0;position:relative;z-index:2;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.vj-continent-tabs::-webkit-scrollbar{display:none}
+.vj-ctab{padding:6px 13px 8px;border-radius:9px 9px 0 0;font-size:.56rem;font-weight:700;letter-spacing:.4px;display:flex;align-items:center;gap:5px;cursor:pointer;border:none;color:#fff;opacity:.82;transition:.15s;white-space:nowrap;font-family:Georgia,serif}
+.vj-ctab:hover{opacity:1;filter:brightness(1.08)}
+.vj-ctab.vj-ctab-active{opacity:1;filter:brightness(1.1);box-shadow:0 -2px 8px rgba(0,0,0,.2)}
+.vj-ctab-icon{font-size:.85rem}
+/* Libro */
+.vj-book{display:flex;border-radius:0 0 6px 6px;overflow:hidden;min-height:520px;position:relative;border-top:3px solid rgba(180,140,60,.3)}
+/* ── PÁGINAS ── */
+.vj-page{flex:1;padding:20px 22px;position:relative;min-width:0}
+.vj-page-l{background:radial-gradient(ellipse at 4% 96%,rgba(150,90,20,.10) 0%,transparent 32%),radial-gradient(ellipse at 85% 5%,rgba(170,110,30,.07) 0%,transparent 26%),linear-gradient(110deg,#faf8ef 0%,#f0e8d0 100%);box-shadow:inset -10px 0 24px rgba(0,0,0,.09)}
+.vj-page-r{background:radial-gradient(ellipse at 96% 94%,rgba(150,90,20,.09) 0%,transparent 32%),radial-gradient(ellipse at 15% 5%,rgba(170,110,30,.07) 0%,transparent 26%),linear-gradient(250deg,#faf8ef 0%,#f0e8d0 100%);box-shadow:inset 10px 0 24px rgba(0,0,0,.07)}
+/* ── PLIEGUE CENTRAL con argollas ── */
+.vj-spine{width:34px;flex-shrink:0;background:linear-gradient(to right,#3a1c06 0%,#7a3c10 35%,#b06020 50%,#7a3c10 65%,#3a1c06 100%);display:flex;flex-direction:column;align-items:center;justify-content:space-around;padding:28px 0;gap:0;box-shadow:inset -2px 0 6px rgba(0,0,0,.25),inset 2px 0 6px rgba(0,0,0,.25)}
+.vj-ring{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f0d870,#c89030 50%,#7a5010 100%);box-shadow:0 2px 5px rgba(0,0,0,.5),inset 0 1px 2px rgba(255,255,255,.4);border:1.5px solid #a07020;flex-shrink:0}
+.vj-ring::after{content:'';display:block;width:10px;height:10px;border-radius:50%;background:rgba(30,15,0,.55);margin:4px auto;box-shadow:inset 0 1px 3px rgba(0,0,0,.6)}
+.vj-page-hdr{font-size:.57rem;font-weight:900;letter-spacing:2.2px;text-transform:uppercase;color:#6b3e14;display:flex;align-items:center;gap:8px;padding-bottom:9px;border-bottom:1.5px solid rgba(107,62,20,.2);margin-bottom:14px}
+/* ── SELLOS — grilla 2×4, tarjetas rectangulares ── */
+.vj-stamps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.vj-stamp{display:flex;flex-direction:column;align-items:center}
+.vj-stamp-seal{width:100%;border-radius:10px;padding:9px 6px 7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:#fff;border:2px solid var(--sc,#3b82f6);box-shadow:2px 3px 10px rgba(0,0,0,.14),inset 0 0 0 3px rgba(255,255,255,.9);transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden;cursor:default}
+.vj-stamp-seal::after{content:'';position:absolute;inset:4px;border:1px dashed rgba(0,0,0,.08);border-radius:7px;pointer-events:none}
+.vj-stamp:nth-child(1) .vj-stamp-seal{transform:rotate(-1.8deg)}
+.vj-stamp:nth-child(2) .vj-stamp-seal{transform:rotate(1.2deg)}
+.vj-stamp:nth-child(3) .vj-stamp-seal{transform:rotate(-1deg)}
+.vj-stamp:nth-child(4) .vj-stamp-seal{transform:rotate(2deg)}
+.vj-stamp:nth-child(5) .vj-stamp-seal{transform:rotate(1.5deg)}
+.vj-stamp:nth-child(6) .vj-stamp-seal{transform:rotate(-2deg)}
+.vj-stamp:nth-child(7) .vj-stamp-seal{transform:rotate(1deg)}
+.vj-stamp:nth-child(8) .vj-stamp-seal{transform:rotate(-1.5deg)}
+.vj-stamp-seal:hover{transform:rotate(0deg) scale(1.06)!important;z-index:5;box-shadow:4px 6px 20px rgba(0,0,0,.22)}
 .vj-stamp-flag-img{display:none}
-.vj-stamp-icon{width:42px;height:42px;display:flex;align-items:center;justify-content:center}
-.vj-stamp-icon svg{width:100%;height:100%;stroke:var(--sc,#3b82f6);fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}
-.vj-stamp-name-lbl{font-size:7px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;text-align:center;line-height:1.1;padding:0 6px;font-family:Georgia,serif}
-.vj-stamp-date-lbl{font-size:6px;color:rgba(0,0,0,.42);text-align:center;margin-top:1px;font-style:italic;line-height:1.4}
-.vj-stamp-visited-txt{font-size:.49rem;color:#7a4e1a;font-weight:700;text-align:center;letter-spacing:.2px}
-/* Sello vacío — círculos punteados, sin emoji */
-.vj-stamp-empty .vj-stamp-seal{background:rgba(255,255,255,.22);box-shadow:none;border:2px dashed rgba(140,100,40,.28);filter:none}
-.vj-stamp-empty .vj-stamp-seal::before{content:'';position:absolute;inset:10px;border-radius:50%;border:1px dashed rgba(140,100,40,.15)}
+.vj-stamp-icon{width:44px;height:36px;display:flex;align-items:center;justify-content:center}
+.vj-stamp-icon svg{width:100%;height:100%;stroke:var(--sc,#3b82f6);fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.6}
+.vj-stamp-name-lbl{font-size:7.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;text-align:center;line-height:1.1;padding:0 4px;font-family:Georgia,serif;color:var(--sc,#3b82f6)}
+.vj-stamp-date-lbl{font-size:6px;color:var(--sc,#3b82f6);text-align:center;font-weight:600;line-height:1.3;font-family:Georgia,serif}
+.vj-stamp-visited-txt{display:none}
+/* Sello vacío */
+.vj-stamp-empty .vj-stamp-seal{border:1.5px dashed rgba(150,110,50,.3);background:rgba(255,255,255,.55);box-shadow:none}
+.vj-stamp-empty .vj-stamp-seal::after{display:none}
 .vj-stamp-empty-ico{font-size:0;opacity:0}
-.vj-stamp-empty-txt{font-size:6px;color:rgba(120,85,35,.42);text-align:center;line-height:1.5;font-family:Georgia,serif;font-style:italic;padding:0 4px}
-.vj-page-quote{margin-top:14px;font-family:Georgia,serif;font-style:italic;font-size:.62rem;color:#9b7040;text-align:center;line-height:1.85;padding-top:10px;border-top:1px dashed rgba(122,78,26,.22)}
-/* ── POR DESCUBRIR — grilla visual con SVG landmarks ── */
-.vj-ghost-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.vj-ghost-card{background:rgba(255,255,255,.52);border:1.5px solid rgba(100,65,15,.14);border-radius:10px;padding:14px 6px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;transition:.15s;cursor:default;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.vj-ghost-card:hover{background:rgba(255,255,255,.75);transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.1)}
-.vj-ghost-svg-wrap{width:52px;height:52px;display:flex;align-items:center;justify-content:center;opacity:.45}
-.vj-ghost-svg-wrap svg{width:100%;height:100%;stroke:rgba(80,50,10,.85);fill:none;stroke-linecap:round;stroke-linejoin:round}
+.vj-stamp-empty-txt{font-size:6.5px;color:rgba(130,90,40,.5);text-align:center;line-height:1.5;font-family:Georgia,serif;font-style:italic;margin-top:2px}
+.vj-page-quote{margin-top:12px;background:rgba(255,248,225,.7);border:1px dashed rgba(140,100,40,.22);border-radius:8px;padding:10px 14px;font-family:Georgia,serif;font-style:italic;font-size:.6rem;color:#7a5020;text-align:center;line-height:1.9}
+.vj-page-nav{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px;font-family:Georgia,serif;font-size:.55rem;color:rgba(100,65,15,.65)}
+.vj-page-nav button{background:none;border:none;cursor:pointer;color:rgba(100,65,15,.6);font-size:.8rem;padding:2px 6px;border-radius:4px;transition:.15s;font-family:inherit}
+.vj-page-nav button:hover{background:rgba(100,65,15,.1)}
+.vj-page-nav button:disabled{opacity:.28;cursor:default}
+/* ── POR DESCUBRIR — grilla 2×4 ── */
+.vj-ghost-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.vj-ghost-card{background:rgba(255,255,255,.6);border:1.5px solid rgba(100,65,15,.14);border-radius:10px;padding:12px 5px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:.15s;cursor:default;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.vj-ghost-card:hover{background:rgba(255,255,255,.85);transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.1)}
+.vj-ghost-svg-wrap{width:48px;height:40px;display:flex;align-items:center;justify-content:center;opacity:.48}
+.vj-ghost-svg-wrap svg{width:100%;height:100%;stroke:rgba(75,45,8,.88);fill:none;stroke-linecap:round;stroke-linejoin:round}
 .vj-ghost-ico{display:none}
-.vj-ghost-name{font-size:.56rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:rgba(90,55,12,.75);text-align:center;font-family:Georgia,serif;line-height:1.2}
+.vj-ghost-name{font-size:.5rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:rgba(80,48,10,.72);text-align:center;font-family:Georgia,serif;line-height:1.2}
 .vj-ghost-dot{display:none}
-.vj-ghost-more{background:rgba(255,255,255,.32);border:1.5px dashed rgba(100,65,15,.18);border-radius:8px;padding:12px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.51rem;color:rgba(100,65,15,.55);font-style:italic;text-align:center;line-height:1.5}
+.vj-ghost-more{background:rgba(255,255,255,.38);border:1.5px dashed rgba(100,65,15,.2);border-radius:10px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.5rem;color:rgba(100,65,15,.58);font-style:italic;text-align:center;line-height:1.5}
 .vj-bottom-bar{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 20px;display:flex;align-items:center;gap:0}
 .vj-bstat{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
 .vj-bstat-ico{font-size:1.25rem;flex-shrink:0}
@@ -1282,17 +1289,39 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <!-- Album double-page -->
     <div class="vj-album">
      <div class="vj-album-bg"></div>
-     <div class="vj-book-outer">
-      <div class="vj-book">
-       <div class="vj-page vj-page-l">
-        <div class="vj-page-hdr">✈ Países Visitados</div>
-        <div class="vj-stamps-grid" id="vjVisitedGrid"></div>
-        <div class="vj-page-quote">Cada viaje te transforma.<br>Cada sello cuenta tu historia. <span style="font-style:normal">✈</span></div>
+     <div class="vj-album-inner">
+      <div class="vj-book-outer">
+       <!-- Tabs continentes -->
+       <div class="vj-continent-tabs" id="vjContinentTabs">
+        <button class="vj-ctab vj-ctab-active" data-cont="sudamerica" style="background:#2e7d52" onclick="vjSelectTab(this,'sudamerica')"><span class="vj-ctab-icon">🌿</span>Sudamérica</button>
+        <button class="vj-ctab" data-cont="centroamerica" style="background:#2d6a1f" onclick="vjSelectTab(this,'centroamerica')"><span class="vj-ctab-icon">🌴</span>Centroamérica</button>
+        <button class="vj-ctab" data-cont="norteamerica" style="background:#6b3d0e" onclick="vjSelectTab(this,'norteamerica')"><span class="vj-ctab-icon">🦅</span>Norteamérica</button>
+        <button class="vj-ctab" data-cont="europa" style="background:#b43030" onclick="vjSelectTab(this,'europa')"><span class="vj-ctab-icon">🏰</span>Europa</button>
+        <button class="vj-ctab" data-cont="asia" style="background:#0f766e" onclick="vjSelectTab(this,'asia')"><span class="vj-ctab-icon">⛩️</span>Asia</button>
+        <button class="vj-ctab" data-cont="oceania" style="background:#1d4ed8" onclick="vjSelectTab(this,'oceania')"><span class="vj-ctab-icon">🦘</span>Oceanía</button>
+        <button class="vj-ctab" data-cont="africa" style="background:#7c3a00" onclick="vjSelectTab(this,'africa')"><span class="vj-ctab-icon">🐘</span>África</button>
        </div>
-       <div class="vj-spine"></div>
-       <div class="vj-page vj-page-r">
-        <div class="vj-page-hdr">🗺 Por Descubrir</div>
-        <div class="vj-ghost-grid" id="vjDiscoverGrid"></div>
+       <div class="vj-book">
+        <div class="vj-page vj-page-l">
+         <div class="vj-page-hdr">✈ Países Visitados</div>
+         <div class="vj-stamps-grid" id="vjVisitedGrid"></div>
+         <div class="vj-page-quote">Cada viaje te transforma.<br>Cada sello cuenta tu historia. <span style="font-style:normal">🤍</span><br><span style="font-size:.52rem;opacity:.7">Página <span id="vjPageNumL">1</span> de <span id="vjPageTotalL">2</span></span></div>
+         <div class="vj-page-nav"><button id="vjPrevBtn" onclick="vjChangePage(-1)" disabled>‹</button><span id="vjPageLabel">Página 1 de 2</span><button id="vjNextBtn" onclick="vjChangePage(1)">›</button></div>
+        </div>
+        <div class="vj-spine" id="vjSpine">
+         <div class="vj-ring"></div>
+         <div class="vj-ring"></div>
+         <div class="vj-ring"></div>
+         <div class="vj-ring"></div>
+         <div class="vj-ring"></div>
+         <div class="vj-ring"></div>
+         <div class="vj-ring"></div>
+        </div>
+        <div class="vj-page vj-page-r">
+         <div class="vj-page-hdr">🗺 Por Descubrir</div>
+         <div class="vj-ghost-grid" id="vjDiscoverGrid"></div>
+         <div class="vj-page-nav"><button onclick="vjChangePage(-1)" disabled id="vjPrevBtn2">‹</button><span id="vjPageLabel2">Página 1 de 2</span><button id="vjNextBtn2" onclick="vjChangePage(1)">›</button></div>
+        </div>
        </div>
       </div>
      </div>
@@ -2317,41 +2346,69 @@ function updateVjTopStats(){
       <i class="fas fa-chevron-right vj-stat-card-arrow"></i>
     </div>`;
 }
+const VJ_PER_PAGE=8;
+function vjSelectTab(el,cont){
+  document.querySelectorAll('.vj-ctab').forEach(t=>t.classList.remove('vj-ctab-active'));
+  el.classList.add('vj-ctab-active');
+  _viajeSpread=0;
+  renderViajeAlbum();
+}
+function vjChangePage(dir){
+  const all=[];VIAJE_PAGES.forEach(pg=>{[...pg.left.items,...pg.right.items].forEach(item=>{all.push({...item,sealed:_viajeSelladosSet.has(item.id)});});});
+  const visited=all.filter(i=>i.sealed);const undiscovered=all.filter(i=>!i.sealed);
+  const totalPages=Math.max(1,Math.ceil(Math.max(visited.length,VJ_PER_PAGE)/VJ_PER_PAGE),Math.ceil(undiscovered.length/VJ_PER_PAGE));
+  _viajeSpread=Math.max(0,Math.min(totalPages-1,_viajeSpread+dir));
+  renderViajeAlbum();
+}
 function renderViajeAlbum(){
   const all=[];
   VIAJE_PAGES.forEach(pg=>{[...pg.left.items,...pg.right.items].forEach(item=>{all.push({...item,sealed:_viajeSelladosSet.has(item.id)});});});
   const visited=all.filter(i=>i.sealed);
   const undiscovered=all.filter(i=>!i.sealed);
+  const totalPages=Math.max(1,Math.ceil(Math.max(visited.length,VJ_PER_PAGE)/VJ_PER_PAGE),Math.ceil(undiscovered.length/VJ_PER_PAGE));
+  const page=_viajeSpread;
   updateVjTopStats();
   const bp=document.getElementById('vjBotPaises');if(bp)bp.textContent=visited.length;
   const be=document.getElementById('vjBotEstadios');if(be)be.textContent=_selladosSet.size;
   const bv=document.getElementById('vjBotViajes');if(bv)bv.textContent=(_allTrips||[]).filter(t=>!t.activo&&new Date(t.fecha_regreso)<=new Date()).length;
+  /* Página izquierda: sellos visitados */
   const vGrid=document.getElementById('vjVisitedGrid');
   if(vGrid){
-    const SLOTS=9;let html='';
-    for(let i=0;i<SLOTS;i++){
-      if(i<visited.length){
-        const item=visited[i];const sc=VJ_STAMP_COLORS[item.id]||'#4f46e5';
+    const startV=page*VJ_PER_PAGE;const sliceV=visited.slice(startV,startV+VJ_PER_PAGE);
+    const fallbackSvg=`<svg viewBox="0 0 36 36" stroke-width="1.5"><circle cx="18" cy="18" r="10"/><ellipse cx="18" cy="18" rx="4" ry="10"/><line x1="8" y1="18" x2="28" y2="18"/></svg>`;
+    let html='';
+    for(let i=0;i<VJ_PER_PAGE;i++){
+      if(i<sliceV.length){
+        const item=sliceV[i];const sc=VJ_STAMP_COLORS[item.id]||'#4f46e5';
         const dt=getVjStampDate(item.nombre);
-        const stSvg=VJ_SVG_GHOST[item.id]||`<svg viewBox="0 0 36 36" stroke-width="1.5"><circle cx="18" cy="18" r="10"/><ellipse cx="18" cy="18" rx="4" ry="10"/><line x1="8" y1="18" x2="28" y2="18"/></svg>`;
-        html+=`<div class="vj-stamp"><div class="vj-stamp-seal" style="--sc:${sc}"><div class="vj-stamp-name-lbl" style="color:${sc}">${item.nombre.toUpperCase()}</div><div class="vj-stamp-icon">${stSvg}</div>${dt?`<div class="vj-stamp-date-lbl">Visitado en<br>${dt}</div>`:''}</div><div class="vj-stamp-visited-txt">✔ Visitado</div></div>`;
+        const stSvg=VJ_SVG_GHOST[item.id]||fallbackSvg;
+        html+=`<div class="vj-stamp"><div class="vj-stamp-seal" style="--sc:${sc}"><div class="vj-stamp-name-lbl">${item.nombre.toUpperCase()}</div><div class="vj-stamp-icon">${stSvg}</div>${dt?`<div class="vj-stamp-date-lbl">Visitado en ${dt}</div>`:''}</div></div>`;
       }else{
         html+=`<div class="vj-stamp vj-stamp-empty"><div class="vj-stamp-seal">${VJ_SVG_GLOBE}<span class="vj-stamp-empty-txt">Tu próxima<br>aventura</span></div></div>`;
       }
     }
     vGrid.innerHTML=html;
   }
+  /* Página derecha: por descubrir */
   const dGrid=document.getElementById('vjDiscoverGrid');
   if(dGrid){
-    const MAX=8;const show=undiscovered.slice(0,MAX);const remaining=undiscovered.length-MAX;
+    const startD=page*VJ_PER_PAGE;const sliceD=undiscovered.slice(startD,startD+VJ_PER_PAGE);
+    const remaining=Math.max(0,undiscovered.length-(startD+VJ_PER_PAGE));
     const fallbackSvg=`<svg viewBox="0 0 36 36" stroke-width="1.5"><circle cx="18" cy="18" r="10"/><ellipse cx="18" cy="18" rx="4" ry="10"/><line x1="8" y1="18" x2="28" y2="18"/></svg>`;
-    let html=show.map(item=>{
+    let html=sliceD.map(item=>{
       const svgIcon=VJ_SVG_GHOST[item.id]||fallbackSvg;
       return `<div class="vj-ghost-card"><div class="vj-ghost-svg-wrap">${svgIcon}</div><span class="vj-ghost-name">${item.nombre}</span></div>`;
     }).join('');
-    if(remaining>0)html+=`<div class="vj-ghost-more"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" width="18" height="18" style="opacity:.35;display:block;margin:0 auto 3px"><circle cx="10" cy="10" r="7"/><ellipse cx="10" cy="10" rx="3" ry="7"/><line x1="3" y1="10" x2="17" y2="10"/></svg>Y ${remaining} más<br>por conocer…</div>`;
+    if(remaining>0)html+=`<div class="vj-ghost-more"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.2" width="16" height="16" style="opacity:.38;display:block;margin:0 auto 2px"><circle cx="10" cy="10" r="7"/><ellipse cx="10" cy="10" rx="3" ry="7"/><line x1="3" y1="10" x2="17" y2="10"/></svg>Y ${remaining} más<br>por conocer…</div>`;
     dGrid.innerHTML=html;
   }
+  /* Actualizar navegación */
+  const pgLabel=`Página ${page+1} de ${totalPages}`;
+  ['vjPageLabel','vjPageLabel2'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=pgLabel;});
+  ['vjPageNumL'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=page+1;});
+  ['vjPageTotalL'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=totalPages;});
+  ['vjPrevBtn','vjPrevBtn2'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=page===0;});
+  ['vjNextBtn','vjNextBtn2'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=page>=totalPages-1;});
 }
 function matchesDestino(destino,pais){
   const n=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
