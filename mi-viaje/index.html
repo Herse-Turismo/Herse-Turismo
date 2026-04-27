@@ -1003,6 +1003,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
     <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
     <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
+    <button class="ni" id="nav-album" onclick="showView('album')"><i class="fas fa-globe"></i> Álbum de Países</button>
     <div class="sb-sec">Más</div>
     <button class="ni" id="nav-perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
     <button class="ni" id="btnAdmin" style="display:none" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Panel Admin</button>
@@ -1353,6 +1354,31 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    </div>
   </div>
 
+  <!-- VIEW: ÁLBUM DE PAÍSES -->
+  <div class="view" id="view-album">
+   <div class="vcontent">
+    <div class="al-header">
+     <div class="al-title-row">
+      <div>
+       <div class="al-title">🗺️ Álbum de Países</div>
+       <div class="al-sub">Marcá los destinos que ya visitaste y coleccioná tu historia por el mundo</div>
+      </div>
+      <div class="al-prog-area">
+       <div class="al-prog-top"><span id="al-count">0 / 0</span> países marcados</div>
+       <div class="al-prog-bg"><div class="al-prog-fill" id="al-prog-fill" style="width:0%"></div></div>
+      </div>
+     </div>
+    </div>
+    <div class="al-tabs">
+     <button class="al-tab active" onclick="selectAlbumTab(this,0)">🌎 América</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,1)">🌍 Europa</button>
+     <button class="al-tab" onclick="selectAlbumTab(this,2)">🌏 Asia & Oceanía</button>
+    </div>
+    <div class="al-grid" id="alGrid"></div>
+    <div id="alLogros"></div>
+   </div>
+  </div>
+
   </div><!-- end view-wrap -->
  </div><!-- end main -->
 </div><!-- end app -->
@@ -1390,6 +1416,7 @@ const VIEW_META={
   'mis-viajes': {title:'Historial de viajes', sub:'Todos tus recuerdos y experiencias con Herse.', ico:'fas fa-clock-rotate-left', cls:'blue'},
   'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple'},
   'fidelizacion':     {title:'Fidelización Herse',   sub:'Viajá más, sumá puntos y desbloqueá beneficios.',    ico:'fas fa-star',     cls:'gold'},
+  'album':            {title:'Álbum de Países',       sub:'Marcá los destinos que ya visitaste y coleccioná tu historia.',  ico:'fas fa-globe',    cls:'green'},
 };
 function showView(id){
   closeSidebar();
@@ -1409,6 +1436,7 @@ function showView(id){
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
   if(id==='perfil') renderPerfil();
+  if(id==='album'){renderAlbum();updateAlbumProgress();}
 }
 function toggleItinerario(){
   const s=document.getElementById('itinerarioSection');
