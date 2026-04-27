@@ -583,7 +583,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* HISTORIAL — mejoras */
 .hvs-sub{font-size:.58rem;color:var(--tx3);margin-top:2px;line-height:1.3}
 .hv-empty-big{text-align:center;padding:56px 20px;max-width:460px;margin:0 auto}
-.hv-empty-big-ico{font-size:4rem;margin-bottom:18px;display:block;filter:drop-shadow(0 4px 12px rgba(0,74,143,.12))}
+.hv-empty-big-ico{display:flex;justify-content:center;margin-bottom:20px;filter:drop-shadow(0 6px 16px rgba(79,70,229,.18))}
 .hv-empty-big-ttl{font-size:1.15rem;font-weight:900;color:var(--tx);margin-bottom:10px}
 .hv-empty-big-sub{font-size:.78rem;color:var(--tx2);line-height:1.7;margin-bottom:24px}
 .hv-empty-big-cta{display:inline-flex;align-items:center;gap:9px;padding:12px 24px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none}
@@ -596,6 +596,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .hv-chip-vuelo{background:#f5f3ff;border-color:#ddd6fe;color:#6d28d9}
 .hv-year-lbl{position:relative}
 .hv-year-txt{font-size:1.05rem;font-weight:900;color:var(--tx);display:flex;align-items:center;gap:8px}
+.hv-year-sel{padding:7px 14px 7px 12px;border:1.5px solid var(--bd);border-radius:99px;background:var(--card);font-size:.73rem;font-weight:700;color:var(--tx2);cursor:pointer;font-family:inherit;outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%2394a3b8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:26px}
+.hv-year-sel:focus{border-color:var(--ac);color:var(--tx)}
 /* ── MI VIAJE REDESIGN ── */
 .mj-hero{position:relative;height:310px;border-radius:var(--r);overflow:hidden;margin-bottom:18px;box-shadow:0 8px 32px rgba(0,0,0,.18)}
 .mj-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:background-image .5s}
@@ -1168,13 +1170,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <!-- VIEW: HISTORIAL DE VIAJES -->
   <div class="view" id="view-mis-viajes">
    <div class="vcontent">
-    <!-- Encabezado -->
-    <div class="hv-top">
-     <div class="hv-heading">
-      <div class="hv-title"><i class="fas fa-clock-rotate-left" style="color:var(--ac);font-size:1.1rem;margin-right:9px"></i>Historial de viajes</div>
-      <div class="hv-sub">Reví todas tus experiencias con Herse</div>
-     </div>
-    </div>
     <!-- Stats -->
     <div class="hv-stats">
      <div class="hvs-c"><div class="hvs-ico" style="background:#ebf1ff;color:var(--ac)"><i class="fas fa-plane"></i></div><div><div class="hvs-lbl">Total</div><div class="hvs-val" id="statTotal">—</div><div class="hvs-sub">Tus aventuras con Herse</div></div></div>
@@ -1187,6 +1182,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
      <button class="hv-ftab active" onclick="setViajesTab(this,'todos')">Todos</button>
      <button class="hv-ftab" onclick="setViajesTab(this,'proximos')">Próximos</button>
      <button class="hv-ftab" onclick="setViajesTab(this,'completados')">Completados</button>
+     <select class="hv-year-sel" id="yearFilter" onchange="filterTrips()"><option value="">Todos los años</option></select>
      <div class="hv-search"><i class="fas fa-search" style="color:var(--tx3);font-size:.7rem"></i><input type="text" placeholder="Buscar destino…" id="viajesSearch" oninput="filterTrips()"></div>
     </div>
     <!-- Lista (JS la rellena) -->
@@ -1855,6 +1851,11 @@ async function loadHistorial(){
   const {data}=await _db.from('viajes').select('destino,fecha_salida,fecha_regreso,activo').order('fecha_salida',{ascending:false});
   _allTrips=data||[];
   initViajePassport(_allTrips.filter(t=>!t.activo));
+  const _yf=document.getElementById('yearFilter');
+  if(_yf){
+    const _yrs=[...new Set(_allTrips.map(t=>new Date(t.fecha_salida).getFullYear()))].sort((a,b)=>b-a);
+    _yf.innerHTML='<option value="">Todos los años</option>'+_yrs.map(y=>'<option value="'+y+'">'+y+'</option>').join('');
+  }
   renderAllTrips();
   const activo=_allTrips.filter(t=>t.activo).length;
   const completados=_allTrips.filter(t=>!t.activo).length;
@@ -1915,16 +1916,49 @@ function renderAllTrips(){
   const wrap=document.getElementById('allTripsList');if(!wrap)return;
   const q=(document.getElementById('viajesSearch')?.value||'').toLowerCase();
   const now=new Date();
+  const yearVal=document.getElementById('yearFilter')?.value||'';
   let list=[..._allTrips].filter(t=>{
     if(q&&!t.destino.toLowerCase().includes(q))return false;
+    if(yearVal&&new Date(t.fecha_salida).getFullYear()!=yearVal)return false;
     if(_tripTab==='proximos')return t.activo||new Date(t.fecha_salida)>now;
     if(_tripTab==='completados')return !t.activo&&new Date(t.fecha_regreso)<=now;
     return true;
   }).sort((a,b)=>new Date(b.fecha_salida)-new Date(a.fecha_salida));
   if(!list.length){
     if(!_allTrips.length){
+      const _SVG='<svg viewBox="0 0 220 168" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:190px;max-width:100%">'
+        +'<path d="M14 50Q14 38 25 38Q27 28 39 30Q47 22 57 28Q67 22 73 32Q83 32 83 44Q83 54 73 54L25 54Q14 54 14 50Z" fill="#e0e7ff"/>'
+        +'<path d="M155 22Q155 14 163 14Q165 8 173 9Q179 4 185 8Q191 4 194 10Q201 10 201 18Q201 24 194 24L163 24Q155 24 155 22Z" fill="#e0e7ff"/>'
+        +'<rect x="58" y="54" width="26" height="9" rx="4" fill="#6366f1"/>'
+        +'<path d="M63 63Q63 52 73 52Q83 52 83 63" stroke="#6366f1" stroke-width="5" fill="none" stroke-linecap="round"/>'
+        +'<rect x="40" y="66" width="66" height="80" rx="9" fill="#4f46e5"/>'
+        +'<rect x="40" y="102" width="66" height="6" fill="#3730a3"/>'
+        +'<rect x="70" y="66" width="6" height="80" fill="#3730a3"/>'
+        +'<rect x="67" y="98" width="12" height="14" rx="4" fill="#818cf8"/>'
+        +'<circle cx="73" cy="105" r="2.5" fill="#6366f1"/>'
+        +'<circle cx="51" cy="150" r="6" fill="#3730a3"/>'
+        +'<circle cx="95" cy="150" r="6" fill="#3730a3"/>'
+        +'<rect x="128" y="74" width="82" height="64" rx="8" fill="#818cf8"/>'
+        +'<rect x="132" y="78" width="74" height="56" rx="5" fill="#a5b4fc"/>'
+        +'<line x1="132" y1="97" x2="206" y2="97" stroke="#818cf8" stroke-width="1" stroke-dasharray="3 3"/>'
+        +'<line x1="132" y1="116" x2="206" y2="116" stroke="#818cf8" stroke-width="1" stroke-dasharray="3 3"/>'
+        +'<line x1="152" y1="78" x2="152" y2="134" stroke="#818cf8" stroke-width="1" stroke-dasharray="3 3"/>'
+        +'<line x1="172" y1="78" x2="172" y2="134" stroke="#818cf8" stroke-width="1" stroke-dasharray="3 3"/>'
+        +'<line x1="192" y1="78" x2="192" y2="134" stroke="#818cf8" stroke-width="1" stroke-dasharray="3 3"/>'
+        +'<circle cx="163" cy="103" r="8" fill="#f43f5e"/>'
+        +'<circle cx="163" cy="103" r="3" fill="white"/>'
+        +'<path d="M163 111L163 126" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round"/>'
+        +'<g transform="translate(186 36) rotate(-18)">'
+        +'<ellipse cx="0" cy="0" rx="24" ry="7" fill="#6366f1"/>'
+        +'<circle cx="15" cy="0" r="6" fill="#818cf8"/>'
+        +'<path d="M-2-7L10-19L4-7Z" fill="#818cf8"/>'
+        +'<path d="M-2 7L10 19L4 7Z" fill="#818cf8"/>'
+        +'<path d="M-13-7L-21-13L-14-7Z" fill="#818cf8"/>'
+        +'</g>'
+        +'<path d="M107 142C117 115 136 80 166 48" stroke="#c7d2fe" stroke-width="2.5" stroke-dasharray="7 5" stroke-linecap="round" fill="none"/>'
+        +'</svg>';
       wrap.innerHTML='<div class="hv-empty-big">'
-        +'<span class="hv-empty-big-ico">🗺️</span>'
+        +'<span class="hv-empty-big-ico">'+_SVG+'</span>'
         +'<div class="hv-empty-big-ttl">Todavía no tenés viajes cargados</div>'
         +'<div class="hv-empty-big-sub">Cuando reserves con Herse, vas a poder ver todo tu historial acá.<br>Cada viaje queda registrado con fechas, destino, documentos y más.</div>'
         +'<a href="https://wa.me/5492215661704" target="_blank" class="hv-empty-big-cta"><i class="fab fa-whatsapp"></i> Reservar con Herse</a>'
