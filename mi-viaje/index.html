@@ -458,6 +458,24 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .hv-grid{grid-template-columns:1fr}
   .nt-cats{grid-template-columns:1fr 1fr}
 }
+/* PASSPORT MINI DASHBOARD */
+.pp-mini-wrap{display:flex;align-items:center;gap:14px;padding:8px 0}
+.pp-mini-donut{position:relative;flex-shrink:0}
+.pp-mini-donut svg{transform:rotate(-90deg)}
+.pp-mini-donut-lbl{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:900;color:var(--tx)}
+.pp-mini-info{flex:1;min-width:0}
+.pp-mini-count{font-size:1.05rem;font-weight:900;color:var(--tx);line-height:1.2;margin-bottom:2px}
+.pp-mini-sub{font-size:.62rem;color:var(--tx2);margin-bottom:7px}
+.pp-mini-bar-wrap{height:5px;background:var(--bd);border-radius:99px;overflow:hidden;margin-bottom:7px}
+.pp-mini-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ac),#22c55e);transition:width .6s ease}
+.pp-mini-chips{display:flex;flex-wrap:wrap;gap:4px}
+.pp-mini-chip{padding:3px 9px;border-radius:99px;font-size:.59rem;font-weight:700;background:var(--bd);color:var(--tx2)}
+.pp-mini-chip.done{background:#dcfce7;color:#15803d}
+.pp-mini-chip.fut{background:#f1f5f9;color:#94a3b8}
+/* SIDEBAR LOGOUT */
+.sb-logout{display:flex;align-items:center;gap:9px;width:calc(100% - 24px);margin:0 12px 14px;padding:9px 14px;border:1.5px solid var(--bd);background:var(--card);border-radius:10px;font-size:.73rem;font-weight:700;color:var(--tx2);cursor:pointer;transition:.15s;font-family:inherit}
+.sb-logout:hover{border-color:#ef4444;color:#ef4444;background:#fef2f2}
+.sb-logout i{font-size:.8rem}
 /* PASSPORT SCENE BACKGROUNDS */
 #view-pasaporte-viaje .view-wrap,#view-pasaporte-viaje{background:linear-gradient(rgba(220,235,255,.82),rgba(220,235,255,.82)),url('https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=1600&q=80') center/cover}
 #view-pasaporte-futbol .view-wrap,#view-pasaporte-futbol{background:linear-gradient(rgba(0,18,36,.54),rgba(0,18,36,.54)),url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1600&q=80') center/cover fixed}
@@ -882,6 +900,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <a class="ni" href="/"><i class="fas fa-tag"></i> Ofertas para vos</a>
     <button class="ni" id="nav-perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
     <a class="ni" href="https://wa.me/5492215661704" target="_blank"><i class="fas fa-headset"></i> Ayuda y Soporte</a>
+    <button class="ni" id="btnAdmin" style="display:none" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Panel Admin</button>
   </nav>
   <div class="sb-promo">
     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="">
@@ -891,6 +910,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       <a href="https://wa.me/5492215661704" target="_blank" class="btn-promo" id="promoBtn">Ver ofertas</a>
     </div>
   </div>
+  <button class="sb-logout" onclick="signOut()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
 </aside>
 <div class="main">
   <header class="top-hdr">
@@ -1026,7 +1046,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     </div>
     <div id="pendingState" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">⏳</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Estamos preparando tu viaje</div><div style="font-size:.8rem;color:var(--tx2)">Pronto tendrás toda la info de tu próxima aventura.</div></div>
     <div id="proximamente" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">🔒</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Acceso pendiente</div><div style="font-size:.8rem;color:var(--tx2)">Tu cuenta está siendo verificada.</div></div>
-    <button id="btnAdmin" style="display:none;position:fixed;bottom:20px;right:20px;background:var(--ac);color:#fff;border:none;border-radius:99px;padding:7px 14px;font-size:.7rem;font-weight:700;cursor:pointer;box-shadow:var(--shl)" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Admin</button>
    </div>
   </div>
 
@@ -1526,8 +1545,8 @@ function toggleTheme(){
   const user=session.user;
   const {data:_perf}=await _db.from('perfiles').select('is_admin').eq('id',user.id).single();
   if(_perf?.is_admin){
-    document.getElementById('btnAdmin').style.display='block';
     _isAdmin=true;
+    if(user.email==='facuzx2015@gmail.com') document.getElementById('btnAdmin').style.display='flex';
   } else {
     document.getElementById('mainDashboard').style.display='none';
     document.getElementById('pendingState').style.display='none';
@@ -1572,6 +1591,7 @@ function toggleTheme(){
   }
 })();
 function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
+async function signOut(){await _db.auth.signOut();window.location.href='/login';}
 /* DATE HELPERS */
 function fmtDate(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'});}
 function fmtDateTime(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});}
@@ -1709,7 +1729,6 @@ function updateTripUI(v){
           <button class="tc-lnk" onclick="toggleItinerario()">Ver itinerario <i class="fas fa-chevron-right"></i></button>
         </div>
         <div style="display:flex;align-items:center;gap:12px">
-          <img class="tc-trip-img" src="${heroImg}" alt="${v.destino}">
           <div>
             <div class="tc-trip-dest">${v.destino} ${flag}</div>
             <div class="tc-trip-dates">${fmtDate(sd)} – ${fmtDate(ed)} ${sd.getFullYear()}</div>
@@ -1779,33 +1798,47 @@ function updateFidDashCard(fid){
     <button class="fid-prog-btn" onclick="showView('fidelizacion')"><i class="fas fa-chart-line"></i> Ver mi progreso <i class="fas fa-chevron-right"></i></button>`;
   setTimeout(()=>{const b=document.getElementById('fidDashBar');if(b)b.style.width=pct+'%';},120);
 }
+function _ppMiniHtml(sealedCount,total,color,chips,label){
+  const pct=total?Math.round((sealedCount/total)*100):0;
+  const circ=138;
+  const offset=circ-(circ*(pct/100));
+  const subTxt=sealedCount===0?'Empezá a sellar tus '+label:sealedCount===total?'Pasaporte completo 🎉':'Seguí sumando '+label;
+  const chipHtml=chips.length?chips.map(c=>'<span class="pp-mini-chip done">'+c+'</span>').join(''):'<span class="pp-mini-chip fut">Sin sellos aún</span>';
+  return '<div class="pp-mini-wrap">'
+    +'<div class="pp-mini-donut">'
+    +'<svg width="52" height="52">'
+    +'<circle cx="26" cy="26" r="22" fill="none" stroke="var(--bd)" stroke-width="4"/>'
+    +'<circle cx="26" cy="26" r="22" fill="none" stroke="'+color+'" stroke-width="4"'
+    +' stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'" stroke-linecap="round"/>'
+    +'</svg>'
+    +'<div class="pp-mini-donut-lbl">'+pct+'%</div>'
+    +'</div>'
+    +'<div class="pp-mini-info">'
+    +'<div class="pp-mini-count">'+sealedCount+' <span style="font-size:.7rem;font-weight:600;color:var(--tx2)">/ '+total+'</span></div>'
+    +'<div class="pp-mini-sub">'+subTxt+'</div>'
+    +'<div class="pp-mini-bar-wrap"><div class="pp-mini-bar-fill" style="width:'+pct+'%;background:'+color+'"></div></div>'
+    +'<div class="pp-mini-chips">'+chipHtml+'</div>'
+    +'</div>'
+    +'</div>';
+}
 function updateDashPassports(){
   const vRow=document.getElementById('dashViajeStamps');
   if(vRow&&VIAJE_PAGES){
     const all=[];
     VIAJE_PAGES.forEach(pg=>{[...pg.left.items,...pg.right.items].forEach(item=>{all.push({...item,sealed:_viajeSelladosSet.has(item.id)});});});
-    all.sort((a,b)=>(b.sealed?1:0)-(a.sealed?1:0));
-    function getYr(nombre){
-      const k=nombre.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-      const m=_allTrips.find(t=>{const tk=t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');return tk.includes(k.split(' ')[0])||k.includes(tk.split(' ')[0]);});
-      return m?new Date(m.fecha_salida).getFullYear():null;
-    }
-    vRow.innerHTML=all.slice(0,5).map(item=>{
-      const flagUrl=`https://flagcdn.com/w80/${(item.code||'xx').toLowerCase()}.png`;
-      const em=getFlag(item.nombre)||'🌍';
-      const yr=item.sealed?getYr(item.nombre):null;
-      return `<div class="stamp-item"><div class="stamp-circle ${item.sealed?'sealed':'future'}">${item.sealed?`<img src="${flagUrl}" alt="${item.nombre}" onerror="this.outerHTML='<span style=font-size:1.3rem>${em}</span>'">`:`<span style="font-size:1.3rem">${em}</span>`}</div>${yr?`<div class="stamp-year">${yr}</div>`:''}<div class="stamp-lbl">${item.nombre}</div>${!item.sealed?'<div class="stamp-prox">Próximamente</div>':''}</div>`;
-    }).join('');
+    const total=all.length;
+    const sealed=all.filter(i=>i.sealed).length;
+    const last3=all.filter(i=>i.sealed).slice(0,3).map(i=>getFlag(i.nombre)+' '+i.nombre);
+    vRow.innerHTML=_ppMiniHtml(sealed,total,'#10b981',last3,'destinos');
   }
   const fRow=document.getElementById('dashFutbolStamps');
   if(fRow&&PASSPORT_KEYS&&PASAPORTE_DATA){
     const all=[];
-    PASSPORT_KEYS.forEach(key=>{const p=PASAPORTE_DATA[key];p.estadios.forEach(e=>{all.push({...e,paisNombre:p.nombre,sealed:_selladosSet.has(e.id)});});});
-    all.sort((a,b)=>(b.sealed?1:0)-(a.sealed?1:0));
-    fRow.innerHTML=all.slice(0,5).map(e=>{
-      const img=STADIUM_IMGS[e.id];
-      return `<div class="stamp-item"><div class="stamp-circle ${e.sealed?'sealed':'future'}">${img?`<img src="${img}" alt="${e.nombre}">`:`<span style="font-size:1rem">🏙️</span>`}</div><div class="stamp-lbl">${e.nombre}</div><div class="stamp-prox">${e.ciudad||e.paisNombre}</div></div>`;
-    }).join('');
+    PASSPORT_KEYS.forEach(key=>{const p=PASAPORTE_DATA[key];p.estadios.forEach(e=>{all.push({...e,sealed:_selladosSet.has(e.id)});});});
+    const total=all.length;
+    const sealed=all.filter(i=>i.sealed).length;
+    const last3=all.filter(i=>i.sealed).slice(0,3).map(e=>'🏟️ '+e.nombre);
+    fRow.innerHTML=_ppMiniHtml(sealed,total,'#8b5cf6',last3,'estadios');
   }
 }
 /* HISTORIAL */
