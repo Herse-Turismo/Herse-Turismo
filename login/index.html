@@ -108,11 +108,18 @@ a { text-decoration: none; color: inherit; }
     min-height: 100vh;
     background: white;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 60px 52px;
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.form-box {
+    width: 100%;
+    max-width: 380px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .r-panel::before {
     content: '\f072';
@@ -149,7 +156,7 @@ a { text-decoration: none; color: inherit; }
     margin: 0 2px;
 }
 .r-deco-dot.fill { background: var(--blue); opacity: 0.25; }
-.form-box { width: 100%; max-width: 380px; }
+/* .form-box definido arriba con centrado vertical automático */
 .mobile-logo { display: none; margin-bottom: 32px; text-align: center; }
 .mobile-logo img { height: 42px; margin: 0 auto; }
 
@@ -306,6 +313,24 @@ a { text-decoration: none; color: inherit; }
     .login-help p { font-size: 0.82rem; }
 }
 
+/* ALTURA REDUCIDA — notebooks 768px alto (14") */
+@media (max-height: 800px) {
+    .r-panel { padding-top: 36px; padding-bottom: 36px; }
+    .form-icon { width: 56px; height: 56px; font-size: 1.35rem; margin-bottom: 16px; }
+    .form-box > p { margin-bottom: 22px; }
+    .field { margin-bottom: 14px; }
+    .btn-login { margin-bottom: 18px; }
+    .login-help { padding-top: 14px; }
+}
+@media (max-height: 700px) {
+    .r-panel { padding-top: 24px; padding-bottom: 24px; }
+    .form-icon { width: 48px; height: 48px; font-size: 1.1rem; margin-bottom: 12px; }
+    .form-box h2 { font-size: 1.55rem; margin-bottom: 4px; }
+    .form-box > p { margin-bottom: 16px; font-size: 0.87rem; }
+    .field { margin-bottom: 12px; }
+    .field input { padding: 11px 16px; }
+    .btn-login { padding: 13px; margin-bottom: 14px; }
+}
 /* EXTRA PEQUEÑO — hasta 400px */
 @media (max-width: 400px) {
     .r-panel { padding: 32px 18px 40px; }
