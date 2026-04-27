@@ -1002,13 +1002,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <nav class="sb-nav">
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
     <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
-    <button class="ni" id="nav-pasaporte-viaje" onclick="showView('pasaporte-viaje')"><i class="fas fa-passport"></i> Pasaporte de Viaje</button>
-    <button class="ni" id="nav-pasaporte-futbol" onclick="showView('pasaporte-futbol')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
     <div class="sb-sec">Más</div>
-    <a class="ni" href="/"><i class="fas fa-tag"></i> Ofertas para vos</a>
     <button class="ni" id="nav-perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
-    <a class="ni" href="https://wa.me/5492215661704" target="_blank"><i class="fas fa-headset"></i> Ayuda y Soporte</a>
     <button class="ni" id="btnAdmin" style="display:none" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Panel Admin</button>
   </nav>
   <button class="sb-logout" onclick="signOut()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
@@ -1238,7 +1234,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
        <div class="qa-grid">
         <button class="qa-btn" onclick="showView('mis-viajes')"><i class="fas fa-file-alt"></i><span>Mis viajes</span></button>
         <button class="qa-btn" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i><span>Fidelización</span></button>
-        <button class="qa-btn" onclick="showView('pasaporte-viaje')"><i class="fas fa-passport"></i><span>Pasaporte</span></button>
         <button class="qa-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-headset"></i><span>Centro de ayuda</span></button>
        </div>
       </div>
@@ -1278,112 +1273,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     </div>
     <!-- Lista (JS la rellena) -->
     <div id="allTripsList"><div class="hv-empty">Cargando viajes…</div></div>
-   </div>
-  </div>
-
-  <!-- VIEW: PASAPORTE DE VIAJE -->
-  <div class="view" id="view-pasaporte-viaje">
-   <div class="vcontent">
-    <!-- Top 3 stat cards -->
-    <div class="vj-top-stats" id="vjTopStats"></div>
-    <!-- Album double-page -->
-    <div class="vj-album">
-     <div class="vj-album-bg"></div>
-     <div class="vj-album-inner">
-      <div class="vj-book-outer">
-       <!-- Tabs continentes -->
-       <div class="vj-continent-tabs" id="vjContinentTabs">
-        <button class="vj-ctab vj-ctab-active" data-cont="sudamerica" style="background:#2e7d52" onclick="vjSelectTab(this,'sudamerica')"><span class="vj-ctab-icon">🌿</span>Sudamérica</button>
-        <button class="vj-ctab" data-cont="centroamerica" style="background:#2d6a1f" onclick="vjSelectTab(this,'centroamerica')"><span class="vj-ctab-icon">🌴</span>Centroamérica</button>
-        <button class="vj-ctab" data-cont="norteamerica" style="background:#6b3d0e" onclick="vjSelectTab(this,'norteamerica')"><span class="vj-ctab-icon">🦅</span>Norteamérica</button>
-        <button class="vj-ctab" data-cont="europa" style="background:#b43030" onclick="vjSelectTab(this,'europa')"><span class="vj-ctab-icon">🏰</span>Europa</button>
-        <button class="vj-ctab" data-cont="asia" style="background:#0f766e" onclick="vjSelectTab(this,'asia')"><span class="vj-ctab-icon">⛩️</span>Asia</button>
-        <button class="vj-ctab" data-cont="oceania" style="background:#1d4ed8" onclick="vjSelectTab(this,'oceania')"><span class="vj-ctab-icon">🦘</span>Oceanía</button>
-        <button class="vj-ctab" data-cont="africa" style="background:#7c3a00" onclick="vjSelectTab(this,'africa')"><span class="vj-ctab-icon">🐘</span>África</button>
-       </div>
-       <div class="vj-book">
-        <div class="vj-page vj-page-l">
-         <div class="vj-page-hdr">✈ Países Visitados</div>
-         <div class="vj-stamps-grid" id="vjVisitedGrid"></div>
-         <div class="vj-page-quote">Cada viaje te transforma.<br>Cada sello cuenta tu historia. <span style="font-style:normal">🤍</span><br><span style="font-size:.52rem;opacity:.7">Página <span id="vjPageNumL">1</span> de <span id="vjPageTotalL">2</span></span></div>
-         <div class="vj-page-nav"><button id="vjPrevBtn" onclick="vjChangePage(-1)" disabled>‹</button><span id="vjPageLabel">Página 1 de 2</span><button id="vjNextBtn" onclick="vjChangePage(1)">›</button></div>
-        </div>
-        <div class="vj-spine" id="vjSpine">
-         <div class="vj-ring"></div>
-         <div class="vj-ring"></div>
-         <div class="vj-ring"></div>
-         <div class="vj-ring"></div>
-         <div class="vj-ring"></div>
-         <div class="vj-ring"></div>
-         <div class="vj-ring"></div>
-        </div>
-        <div class="vj-page vj-page-r">
-         <div class="vj-page-hdr">🗺 Por Descubrir</div>
-         <div class="vj-ghost-grid" id="vjDiscoverGrid"></div>
-         <div class="vj-page-nav"><button onclick="vjChangePage(-1)" disabled id="vjPrevBtn2">‹</button><span id="vjPageLabel2">Página 1 de 2</span><button id="vjNextBtn2" onclick="vjChangePage(1)">›</button></div>
-        </div>
-       </div>
-      </div>
-     </div>
-    </div>
-    <!-- Bottom bar -->
-    <div class="vj-bottom-bar">
-     <div class="vj-bstat"><span class="vj-bstat-ico">🌍</span><div><strong id="vjBotPaises">0</strong><small>Países visitados</small></div></div>
-     <div class="vj-bstat-div"></div>
-     <div class="vj-bstat"><span class="vj-bstat-ico">🏟️</span><div><strong id="vjBotEstadios">0</strong><small>Estadios visitados</small></div></div>
-     <div class="vj-bstat-div"></div>
-     <div class="vj-bstat"><span class="vj-bstat-ico">📸</span><div><strong id="vjBotViajes">0</strong><small>Viajes realizados</small></div></div>
-     <button class="vj-ver-btn" onclick="showView('view-mis-viajes')"><i class="fas fa-history"></i> Ver mis viajes</button>
-    </div>
-   </div>
-  </div>
-
-  <!-- VIEW: PASAPORTE FUTBOL -->
-  <div class="view" id="view-pasaporte-futbol">
-   <div class="vcontent passport-scene">
-    <div class="passport-wrapper">
-     <div class="passport" id="passport-futbol">
-      <div class="passport-cover forest" onclick="openPassport('futbol')">
-       <div class="cover-inner">
-        <div class="ci-corners"><div class="ci-c tl"></div><div class="ci-c tr"></div><div class="ci-c bl"></div><div class="ci-c br"></div></div>
-        <div class="ci-emblem">⚽</div>
-        <div class="ci-chip"></div>
-        <div class="ci-h2">PASAPORTE</div>
-        <div class="ci-p">• TRIBUNERO •</div>
-        <div class="ci-brand"><img src="../assets/logo-web.png" alt="" onerror="this.style.display='none'"><div class="ci-brand-txt"><strong>HERSE</strong><small>TURISMO</small></div></div>
-        <div class="ci-hint">TOCA PARA ABRIR</div>
-       </div>
-      </div>
-      <div class="passport-book">
-       <button class="pp-close-btn" onclick="closePassport('futbol')">&#10005; Cerrar</button>
-       <div class="pp">
-        <div class="pp-hdr" id="futbol-hdr-l">⚽ Estadios</div>
-        <div class="pp-tabs" id="futbol-tabs"></div>
-        <div class="pp-list" id="futbol-list"></div>
-       </div>
-       <div class="pp">
-        <div class="pp-hdr" id="futbol-hdr-r">Continuación</div>
-        <div class="pp-list" id="futbol-list-r"></div>
-       </div>
-       <div class="pp-nav">
-        <button class="pp-nav-btn" id="futbol-nav-prev" onclick="navPassport('futbol',-1)" disabled>&#8249;</button>
-        <span class="pp-nav-lbl" id="futbol-nav-lbl">1/1</span>
-        <button class="pp-nav-btn" id="futbol-nav-next" onclick="navPassport('futbol',1)">&#8250;</button>
-       </div>
-      </div>
-     </div>
-    </div>
-    <div class="passport-bar">
-     <div class="pb-ico green">⚽</div>
-     <div class="pb-body"><strong>Pasaporte Tribunero</strong><p>Viví el fútbol, coleccioná estadios y momentos únicos.</p></div>
-     <div class="pb-stats">
-      <div class="pb-stat"><span class="pb-stat-n" id="futbol-stat-v">0</span><span class="pb-stat-l">Visitados</span></div>
-      <div class="pb-stat"><span class="pb-stat-n" id="futbol-stat-t">—</span><span class="pb-stat-l">Total</span></div>
-      <div class="pb-stat"><span class="pb-stat-n" id="futbol-stat-l">0</span><span class="pb-stat-l">Ligas</span></div>
-     </div>
-     <div class="pb-donut"><svg width="52" height="52"><circle class="pb-d-bg" cx="26" cy="26" r="22"/><circle class="pb-d-fill" id="futbol-donut" cx="26" cy="26" r="22" stroke-dasharray="138" stroke-dashoffset="138"/></svg><div class="pb-donut-lbl" id="futbol-pct">0%</div></div>
-     <button class="pb-close" onclick="closePassport('futbol')"><i class="fas fa-times"></i> Cerrar</button>
-    </div>
    </div>
   </div>
 
@@ -1499,8 +1388,6 @@ let _tickInterval,_isAdmin=false,_userName='',_userEmail='',_hasTrip=false;
 const VIEW_META={
   'mi-viaje':   {title:'Mi Viaje',      sub:'Tu mundo, tus viajes, tu historia.',        ico:'fas fa-plane',     cls:'blue'},
   'mis-viajes': {title:'Historial de viajes', sub:'Todos tus recuerdos y experiencias con Herse.', ico:'fas fa-clock-rotate-left', cls:'blue'},
-  'pasaporte-viaje':  {title:'Pasaporte de Viaje',   sub:'Sellá cada destino y creá tu historia por el mundo.', ico:'fas fa-passport', cls:'green'},
-  'pasaporte-futbol': {title:'Pasaporte Tribunero',  sub:'Sellá cada estadio y viví el fútbol como nunca.',    ico:'fas fa-futbol',   cls:'soccer'},
   'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple'},
   'fidelizacion':     {title:'Fidelización Herse',   sub:'Viajá más, sumá puntos y desbloqueá beneficios.',    ico:'fas fa-star',     cls:'gold'},
 };
@@ -1519,8 +1406,6 @@ function showView(id){
   if(ico){ico.className='hdr-ico '+(m.cls||'blue');ico.innerHTML='<i class="'+m.ico+'"></i>';}
   if(ttl) ttl.textContent=m.title||'';
   if(sub) sub.textContent=m.sub||'';
-  if(id==='pasaporte-viaje'){const w=document.getElementById('passport-viaje');if(w)w.classList.remove('open');}
-  if(id==='pasaporte-futbol'){const w=document.getElementById('passport-futbol');if(w)w.classList.remove('open');}
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
   if(id==='perfil') renderPerfil();
