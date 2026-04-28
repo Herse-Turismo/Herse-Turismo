@@ -741,10 +741,19 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* Hero Banner */
 .al-hero{background:linear-gradient(108deg,#FFFBEB 0%,#FEF9E7 55%,#EFF6FF 100%);border:1.5px solid #FDE68A;border-radius:20px;padding:24px 28px;display:flex;align-items:center;gap:24px;margin-bottom:22px;position:relative;overflow:hidden;min-height:140px}
 .al-hero::before{content:'✈';position:absolute;font-size:9rem;color:#2563EB;opacity:.04;right:260px;top:50%;transform:translateY(-50%);pointer-events:none}
-.al-pb{width:86px;height:112px;background:linear-gradient(140deg,#1e3258,#1e40af);border-radius:4px 10px 10px 4px;border-left:10px solid rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:6px 8px 24px rgba(0,0,0,.28);flex-shrink:0;position:relative;z-index:1}
-.al-pb::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 8px);border-radius:inherit;pointer-events:none}
-.al-pb-globe{font-size:2.2rem;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
-.al-pb-txt{text-align:center;color:#FCD34D;font-size:.38rem;font-weight:900;letter-spacing:2.5px;line-height:1.6;text-transform:uppercase}
+.al-pb{width:94px;height:124px;flex-shrink:0;position:relative;z-index:1;transform:perspective(350px) rotateY(-10deg);filter:drop-shadow(8px 12px 20px rgba(0,0,0,.45))}
+.al-pb-pages{position:absolute;top:2px;right:-5px;bottom:2px;width:6px;background:repeating-linear-gradient(to bottom,#ede9e0 0px,#ede9e0 2px,#c4bfb5 2px,#c4bfb5 3px);border-radius:0 3px 3px 0;z-index:0}
+.al-pb-cover{position:absolute;inset:0;background:linear-gradient(155deg,#0a1628 0%,#142244 35%,#1a2e6e 65%,#1e3a8a 100%);border-radius:3px 9px 9px 3px;border-left:12px solid #060d1a;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:9px 6px;box-sizing:border-box;z-index:1;box-shadow:inset 1px 0 8px rgba(255,255,255,.04),inset 0 0 30px rgba(0,0,0,.3)}
+.al-pb-cover::before{content:'';position:absolute;inset:0;background:repeating-conic-gradient(rgba(255,255,255,.014) 0deg,transparent 1deg,transparent 9deg,rgba(255,255,255,.014) 10deg) 50% 50%/18px 18px,repeating-linear-gradient(60deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 1px,transparent 1px,transparent 9px);pointer-events:none}
+.al-pb-cover::after{content:'';position:absolute;inset:6px;border:1px solid rgba(212,175,55,.32);border-radius:4px;pointer-events:none}
+.al-pb-top{font-size:.28rem;color:#D4AF37;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;text-align:center;opacity:.8;z-index:2;position:relative;line-height:1.4}
+.al-pb-emblem{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(212,175,55,.5);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 40% 36%,rgba(212,175,55,.16) 0%,transparent 70%);position:relative;z-index:2}
+.al-pb-emblem::before{content:'';position:absolute;inset:4px;border-radius:50%;border:1px solid rgba(212,175,55,.18);pointer-events:none}
+.al-pb-globe{font-size:1.4rem;filter:drop-shadow(0 0 5px rgba(212,175,55,.3))}
+.al-pb-label{font-size:.32rem;color:#D4AF37;font-weight:900;letter-spacing:4px;text-transform:uppercase;z-index:2;position:relative;opacity:.92}
+.al-pb-sub{font-size:.24rem;color:rgba(212,175,55,.6);font-weight:700;letter-spacing:3px;text-transform:uppercase;z-index:2;position:relative}
+.al-pb-strip{width:62%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.38),transparent);z-index:2;position:relative}
+.al-pb-mrz{font-size:.18rem;color:rgba(255,255,255,.15);font-family:'Courier New',monospace;letter-spacing:.5px;z-index:2;position:relative;opacity:.7}
 .al-hero-txt{flex:1;z-index:1}
 .al-hero-ttl{font-size:1.6rem;font-weight:900;color:#0F172A;margin-bottom:7px}
 .al-hero-sub{font-size:.78rem;color:#64748B;line-height:1.6}
@@ -1380,8 +1389,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    <div class="vcontent">
     <div class="al-hero">
      <div class="al-pb">
-      <div class="al-pb-globe">🌍</div>
-      <div class="al-pb-txt">PASAPORTE<br>VIAJERO</div>
+      <div class="al-pb-pages"></div>
+      <div class="al-pb-cover">
+       <div class="al-pb-top">HERSE TURISMO</div>
+       <div class="al-pb-strip"></div>
+       <div class="al-pb-emblem"><div class="al-pb-globe">🌍</div></div>
+       <div class="al-pb-label">PASAPORTE</div>
+       <div class="al-pb-sub">VIAJERO</div>
+       <div class="al-pb-strip"></div>
+       <div class="al-pb-mrz">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+      </div>
      </div>
      <div class="al-hero-txt">
       <div class="al-hero-ttl">Álbum de Países</div>
