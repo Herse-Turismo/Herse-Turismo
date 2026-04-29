@@ -745,46 +745,34 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 #view-album{background:url('../assets/album-bg.jpg') center top/cover no-repeat fixed}
 #view-album .vcontent{background:transparent;padding-bottom:40px}
 /* ── HERO ─────────────────────────────────────────── */
-.al-hero{background:rgba(255,244,228,.93);border:1.5px solid rgba(212,175,55,.22);border-radius:24px;padding:28px 32px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;margin-bottom:24px;position:relative;overflow:hidden;backdrop-filter:blur(6px);box-shadow:0 8px 32px rgba(0,0,0,.07)}
-.al-hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(212,175,55,.04) 18px,rgba(212,175,55,.04) 19px);pointer-events:none}
-/* Pasaporte 3D */
-.al-pb{width:100px;height:132px;flex-shrink:0;position:relative;z-index:1;transform:perspective(400px) rotateY(-12deg) rotateX(2deg);filter:drop-shadow(10px 14px 22px rgba(0,0,0,.5))}
-.al-pb-pages{position:absolute;top:3px;right:-6px;bottom:3px;width:7px;background:repeating-linear-gradient(to bottom,#ede9e0 0px,#ede9e0 2px,#c4bfb5 2px,#c4bfb5 3.5px);border-radius:0 3px 3px 0;z-index:0}
-.al-pb-cover{position:absolute;inset:0;background:linear-gradient(158deg,#09122b 0%,#112040 30%,#1a2e6e 65%,#1c3a8a 100%);border-radius:4px 10px 10px 4px;border-left:13px solid #050b18;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:10px 7px;box-sizing:border-box;z-index:1;box-shadow:inset 1px 0 10px rgba(255,255,255,.05),inset 0 0 36px rgba(0,0,0,.35)}
-.al-pb-cover::before{content:'';position:absolute;inset:0;background:repeating-conic-gradient(rgba(255,255,255,.012) 0deg,transparent 1deg,transparent 9deg,rgba(255,255,255,.012) 10deg) 50% 50%/18px 18px,repeating-linear-gradient(62deg,rgba(255,255,255,.015) 0,rgba(255,255,255,.015) 1px,transparent 1px,transparent 10px);pointer-events:none}
-.al-pb-cover::after{content:'';position:absolute;inset:7px;border:1px solid rgba(212,175,55,.3);border-radius:5px;pointer-events:none}
-.al-pb-top{font-size:3.8px;color:#D4AF37;font-weight:900;letter-spacing:2px;text-transform:uppercase;text-align:center;opacity:.85;z-index:2;position:relative;line-height:1.5}
-.al-pb-emblem{width:44px;height:44px;border-radius:50%;border:2px solid rgba(212,175,55,.45);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 40% 36%,rgba(212,175,55,.14) 0%,transparent 70%);position:relative;z-index:2}
-.al-pb-emblem::before{content:'';position:absolute;inset:5px;border-radius:50%;border:1px solid rgba(212,175,55,.15);pointer-events:none}
-.al-pb-globe{font-size:1.5rem;filter:drop-shadow(0 0 6px rgba(212,175,55,.35))}
-.al-pb-label{font-size:4.2px;color:#D4AF37;font-weight:900;letter-spacing:4.5px;text-transform:uppercase;z-index:2;position:relative;opacity:.95}
-.al-pb-sub{font-size:3.2px;color:rgba(212,175,55,.55);font-weight:700;letter-spacing:3.5px;text-transform:uppercase;z-index:2;position:relative}
-.al-pb-strip{width:65%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.4),transparent);z-index:2;position:relative}
-.al-pb-mrz{font-size:2.6px;color:rgba(255,255,255,.13);font-family:'Courier New',monospace;letter-spacing:.4px;z-index:2;position:relative;opacity:.75}
+.al-hero{background:url('../assets/album-hero.png') center center/cover no-repeat;border-radius:24px;padding:32px 40px 32px 48%;display:flex;flex-direction:row;align-items:center;gap:24px;margin-bottom:24px;position:relative;overflow:hidden;min-height:320px;box-shadow:0 8px 40px rgba(0,0,0,.18)}
+.al-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.08) 0%,rgba(20,34,66,.55) 42%,rgba(20,34,66,.82) 65%,rgba(10,18,43,.92) 100%);pointer-events:none}
+/* Pasaporte 3D — oculto, reemplazado por imagen de fondo */
+.al-pb{display:none}
 /* Hero texto */
-.al-hero-txt{z-index:1}
-.al-hero-eyebrow{font-size:.65rem;font-weight:700;color:#F28C28;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.al-hero-ttl{font-size:1.7rem;font-weight:900;color:#0F172A;margin-bottom:6px;line-height:1.2}
-.al-hero-sub{font-size:.8rem;color:#475569;line-height:1.6;margin-bottom:14px}
+.al-hero-txt{z-index:1;flex:1}
+.al-hero-eyebrow{font-size:.65rem;font-weight:700;color:#F28C28;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.al-hero-ttl{font-size:1.85rem;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.al-hero-sub{font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;margin-bottom:16px;text-shadow:0 1px 6px rgba(0,0,0,.4)}
 .al-hero-chips{display:flex;flex-wrap:wrap;gap:8px}
-.al-hero-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.8);border:1px solid rgba(0,59,122,.14);border-radius:99px;padding:5px 12px;font-size:.65rem;font-weight:700;color:#003B7A;backdrop-filter:blur(4px)}
+.al-hero-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:99px;padding:5px 12px;font-size:.65rem;font-weight:700;color:#fff;backdrop-filter:blur(6px)}
 .al-hero-chip i{color:#F28C28;font-size:.6rem}
 /* Hero progreso */
-.al-hero-prog{background:rgba(255,255,255,.88);border:1.5px solid rgba(0,59,122,.12);border-radius:20px;padding:20px 22px;min-width:230px;flex-shrink:0;box-shadow:0 6px 24px rgba(0,59,122,.09);z-index:1;backdrop-filter:blur(6px)}
+.al-hero-prog{background:rgba(255,255,255,.13);border:1.5px solid rgba(255,255,255,.22);border-radius:20px;padding:20px 22px;min-width:220px;flex-shrink:0;box-shadow:0 8px 32px rgba(0,0,0,.25);z-index:1;backdrop-filter:blur(10px)}
 .al-prog-ring-wrap{display:flex;align-items:center;gap:16px;margin-bottom:14px}
 .al-prog-ring{position:relative;width:64px;height:64px;flex-shrink:0}
 .al-prog-ring svg{transform:rotate(-90deg)}
-.al-prog-ring-track{fill:none;stroke:#E2E8F0;stroke-width:6}
+.al-prog-ring-track{fill:none;stroke:rgba(255,255,255,.2);stroke-width:6}
 .al-prog-ring-fill{fill:none;stroke:url(#alRingGrad);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)}
-.al-prog-ring-txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;color:#003B7A}
+.al-prog-ring-txt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;color:#fff}
 .al-prog-ring-info{flex:1}
-.al-prog-ring-lbl{font-size:.62rem;font-weight:700;color:#64748B;margin-bottom:2px}
-.al-prog-count{font-size:.95rem;font-weight:900;color:#0F172A}
-.al-prog-count span{color:#003B7A}
-.al-prog-benefit{background:linear-gradient(135deg,#FFF7ED,#FFF);border:1px solid #FDE68A;border-radius:12px;padding:10px 12px}
-.al-prog-benefit-lbl{font-size:.58rem;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;display:flex;align-items:center;gap:5px}
-.al-prog-benefit-val{font-size:.75rem;font-weight:800;color:#0F172A}
-.al-prog-benefit-sub{font-size:.6rem;color:#78716C;margin-top:2px}
+.al-prog-ring-lbl{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:2px}
+.al-prog-count{font-size:.95rem;font-weight:900;color:#fff}
+.al-prog-count span{color:#60A5FA}
+.al-prog-benefit{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px 12px}
+.al-prog-benefit-lbl{font-size:.58rem;font-weight:700;color:#FDE68A;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;display:flex;align-items:center;gap:5px}
+.al-prog-benefit-val{font-size:.75rem;font-weight:800;color:#fff}
+.al-prog-benefit-sub{font-size:.6rem;color:rgba(255,255,255,.6);margin-top:2px}
 /* ── TABS ─────────────────────────────────────────── */
 .al-tabs{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;padding:0 0 18px;scrollbar-width:none}
 .al-tabs::-webkit-scrollbar{display:none}
@@ -926,14 +914,13 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .al-benefit-prog-fill{height:100%;background:linear-gradient(90deg,#F28C28,#FBBF24);border-radius:99px;transition:width 1.2s ease}
 /* ── RESPONSIVE ───────────────────────────────────── */
 @media(max-width:900px){
-  .al-hero{grid-template-columns:1fr auto;}
-  .al-pb{display:none}
+  .al-hero{padding:28px 28px 28px 40%;min-height:280px}
   .al-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
   .al-inspo-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
 }
 @media(max-width:600px){
-  .al-hero{grid-template-columns:1fr;padding:20px 18px;gap:16px}
-  .al-hero-prog{min-width:unset}
+  .al-hero{padding:20px 18px;flex-direction:column;align-items:flex-start;min-height:220px;background-position:left center}
+  .al-hero-prog{min-width:unset;width:100%}
   .al-tabs{gap:6px}
   .al-tab{padding:7px 12px;font-size:.7rem}
   .al-grid{grid-template-columns:repeat(2,1fr);gap:10px}
@@ -1519,30 +1506,17 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <!-- SVG gradient para el anillo de progreso -->
     <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="alRingGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#003B7A"/><stop offset="100%" stop-color="#0F62FE"/></linearGradient></defs></svg>
 
-    <!-- HERO: Tu pasaporte viajero -->
+    <!-- HERO: imagen album-hero.png como fondo -->
     <div class="al-hero">
-     <!-- Pasaporte 3D -->
-     <div class="al-pb">
-      <div class="al-pb-pages"></div>
-      <div class="al-pb-cover">
-       <div class="al-pb-top">HERSE TURISMO</div>
-       <div class="al-pb-strip"></div>
-       <div class="al-pb-emblem"><div class="al-pb-globe">🌍</div></div>
-       <div class="al-pb-label">PASAPORTE</div>
-       <div class="al-pb-sub">VIAJERO</div>
-       <div class="al-pb-strip"></div>
-       <div class="al-pb-mrz">&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
-      </div>
-     </div>
-     <!-- Texto central -->
+     <!-- Texto dinámico (derecha del hero) -->
      <div class="al-hero-txt">
-      <div class="al-hero-eyebrow"><i class="fas fa-passport"></i> Pasaporte Herse</div>
-      <div class="al-hero-ttl">Tu pasaporte viajero</div>
-      <div class="al-hero-sub">Cada país visitado suma una nueva página a tu historia.<br>Coleccioná sellos y desbloqueá beneficios exclusivos.</div>
+      <div class="al-hero-eyebrow"><i class="fas fa-passport"></i> Tu Pasaporte Viajero</div>
+      <div class="al-hero-ttl">Coleccioná destinos.<br>Sumá experiencias.</div>
+      <div class="al-hero-sub">Marcá los países que ya visitaste y completá<br>tu pasaporte viajero. Cada sello cuenta tu historia.</div>
       <div class="al-hero-chips">
        <div class="al-hero-chip"><i class="fas fa-globe-americas"></i> <span id="al-chip-total">0</span> países disponibles</div>
        <div class="al-hero-chip"><i class="fas fa-stamp"></i> <span id="al-chip-count">0</span> sellos desbloqueados</div>
-       <div class="al-hero-chip"><i class="fas fa-medal"></i> <span id="al-chip-level">Explorador inicial</span></div>
+       <div class="al-hero-chip"><i class="fas fa-medal"></i> <span id="al-chip-level">Nivel 1 · Viajero inicial</span></div>
       </div>
      </div>
      <!-- Card progreso -->
