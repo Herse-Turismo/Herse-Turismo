@@ -746,19 +746,22 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 #view-album .vcontent{background:transparent;padding-bottom:40px}
 /* ── HERO ─────────────────────────────────────────── */
 .al-hero{background:#0c1a3a;border-radius:0 0 20px 20px;padding:0;display:block;margin:-24px -24px 24px -24px;position:relative;overflow:hidden;min-height:340px;box-shadow:0 8px 40px rgba(0,0,0,.18)}
-.al-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;z-index:0;display:block;border-radius:24px}
-.al-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 35%,rgba(10,18,43,.6) 55%,rgba(10,18,43,.82) 75%,rgba(5,10,30,.88) 100%);pointer-events:none;z-index:1}
-/* Pasaporte 3D — oculto, reemplazado por imagen de fondo */
+.al-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;z-index:0;display:block}
+/* Vignette lateral derecha: oscurece el área de texto de la imagen */
+.al-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 28%,rgba(8,14,42,.55) 50%,rgba(8,14,42,.9) 100%);pointer-events:none;z-index:1}
+/* Vignette inferior: oscurece el área de stats de la imagen */
+.al-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,14,42,.97) 0%,rgba(8,14,42,.75) 18%,rgba(8,14,42,.2) 36%,transparent 52%);pointer-events:none;z-index:1}
+/* Pasaporte 3D — oculto */
 .al-pb{display:none}
-/* Hero texto */
+/* Hero texto — oculto */
 .al-hero-txt{display:none}
-/* Stats overlay sobre la franja inferior de la imagen */
-.al-stats-ov{position:absolute;bottom:0;left:22%;right:32%;z-index:3;display:flex;align-items:stretch;background:#cfc5ad}
-.al-stat-ov-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 10px 16px;gap:3px;text-align:center}
-.al-stat-ov-item+.al-stat-ov-item{border-left:1px solid rgba(12,26,58,.18)}
-.al-stat-ov-ico{font-size:1.15rem;color:#0c1a3a;opacity:.7;margin-bottom:1px}
-.al-stat-ov-num{font-size:1.25rem;font-weight:900;color:#0c1a3a;line-height:1;letter-spacing:-.5px}
-.al-stat-ov-lbl{font-size:.58rem;color:#2a3d6e;font-weight:600;line-height:1.3;opacity:.85}
+/* Stats row: sin fondo, texto blanco sobre el vignette inferior */
+.al-hero-stats-row{position:absolute;bottom:0;left:0;right:0;z-index:2;display:flex;align-items:center;justify-content:center;padding:20px 0 22px}
+.al-stat-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:0 36px;text-align:center}
+.al-stat-item+.al-stat-item{border-left:1px solid rgba(255,255,255,.2)}
+.al-stat-ico{font-size:1.1rem;color:rgba(255,255,255,.75);margin-bottom:2px}
+.al-stat-num{font-size:1.3rem;font-weight:900;color:#fff;line-height:1;letter-spacing:-.3px}
+.al-stat-lbl{font-size:.58rem;color:rgba(255,255,255,.65);font-weight:500;line-height:1.35}
 .al-hero-eyebrow{font-size:.65rem;font-weight:700;color:#F28C28;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
 .al-hero-ttl{font-size:1.85rem;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 .al-hero-sub{font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;margin-bottom:16px;text-shadow:0 1px 6px rgba(0,0,0,.4)}
@@ -1517,22 +1520,22 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <!-- HERO: imagen album-hero.png como fondo -->
     <div class="al-hero">
      <img class="al-hero-bg" src="../assets/album-hero.png" alt="" aria-hidden="true">
-     <!-- Stats overlay: cubre los números estáticos de la imagen -->
-     <div class="al-stats-ov">
-      <div class="al-stat-ov-item">
-       <i class="fas fa-globe al-stat-ov-ico"></i>
-       <div class="al-stat-ov-num" id="al-stat-total">0</div>
-       <div class="al-stat-ov-lbl">Países<br>disponibles</div>
+     <!-- Stats dinámicos: sin fondo, sobre el vignette oscuro inferior -->
+     <div class="al-hero-stats-row">
+      <div class="al-stat-item">
+       <i class="fas fa-globe al-stat-ico"></i>
+       <div class="al-stat-num" id="al-stat-total">0</div>
+       <div class="al-stat-lbl">Países disponibles</div>
       </div>
-      <div class="al-stat-ov-item">
-       <i class="fas fa-stamp al-stat-ov-ico"></i>
-       <div class="al-stat-ov-num" id="al-stat-count">0</div>
-       <div class="al-stat-ov-lbl">Sellos<br>desbloqueados</div>
+      <div class="al-stat-item">
+       <i class="fas fa-stamp al-stat-ico"></i>
+       <div class="al-stat-num" id="al-stat-count">0</div>
+       <div class="al-stat-lbl">Sellos desbloqueados</div>
       </div>
-      <div class="al-stat-ov-item">
-       <i class="fas fa-compass al-stat-ov-ico"></i>
-       <div class="al-stat-ov-num" id="al-stat-level-n">Nivel 1</div>
-       <div class="al-stat-ov-lbl" id="al-stat-level-l">Viajero<br>Inicial</div>
+      <div class="al-stat-item">
+       <i class="fas fa-compass al-stat-ico"></i>
+       <div class="al-stat-num" id="al-stat-level-n">Nivel 1</div>
+       <div class="al-stat-lbl" id="al-stat-level-l">Viajero Inicial</div>
       </div>
      </div>
      <!-- Texto dinámico (derecha del hero) -->
