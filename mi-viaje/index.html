@@ -752,6 +752,13 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .al-pb{display:none}
 /* Hero texto */
 .al-hero-txt{display:none}
+/* Stats overlay sobre la franja inferior de la imagen */
+.al-stats-ov{position:absolute;bottom:0;left:26%;right:28%;z-index:2;display:flex;align-items:stretch;background:rgba(205,195,172,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.4)}
+.al-stat-ov-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 12px;gap:4px;text-align:center}
+.al-stat-ov-item+.al-stat-ov-item{border-left:1px solid rgba(12,26,58,.15)}
+.al-stat-ov-ico{font-size:1.3rem;color:#0c1a3a;opacity:.75;margin-bottom:2px}
+.al-stat-ov-num{font-size:1.35rem;font-weight:900;color:#0c1a3a;line-height:1;letter-spacing:-.5px}
+.al-stat-ov-lbl{font-size:.6rem;color:#2a3d6e;font-weight:600;line-height:1.3;opacity:.85}
 .al-hero-eyebrow{font-size:.65rem;font-weight:700;color:#F28C28;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;display:flex;align-items:center;gap:6px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
 .al-hero-ttl{font-size:1.85rem;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.15;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 .al-hero-sub{font-size:.8rem;color:rgba(255,255,255,.82);line-height:1.6;margin-bottom:16px;text-shadow:0 1px 6px rgba(0,0,0,.4)}
@@ -1510,6 +1517,24 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <!-- HERO: imagen album-hero.png como fondo -->
     <div class="al-hero">
      <img class="al-hero-bg" src="../assets/album-hero.png" alt="" aria-hidden="true">
+     <!-- Stats overlay: cubre los números estáticos de la imagen -->
+     <div class="al-stats-ov">
+      <div class="al-stat-ov-item">
+       <i class="fas fa-globe al-stat-ov-ico"></i>
+       <div class="al-stat-ov-num" id="al-stat-total">0</div>
+       <div class="al-stat-ov-lbl">Países<br>disponibles</div>
+      </div>
+      <div class="al-stat-ov-item">
+       <i class="fas fa-stamp al-stat-ov-ico"></i>
+       <div class="al-stat-ov-num" id="al-stat-count">0</div>
+       <div class="al-stat-ov-lbl">Sellos<br>desbloqueados</div>
+      </div>
+      <div class="al-stat-ov-item">
+       <i class="fas fa-compass al-stat-ov-ico"></i>
+       <div class="al-stat-ov-num" id="al-stat-level-n">Nivel 1</div>
+       <div class="al-stat-ov-lbl" id="al-stat-level-l">Viajero<br>Inicial</div>
+      </div>
+     </div>
      <!-- Texto dinámico (derecha del hero) -->
      <div class="al-hero-txt">
       <div class="al-hero-eyebrow"><i class="fas fa-passport"></i> Tu Pasaporte Viajero</div>
@@ -2620,13 +2645,18 @@ function updateAlbumProgress(){
   const pctTxt=document.getElementById('al-pct-txt');if(pctTxt)pctTxt.textContent=pct+'%';
   const cnt=document.getElementById('al-count');if(cnt)cnt.textContent=count;
   const tot=document.getElementById('al-total');if(tot)tot.textContent=total;
-  /* Chips hero */
+  /* Chips hero (ocultos) */
   const chipTotal=document.getElementById('al-chip-total');if(chipTotal)chipTotal.textContent=total;
   const chipCount=document.getElementById('al-chip-count');if(chipCount)chipCount.textContent=count;
+  /* Stats overlay (visible) */
+  const stTotal=document.getElementById('al-stat-total');if(stTotal)stTotal.textContent=total;
+  const stCount=document.getElementById('al-stat-count');if(stCount)stCount.textContent=count;
   /* Nivel viajero */
-  const levels=[{min:0,name:'Explorador inicial'},{min:5,name:'Viajero curioso'},{min:10,name:'Aventurero'},{min:20,name:'Globetrotter'},{min:35,name:'Pasaporte completo'}];
-  const lvl=levels.filter(l=>count>=l.min).pop();
-  const chipLvl=document.getElementById('al-chip-level');if(chipLvl)chipLvl.textContent=lvl?lvl.name:'Explorador inicial';
+  const levels=[{min:0,n:'Nivel 1',l:'Viajero\nInicial'},{min:5,n:'Nivel 2',l:'Viajero\nCurioso'},{min:10,n:'Nivel 3',l:'Aventurero'},{min:20,n:'Nivel 4',l:'Globetrotter'},{min:35,n:'Nivel 5',l:'Pasaporte\nCompleto'}];
+  const lvl=levels.filter(l=>count>=l.min).pop()||levels[0];
+  const chipLvl=document.getElementById('al-chip-level');if(chipLvl)chipLvl.textContent=lvl.n;
+  const stLvlN=document.getElementById('al-stat-level-n');if(stLvlN)stLvlN.textContent=lvl.n;
+  const stLvlL=document.getElementById('al-stat-level-l');if(stLvlL)stLvlL.innerHTML=lvl.l.replace('\n','<br>');
   /* Beneficio próximo */
   const benefits=[{min:0,val:'5% OFF en tu próximo viaje',sub:'Necesitás 5 sellos para desbloquearlo'},{min:5,val:'10% OFF en servicios Herse',sub:'Necesitás 10 sellos para desbloquearlo'},{min:10,val:'Upgrade de habitación gratis',sub:'Necesitás 20 sellos para desbloquearlo'},{min:20,val:'Traslado VIP incluido',sub:'Necesitás 35 sellos para desbloquearlo'},{min:35,val:'¡Pasaporte completo desbloqueado!',sub:'Sos un viajero Herse legendario'}];
   const nextB=benefits.find(b=>count<b.min)||benefits[benefits.length-1];
