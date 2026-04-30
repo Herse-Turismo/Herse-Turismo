@@ -784,8 +784,24 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .al-prog-benefit-lbl{font-size:.58rem;font-weight:700;color:#FDE68A;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;display:flex;align-items:center;gap:5px}
 .al-prog-benefit-val{font-size:.75rem;font-weight:800;color:#fff}
 .al-prog-benefit-sub{font-size:.6rem;color:rgba(255,255,255,.6);margin-top:2px}
+/* ── FONDO ÁLBUM: cubre todo .main cuando la sección está activa ── */
+.main.album-active{
+  background-image:url(../assets/passport/bg-album.jpg);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.main.album-active .top-hdr{
+  background:rgba(252,244,220,.82);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom-color:rgba(175,138,72,.20);
+}
+.main.album-active .pb-bg-overlay{
+  background:rgba(235,215,170,.10);
+}
 /* ── PASAPORTE SECTION ── */
-.pb-sect{position:relative;overflow:hidden;min-height:580px}
+.pb-sect{position:relative;overflow:hidden;min-height:600px}
 .pb-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .pb-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35}
 .pb-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,#EDE2C8 0%,#E4D5A4 60%,#E9DDB7 100%)}
@@ -1779,6 +1795,8 @@ function showView(id){
   closeSidebar();
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const mainEl=document.querySelector('.main');
+  if(mainEl)mainEl.classList.toggle('album-active',id==='album');
   const v=document.getElementById('view-'+id);
   if(v) v.classList.add('active');
   const n=document.getElementById('nav-'+id);
