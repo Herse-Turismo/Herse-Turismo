@@ -788,13 +788,13 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .pb-sect{position:relative;overflow:hidden;min-height:580px}
 .pb-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .pb-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35}
-.pb-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,#F6EDD8 0%,#EDE0BE 60%,#F3E7C9 100%)}
+.pb-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,#EDE2C8 0%,#E4D5A4 60%,#E9DDB7 100%)}
 .pb-bg-stamps{position:absolute;inset:0}
 .pb-bg-st{position:absolute;font-family:'Courier New',monospace;font-weight:900;text-transform:uppercase;text-align:center;line-height:1.3;border-radius:50%;border:5px double;padding:20px 14px;pointer-events:none;white-space:pre}
-.pb-bg-st-1{top:-10px;left:-20px;color:rgba(100,55,20,.1);border-color:rgba(100,55,20,.09);transform:rotate(-18deg);font-size:1.2rem}
-.pb-bg-st-2{bottom:40px;left:30px;color:rgba(80,40,10,.09);border-color:rgba(80,40,10,.08);transform:rotate(14deg);font-size:1.0rem}
-.pb-bg-st-3{top:30px;right:-10px;color:rgba(90,50,15,.1);border-color:rgba(90,50,15,.09);transform:rotate(-8deg);font-size:1.0rem}
-.pb-layout{position:relative;z-index:1;display:flex;gap:20px;padding:28px 20px 20px;align-items:flex-start}
+.pb-bg-st-1{top:-10px;left:-20px;color:rgba(100,55,20,.07);border-color:rgba(100,55,20,.06);transform:rotate(-18deg);font-size:1.2rem}
+.pb-bg-st-2{bottom:40px;left:30px;color:rgba(80,40,10,.06);border-color:rgba(80,40,10,.05);transform:rotate(14deg);font-size:1.0rem}
+.pb-bg-st-3{top:30px;right:-10px;color:rgba(90,50,15,.07);border-color:rgba(90,50,15,.06);transform:rotate(-8deg);font-size:1.0rem}
+.pb-layout{position:relative;z-index:1;display:flex;gap:24px;padding:32px 24px 24px;align-items:flex-start}
 .pb-summary{width:210px;min-width:190px;background:#fff;border-radius:14px;padding:16px 14px;box-shadow:0 4px 20px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.06);flex-shrink:0}
 .ps-head{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:900;color:#0F172A;margin-bottom:14px;padding-bottom:10px;border-bottom:1.5px solid #F1F5F9}
 .ps-head i{color:#003B7A;font-size:.9rem}
@@ -818,17 +818,103 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .ps-last-country{font-size:.76rem;font-weight:900;color:#0F172A;display:flex;align-items:center;gap:5px}
 .ps-last-country i{font-size:.6rem;color:#003B7A}
 .ps-last-sub{font-size:.55rem;color:#64748B;margin-top:2px}
-.pb-main{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
-.pb-book{display:grid;grid-template-columns:1fr 20px 1fr;box-shadow:0 28px 72px rgba(0,0,0,.32),0 8px 22px rgba(0,0,0,.15);border-radius:4px 16px 16px 4px;width:100%;max-width:860px}
-.pb-pg{position:relative;overflow:hidden;padding:14px 10px 36px;min-height:450px}
-.pb-pg-l{background:linear-gradient(108deg,#F3E7CC 0%,#FAF4E4 100%);border-radius:4px 0 0 4px}
-.pb-pg-r{background:linear-gradient(252deg,#F3E7CC 0%,#FAF4E4 100%);border-radius:0 16px 16px 0}
-.pb-spine{background:linear-gradient(180deg,#D4A96A 0%,#7A4A1A 45%,#D4A96A 100%);box-shadow:inset -4px 0 10px rgba(0,0,0,.22),inset 4px 0 10px rgba(0,0,0,.22)}
-.pb-pg-hdr{display:flex;justify-content:space-between;padding:0 2px;margin-bottom:6px}
-.pb-pg-title,.pb-pg-type{font-size:.2rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(80,45,10,.42);font-family:'Courier New',monospace}
-.pb-pg-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-28deg);font-size:2.2rem;font-weight:900;letter-spacing:8px;color:rgba(130,90,40,.04);pointer-events:none;white-space:nowrap;user-select:none;font-family:'Courier New',monospace}
-.pb-stamps-w{position:relative;width:100%;height:390px}
-.pb-pnum{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:.42rem;color:rgba(100,65,25,.22);font-weight:700;letter-spacing:3px;font-family:'Courier New',monospace}
+.pb-main{flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
+/* ── LIBRO PASAPORTE: objeto físico ── */
+.pb-book{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 30px 1fr;
+  width:100%;max-width:880px;
+  border-radius:3px 14px 14px 3px;
+  /* Sombra de objeto apoyado sobre superficie */
+  box-shadow:
+    -12px 4px 2px 0 #1A0B2E,
+    0 2px 4px rgba(0,0,0,.24),
+    0 8px 20px rgba(0,0,0,.22),
+    0 30px 58px rgba(0,0,0,.28),
+    0 58px 92px rgba(0,0,0,.13);
+}
+/* Páginas — base */
+.pb-pg{position:relative;overflow:hidden;padding:16px 14px 38px;min-height:460px}
+/* Highlight de luz superior — simula iluminación cenital */
+.pb-pg::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:26%;
+  background:linear-gradient(180deg,rgba(255,255,255,.15) 0%,rgba(255,255,255,0) 100%);
+  pointer-events:none;
+}
+/* Página izquierda */
+.pb-pg-l{
+  background-color:#F8EEDB;
+  /* Microvariaciones de papel + curvatura hacia el lomo */
+  background-image:
+    linear-gradient(90deg,rgba(255,255,255,.09) 0%,rgba(0,0,0,0) 25%,rgba(0,0,0,.06) 100%),
+    repeating-linear-gradient(2deg,transparent,transparent 26px,rgba(110,68,22,.02) 26px,rgba(110,68,22,.02) 27px);
+  border-radius:3px 0 0 3px;
+  /* Curvatura lomo (izq→der) + vignette + hojas apiladas en borde izq */
+  box-shadow:
+    inset -32px 0 44px rgba(0,0,0,.11),
+    inset 0 0 22px rgba(0,0,0,.04),
+    /* hojas apiladas — borde exterior izquierdo */
+    -3px 0 0 #ECDFBC,
+    -5px 0 0 #E3D3A8,
+    -8px 0 0 #D9C797,
+    -10px 0 0 rgba(90,58,18,.22);
+}
+/* Página derecha (espejo) */
+.pb-pg-r{
+  background-color:#F8EEDB;
+  background-image:
+    linear-gradient(270deg,rgba(255,255,255,.09) 0%,rgba(0,0,0,0) 25%,rgba(0,0,0,.06) 100%),
+    repeating-linear-gradient(2deg,transparent,transparent 26px,rgba(110,68,22,.02) 26px,rgba(110,68,22,.02) 27px);
+  border-radius:0 14px 14px 0;
+  /* Curvatura lomo (der→izq) + hojas apiladas en borde der */
+  box-shadow:
+    inset 32px 0 44px rgba(0,0,0,.11),
+    inset 0 0 22px rgba(0,0,0,.04),
+    /* hojas apiladas — borde exterior derecho */
+    3px 0 0 #ECDFBC,
+    5px 0 0 #E3D3A8,
+    8px 0 0 #D9C797,
+    10px 0 0 rgba(90,58,18,.22);
+}
+/* Lomo — cilindro encuadernado con gradiente de luz */
+.pb-spine{
+  position:relative;
+  background:linear-gradient(90deg,
+    #160B04 0%,
+    #3C1D09 14%,
+    #7A401A 33%,
+    #B07232 50%,
+    #7A401A 67%,
+    #3C1D09 86%,
+    #160B04 100%);
+  box-shadow:
+    inset -3px 0 8px rgba(0,0,0,.30),
+    inset 3px 0 8px rgba(0,0,0,.30),
+    inset 0 0 4px rgba(0,0,0,.18);
+}
+/* Highlight central del lomo (reflejo de luz) */
+.pb-spine::before{
+  content:'';
+  position:absolute;top:0;bottom:0;left:34%;width:28%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+  pointer-events:none;
+}
+/* Microtexto vertical en el lomo */
+.pb-spine::after{
+  content:'HERSE TURISMO';
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) rotate(90deg);
+  font-family:'Courier New',monospace;font-size:.2rem;font-weight:700;
+  letter-spacing:3px;color:rgba(255,210,110,.22);
+  pointer-events:none;white-space:nowrap;
+}
+.pb-pg-hdr{display:flex;justify-content:space-between;padding:0 2px;margin-bottom:8px}
+.pb-pg-title,.pb-pg-type{font-size:.2rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(80,45,10,.30);font-family:'Courier New',monospace}
+.pb-pg-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-28deg);font-size:2.4rem;font-weight:900;letter-spacing:8px;color:rgba(130,90,40,.030);pointer-events:none;white-space:nowrap;user-select:none;font-family:'Courier New',monospace}
+.pb-stamps-w{position:relative;width:100%;height:390px;z-index:2}
+.pb-pnum{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:.42rem;color:rgba(100,65,25,.18);font-weight:700;letter-spacing:3px;font-family:'Courier New',monospace}
 .pb-nav-row{display:flex;align-items:center;gap:14px}
 .pb-nb{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(0,0,0,.18);background:rgba(255,255,255,.88);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#475569;transition:.18s;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .pb-nb:hover:not(:disabled){background:#fff;border-color:#BFDBFE;color:#003B7A;box-shadow:0 4px 14px rgba(0,0,0,.14)}
@@ -839,9 +925,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* ── SELLOS ── */
 .pst-wrap{position:absolute;cursor:pointer;user-select:none}
 .pst-wrap:hover{z-index:20}
-.pst-fb{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;opacity:.11;transition:opacity .3s}
-.pst-wrap.ink .pst-fb{opacity:.82}
-.pst-wrap.ink:hover .pst-fb{filter:brightness(1.07)}
+.pst-fb{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;opacity:.82;transition:opacity .3s}
+.pst-wrap:hover .pst-fb{filter:brightness(1.08)}
 .pst-fb-ring{position:absolute;inset:0;border:3px double var(--sc,#333);border-radius:var(--sr,50%);pointer-events:none}
 .pst-fb-ring::before{content:'';position:absolute;inset:5px;border:1px solid var(--sc,#333);border-radius:inherit;opacity:.4}
 .pst-fb-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:9px 6px;text-align:center;font-family:'Courier New',monospace;color:var(--sc,#333);position:relative;z-index:1}
@@ -851,13 +936,13 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .pst-fb-city{font-size:.28rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:1px}
 .pst-fb-date{font-size:.2rem;letter-spacing:.5px;opacity:.85;margin-top:1px}
 .pst-fb-code{font-size:.3rem;font-weight:900;letter-spacing:3px;margin-top:1px}
-.pst-img{width:100%;height:100%;object-fit:contain;opacity:.11;transition:opacity .3s}
-.pst-wrap.ink .pst-img{opacity:.85}
+.pst-img{width:100%;height:100%;object-fit:contain;opacity:.85;transition:opacity .3s}
+.pst-wrap:hover .pst-img{filter:brightness(1.08)}
 @keyframes pstInkDrop{0%{opacity:0;transform:var(--rtr) scale(1.7);filter:blur(5px)}40%{opacity:.9;filter:blur(0);transform:var(--rtr) scale(.87)}70%{transform:var(--rtr) scale(1.05)}100%{transform:var(--rtr) scale(1)}}
 .pst-wrap.pst-fresh{animation:pstInkDrop .55s cubic-bezier(.36,.07,.19,.97) both!important}
-.pb-empty{text-align:center;padding:12px 0 0;font-size:.62rem;font-style:italic;color:rgba(100,70,30,.28);letter-spacing:.4px;pointer-events:none}
+.pb-empty{text-align:center;padding:12px 0 0;font-size:.62rem;font-style:italic;color:rgba(100,70,30,.26);letter-spacing:.4px;pointer-events:none}
 @media(max-width:900px){.pb-layout{flex-direction:column;align-items:center;padding:16px}.pb-summary{width:100%;max-width:560px}.pb-book{max-width:100%}}
-@media(max-width:600px){.pb-book{grid-template-columns:1fr 10px 1fr}.pb-pg{min-height:300px;padding:8px 6px 28px}.pb-stamps-w{height:270px}}
+@media(max-width:600px){.pb-book{grid-template-columns:1fr 10px 1fr;box-shadow:-6px 3px 1px 0 #1A0B2E,0 6px 18px rgba(0,0,0,.22),0 24px 46px rgba(0,0,0,.24)}.pb-pg{min-height:300px;padding:8px 8px 28px}.pb-stamps-w{height:270px}.pb-spine::after{display:none}}
 /* Toast puntos */
 .al-pts-toast{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);background:#003B7A;color:#fff;font-size:.72rem;font-weight:900;padding:6px 14px;border-radius:99px;pointer-events:none;z-index:50;opacity:0;animation:ptsToast 1.8s ease forwards}
 @keyframes ptsToast{0%{opacity:0;transform:translate(-50%,-60%) scale(.7)}20%{opacity:1;transform:translate(-50%,-80%) scale(1)}80%{opacity:1;transform:translate(-50%,-90%) scale(1)}100%{opacity:0;transform:translate(-50%,-110%) scale(.8)}}
@@ -1578,10 +1663,10 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
        <!-- Página izquierda -->
        <div class="pb-pg pb-pg-l" id="ppLeft">
         <div class="pb-pg-hdr">
-         <span class="pb-pg-title">REPÚBLICA ARGENTINA</span>
-         <span class="pb-pg-type">PASAPORTE</span>
+         <span class="pb-pg-title">HERSE TURISMO</span>
+         <span class="pb-pg-type">TRAVEL PASSPORT</span>
         </div>
-        <div class="pb-pg-wm">PASAPORTE</div>
+        <div class="pb-pg-wm">PASSPORT</div>
         <div class="pb-stamps-w" id="ppStampsLeft"></div>
         <div class="pb-pnum" id="ppNumLeft">08</div>
        </div>
@@ -1590,8 +1675,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
        <!-- Página derecha -->
        <div class="pb-pg pb-pg-r" id="ppRight">
         <div class="pb-pg-hdr">
-         <span class="pb-pg-title">REPÚBLICA ARGENTINA</span>
-         <span class="pb-pg-type">PASAPORTE</span>
+         <span class="pb-pg-title">HERSE TURISMO</span>
+         <span class="pb-pg-type">TRAVEL PASSPORT</span>
         </div>
         <div class="pb-pg-wm">VIAJERO</div>
         <div class="pb-stamps-w" id="ppStampsRight"></div>
