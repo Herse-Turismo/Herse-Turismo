@@ -316,6 +316,18 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
 ::-webkit-scrollbar-track{background:transparent}
+/* Timeline */
+.tl{display:flex;flex-direction:column;gap:8px}
+.tl-i{display:flex;gap:12px;align-items:flex-start}
+.tl-side{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0}
+.tl-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.tl-dot.ok{background:#dcfce7;color:#16a34a;border:2px solid #bbf7d0}
+.tl-dot.cur{background:#fef3c7;color:#d97706;border:2px solid #fde68a;animation:pulse 2s infinite}
+.tl-dot.pend{background:#f1f5f9;color:#94a3b8;border:2px solid #e2e8f0}
+.tl-ln{width:2px;height:24px;background:var(--bd);border-radius:99px;margin:2px 0}
+.tl-name{font-size:.75rem;font-weight:700;color:var(--tx);line-height:1.2}
+.tl-date{font-size:.62rem;color:var(--tx2);margin-top:1px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
 /* ════════════════════════════════════════════════════════
    RESPONSIVE — Hamburger y Overlay
    ════════════════════════════════════════════════════════ */
@@ -1782,6 +1794,7 @@ const {createClient}=supabase;
 const _db=createClient(SUPA_URL,SUPA_KEY);
 let TRIP_DATE=new Date('2025-08-15T08:30:00-03:00');
 let _tickInterval,_isAdmin=false,_userName='',_userEmail='',_hasTrip=false;
+let _adminStampsSet=new Set();
 
 /* VIEW SWITCHING */
 const VIEW_META={
@@ -1824,29 +1837,56 @@ function toggleItinerario(){
 function renderItinerario(){
   const body=document.getElementById('itin-body');
   if(!body)return;
-  body.innerHTML=`
-    <div class="itin-day">
-      <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 1 — Salida y Llegada</div>
-      <div class="itin-item"><div class="itin-time">06:00</div><div class="itin-ico"><i class="fas fa-car"></i></div><div><div class="itin-name">Traslado al aeropuerto</div><div class="itin-det">Transfer privado desde tu domicilio hasta Ezeiza.</div></div></div>
-      <div class="itin-item"><div class="itin-time">09:30</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo hacia el destino</div><div class="itin-det">Embarque y vuelo. Recordá llegar 3 hs antes.</div></div></div>
-      <div class="itin-item"><div class="itin-time">14:00</div><div class="itin-ico"><i class="fas fa-hotel"></i></div><div><div class="itin-name">Check-in en el hotel</div><div class="itin-det">Llegada, acomodación y descanso libre.</div></div></div>
-      <div class="itin-item"><div class="itin-time">20:00</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Cena de bienvenida</div><div class="itin-det">Cena en restaurante local seleccionado por Herse.</div></div></div>
-    </div>
-    <div class="itin-day">
-      <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 2 — City Tour</div>
-      <div class="itin-item"><div class="itin-time">09:00</div><div class="itin-ico"><i class="fas fa-bus"></i></div><div><div class="itin-name">City Tour guiado</div><div class="itin-det">Recorrido por los principales atractivos con guía bilingüe.</div></div></div>
-      <div class="itin-item"><div class="itin-time">13:30</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Almuerzo libre</div><div class="itin-det">Tiempo libre para explorar y almorzar a tu ritmo.</div></div></div>
-      <div class="itin-item"><div class="itin-time">19:00</div><div class="itin-ico"><i class="fas fa-futbol"></i></div><div><div class="itin-name">Experiencia deportiva</div><div class="itin-det">Partido o visita guiada a estadio según disponibilidad.</div></div></div>
-    </div>
-    <div class="itin-day">
-      <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 3 — Excursión y Vuelta</div>
-      <div class="itin-item"><div class="itin-time">08:00</div><div class="itin-ico"><i class="fas fa-map-marked-alt"></i></div><div><div class="itin-name">Excursión opcional</div><div class="itin-det">Actividad incluida según el paquete contratado.</div></div></div>
-      <div class="itin-item"><div class="itin-time">18:00</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo de regreso</div><div class="itin-det">Check-out del hotel y traslado al aeropuerto.</div></div></div>
-    </div>
-    <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)">
-      <p style="font-size:.7rem;color:var(--tx2);margin-bottom:10px">El itinerario detallado y definitivo se envía por WhatsApp antes del viaje.</p>
-      <button class="btn-a btn-prim" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultar a Herse</button>
-    </div>`;
+  const customItin=body.dataset.itinerario;
+  if(customItin&&customItin.trim().length>10){
+    // Custom itinerary from admin - convert plain text to HTML
+    const lines=customItin.split('\n').filter(l=>l.trim());
+    let html='';
+    let currentDay=null;
+    lines.forEach(line=>{
+      const trimmed=line.trim();
+      if(trimmed.startsWith('Día ')||trimmed.startsWith('Dia ')||trimmed.match(/^\d+\s*[.-]/)){
+        if(currentDay) html+='</div>';
+        currentDay=trimmed;
+        html+=`<div class="itin-day"><div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> ${trimmed.replace(/^D[ií]a\s*\d+[\s:-]*/i,'').trim()||trimmed}</div>`;
+      }else if(trimmed.match(/^\d{1,2}[:\.]\d{2}/)){
+        const time=trimmed.match(/^\d{1,2}[:\.]\d{2}/)[0];
+        const text=trimmed.replace(/^\d{1,2}[:\.]\d{2}\s*[-:]?\s*/,'').trim();
+        const ico=text.toLowerCase().includes('vuelo')?'fa-plane':text.toLowerCase().includes('hotel')?'fa-hotel':text.toLowerCase().includes('cena')||text.toLowerCase().includes('almuerzo')?'fa-utensils':text.toLowerCase().includes('traslado')||text.toLowerCase().includes('transfer')?'fa-car':'fa-map-marker-alt';
+        html+=`<div class="itin-item"><div class="itin-time">${time}</div><div class="itin-ico"><i class="fas ${ico}"></i></div><div><div class="itin-name">${text}</div></div></div>`;
+      }else if(trimmed.length>0){
+        html+=`<div class="itin-item"><div class="itin-ico"><i class="fas fa-info-circle"></i></div><div><div class="itin-name">${trimmed}</div></div></div>`;
+      }
+    });
+    if(currentDay) html+='</div>';
+    html+=`<div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)"><p style="font-size:.7rem;color:var(--tx2);margin-bottom:10px">Itinerario personalizado por tu agente de viajes.</p><button class="btn-a btn-prim" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultar a Herse</button></div>`;
+    body.innerHTML=html;
+  }else{
+    // Default itinerary
+    body.innerHTML=`
+      <div class="itin-day">
+        <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 1 — Salida y Llegada</div>
+        <div class="itin-item"><div class="itin-time">06:00</div><div class="itin-ico"><i class="fas fa-car"></i></div><div><div class="itin-name">Traslado al aeropuerto</div><div class="itin-det">Transfer privado desde tu domicilio hasta Ezeiza.</div></div></div>
+        <div class="itin-item"><div class="itin-time">09:30</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo hacia el destino</div><div class="itin-det">Embarque y vuelo. Recordá llegar 3 hs antes.</div></div></div>
+        <div class="itin-item"><div class="itin-time">14:00</div><div class="itin-ico"><i class="fas fa-hotel"></i></div><div><div class="itin-name">Check-in en el hotel</div><div class="itin-det">Llegada, acomodación y descanso libre.</div></div></div>
+        <div class="itin-item"><div class="itin-time">20:00</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Cena de bienvenida</div><div class="itin-det">Cena en restaurante local seleccionado por Herse.</div></div></div>
+      </div>
+      <div class="itin-day">
+        <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 2 — City Tour</div>
+        <div class="itin-item"><div class="itin-time">09:00</div><div class="itin-ico"><i class="fas fa-bus"></i></div><div><div class="itin-name">City Tour guiado</div><div class="itin-det">Recorrido por los principales atractivos con guía bilingüe.</div></div></div>
+        <div class="itin-item"><div class="itin-time">13:30</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Almuerzo libre</div><div class="itin-det">Tiempo libre para explorar y almorzar a tu ritmo.</div></div></div>
+        <div class="itin-item"><div class="itin-time">19:00</div><div class="itin-ico"><i class="fas fa-futbol"></i></div><div><div class="itin-name">Experiencia deportiva</div><div class="itin-det">Partido o visita guiada a estadio según disponibilidad.</div></div></div>
+      </div>
+      <div class="itin-day">
+        <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 3 — Excursión y Vuelta</div>
+        <div class="itin-item"><div class="itin-time">08:00</div><div class="itin-ico"><i class="fas fa-map-marked-alt"></i></div><div><div class="itin-name">Excursión opcional</div><div class="itin-det">Actividad incluida según el paquete contratado.</div></div></div>
+        <div class="itin-item"><div class="itin-time">18:00</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo de regreso</div><div class="itin-det">Check-out del hotel y traslado al aeropuerto.</div></div></div>
+      </div>
+      <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)">
+        <p style="font-size:.7rem;color:var(--tx2);margin-bottom:10px">El itinerario detallado y definitivo se envía por WhatsApp antes del viaje.</p>
+        <button class="btn-a btn-prim" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultar a Herse</button>
+      </div>`;
+  }
 }
 function openEditPerfil(){
   const el=document.getElementById('modalEditarPerfil');if(!el)return;
@@ -1964,6 +2004,7 @@ function toggleTheme(){
   }
   loadHistorial();
   initPasaporte(user.id);
+  await loadPassportStamps(user.id);
   const {data:fid}=await _db.from('fidelizacion').select('*').maybeSingle();
   if(fid) updateLoyalty(fid);
   if(fid){
@@ -2082,9 +2123,26 @@ function updateTripUI(v){
   if(!dash)return;
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
   const flag=getFlag(v.destino);
-  const heroImg=getHeroImg(v.destino);
+  const heroImg=v.imagen_url||getHeroImg(v.destino);
   const pax=(v.pasajeros||v.pax||1);
   TRIP_DATE=new Date(v.fecha_salida);
+  const tl=v.timeline_status||{};
+  const tlSteps=[
+    {key:'reserva',name:'Reserva confirmada',ico:'fa-check',date:v.fecha_salida?fmtDate(new Date(v.fecha_salida)):'Pronto'},
+    {key:'pago',name:'Pago recibido',ico:'fa-dollar-sign'},
+    {key:'docs',name:'Documentación',ico:'fa-folder-open'},
+    {key:'checkin',name:'Check-in',ico:'fa-plane-departure'},
+    {key:'disfrutar',name:'¡A disfrutar!',ico:'fa-glass-cheers'}
+  ];
+  let tlHtml='<div class="tl">';
+  tlSteps.forEach((step,idx)=>{
+    const done=tl[step.key]||false;
+    const isLast=idx===tlSteps.length-1;
+    const stCls=done?'ok':(idx===0||tl[tlSteps[idx-1]?.key])?'cur':'pend';
+    const ico=done?'<i class="fas fa-check" style="font-size:.46rem"></i>':stCls==='cur'?'<i class="fas fa-circle-notch fa-spin" style="font-size:.46rem"></i>':'';
+    tlHtml+=`<div class="tl-i"><div class="tl-side"><div class="tl-dot ${stCls}">${ico}</div>${!isLast?'<div class="tl-ln"></div>':''}</div><div><div class="tl-name">${step.name}</div><div class="tl-date">${done?step.date:'Próximamente'}</div></div></div>`;
+  });
+  tlHtml+='</div>';
   dash.innerHTML=`
     <div class="trip-hero" style="background-image:url('${heroImg}')">
       <div class="trip-hero-ov"></div>
@@ -2111,7 +2169,7 @@ function updateTripUI(v){
         <div class="itin-hdr-ttl"><i class="fas fa-route" style="color:var(--ac)"></i> Itinerario completo</div>
         <button class="btn-a btn-ghost" style="font-size:.65rem;pointer-events:none">Cerrar <i class="fas fa-times"></i></button>
       </div>
-      <div class="itin-body" id="itin-body"></div>
+      <div class="itin-body" id="itin-body" data-itinerario="${v.itinerario?v.itinerario.replace(/"/g,'&quot;'):''}"></div>
     </div>
     <div class="trip-grid">
       <div class="card">
@@ -2132,6 +2190,12 @@ function updateTripUI(v){
           <div><div class="tc-det-lbl"><i class="fas fa-hotel"></i> Hotel</div><div class="tc-det-val">${v.hotel||'—'}</div></div>
         </div>
         <div class="tc-status"><i class="fas fa-check-circle"></i> Tenés todo listo para disfrutar tu viaje</div>
+      </div>
+      <div class="card">
+        <div class="tc-hdr">
+          <div class="tc-ttl"><i class="fas fa-list-check" style="color:var(--ac3)"></i> Estado del viaje</div>
+        </div>
+        <div style="padding:8px 0">${tlHtml}</div>
       </div>
       <div class="card">
         <div class="tc-hdr">
@@ -2774,24 +2838,20 @@ async function initPasaporte(userId){
   updateFutbolDonut();
   updateDashPassports();
 }
+async function loadPassportStamps(userId){
+  const {data,error}=await _db.from('passport_stamps').select('country_code,visible').eq('user_id',userId);
+  if(error) return;
+  _adminStampsSet=new Set();
+  (data||[]).forEach(r=>{if(r.visible!==false)_adminStampsSet.add(r.country_code);});
+}
 function initViajePassport(historialData){
   _viajeSelladosSet=new Set();
-  (historialData||[]).forEach(v=>{
-    VIAJE_PAGES.forEach(pg=>{
-      [pg.left,pg.right].forEach(side=>{
-        side.items.forEach(item=>{if(matchesDestino(v.destino,item.nombre))_viajeSelladosSet.add(item.id);});
-      });
-    });
-    ALBUM_REGIONS.forEach(rg=>{
-      rg.items.forEach(item=>{if(matchesDestino(v.destino,item.nombre))_viajeSelladosSet.add(item.id);});
-    });
-  });
   updateViajeDonut();
   renderViajeAlbum();
 }
 function updateAlbumProgress(){
   const total=ALBUM_REGIONS.reduce((s,r)=>s+r.items.length,0);
-  const count=_viajeSelladosSet.size;
+  const count=_adminStampsSet.size;
   const pct=total?Math.round((count/total)*100):0;
   /* Anillo SVG */
   const circ=2*Math.PI*26;
@@ -2807,15 +2867,16 @@ function updateAlbumProgress(){
   /* Stats overlay (visible) */
   const stTotal=document.getElementById('al-stat-total');if(stTotal)stTotal.textContent=total;
   const stCount=document.getElementById('al-stat-count');if(stCount)stCount.textContent=count;
-  /* Nivel viajero */
+  /* Nivel viajero - basado en sellos admin confirmados */
+  const stampCount=_adminStampsSet.size;
   const levels=[{min:0,n:'Nivel 1',l:'Viajero\nInicial'},{min:5,n:'Nivel 2',l:'Viajero\nCurioso'},{min:10,n:'Nivel 3',l:'Aventurero'},{min:20,n:'Nivel 4',l:'Globetrotter'},{min:35,n:'Nivel 5',l:'Pasaporte\nCompleto'}];
-  const lvl=levels.filter(l=>count>=l.min).pop()||levels[0];
+  const lvl=levels.filter(l=>stampCount>=l.min).pop()||levels[0];
   const chipLvl=document.getElementById('al-chip-level');if(chipLvl)chipLvl.textContent=lvl.n;
   const stLvlN=document.getElementById('al-stat-level-n');if(stLvlN)stLvlN.textContent=lvl.n;
   const stLvlL=document.getElementById('al-stat-level-l');if(stLvlL)stLvlL.innerHTML=lvl.l.replace('\n','<br>');
   /* Beneficio próximo */
   const benefits=[{min:0,val:'5% OFF en tu próximo viaje',sub:'Necesitás 5 sellos para desbloquearlo'},{min:5,val:'10% OFF en servicios Herse',sub:'Necesitás 10 sellos para desbloquearlo'},{min:10,val:'Upgrade de habitación gratis',sub:'Necesitás 20 sellos para desbloquearlo'},{min:20,val:'Traslado VIP incluido',sub:'Necesitás 35 sellos para desbloquearlo'},{min:35,val:'¡Pasaporte completo desbloqueado!',sub:'Sos un viajero Herse legendario'}];
-  const nextB=benefits.find(b=>count<b.min)||benefits[benefits.length-1];
+  const nextB=benefits.find(b=>stampCount<b.min)||benefits[benefits.length-1];
   const nb=document.getElementById('al-next-benefit');if(nb)nb.textContent=nextB.val;
   const bs=document.getElementById('al-benefit-sub');if(bs)bs.textContent=nextB.sub;
 }
@@ -2987,7 +3048,7 @@ function ppGetStampDate(id){
 }
 function ppBuildStamp(id,si,side){
   if(!id)return '';
-  if(!_viajeSelladosSet.has(id))return '';  /* sin visita = sin sello */
+  if(!_adminStampsSet.has(id))return '';  /* sin confirmación admin = sin sello */
   const sl=side==='l'?PB_L_SLOTS[si]:PB_R_SLOTS[si];
   if(!sl)return '';
   const d=STAMP_DESIGNS[id]||{name:id,code:id.toUpperCase(),c:'#666',sh:'c',w:128,h:128};
@@ -2995,18 +3056,13 @@ function ppBuildStamp(id,si,side){
   const wSt='top:'+sl.t+';left:'+sl.l+';width:'+sl.w+'px;height:'+sl.h+'px;transform:'+rtr+';--rtr:'+rtr;
   const imgSrc=STAMP_ASSETS[id];
   if(imgSrc){
-    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="'+d.name+'" onerror="this.style.display=\'none\'"></div>';
+    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="'+d.name+'" onerror="this.style.display=\'none\'"></div>';
   }
-  /* Sin asset configurado — devuelve vacío (no se muestra nada).
-     Para desarrollo: descomentá el bloque siguiente para ver un placeholder mínimo.
-  const sr=d.sh==='c'?'50%':d.sh==='o'?'50% / 42%':'6px';
-  return '<div class="pst-wrap ink pst-dev" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'"><div class="pst-fb" style="--sc:'+d.c+';--sr:'+sr+'"><div class="pst-fb-ring"></div><div class="pst-fb-inner"><span class="pst-fb-city">'+d.city+'</span><span class="pst-fb-code">'+d.code+'</span></div></div></div>';
-  */
   return '';
 }
 function renderPassportSummary(){
   const el=document.getElementById('pbSummary');if(!el)return;
-  const count=[..._viajeSelladosSet].filter(function(id){return !!STAMP_DESIGNS[id];}).length;
+  const count=[..._adminStampsSet].filter(function(id){return !!STAMP_DESIGNS[id];}).length;
   const total=Object.keys(STAMP_DESIGNS).length;
   const days=(_allTrips||[]).reduce(function(s,t){
     if(!t.fecha_salida||!t.fecha_regreso)return s;
@@ -3022,7 +3078,7 @@ function renderPassportSummary(){
   ];
   const lvl=[...LEVELS].reverse().find(function(l){return xp>=l.min;})||LEVELS[0];
   const pct=lvl.max===Infinity?100:Math.min(100,Math.round((xp-lvl.min)/(lvl.max-lvl.min)*100));
-  const lastId=[..._viajeSelladosSet].filter(function(id){return !!STAMP_DESIGNS[id];}).pop();
+  const lastId=[..._adminStampsSet].filter(function(id){return !!STAMP_DESIGNS[id];}).pop();
   const lastD=lastId?STAMP_DESIGNS[lastId]:null;
   const lastDate=lastId?ppGetStampDate(lastId):'';
   el.innerHTML='<div class="ps-head"><i class="fas fa-book-open"></i> Tu pasaporte</div>'

@@ -198,6 +198,52 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 .btn-notify:hover:not(:disabled) { background: #047857; transform: translateY(-1px); }
 .btn-notify:disabled { background: #d1fae5; color: #6ee7b7; cursor: default; }
 
+/* ===== TIMELINE CHECKS ===== */
+.tl-check{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--light);border-radius:8px;font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer;transition:.15s;border:1.5px solid transparent}
+.tl-check:hover{background:#e8efff;border-color:#c5d4f0}
+.tl-check input{width:16px;height:16px;accent-color:var(--blue);cursor:pointer}
+/* ===== PASAPORTE ADMIN (ÁLBUM) ===== */
+.ppa-header{display:flex;align-items:center;gap:16px;padding:16px;background:linear-gradient(135deg,#f0f5ff,#e8efff);border-radius:12px;margin-bottom:18px}
+.ppa-hstat{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:70px}
+.ppa-hnum{font-size:2rem;font-weight:900;color:var(--blue);line-height:1}
+.ppa-hlbl{font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.ppa-hbar{flex:1;height:10px;background:#e0e8f0;border-radius:99px;overflow:hidden}
+.ppa-hfill{height:100%;background:linear-gradient(90deg,var(--blue),#10b981);border-radius:99px;transition:width .3s}
+.ppa-hnote{font-size:.75rem;color:var(--muted);font-weight:600}
+.ppa-empty{text-align:center;padding:40px 20px;color:var(--muted);font-weight:600}
+.ppa-empty i{font-size:2.5rem;margin-bottom:12px;opacity:.25}
+.ppa-empty p{font-size:.85rem;line-height:1.5}
+.ppa-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.ppa-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:white;border:1.5px solid #e5eaf0;border-radius:10px;transition:.15s}
+.ppa-row:hover{border-color:#c5d4f0;background:#fafcff}
+.ppa-row.ppa-hidden{opacity:.6;background:#f8f9fb;border-style:dashed}
+.ppa-flag{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:linear-gradient(135deg,#f0f4f8,#e0e8f0);flex-shrink:0}
+.ppa-info{flex:1;min-width:0}
+.ppa-name{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:1px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ppa-region{font-size:.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;background:#f0f4f8;padding:2px 8px;border-radius:99px}
+.ppa-meta{font-size:.72rem;color:var(--muted);font-weight:600}
+.ppa-actions{display:flex;gap:6px;flex-shrink:0}
+.ppa-btn-toggle,.ppa-btn-del{padding:7px 10px;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;transition:.15s;border:none;display:flex;align-items:center;gap:5px}
+.ppa-btn-toggle{background:#dcfce7;color:#15803d}
+.ppa-btn-toggle:hover{background:#bbf7d0}
+.ppa-btn-toggle.ppa-off{background:#fef3c7;color:#d97706}
+.ppa-btn-del{background:#fee2e2;color:#dc2626}
+.ppa-btn-del:hover{background:#fecaca}
+.ppa-form{background:#fff;border:2px dashed #e0e8f0;border-radius:14px;padding:18px;margin-top:10px}
+.ppa-ftitle{font-size:.85rem;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.ppa-ftitle i{color:var(--orange)}
+.ppa-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:768px){.ppa-fgrid{grid-template-columns:1fr}}
+.ppa-fgroup{display:flex;flex-direction:column;gap:6px}
+.ppa-fgroup.full{grid-column:1 / -1}
+.ppa-fgroup label{font-size:.72rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.5px}
+.ppa-select,.ppa-input{padding:10px 12px;border:1.5px solid #e0e8f0;border-radius:10px;font-size:.88rem;background:var(--light);outline:none;transition:.2s}
+.ppa-select:focus,.ppa-input:focus{border-color:var(--blue);background:white;box-shadow:0 0 0 3px rgba(0,74,143,.08)}
+.ppa-select option:disabled{color:#9ca3af;font-style:italic}
+.ppa-check{display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:700;color:var(--text);cursor:pointer}
+.ppa-check input{width:18px;height:18px;accent-color:var(--blue);cursor:pointer}
+.ppa-btn-add{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:white;border:none;padding:12px 24px;border-radius:10px;font-weight:800;font-size:.9rem;cursor:pointer;transition:.15s}
+.ppa-btn-add:hover{background:var(--blue-dark);transform:translateY(-1px)}
 /* ===== TOAST ===== */
 .toast {
     position: fixed; bottom: 28px; right: 28px;
@@ -295,6 +341,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     <button class="tab-btn" onclick="switchTab('passport', this)">
                         <i class="fas fa-stamp"></i> Pasaporte
                     </button>
+                    <button class="tab-btn" onclick="switchTab('perfil', this)">
+                        <i class="fas fa-user"></i> Perfil
+                    </button>
                 </div>
 
                 <!-- TAB: VIAJE -->
@@ -306,6 +355,11 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 <div class="form-group full">
                                     <label>Destino</label>
                                     <input type="text" id="v-destino" placeholder="Ej: Cancún, México">
+                                </div>
+                                <div class="form-group full">
+                                    <label>URL Imagen del viaje (hero)</label>
+                                    <input type="url" id="v-imagen" placeholder="https://images.unsplash.com/... (opcional)">
+                                    <small style="font-size:.7rem;color:var(--muted)">Deja vacío para usar imagen por defecto</small>
                                 </div>
                                 <div class="form-group">
                                     <label>Fecha y hora de salida</label>
@@ -341,7 +395,17 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 </div>
                                 <div class="form-group full">
                                     <label>Itinerario / Notas del viaje</label>
-                                    <textarea id="v-itinerario" placeholder="Describí los días del viaje, actividades incluidas, horarios, etc."></textarea>
+                                    <textarea id="v-itinerario" placeholder="Describí los días del viaje, actividades incluidas, horarios, etc." style="min-height:120px"></textarea>
+                                </div>
+                                <div class="form-group full">
+                                    <label style="margin-bottom:10px;font-size:.75rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.5px">Estado del viaje (timeline)</label>
+                                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                                        <label class="tl-check"><input type="checkbox" id="v-tl-reserva" checked> Reserva confirmada</label>
+                                        <label class="tl-check"><input type="checkbox" id="v-tl-pago"> Pago recibido</label>
+                                        <label class="tl-check"><input type="checkbox" id="v-tl-docs"> Documentación</label>
+                                        <label class="tl-check"><input type="checkbox" id="v-tl-checkin"> Check-in</label>
+                                        <label class="tl-check"><input type="checkbox" id="v-tl-disfrutar"> ¡A disfrutar!</label>
+                                    </div>
                                 </div>
                                 <div class="form-group full">
                                     <div class="check-row">
@@ -427,22 +491,102 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                             </div>
                         </div>
                         <form id="fidForm" onsubmit="saveFid(event)">
-                            <div class="form-group" style="max-width:260px">
-                                <label>Cantidad de viajes completados</label>
-                                <input type="number" id="f-viajes" min="0" max="99" value="0">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Viajes completados</label>
+                                    <input type="number" id="f-viajes" min="0" max="99" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>Puntos totales (editable)</label>
+                                    <input type="number" id="f-puntos" min="0" value="0">
+                                    <small style="font-size:.7rem;color:var(--muted)">Se calcula automáticamente (viajes × 250), pero podés editarlo</small>
+                                </div>
                             </div>
                             <button type="submit" class="btn-save" style="margin-top:14px">
                                 <i class="fas fa-save"></i> Guardar fidelización
                             </button>
                         </form>
                     </div>
+                    <div class="card" style="margin-top:16px">
+                        <div class="card-title"><i class="fas fa-exchange-alt"></i> Agregar movimiento de puntos</div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Concepto</label>
+                                <input type="text" id="f-concepto" placeholder="Ej: Bono de bienvenida, Canje de beneficio...">
+                            </div>
+                            <div class="form-group">
+                                <label>Puntos (+ o -)</label>
+                                <input type="number" id="f-trans-pts" placeholder="Ej: 100 o -50">
+                                <small style="font-size:.7rem;color:var(--muted)">Positivo: suma puntos | Negativo: resta puntos (canje)</small>
+                            </div>
+                        </div>
+                        <button onclick="addFidTransaction()" class="btn-add" style="margin-top:12px">
+                            <i class="fas fa-plus"></i> Agregar movimiento
+                        </button>
+                        <div style="margin-top:20px">
+                            <div class="card-title" style="font-size:.75rem;margin-bottom:10px"><i class="fas fa-history"></i> Movimientos recientes</div>
+                            <div id="f-trans-list"><p class="no-data">Cargando...</p></div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- TAB: PASAPORTE TRIBUNERO -->
+                <!-- TAB: PASAPORTE -->
                 <div class="tab-content" id="tab-passport">
                     <div class="card">
-                        <div class="card-title"><i class="fas fa-stamp"></i> Pasaporte Tribunero del cliente</div>
+                        <div class="card-title"><i class="fas fa-stamp"></i> Álbum de Países del cliente</div>
                         <div id="passportAdminWrap"><p class="no-data">Seleccioná un cliente primero.</p></div>
+                    </div>
+                </div>
+
+                <!-- TAB: PERFIL -->
+                <div class="tab-content" id="tab-perfil">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-user"></i> Datos del cliente</div>
+                        <form id="perfilForm" onsubmit="savePerfil(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Nombre completo</label>
+                                    <input type="text" id="p-nombre" placeholder="Ej: Juan Pérez">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="p-email" disabled style="opacity:.6;cursor:not-allowed">
+                                    <small style="font-size:.7rem;color:var(--muted)">El email no se puede cambiar</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>Teléfono</label>
+                                    <input type="tel" id="p-telefono" placeholder="Ej: +54 9 11 1234-5678">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ciudad / País</label>
+                                    <input type="text" id="p-ciudad" placeholder="Ej: Buenos Aires, Argentina">
+                                </div>
+                                <div class="form-group full">
+                                    <label>Notas internas del cliente</label>
+                                    <textarea id="p-notas" placeholder="Preferencias, alergias, requerimientos especiales..."></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-save" style="margin-top:12px">
+                                <i class="fas fa-save"></i> Guardar perfil
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card" style="margin-top:16px">
+                        <div class="card-title"><i class="fas fa-info-circle"></i> Información de cuenta</div>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+                            <div style="padding:12px;background:var(--light);border-radius:10px">
+                                <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">ID de usuario</div>
+                                <div style="font-size:.8rem;font-weight:700;color:var(--text);font-family:monospace" id="p-userid">—</div>
+                            </div>
+                            <div style="padding:12px;background:var(--light);border-radius:10px">
+                                <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Miembro desde</div>
+                                <div style="font-size:.8rem;font-weight:700;color:var(--text)" id="p-miembro">—</div>
+                            </div>
+                            <div style="padding:12px;background:var(--light);border-radius:10px">
+                                <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Total de viajes</div>
+                                <div style="font-size:.8rem;font-weight:700;color:var(--text)" id="p-totalviajes">—</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -560,12 +704,20 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             // Fetch fidelizacion
             const { data: fid } = await _db.from('fidelizacion').select('*').eq('cliente_id', id).maybeSingle();
             fillFidForm(fid);
+
+            // Fetch perfil data
+            fillPerfilForm(currentClient);
+
+            // Count total trips for profile display
+            const { data: allViajes } = await _db.from('viajes').select('id').eq('cliente_id', id);
+            document.getElementById('p-totalviajes').textContent = allViajes?.length ?? 0;
         }
 
         // ===== VIAJE =====
         function fillViajeForm(v) {
             const f = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
             f('v-destino', v?.destino);
+            f('v-imagen', v?.imagen_url);
             f('v-salida',  v?.fecha_salida  ? v.fecha_salida.replace('Z','').substring(0,16) : '');
             f('v-regreso', v?.fecha_regreso ? v.fecha_regreso.replace('Z','').substring(0,16) : '');
             f('v-pasajeros', v?.pasajeros ?? 1);
@@ -575,6 +727,12 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             f('v-terminal', v?.terminal);
             f('v-gate', v?.gate);
             f('v-itinerario', v?.itinerario);
+            const tl = v?.timeline_status || {};
+            document.getElementById('v-tl-reserva').checked = tl.reserva ?? true;
+            document.getElementById('v-tl-pago').checked = tl.pago ?? false;
+            document.getElementById('v-tl-docs').checked = tl.docs ?? false;
+            document.getElementById('v-tl-checkin').checked = tl.checkin ?? false;
+            document.getElementById('v-tl-disfrutar').checked = tl.disfrutar ?? false;
             document.getElementById('v-activo').checked = v?.activo !== false;
             const btnDel = document.getElementById('btnEliminarViaje');
             if (btnDel) btnDel.style.display = v?.id ? '' : 'none';
@@ -586,6 +744,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             const payload = {
                 cliente_id:   currentClient.id,
                 destino:      document.getElementById('v-destino').value,
+                imagen_url:   document.getElementById('v-imagen').value || null,
                 fecha_salida: document.getElementById('v-salida').value || null,
                 fecha_regreso:document.getElementById('v-regreso').value || null,
                 pasajeros:    parseInt(document.getElementById('v-pasajeros').value) || 1,
@@ -594,7 +753,14 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 vuelo_vuelta: document.getElementById('v-vuelo-vuelta').value || null,
                 terminal:     document.getElementById('v-terminal').value || null,
                 gate:         document.getElementById('v-gate').value || null,
-                activo:       document.getElementById('v-activo').checked
+                activo:       document.getElementById('v-activo').checked,
+                timeline_status: {
+                    reserva: document.getElementById('v-tl-reserva').checked,
+                    pago: document.getElementById('v-tl-pago').checked,
+                    docs: document.getElementById('v-tl-docs').checked,
+                    checkin: document.getElementById('v-tl-checkin').checked,
+                    disfrutar: document.getElementById('v-tl-disfrutar').checked
+                }
             };
             payload.itinerario = document.getElementById('v-itinerario').value || null;
             let error;
@@ -672,9 +838,14 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         }
 
         // ===== FIDELIZACIÓN =====
+        let _currentFid = null;
+
         function fillFidForm(fid) {
+            _currentFid = fid;
             const n = fid?.viajes_completados ?? 0;
+            const pts = fid?.puntos ?? (n * 250);
             document.getElementById('f-viajes').value = n;
+            document.getElementById('f-puntos').value = pts;
             updateFidLevels(n);
         }
 
@@ -692,61 +863,253 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             e.preventDefault();
             if (!currentClient) return;
             const done = parseInt(document.getElementById('f-viajes').value) || 0;
-            const nivel = done >= 5 ? 'Elite VIP' : done >= 3 ? 'Viajero' : 'Explorador';
+            const pts = parseInt(document.getElementById('f-puntos').value) || (done * 250);
+            const nivel = done >= 10 ? 'Leyenda Herse' : done >= 7 ? 'Globetrotter' : done >= 5 ? 'Viajero Frecuente' : done >= 3 ? 'Explorador' : 'Aventurero';
             const { error } = await _db.from('fidelizacion').upsert(
-                { cliente_id: currentClient.id, viajes_completados: done, nivel, updated_at: new Date().toISOString() },
+                { cliente_id: currentClient.id, viajes_completados: done, puntos: pts, nivel, updated_at: new Date().toISOString() },
                 { onConflict: 'cliente_id' }
             );
             error ? toast('Error: ' + error.message, 'error') : toast('Fidelización guardada ✅', 'success');
         }
 
-        // ===== PASAPORTE ADMIN =====
-        const ADMIN_PASSPORT_DATA = {
-            england:  { nombre:'Inglaterra', flag:'🏴‍󠁧‍󠁢‍󠁥‍󠁮‍󠁧‍󠁿', liga:'Premier League',    estadios:[{id:'eng_anfield',nombre:'Anfield',equipo:'Liverpool FC'},{id:'eng_old_trafford',nombre:'Old Trafford',equipo:'Manchester United'},{id:'eng_etihad',nombre:'Etihad Stadium',equipo:'Manchester City'},{id:'eng_emirates',nombre:'Emirates Stadium',equipo:'Arsenal FC'},{id:'eng_stamford',nombre:'Stamford Bridge',equipo:'Chelsea FC'},{id:'eng_wembley',nombre:'Wembley Stadium',equipo:'Selección Inglesa'}]},
-            spain:    { nombre:'España',     flag:'🇪🇸', liga:'La Liga',          estadios:[{id:'esp_bernabeu',nombre:'Santiago Bern..',equipo:'Real Madrid'},{id:'esp_camp_nou',nombre:'Camp Nou',equipo:'FC Barcelona'},{id:'esp_wanda',nombre:'Metropolitano',equipo:'Atlético de Madrid'},{id:'esp_mestalla',nombre:'Mestalla',equipo:'Valencia CF'},{id:'esp_san_mames',nombre:'San Mamés',equipo:'Athletic Bilbao'},{id:'esp_pizjuan',nombre:'Sánchez-Pizjuán',equipo:'Sevilla FC'}]},
-            italy:    { nombre:'Italia',     flag:'🇮🇹', liga:'Serie A',          estadios:[{id:'ita_san_siro',nombre:'San Siro',equipo:'Inter / AC Milan'},{id:'ita_olimpico',nombre:'Stadio Olimpico',equipo:'Roma / Lazio'},{id:'ita_allianz',nombre:'Allianz Stadium',equipo:'Juventus FC'},{id:'ita_maradona',nombre:'Stadio Maradona',equipo:'SSC Napoli'},{id:'ita_bentegodi',nombre:'Bentegodi',equipo:'Verona / Chievo'}]},
-            germany:  { nombre:'Alemania',   flag:'🇩🇪', liga:'Bundesliga',       estadios:[{id:'ger_signal',nombre:'Signal Iduna',equipo:'Borussia Dortmund'},{id:'ger_allianz',nombre:'Allianz Arena',equipo:'Bayern München'},{id:'ger_volksparkst',nombre:'Volksparkstadion',equipo:'Hamburger SV'},{id:'ger_rheinenergie',nombre:'RheinEnergieSt.',equipo:'1. FC Köln'},{id:'ger_olympia',nombre:'Olympiastadion',equipo:'Hertha BSC'}]},
-            argentina:{ nombre:'Argentina',  flag:'🇦🇷', liga:'Liga Profesional', estadios:[{id:'arg_monumental',nombre:'El Monumental',equipo:'River Plate'},{id:'arg_bombonera',nombre:'La Bombonera',equipo:'Boca Juniors'},{id:'arg_cilindro',nombre:'El Cilindro',equipo:'Racing Club'},{id:'arg_gasometro',nombre:'Nuevo Gasómetro',equipo:'San Lorenzo'},{id:'arg_libertadores',nombre:'Libertadores Am.',equipo:'Independiente'},{id:'arg_bosque',nombre:'Est. Ciudad LP',equipo:'Estudiantes LP'}]},
-            brazil:   { nombre:'Brasil',     flag:'🇧🇷', liga:'Brasileirão',      estadios:[{id:'bra_maracana',nombre:'Maracaná',equipo:'Flamengo / Fluminense'},{id:'bra_morumbi',nombre:'Morumbis',equipo:'São Paulo FC'},{id:'bra_neo_quimica',nombre:'Neo Química Arena',equipo:'Corinthians'},{id:'bra_mineirao',nombre:'Mineirão',equipo:'Atlético / Cruzeiro'},{id:'bra_beira_rio',nombre:'Beira-Rio',equipo:'Internacional'}]},
-        };
-
-        let _adminPassportSet = new Set();
-
-        async function loadPassportAdmin() {
+        async function addFidTransaction() {
             if (!currentClient) return;
-            const wrap = document.getElementById('passportAdminWrap');
-            if (!wrap) return;
-            const { data } = await _db.from('pasaporte_tribunero').select('estadio_id').eq('user_id', currentClient.id);
-            _adminPassportSet = new Set((data || []).map(r => r.estadio_id));
-            let html = '';
-            for (const [key, pais] of Object.entries(ADMIN_PASSPORT_DATA)) {
-                const done = pais.estadios.filter(e => _adminPassportSet.has(e.id)).length;
-                html += `<div style="margin-bottom:20px">`;
-                html += `<div style="font-size:0.75rem;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:8px">${pais.flag} ${pais.nombre} <span style="color:var(--muted);font-weight:700">${done}/${pais.estadios.length}</span></div>`;
-                html += `<div style="display:flex;flex-direction:column;gap:6px">`;
-                for (const e of pais.estadios) {
-                    const done = _adminPassportSet.has(e.id);
-                    html += `<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;border:1.5px solid ${done?'#c5d4f0':'#eee'};background:${done?'#f0f5ff':'white'}">` +
-                        `<div style="width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,#004A8F,#0069c8);display:flex;align-items:center;justify-content:center;font-size:0.75rem;flex-shrink:0">🏟️</div>` +
-                        `<div style="flex:1;min-width:0"><div style="font-size:0.82rem;font-weight:900;color:#1a1a2e">${e.nombre}</div><div style="font-size:0.7rem;color:#6b7280">${e.equipo}</div></div>` +
-                        (done
-                            ? `<button onclick="toggleStamp('${e.id}','${currentClient.id}',true)" style="padding:5px 10px;background:#fee2e2;border:1.5px solid #fca5a5;color:#dc2626;border-radius:6px;font-weight:800;font-size:0.68rem;cursor:pointer"><i class="fas fa-times"></i> Quitar</button>`
-                            : `<button onclick="toggleStamp('${e.id}','${currentClient.id}',false)" style="padding:5px 10px;background:#004A8F;color:white;border:none;border-radius:6px;font-weight:800;font-size:0.68rem;cursor:pointer"><i class="fas fa-stamp"></i> Sellar</button>`) +
-                        `</div>`;
-                }
-                html += `</div></div>`;
-            }
-            wrap.innerHTML = html;
+            const concepto = document.getElementById('f-concepto').value;
+            const pts = parseInt(document.getElementById('f-trans-pts').value) || 0;
+            if (!concepto || pts === 0) { toast('Completá concepto y puntos', 'error'); return; }
+
+            const { error } = await _db.from('fidelizacion_trans').insert({
+                cliente_id: currentClient.id,
+                concepto: concepto,
+                puntos: pts,
+                tipo: pts > 0 ? 'ganancia' : 'canje',
+                created_at: new Date().toISOString()
+            });
+            if (error) { toast('Error: ' + error.message, 'error'); return; }
+
+            // Update total points
+            const currentPts = parseInt(document.getElementById('f-puntos').value) || 0;
+            document.getElementById('f-puntos').value = currentPts + pts;
+            await saveFid({ preventDefault: () => {} });
+
+            document.getElementById('f-concepto').value = '';
+            document.getElementById('f-trans-pts').value = '';
+            toast('Movimiento agregado ✅', 'success');
+            loadFidTransactions();
         }
 
-        async function toggleStamp(estadioId, userId, remove) {
-            if (remove) {
-                await _db.from('pasaporte_tribunero').delete().eq('user_id', userId).eq('estadio_id', estadioId);
-            } else {
-                await _db.from('pasaporte_tribunero').insert({ user_id: userId, estadio_id: estadioId });
+        async function loadFidTransactions() {
+            if (!currentClient) return;
+            const wrap = document.getElementById('f-trans-list');
+            if (!wrap) return;
+            const { data } = await _db.from('fidelizacion_trans').select('*').eq('cliente_id', currentClient.id).order('created_at', { ascending: false }).limit(10);
+            if (!data?.length) { wrap.innerHTML = '<p class="no-data">Sin movimientos recientes</p>'; return; }
+            wrap.innerHTML = data.map(t => `
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--light);border-radius:8px;margin-bottom:6px">
+                    <div>
+                        <div style="font-size:.8rem;font-weight:700;color:var(--text)">${t.concepto}</div>
+                        <div style="font-size:.65rem;color:var(--muted)">${new Date(t.created_at).toLocaleDateString('es-AR')}</div>
+                    </div>
+                    <div style="font-size:.9rem;font-weight:800;color:${t.puntos > 0 ? '#16a34a' : '#dc2626'}">${t.puntos > 0 ? '+' : ''}${t.puntos} pts</div>
+                </div>
+            `).join('');
+        }
+
+        // ===== PERFIL =====
+        function fillPerfilForm(perfil) {
+            if (!perfil) return;
+            const f = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
+            f('p-nombre', perfil.nombre);
+            f('p-email', perfil.email);
+            f('p-telefono', perfil.telefono);
+            f('p-ciudad', perfil.ciudad);
+            f('p-notas', perfil.notas);
+            document.getElementById('p-userid').textContent = perfil.id?.substring(0, 8) + '...' ?? '—';
+            const desde = perfil.created_at ? new Date(perfil.created_at).toLocaleDateString('es-AR') : '—';
+            document.getElementById('p-miembro').textContent = desde;
+        }
+
+        async function savePerfil(e) {
+            e.preventDefault();
+            if (!currentClient) return;
+            const payload = {
+                nombre: document.getElementById('p-nombre').value || null,
+                telefono: document.getElementById('p-telefono').value || null,
+                ciudad: document.getElementById('p-ciudad').value || null,
+                notas: document.getElementById('p-notas').value || null,
+                updated_at: new Date().toISOString()
+            };
+            const { error } = await _db.from('perfiles').update(payload).eq('id', currentClient.id);
+            if (error) { toast('Error: ' + error.message, 'error'); return; }
+
+            // Update local currentClient
+            currentClient = { ...currentClient, ...payload };
+            document.getElementById('clientName').textContent = payload.nombre || 'Sin nombre';
+            document.getElementById('clientAvatar').textContent = (payload.nombre || currentClient.email || '?').charAt(0).toUpperCase();
+            toast('Perfil guardado ✅', 'success');
+        }
+
+        // ===== ÁLBUM DE PAÍSES ADMIN =====
+        const ALBUM_COUNTRIES=[
+          {id:'arg',name:'Argentina',region:'Sudamérica',flag:'�🇷'},
+          {id:'bra',name:'Brasil',region:'Sudamérica',flag:'🇧🇷'},
+          {id:'chi',name:'Chile',region:'Sudamérica',flag:'🇨🇱'},
+          {id:'col',name:'Colombia',region:'Sudamérica',flag:'🇨🇴'},
+          {id:'per',name:'Perú',region:'Sudamérica',flag:'🇵🇪'},
+          {id:'uru',name:'Uruguay',region:'Sudamérica',flag:'🇺🇾'},
+          {id:'bol',name:'Bolivia',region:'Sudamérica',flag:'🇧🇴'},
+          {id:'ecu',name:'Ecuador',region:'Sudamérica',flag:'🇪🇨'},
+          {id:'par',name:'Paraguay',region:'Sudamérica',flag:'🇵🇾'},
+          {id:'ven',name:'Venezuela',region:'Sudamérica',flag:'🇻🇪'},
+          {id:'mex',name:'México',region:'Norteamérica',flag:'��'},
+          {id:'cub',name:'Cuba',region:'Caribe',flag:'🇨🇺'},
+          {id:'cri',name:'Costa Rica',region:'Centroamérica',flag:'🇨🇷'},
+          {id:'pan',name:'Panamá',region:'Centroamérica',flag:'🇵🇦'},
+          {id:'dom',name:'Rep. Dominicana',region:'Caribe',flag:'🇩🇴'},
+          {id:'gua',name:'Guatemala',region:'Centroamérica',flag:'🇬🇹'},
+          {id:'jam',name:'Jamaica',region:'Caribe',flag:'🇯🇲'},
+          {id:'usa',name:'EE.UU.',region:'Norteamérica',flag:'🇺🇸'},
+          {id:'can',name:'Canadá',region:'Norteamérica',flag:'��'},
+          {id:'esp',name:'España',region:'Europa',flag:'🇪🇸'},
+          {id:'ita',name:'Italia',region:'Europa',flag:'🇮🇹'},
+          {id:'fra',name:'Francia',region:'Europa',flag:'🇫🇷'},
+          {id:'ale',name:'Alemania',region:'Europa',flag:'🇩🇪'},
+          {id:'por',name:'Portugal',region:'Europa',flag:'🇵🇹'},
+          {id:'ing',name:'Inglaterra',region:'Europa',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
+          {id:'gre',name:'Grecia',region:'Europa',flag:'��'},
+          {id:'hol',name:'Holanda',region:'Europa',flag:'🇳🇱'},
+          {id:'bel',name:'Bélgica',region:'Europa',flag:'🇧🇪'},
+          {id:'sui',name:'Suiza',region:'Europa',flag:'🇨🇭'},
+          {id:'irl',name:'Irlanda',region:'Europa',flag:'🇮🇪'},
+          {id:'cro',name:'Croacia',region:'Europa',flag:'🇭🇷'},
+          {id:'jpn',name:'Japón',region:'Asia',flag:'🇯🇵'},
+          {id:'tai',name:'Tailandia',region:'Asia',flag:'��'},
+          {id:'dub',name:'Dubai',region:'Asia',flag:'🇦🇪'},
+          {id:'tur',name:'Turquía',region:'Asia',flag:'🇹🇷'},
+          {id:'chn',name:'China',region:'Asia',flag:'🇨🇳'},
+          {id:'ind',name:'India',region:'Asia',flag:'🇮🇳'},
+          {id:'vie',name:'Vietnam',region:'Asia',flag:'🇻🇳'},
+          {id:'idn',name:'Indonesia',region:'Asia',flag:'🇮🇩'},
+          {id:'aus',name:'Australia',region:'Oceanía',flag:'🇦🇺'},
+          {id:'nzl',name:'Nueva Zelanda',region:'Oceanía',flag:'��'},
+          {id:'egy',name:'Egipto',region:'África',flag:'🇪🇬'},
+          {id:'mar',name:'Marruecos',region:'África',flag:'🇲🇦'},
+          {id:'zaf',name:'Sudáfrica',region:'África',flag:'🇿🇦'},
+          {id:'tan',name:'Tanzania',region:'África',flag:'🇹🇿'},
+          {id:'ken',name:'Kenia',region:'África',flag:'🇰🇪'}
+        ];
+
+        let _adminStamps=[];
+
+        async function loadPassportAdmin(){
+          if(!currentClient) return;
+          const wrap=document.getElementById('passportAdminWrap');
+          if(!wrap) return;
+          const {data,error}=await _db.from('passport_stamps').select('*').eq('user_id',currentClient.id).order('created_at',{ascending:false});
+          if(error){ toast('Error cargando sellos: '+error.message,'error'); return; }
+          _adminStamps=data||[];
+          const existingIds=new Set(_adminStamps.map(s=>s.country_code));
+          const totalCountries=ALBUM_COUNTRIES.length;
+          const visitedCount=_adminStamps.filter(s=>s.visible!==false).length;
+          let html='';
+          html+=`<div class="ppa-header"><div class="ppa-hstat"><div class="ppa-hnum">${visitedCount}</div><div class="ppa-hlbl">países visitados</div></div><div class="ppa-hbar"><div class="ppa-hfill" style="width:${Math.round((visitedCount/totalCountries)*100)}%"></div></div><div class="ppa-hnote">de ${totalCountries} disponibles</div></div>`;
+          if(_adminStamps.length===0){
+            html+=`<div class="ppa-empty"><i class="fas fa-passport"></i><p>Este cliente aún no tiene sellos en su pasaporte.<br>Agregá países desde el formulario de abajo.</p></div>`;
+          }else{
+            html+=`<div class="ppa-list">`;
+            for(const s of _adminStamps){
+              const c=ALBUM_COUNTRIES.find(x=>x.id===s.country_code)||{name:s.country_name,region:s.region||'-',flag:'🌍'};
+              const tripLabel=s.trip_id?'Viaje #'+s.trip_id.substring(0,6):'Sin viaje asociado';
+              const dateStr=s.visited_at?new Date(s.visited_at).toLocaleDateString('es-AR'):'Sin fecha';
+              html+=`<div class="ppa-row${s.visible===false?' ppa-hidden':''}">`;
+              html+=`<div class="ppa-flag">${c.flag}</div>`;
+              html+=`<div class="ppa-info"><div class="ppa-name">${c.name} <span class="ppa-region">${c.region}</span></div><div class="ppa-meta">${dateStr} · ${tripLabel}${s.notes?' · '+s.notes:''}</div></div>`;
+              html+=`<div class="ppa-actions">`;
+              html+=`<button class="ppa-btn-toggle${s.visible===false?' ppa-off':''}" onclick="toggleStampVisibility('${s.id}',${s.visible!==false})" title="${s.visible===false?'Mostrar':'Ocultar'} sello">${s.visible===false?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>'}</button>`;
+              html+=`<button class="ppa-btn-del" onclick="removeStamp('${s.id}')" title="Eliminar sello"><i class="fas fa-trash"></i></button>`;
+              html+=`</div></div>`;
             }
-            toast(remove ? 'Sello quitado' : 'Sello agregado ✅', 'success');
-            await loadPassportAdmin();
+            html+=`</div>`;
+          }
+          html+=`<div class="ppa-form">`;
+          html+=`<div class="ppa-ftitle"><i class="fas fa-plus-circle"></i> Agregar país visitado</div>`;
+          html+=`<div class="ppa-fgrid">`;
+          html+=`<div class="ppa-fgroup"><label>País</label><select id="ppa-country" class="ppa-select" onchange="onCountryChange()">`;
+          html+=`<option value="">Seleccionar país...</option>`;
+          for(const c of ALBUM_COUNTRIES){
+            const disabled=existingIds.has(c.id)?' disabled':'';
+            const label=existingIds.has(c.id)?' (ya sellado)':'';
+            html+=`<option value="${c.id}" data-name="${c.name}" data-region="${c.region}"${disabled}>${c.flag} ${c.name}${label}</option>`;
+          }
+          html+=`</select></div>`;
+          html+=`<div class="ppa-fgroup"><label>Continente/Región</label><input type="text" id="ppa-region" class="ppa-input" placeholder="Autocompletado" readonly></div>`;
+          html+=`<div class="ppa-fgroup"><label>Fecha de visita (opcional)</label><input type="date" id="ppa-date" class="ppa-input"></div>`;
+          html+=`<div class="ppa-fgroup"><label>Viaje asociado (opcional)</label><select id="ppa-trip" class="ppa-select"><option value="">Ninguno</option></select></div>`;
+          html+=`<div class="ppa-fgroup full"><label>Nota interna (opcional)</label><input type="text" id="ppa-notes" class="ppa-input" placeholder="Ej: Crucero por el Caribe, Escala de 2 días..."></div>`;
+          html+=`<div class="ppa-fgroup full"><label class="ppa-check"><input type="checkbox" id="ppa-visible" checked> Mostrar sello en pasaporte del cliente</label></div>`;
+          html+=`</div>`;
+          html+=`<button class="ppa-btn-add" onclick="addStamp()"><i class="fas fa-stamp"></i> Confirmar y agregar sello</button>`;
+          html+=`</div>`;
+          wrap.innerHTML=html;
+          loadTripsForSelect();
+        }
+
+        function onCountryChange(){
+          const sel=document.getElementById('ppa-country');
+          const opt=sel.options[sel.selectedIndex];
+          const region=opt?.dataset?.region||'';
+          document.getElementById('ppa-region').value=region;
+        }
+
+        async function loadTripsForSelect(){
+          if(!currentClient) return;
+          const sel=document.getElementById('ppa-trip');
+          if(!sel) return;
+          const {data}=await _db.from('viajes').select('id,destino,fecha_salida').eq('cliente_id',currentClient.id).order('fecha_salida',{ascending:false});
+          let html='<option value="">Ninguno</option>';
+          if(data){
+            for(const t of data){
+              const d=t.fecha_salida?new Date(t.fecha_salida).toLocaleDateString('es-AR'):'';
+              html+=`<option value="${t.id}">${t.destino||'Viaje'} ${d?'· '+d:''}</option>`;
+            }
+          }
+          sel.innerHTML=html;
+        }
+
+        async function addStamp(){
+          if(!currentClient){toast('Seleccioná un cliente primero','error');return;}
+          const countrySel=document.getElementById('ppa-country');
+          const countryId=countrySel?.value;
+          if(!countryId){toast('Seleccioná un país','error');return;}
+          const existing=_adminStamps.find(s=>s.country_code===countryId);
+          if(existing){toast('Este país ya está sellado para este cliente','error');return;}
+          const opt=countrySel.options[countrySel.selectedIndex];
+          const countryName=opt?.dataset?.name||'';
+          const region=document.getElementById('ppa-region')?.value||opt?.dataset?.region||'';
+          const visitedAt=document.getElementById('ppa-date')?.value||null;
+          const tripId=document.getElementById('ppa-trip')?.value||null;
+          const notes=document.getElementById('ppa-notes')?.value||'';
+          const visible=document.getElementById('ppa-visible')?.checked!==false;
+          const payload={user_id:currentClient.id,country_code:countryId,country_name:countryName,region,visited_at:visitedAt,trip_id:tripId,notes,visible,created_at:new Date().toISOString()};
+          const {error}=await _db.from('passport_stamps').insert(payload);
+          if(error){toast('Error al guardar: '+error.message,'error');return;}
+          toast('Sello agregado ✅','success');
+          await loadPassportAdmin();
+        }
+
+        async function removeStamp(stampId){
+          if(!confirm('¿Eliminar este sello del pasaporte del cliente?')) return;
+          const {error}=await _db.from('passport_stamps').delete().eq('id',stampId);
+          if(error){toast('Error al eliminar: '+error.message,'error');return;}
+          toast('Sello eliminado','success');
+          await loadPassportAdmin();
+        }
+
+        async function toggleStampVisibility(stampId,currentlyVisible){
+          const {error}=await _db.from('passport_stamps').update({visible:!currentlyVisible}).eq('id',stampId);
+          if(error){toast('Error al actualizar: '+error.message,'error');return;}
+          toast(currentlyVisible?'Sello oculto':'Sello visible ✅','success');
+          await loadPassportAdmin();
         }
 
         async function eliminarViaje() {
@@ -768,6 +1131,15 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             btn.classList.add('active');
             document.getElementById('tab-' + name).classList.add('active');
             if (name === 'passport') loadPassportAdmin();
+            if (name === 'fid') loadFidTransactions();
+            if (name === 'perfil') {
+                fillPerfilForm(currentClient);
+                if (currentClient) {
+                    _db.from('viajes').select('id').eq('cliente_id', currentClient.id).then(({data}) => {
+                        document.getElementById('p-totalviajes').textContent = data?.length ?? 0;
+                    });
+                }
+            }
         }
 
         // ===== LOGOUT =====
