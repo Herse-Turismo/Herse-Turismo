@@ -798,35 +798,46 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .al-region-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #E2E8F0;border-radius:99px;padding:5px 14px;font-size:.7rem;font-weight:700;color:#64748B;box-shadow:0 1px 4px rgba(0,0,0,.04)}
 .al-region-badge b{color:#003B7A;font-size:.8rem}
 /* ── GRID COLECCIONABLE ───────────────────────────── */
-.al-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:32px}
+.al-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;margin-bottom:32px}
 @media(max-width:768px){.al-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:500px){.al-grid{grid-template-columns:repeat(2,1fr)}}
-/* Card postal coleccionable */
-.al-card{border-radius:20px;border:1.5px solid rgba(242,140,40,.25);background:#fff;cursor:pointer;transition:.25s ease;position:relative;overflow:visible;box-shadow:0 2px 14px rgba(15,23,42,.07);display:flex;flex-direction:column;animation:alFadeUp .28s ease both}
-.al-card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(0,59,122,.13);border-color:#BFDBFE}
-.al-card.visited{border-color:rgba(22,163,74,.38);box-shadow:0 4px 18px rgba(22,163,74,.1)}
-.al-card.visited:hover{box-shadow:0 16px 36px rgba(22,163,74,.16);border-color:#4ADE80}
-/* Imagen del destino */
-.al-card-img{width:100%;height:115px;position:relative;overflow:hidden;background:#E2E8F0;flex-shrink:0;border-radius:18px 18px 0 0}
-.al-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;display:block}
+/* Card de país coleccionable */
+.al-card{border-radius:20px;border:1.5px solid rgba(242,140,40,.2);background:#fff;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;position:relative;overflow:visible;box-shadow:0 2px 14px rgba(15,23,42,.07);display:flex;flex-direction:column;animation:alFadeUp .28s ease both}
+.al-card:hover{transform:translateY(-7px);box-shadow:0 18px 40px rgba(0,59,122,.14)}
+.al-card.visited{border-color:rgba(22,163,74,.35)}
+.al-card.visited:hover{box-shadow:0 18px 40px rgba(22,163,74,.15);border-color:rgba(22,163,74,.6)}
+/* Bloque imagen de país */
+.al-card-img{width:100%;height:130px;position:relative;overflow:hidden;background:#CBD5E1;flex-shrink:0;border-radius:18px 18px 0 0}
+.al-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease;display:block}
 .al-card:hover .al-card-img img{transform:scale(1.07)}
 .al-card-img-fallback{width:100%;height:100%}
-.al-card-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(0,0,0,.48) 100%);z-index:1}
-/* Badge SELLADO — pill verde */
-.al-stamp-badge{position:absolute;top:9px;right:9px;z-index:3;background:rgba(22,163,74,.92);color:#fff;font-size:.47rem;font-weight:900;letter-spacing:.8px;text-transform:uppercase;padding:4px 9px;border-radius:99px;border:1.5px solid rgba(255,255,255,.5);opacity:0;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.18);display:flex;align-items:center;gap:3px}
-.al-card.visited .al-stamp-badge{opacity:1;animation:stampDrop .4s cubic-bezier(.34,1.56,.64,1) both}
-/* Badge POR VISITAR — pill naranja aspiracional */
-.al-unvisited-badge{position:absolute;top:9px;right:9px;z-index:3;background:rgba(234,88,12,.86);color:#fff;font-size:.47rem;font-weight:700;padding:4px 9px;border-radius:99px;border:1.5px solid rgba(255,255,255,.4);box-shadow:0 2px 6px rgba(0,0,0,.13);display:flex;align-items:center;gap:3px}
+.al-card-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.04) 0%,rgba(0,0,0,.5) 100%);z-index:1}
+/* ── SELLO PASAPORTE ── */
+.al-passport-stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-15deg);z-index:3;width:72px;height:72px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:none;transition:opacity .25s ease;padding:5px}
+.al-ps-visited{border:2.5px solid rgba(22,163,74,.9);box-shadow:0 0 0 1.5px rgba(22,163,74,.22),inset 0 0 16px rgba(22,163,74,.1);opacity:0}
+.al-card.visited .al-ps-visited{opacity:1;animation:stampPress .52s cubic-bezier(.36,.07,.19,.97) both}
+.al-ps-pending{border:1.5px dashed rgba(255,255,255,.45);opacity:.55}
+.al-card.visited .al-ps-pending{opacity:0;pointer-events:none}
+.al-st-top{font-size:.32rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;line-height:1}
+.al-st-ico{font-size:.72rem;line-height:1}
+.al-st-bot{font-size:.29rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;line-height:1}
+.al-ps-visited .al-st-top,.al-ps-visited .al-st-ico,.al-ps-visited .al-st-bot{color:rgba(22,163,74,.92)}
+.al-ps-pending .al-st-top,.al-ps-pending .al-st-ico,.al-ps-pending .al-st-bot{color:rgba(255,255,255,.78)}
+@keyframes stampPress{0%{opacity:0;transform:translate(-50%,-50%) rotate(-15deg) scale(1.35)}45%{transform:translate(-50%,-50%) rotate(-15deg) scale(.91);opacity:1}72%{transform:translate(-50%,-50%) rotate(-15deg) scale(1.05)}100%{transform:translate(-50%,-50%) rotate(-15deg) scale(1);opacity:1}}
+/* Mini badge top-right */
+.al-stamp-badge{position:absolute;top:9px;right:9px;z-index:4;background:rgba(22,163,74,.9);color:#fff;font-size:.44rem;font-weight:900;letter-spacing:.8px;text-transform:uppercase;padding:4px 9px;border-radius:99px;border:1.5px solid rgba(255,255,255,.5);opacity:0;transition:opacity .2s;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;gap:3px}
+.al-card.visited .al-stamp-badge{opacity:1}
+.al-unvisited-badge{position:absolute;top:9px;right:9px;z-index:4;background:rgba(234,88,12,.85);color:#fff;font-size:.44rem;font-weight:700;padding:4px 9px;border-radius:99px;border:1.5px solid rgba(255,255,255,.4);box-shadow:0 2px 6px rgba(0,0,0,.12);display:flex;align-items:center;gap:3px}
 .al-card.visited .al-unvisited-badge{display:none}
-/* Bandera puente imagen↔cuerpo */
-.al-flag-bridge{width:34px;height:34px;border-radius:50%;overflow:hidden;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.2);margin:-17px 0 4px 12px;position:relative;z-index:3;flex-shrink:0}
+/* Bandera bridge imagen↔cuerpo */
+.al-flag-bridge{width:36px;height:36px;border-radius:50%;overflow:hidden;border:2.5px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.2);margin:-18px 0 4px 12px;position:relative;z-index:4;flex-shrink:0}
 .al-flag-bridge img{width:100%;height:100%;object-fit:cover;display:block}
 /* Cuerpo de card */
-.al-card-body{padding:2px 12px 12px;flex:1;display:flex;flex-direction:column;gap:3px}
-.al-name{font-size:.8rem;font-weight:800;color:#0F172A;line-height:1.2;margin-top:2px}
-.al-landmark{font-size:.58rem;color:#64748B;margin-top:1px;display:flex;align-items:center;gap:4px;line-height:1.3}
-.al-landmark i{color:#F28C28;font-size:.52rem;flex-shrink:0}
-.al-status{font-size:.6rem;font-weight:700;margin-top:5px;display:flex;align-items:center;gap:5px;padding:4px 8px;border-radius:99px;width:fit-content}
+.al-card-body{padding:2px 12px 13px;flex:1;display:flex;flex-direction:column;gap:2px}
+.al-name{font-size:.88rem;font-weight:900;color:#0F172A;line-height:1.15;margin-top:2px}
+.al-card-continent{font-size:.53rem;font-weight:600;color:#94A3B8;letter-spacing:.7px;text-transform:uppercase}
+.al-landmark{display:none}
+.al-status{font-size:.6rem;font-weight:700;margin-top:6px;display:flex;align-items:center;gap:5px;padding:4px 9px;border-radius:99px;width:fit-content}
 .al-card.visited .al-status{background:#DCFCE7;color:#16A34A}
 .al-card:not(.visited) .al-status{background:#FFF7ED;color:#EA580C}
 .al-status i{font-size:.56rem}
@@ -2710,25 +2721,27 @@ function renderAlbum(){
   const info=document.getElementById('alRegionInfo');
   if(info)info.innerHTML=`<div class="al-region-name"><i class="fas fa-map-marked-alt"></i>${rg.tab.replace(/[\uD800-\uDFFF]./g,'').trim()}</div><div class="al-region-badge"><i class="fas fa-stamp" style="color:#003B7A;font-size:.65rem"></i><b>${visitedCount}</b> / ${items.length} países visitados</div>`;
   /* Cards */
+  const continentLabel=rg.tab.split(' ').slice(1).join(' ');
   grid.innerHTML=items.map((item,i)=>{
     const visited=_viajeSelladosSet.has(item.id);
     const vis=COUNTRY_VISUALS[item.id]||{};
     const flagUrl=`https://flagcdn.com/w80/${item.code.toLowerCase()}.png`;
-    const lm=vis.landmark||VJ_LANDMARKS[item.id]||'';
     const imgHtml=vis&&vis.image
       ?`<img src="${vis.image}" alt="${vis.imageAlt||item.nombre}" loading="lazy" onerror="this.parentNode.style.background='${vis.fallback||'linear-gradient(135deg,#74b9ff,#0984e3)'}';this.style.display='none'">`
       :`<div class="al-card-img-fallback" style="background:${vis.fallback||'linear-gradient(135deg,#74b9ff,#0984e3)'}"></div>`;
-    return `<div class="al-card${visited?' visited':''}" id="alcard-${item.id}" onclick="stampViaje('${item.id}')" style="animation-delay:${i*0.04}s" title="${item.nombre}${lm?' · '+lm:''}">
+    return `<div class="al-card${visited?' visited':''}" id="alcard-${item.id}" onclick="stampViaje('${item.id}')" style="animation-delay:${i*0.04}s" title="${item.nombre} · ${continentLabel}">
   <div class="al-card-img">
     ${imgHtml}
     <div class="al-card-img-overlay"></div>
-    <div class="al-stamp-badge"><i class="fas fa-check" style="font-size:.42rem"></i>SELLADO</div>
+    <div class="al-passport-stamp al-ps-visited"><span class="al-st-top">SELLADO</span><i class="fas fa-check al-st-ico"></i><span class="al-st-bot">HERSE · 24</span></div>
+    <div class="al-passport-stamp al-ps-pending"><span class="al-st-top">POR</span><i class="fas fa-plane al-st-ico"></i><span class="al-st-bot">VISITAR</span></div>
+    <div class="al-stamp-badge"><i class="fas fa-check" style="font-size:.4rem"></i>SELLADO</div>
     ${!visited?`<div class="al-unvisited-badge"><i class="fas fa-plane" style="font-size:.42rem"></i>Por visitar</div>`:''}
   </div>
   <div class="al-card-body">
     <div class="al-flag-bridge"><img src="${flagUrl}" alt="Bandera ${item.nombre}" onerror="this.style.display='none'" loading="lazy"></div>
     <div class="al-name">${item.nombre}</div>
-    ${lm?`<div class="al-landmark"><i class="fas fa-map-marker-alt"></i>${lm}</div>`:''}
+    <div class="al-card-continent">${continentLabel}</div>
     <div class="al-status"><i class="fas fa-${visited?'check':'plane'}"></i>${visited?'Sellado':'Por visitar'}</div>
   </div>
 </div>`;
