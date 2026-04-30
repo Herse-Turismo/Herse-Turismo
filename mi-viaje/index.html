@@ -855,6 +855,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .pst-wrap.ink .pst-img{opacity:.85}
 @keyframes pstInkDrop{0%{opacity:0;transform:var(--rtr) scale(1.7);filter:blur(5px)}40%{opacity:.9;filter:blur(0);transform:var(--rtr) scale(.87)}70%{transform:var(--rtr) scale(1.05)}100%{transform:var(--rtr) scale(1)}}
 .pst-wrap.pst-fresh{animation:pstInkDrop .55s cubic-bezier(.36,.07,.19,.97) both!important}
+.pb-empty{text-align:center;padding:12px 0 0;font-size:.62rem;font-style:italic;color:rgba(100,70,30,.28);letter-spacing:.4px;pointer-events:none}
 @media(max-width:900px){.pb-layout{flex-direction:column;align-items:center;padding:16px}.pb-summary{width:100%;max-width:560px}.pb-book{max-width:100%}}
 @media(max-width:600px){.pb-book{grid-template-columns:1fr 10px 1fr}.pb-pg{min-height:300px;padding:8px 6px 28px}.pb-stamps-w{height:270px}}
 /* Toast puntos */
@@ -1608,16 +1609,10 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
        <button class="pb-nb" onclick="ppChangePage(1)" id="ppNext"><i class="fas fa-chevron-right"></i></button>
       </div>
       <div id="ppDots" style="display:none"></div>
+      <div class="pb-empty" id="pbEmptyState" style="display:none">Tu pasaporte está listo para recibir su primer sello</div>
 
      </div>
     </div>
-   </div>
-
-   <!-- Secciones inferiores -->
-   <div class="vcontent">
-    <div class="al-inspo" id="alInspo"></div>
-    <div class="al-dest" id="alDest"></div>
-    <div id="alLogros"></div>
    </div>
 
   </div>
@@ -2760,28 +2755,58 @@ const STAMP_DESIGNS={
   tan:{name:'Tanzania',rep:'Jamhuri ya Muungano',city:'Serengeti',land:'Monte Kilimanjaro',code:'JRO',c:'#E64A19',sh:'o',w:130,h:115},
   ken:{name:'Kenia',rep:'Republic of Kenya',city:'Nairobi',land:'Masa\u00ed Mara',code:'NBO',c:'#B71C1C',sh:'r',w:132,h:105},
 };
-/* ── STAMP ASSETS CONFIG ─────────────────────────────────────────────────
-   Para usar imágenes reales de sellos, descomentá la línea del país y
-   copiá el archivo en ../assets/stamps/{nombre}.png
-   Ejemplo: arg:'../assets/stamps/argentina.png'
+/* ── STAMP ASSETS ────────────────────────────────────────────────────────
+   Descomentá cada línea cuando el archivo esté disponible en:
+   /public/images/stamps/{nombre}-stamp.png
+   Las rutas no incluyen /public (se sirven desde la raíz del dominio).
 ────────────────────────────────────────────────────────────────────────── */
 const STAMP_ASSETS={
-  // arg:'../assets/stamps/argentina.png',
-  // bra:'../assets/stamps/brasil.png',
-  // chi:'../assets/stamps/chile.png',
-  // col:'../assets/stamps/colombia.png',
-  // per:'../assets/stamps/peru.png',
-  // uru:'../assets/stamps/uruguay.png',
-  // bol:'../assets/stamps/bolivia.png',
-  // ecu:'../assets/stamps/ecuador.png',
-  // par:'../assets/stamps/paraguay.png',
-  // ven:'../assets/stamps/venezuela.png',
-  // mex:'../assets/stamps/mexico.png',
-  // esp:'../assets/stamps/espana.png',
-  // ita:'../assets/stamps/italia.png',
-  // fra:'../assets/stamps/francia.png',
-  // jpn:'../assets/stamps/japon.png',
-  // aus:'../assets/stamps/australia.png',
+  // arg:'/images/stamps/argentina-stamp.png',
+  // bra:'/images/stamps/brasil-stamp.png',
+  // chi:'/images/stamps/chile-stamp.png',
+  // col:'/images/stamps/colombia-stamp.png',
+  // per:'/images/stamps/peru-stamp.png',
+  // uru:'/images/stamps/uruguay-stamp.png',
+  // bol:'/images/stamps/bolivia-stamp.png',
+  // ecu:'/images/stamps/ecuador-stamp.png',
+  // par:'/images/stamps/paraguay-stamp.png',
+  // ven:'/images/stamps/venezuela-stamp.png',
+  // mex:'/images/stamps/mexico-stamp.png',
+  // cub:'/images/stamps/cuba-stamp.png',
+  // cri:'/images/stamps/costa-rica-stamp.png',
+  // pan:'/images/stamps/panama-stamp.png',
+  // dom:'/images/stamps/rep-dominicana-stamp.png',
+  // gua:'/images/stamps/guatemala-stamp.png',
+  // jam:'/images/stamps/jamaica-stamp.png',
+  // usa:'/images/stamps/eeuu-stamp.png',
+  // can:'/images/stamps/canada-stamp.png',
+  // esp:'/images/stamps/espana-stamp.png',
+  // ita:'/images/stamps/italia-stamp.png',
+  // fra:'/images/stamps/francia-stamp.png',
+  // ale:'/images/stamps/alemania-stamp.png',
+  // por:'/images/stamps/portugal-stamp.png',
+  // ing:'/images/stamps/inglaterra-stamp.png',
+  // gre:'/images/stamps/grecia-stamp.png',
+  // hol:'/images/stamps/holanda-stamp.png',
+  // bel:'/images/stamps/belgica-stamp.png',
+  // sui:'/images/stamps/suiza-stamp.png',
+  // irl:'/images/stamps/irlanda-stamp.png',
+  // cro:'/images/stamps/croacia-stamp.png',
+  // jpn:'/images/stamps/japon-stamp.png',
+  // tai:'/images/stamps/tailandia-stamp.png',
+  // dub:'/images/stamps/dubai-stamp.png',
+  // tur:'/images/stamps/turquia-stamp.png',
+  // chn:'/images/stamps/china-stamp.png',
+  // ind:'/images/stamps/india-stamp.png',
+  // vie:'/images/stamps/vietnam-stamp.png',
+  // idn:'/images/stamps/indonesia-stamp.png',
+  // aus:'/images/stamps/australia-stamp.png',
+  // nzl:'/images/stamps/nueva-zelanda-stamp.png',
+  // egy:'/images/stamps/egipto-stamp.png',
+  // mar:'/images/stamps/marruecos-stamp.png',
+  // zaf:'/images/stamps/sudafrica-stamp.png',
+  // tan:'/images/stamps/tanzania-stamp.png',
+  // ken:'/images/stamps/kenia-stamp.png',
 };
 const PP_SPREADS=[
   ['arg','bra','chi','col','per','uru','bol','ecu','par','ven'],
@@ -2825,31 +2850,22 @@ function ppGetStampDate(id){
 }
 function ppBuildStamp(id,si,side){
   if(!id)return '';
+  if(!_viajeSelladosSet.has(id))return '';  /* sin visita = sin sello */
   const sl=side==='l'?PB_L_SLOTS[si]:PB_R_SLOTS[si];
   if(!sl)return '';
-  const d=STAMP_DESIGNS[id]||{name:id,rep:'',city:'',land:'',code:id.toUpperCase(),c:'#666',sh:'c',w:128,h:128};
-  const visited=_viajeSelladosSet.has(id);
+  const d=STAMP_DESIGNS[id]||{name:id,code:id.toUpperCase(),c:'#666',sh:'c',w:128,h:128};
   const rtr='rotate('+sl.r+')';
   const wSt='top:'+sl.t+';left:'+sl.l+';width:'+sl.w+'px;height:'+sl.h+'px;transform:'+rtr+';--rtr:'+rtr;
-  const inkCls=visited?' ink':'';
   const imgSrc=STAMP_ASSETS[id];
   if(imgSrc){
-    return '<div class="pst-wrap'+inkCls+'" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="'+d.name+'" onerror="this.style.display=\'none\'"></div>';
+    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="'+d.name+'" onerror="this.style.display=\'none\'"></div>';
   }
+  /* Sin asset configurado — devuelve vacío (no se muestra nada).
+     Para desarrollo: descomentá el bloque siguiente para ver un placeholder mínimo.
   const sr=d.sh==='c'?'50%':d.sh==='o'?'50% / 42%':'6px';
-  const fbSt='--sc:'+d.c+';--sr:'+sr;
-  const dt=ppGetStampDate(id);
-  return ['<div class="pst-wrap'+inkCls+'" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'">',
-    '<div class="pst-fb" style="'+fbSt+'">',
-    '<div class="pst-fb-ring"></div>',
-    '<div class="pst-fb-inner">',
-    '<span class="pst-fb-rep">'+d.rep+'</span>',
-    '<span class="pst-fb-country">'+d.name+'</span>',
-    '<span class="pst-fb-land">'+d.land+'</span>',
-    '<span class="pst-fb-city">'+d.city+'</span>',
-    (dt?'<span class="pst-fb-date">'+dt+'</span>':''),
-    '<span class="pst-fb-code">'+d.code+'</span>',
-    '</div></div></div>'].join('');
+  return '<div class="pst-wrap ink pst-dev" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'"><div class="pst-fb" style="--sc:'+d.c+';--sr:'+sr+'"><div class="pst-fb-ring"></div><div class="pst-fb-inner"><span class="pst-fb-city">'+d.city+'</span><span class="pst-fb-code">'+d.code+'</span></div></div></div>';
+  */
+  return '';
 }
 function renderPassportSummary(){
   const el=document.getElementById('pbSummary');if(!el)return;
@@ -2884,8 +2900,10 @@ function renderPassport(){
   const rEl=document.getElementById('ppStampsRight');
   if(!lEl||!rEl)return;
   const sp=PP_SPREADS[_ppSpread]||PP_SPREADS[0];
-  lEl.innerHTML=sp.slice(0,5).map(function(id,i){return ppBuildStamp(id,i,'l');}).join('');
-  rEl.innerHTML=sp.slice(5,10).map(function(id,i){return ppBuildStamp(id,i,'r');}).join('');
+  const lHtml=sp.slice(0,5).map(function(id,i){return ppBuildStamp(id,i,'l');}).join('');
+  const rHtml=sp.slice(5,10).map(function(id,i){return ppBuildStamp(id,i,'r');}).join('');
+  lEl.innerHTML=lHtml;
+  rEl.innerHTML=rHtml;
   const nl=document.getElementById('ppNumLeft');const nr=document.getElementById('ppNumRight');
   if(nl)nl.textContent=String(_ppSpread*2+8).padStart(2,'0');
   if(nr)nr.textContent=String(_ppSpread*2+9).padStart(2,'0');
@@ -2895,6 +2913,8 @@ function renderPassport(){
   if(lbl)lbl.textContent=(_ppSpread+1)+' / '+PP_SPREADS.length;
   const cap=document.getElementById('pbNavCap');
   if(cap)cap.textContent=PP_SPREAD_CAPTIONS[_ppSpread]||'';
+  const emptyEl=document.getElementById('pbEmptyState');
+  if(emptyEl)emptyEl.style.display=(lHtml||rHtml)?'none':'';
   renderPassportSummary();
 }
 function ppChangePage(dir){
@@ -2912,10 +2932,6 @@ function _buildAlCardImg(item){
 }
 function renderAlbum(){
   renderPassport();
-  renderAlbumLogros();
-  renderAlbumInspo();
-  renderAlbumDest();
-  renderAlbumBenefits();
 }
 function _deadRenderAlbum(){
   const grid=document.getElementById('alGrid');if(!grid)return;
