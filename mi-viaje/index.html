@@ -784,47 +784,79 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .al-prog-benefit-lbl{font-size:.58rem;font-weight:700;color:#FDE68A;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;display:flex;align-items:center;gap:5px}
 .al-prog-benefit-val{font-size:.75rem;font-weight:800;color:#fff}
 .al-prog-benefit-sub{font-size:.6rem;color:rgba(255,255,255,.6);margin-top:2px}
-/* ── PASAPORTE DIGITAL ── */
-.pp-wrap{margin-bottom:32px}
-.pp-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding:0 2px}
-.pp-hdr-ttl{font-size:.92rem;font-weight:900;color:#0F172A;display:flex;align-items:center;gap:7px}
-.pp-hdr-ttl i{color:#003B7A}
-.pp-hdr-sub{font-size:.65rem;color:#64748B;font-weight:500;margin-top:2px}
-.pp-nav-row{display:flex;align-items:center;gap:10px}
-.pp-nav-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid #E2E8F0;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#475569;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.pp-nav-btn:hover:not(:disabled){background:#F8FAFC;border-color:#BFDBFE;color:#003B7A}
-.pp-nav-btn:disabled{opacity:.32;cursor:not-allowed}
-.pp-page-lbl{font-size:.65rem;font-weight:700;color:#64748B;min-width:72px;text-align:center}
-.pp-book{display:grid;grid-template-columns:1fr 16px 1fr;box-shadow:0 24px 64px rgba(0,0,0,.24),0 6px 18px rgba(0,0,0,.12);border-radius:4px 16px 16px 4px;margin-bottom:14px}
-.pp-page{position:relative;overflow:hidden;padding:18px 14px 38px;min-height:380px}
-.pp-pg-l{border-radius:4px 0 0 4px;background:linear-gradient(108deg,#F4ECD8 0%,#FDFAF4 100%);border-right:1px solid rgba(160,130,80,.12)}
-.pp-pg-r{border-radius:0 16px 16px 0;background:linear-gradient(252deg,#F4ECD8 0%,#FDFAF4 100%)}
-.pp-spine{background:linear-gradient(180deg,#C8A97A 0%,#7A5230 45%,#C8A97A 100%);box-shadow:inset -3px 0 8px rgba(0,0,0,.18),inset 3px 0 8px rgba(0,0,0,.18)}
-.pp-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-28deg);font-size:1.6rem;font-weight:900;letter-spacing:6px;color:rgba(150,115,70,.045);pointer-events:none;white-space:nowrap;user-select:none}
-.pp-pnum{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:.5rem;color:rgba(110,80,40,.28);font-weight:700;letter-spacing:2.5px}
-.pp-sw{position:relative;width:100%;height:340px}
-.pp-dots{display:flex;justify-content:center;gap:7px;margin-bottom:24px}
-.pp-dot{width:8px;height:8px;border-radius:50%;background:#E2E8F0;cursor:pointer;transition:.2s;border:none;padding:0}
-.pp-dot.active{background:#003B7A;transform:scale(1.15)}
-.pp-dot:hover{background:#93C5FD}
-/* ── SELLOS DE PASAPORTE ── */
-.ppst{position:absolute;cursor:pointer;user-select:none;transition:transform .18s}
-.ppst:hover{z-index:20;filter:brightness(1.08)}
-.ppst-c .ppst-o{width:84px;height:84px;border-radius:50%;border:2.5px double var(--c);display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative}
-.ppst-r .ppst-o{width:88px;height:66px;border-radius:5px;border:2px solid var(--c);display:flex;align-items:center;justify-content:center;box-sizing:border-box;position:relative}
-.ppst-r .ppst-o::before,.ppst-r .ppst-o::after{content:'';position:absolute;left:7px;right:7px;height:1px;background:var(--c);opacity:.55}
-.ppst-r .ppst-o::before{top:7px}.ppst-r .ppst-o::after{bottom:7px}
-.ppst-i{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:5px;text-align:center}
-.ppst-n{font-size:.27rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--c);line-height:1.2;max-width:64px}
-.ppst-ico{font-size:.82rem;color:var(--c);line-height:1;margin:2px 0}
-.ppst-cd{font-size:.25rem;font-weight:700;letter-spacing:2.5px;color:var(--c)}
-.ppst .ppst-o,.ppst .ppst-i{opacity:.14;transition:opacity .25s}
-.ppst.ink .ppst-o{opacity:.84;box-shadow:0 0 10px rgba(0,0,0,.06),inset 0 0 16px rgba(0,0,0,.04)}
-.ppst.ink .ppst-i{opacity:.84}
-@keyframes inkPress{0%{opacity:0;transform:var(--tr) scale(1.5);filter:blur(3px)}35%{opacity:1;filter:blur(0);transform:var(--tr) scale(.9)}65%{transform:var(--tr) scale(1.06)}100%{transform:var(--tr) scale(1)}}
-.ppst.fresh{animation:inkPress .52s cubic-bezier(.36,.07,.19,.97) both!important}
-.ppst.ink:hover .ppst-o{box-shadow:0 0 14px rgba(0,0,0,.1),inset 0 0 20px rgba(0,0,0,.05)}
-@media(max-width:600px){.pp-book{grid-template-columns:1fr 10px 1fr}.pp-page{min-height:300px;padding:12px 8px 30px}.pp-sw{height:260px}.ppst-c .ppst-o{width:68px;height:68px}.ppst-r .ppst-o{width:72px;height:54px}.ppst-ico{font-size:.65rem}.ppst-n{font-size:.22rem}.ppst-cd{font-size:.2rem}}
+/* ── PASAPORTE SECTION ── */
+.pb-sect{position:relative;overflow:hidden;min-height:580px}
+.pb-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.pb-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35}
+.pb-bg-overlay{position:absolute;inset:0;background:linear-gradient(135deg,#F6EDD8 0%,#EDE0BE 60%,#F3E7C9 100%)}
+.pb-bg-stamps{position:absolute;inset:0}
+.pb-bg-st{position:absolute;font-family:'Courier New',monospace;font-weight:900;text-transform:uppercase;text-align:center;line-height:1.3;border-radius:50%;border:5px double;padding:20px 14px;pointer-events:none;white-space:pre}
+.pb-bg-st-1{top:-10px;left:-20px;color:rgba(100,55,20,.1);border-color:rgba(100,55,20,.09);transform:rotate(-18deg);font-size:1.2rem}
+.pb-bg-st-2{bottom:40px;left:30px;color:rgba(80,40,10,.09);border-color:rgba(80,40,10,.08);transform:rotate(14deg);font-size:1.0rem}
+.pb-bg-st-3{top:30px;right:-10px;color:rgba(90,50,15,.1);border-color:rgba(90,50,15,.09);transform:rotate(-8deg);font-size:1.0rem}
+.pb-layout{position:relative;z-index:1;display:flex;gap:20px;padding:28px 20px 20px;align-items:flex-start}
+.pb-summary{width:210px;min-width:190px;background:#fff;border-radius:14px;padding:16px 14px;box-shadow:0 4px 20px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.06);flex-shrink:0}
+.ps-head{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:900;color:#0F172A;margin-bottom:14px;padding-bottom:10px;border-bottom:1.5px solid #F1F5F9}
+.ps-head i{color:#003B7A;font-size:.9rem}
+.ps-stat{display:flex;align-items:flex-start;gap:9px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #F8FAFC}
+.ps-stat:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ps-stat-ico{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;background:#EFF6FF}
+.ps-stat-ico i{font-size:.68rem;color:#003B7A}
+.ps-val{font-size:1.25rem;font-weight:900;color:#0F172A;line-height:1}
+.ps-lbl{font-size:.57rem;color:#64748B;font-weight:500;margin-top:2px}
+.ps-delta{font-size:.54rem;color:#16A34A;font-weight:600;margin-top:2px}
+.ps-level-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #F8FAFC}
+.ps-level-ico{width:26px;height:26px;border-radius:7px;background:#FEF9C3;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ps-level-ico i{font-size:.68rem;color:#B45309}
+.ps-level-name{font-size:.8rem;font-weight:900;color:#0F172A}
+.ps-level-sub{font-size:.57rem;color:#64748B;margin-top:1px}
+.ps-xp-bar{width:100%;height:5px;background:#E2E8F0;border-radius:99px;margin:5px 0 2px;overflow:hidden}
+.ps-xp-fill{height:100%;background:linear-gradient(90deg,#003B7A,#0F62FE);border-radius:99px;transition:width .4s}
+.ps-xp-lbl{font-size:.5rem;color:#94A3B8}
+.ps-last-sello{background:#F8FAFC;border-radius:9px;padding:9px 10px}
+.ps-last-ttl{font-size:.52rem;font-weight:700;color:#94A3B8;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.ps-last-country{font-size:.76rem;font-weight:900;color:#0F172A;display:flex;align-items:center;gap:5px}
+.ps-last-country i{font-size:.6rem;color:#003B7A}
+.ps-last-sub{font-size:.55rem;color:#64748B;margin-top:2px}
+.pb-main{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
+.pb-book{display:grid;grid-template-columns:1fr 20px 1fr;box-shadow:0 28px 72px rgba(0,0,0,.32),0 8px 22px rgba(0,0,0,.15);border-radius:4px 16px 16px 4px;width:100%;max-width:860px}
+.pb-pg{position:relative;overflow:hidden;padding:14px 10px 36px;min-height:450px}
+.pb-pg-l{background:linear-gradient(108deg,#F3E7CC 0%,#FAF4E4 100%);border-radius:4px 0 0 4px}
+.pb-pg-r{background:linear-gradient(252deg,#F3E7CC 0%,#FAF4E4 100%);border-radius:0 16px 16px 0}
+.pb-spine{background:linear-gradient(180deg,#D4A96A 0%,#7A4A1A 45%,#D4A96A 100%);box-shadow:inset -4px 0 10px rgba(0,0,0,.22),inset 4px 0 10px rgba(0,0,0,.22)}
+.pb-pg-hdr{display:flex;justify-content:space-between;padding:0 2px;margin-bottom:6px}
+.pb-pg-title,.pb-pg-type{font-size:.2rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(80,45,10,.42);font-family:'Courier New',monospace}
+.pb-pg-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-28deg);font-size:2.2rem;font-weight:900;letter-spacing:8px;color:rgba(130,90,40,.04);pointer-events:none;white-space:nowrap;user-select:none;font-family:'Courier New',monospace}
+.pb-stamps-w{position:relative;width:100%;height:390px}
+.pb-pnum{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-size:.42rem;color:rgba(100,65,25,.22);font-weight:700;letter-spacing:3px;font-family:'Courier New',monospace}
+.pb-nav-row{display:flex;align-items:center;gap:14px}
+.pb-nb{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(0,0,0,.18);background:rgba(255,255,255,.88);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#475569;transition:.18s;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.pb-nb:hover:not(:disabled){background:#fff;border-color:#BFDBFE;color:#003B7A;box-shadow:0 4px 14px rgba(0,0,0,.14)}
+.pb-nb:disabled{opacity:.28;cursor:not-allowed}
+.pb-nav-center{text-align:center}
+.pb-nav-lbl{display:block;font-size:.8rem;font-weight:900;color:#1E293B}
+.pb-nav-cap{font-size:.62rem;color:#64748B;font-weight:500;margin-top:2px}
+/* ── SELLOS ── */
+.pst-wrap{position:absolute;cursor:pointer;user-select:none}
+.pst-wrap:hover{z-index:20}
+.pst-fb{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%;opacity:.11;transition:opacity .3s}
+.pst-wrap.ink .pst-fb{opacity:.82}
+.pst-wrap.ink:hover .pst-fb{filter:brightness(1.07)}
+.pst-fb-ring{position:absolute;inset:0;border:3px double var(--sc,#333);border-radius:var(--sr,50%);pointer-events:none}
+.pst-fb-ring::before{content:'';position:absolute;inset:5px;border:1px solid var(--sc,#333);border-radius:inherit;opacity:.4}
+.pst-fb-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:9px 6px;text-align:center;font-family:'Courier New',monospace;color:var(--sc,#333);position:relative;z-index:1}
+.pst-fb-rep{font-size:.2rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:.75;line-height:1.3}
+.pst-fb-country{font-size:.68rem;font-weight:900;letter-spacing:.5px;text-transform:uppercase;line-height:1;margin:1px 0}
+.pst-fb-land{font-size:.2rem;text-transform:uppercase;letter-spacing:.8px;opacity:.7;line-height:1.3}
+.pst-fb-city{font-size:.28rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:1px}
+.pst-fb-date{font-size:.2rem;letter-spacing:.5px;opacity:.85;margin-top:1px}
+.pst-fb-code{font-size:.3rem;font-weight:900;letter-spacing:3px;margin-top:1px}
+.pst-img{width:100%;height:100%;object-fit:contain;opacity:.11;transition:opacity .3s}
+.pst-wrap.ink .pst-img{opacity:.85}
+@keyframes pstInkDrop{0%{opacity:0;transform:var(--rtr) scale(1.7);filter:blur(5px)}40%{opacity:.9;filter:blur(0);transform:var(--rtr) scale(.87)}70%{transform:var(--rtr) scale(1.05)}100%{transform:var(--rtr) scale(1)}}
+.pst-wrap.pst-fresh{animation:pstInkDrop .55s cubic-bezier(.36,.07,.19,.97) both!important}
+@media(max-width:900px){.pb-layout{flex-direction:column;align-items:center;padding:16px}.pb-summary{width:100%;max-width:560px}.pb-book{max-width:100%}}
+@media(max-width:600px){.pb-book{grid-template-columns:1fr 10px 1fr}.pb-pg{min-height:300px;padding:8px 6px 28px}.pb-stamps-w{height:270px}}
 /* Toast puntos */
 .al-pts-toast{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.7);background:#003B7A;color:#fff;font-size:.72rem;font-weight:900;padding:6px 14px;border-radius:99px;pointer-events:none;z-index:50;opacity:0;animation:ptsToast 1.8s ease forwards}
 @keyframes ptsToast{0%{opacity:0;transform:translate(-50%,-60%) scale(.7)}20%{opacity:1;transform:translate(-50%,-80%) scale(1)}80%{opacity:1;transform:translate(-50%,-90%) scale(1)}100%{opacity:0;transform:translate(-50%,-110%) scale(.8)}}
@@ -1503,105 +1535,91 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: ÁLBUM DE PAÍSES -->
   <div class="view" id="view-album">
-   <div class="vcontent">
 
-    <!-- SVG gradient para el anillo de progreso -->
-    <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="alRingGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#003B7A"/><stop offset="100%" stop-color="#0F62FE"/></linearGradient></defs></svg>
+   <!-- SVG defs (oculto) -->
+   <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="alRingGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#003B7A"/><stop offset="100%" stop-color="#0F62FE"/></linearGradient></defs></svg>
 
-    <!-- HERO: imagen album-hero.png como fondo -->
-    <div class="al-hero">
-     <img class="al-hero-bg" src="../assets/album-hero.png" alt="" aria-hidden="true">
-     <!-- Stats dinámicos: sin fondo, sobre el vignette oscuro inferior -->
-     <div class="al-hero-stats-row">
-      <div class="al-stat-item">
-       <i class="fas fa-globe al-stat-ico"></i>
-       <div class="al-stat-num" id="al-stat-total">0</div>
-       <div class="al-stat-lbl">Países disponibles</div>
-      </div>
-      <div class="al-stat-item">
-       <i class="fas fa-stamp al-stat-ico"></i>
-       <div class="al-stat-num" id="al-stat-count">0</div>
-       <div class="al-stat-lbl">Sellos desbloqueados</div>
-      </div>
-      <div class="al-stat-item">
-       <i class="fas fa-compass al-stat-ico"></i>
-       <div class="al-stat-num" id="al-stat-level-n">Nivel 1</div>
-       <div class="al-stat-lbl" id="al-stat-level-l">Viajero Inicial</div>
-      </div>
-     </div>
-     <!-- Texto dinámico (derecha del hero) -->
-     <div class="al-hero-txt">
-      <div class="al-hero-eyebrow"><i class="fas fa-passport"></i> Tu Pasaporte Viajero</div>
-      <div class="al-hero-ttl">Coleccioná destinos.<br>Sumá experiencias.</div>
-      <div class="al-hero-sub">Marcá los países que ya visitaste y completá<br>tu pasaporte viajero. Cada sello cuenta tu historia.</div>
-      <div class="al-hero-chips">
-       <div class="al-hero-chip"><i class="fas fa-globe-americas"></i> <span id="al-chip-total">0</span> países disponibles</div>
-       <div class="al-hero-chip"><i class="fas fa-stamp"></i> <span id="al-chip-count">0</span> sellos desbloqueados</div>
-       <div class="al-hero-chip"><i class="fas fa-medal"></i> <span id="al-chip-level">Nivel 1 · Viajero inicial</span></div>
-      </div>
-     </div>
-     <!-- Card progreso -->
-     <div class="al-hero-prog">
-      <div class="al-prog-ring-wrap">
-       <div class="al-prog-ring">
-        <svg viewBox="0 0 64 64" width="64" height="64">
-         <circle class="al-prog-ring-track" cx="32" cy="32" r="26"/>
-         <circle class="al-prog-ring-fill" id="al-prog-ring-fill" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4"/>
-        </svg>
-        <div class="al-prog-ring-txt" id="al-pct-txt">0%</div>
-       </div>
-       <div class="al-prog-ring-info">
-        <div class="al-prog-ring-lbl">Sellos desbloqueados</div>
-        <div class="al-prog-count"><span id="al-count">0</span> de <span id="al-total">0</span></div>
-       </div>
-      </div>
-      <div class="al-prog-benefit">
-       <div class="al-prog-benefit-lbl"><i class="fas fa-gem"></i> Próximo beneficio</div>
-       <div class="al-prog-benefit-val" id="al-next-benefit">5% OFF en tu próximo viaje</div>
-       <div class="al-prog-benefit-sub" id="al-benefit-sub">Sumá sellos para desbloquearlo</div>
-      </div>
-     </div>
-    </div>
-
-    <!-- PASAPORTE DIGITAL -->
-    <div class="pp-wrap">
-     <div class="pp-hdr">
-      <div>
-       <div class="pp-hdr-ttl"><i class="fas fa-passport"></i> Tu Pasaporte</div>
-       <div class="pp-hdr-sub" id="ppHeaderSub">0 sellos · 46 países</div>
-      </div>
-      <div class="pp-nav-row">
-       <button class="pp-nav-btn" onclick="ppChangePage(-1)" id="ppPrev" disabled><i class="fas fa-chevron-left"></i></button>
-       <span class="pp-page-lbl" id="ppPageLbl">Página 1 / 6</span>
-       <button class="pp-nav-btn" onclick="ppChangePage(1)" id="ppNext"><i class="fas fa-chevron-right"></i></button>
-      </div>
-     </div>
-     <div class="pp-book">
-      <div class="pp-page pp-pg-l" id="ppLeft">
-       <div class="pp-wm">PASAPORTE</div>
-       <div class="pp-sw" id="ppStampsLeft"></div>
-       <div class="pp-pnum" id="ppNumLeft">1</div>
-      </div>
-      <div class="pp-spine"></div>
-      <div class="pp-page pp-pg-r" id="ppRight">
-       <div class="pp-wm">VIAJERO</div>
-       <div class="pp-sw" id="ppStampsRight"></div>
-       <div class="pp-pnum" id="ppNumRight">2</div>
-      </div>
-     </div>
-     <div class="pp-dots" id="ppDots"></div>
-    </div>
-
-    <!-- Sección: Inspiración de viaje -->
-    <div class="al-inspo" id="alInspo"></div>
-
-    <!-- Sección: Destinos destacados -->
-    <div class="al-dest" id="alDest"></div>
-
-    <!-- Logros + Beneficios (renderizados por JS) -->
-    <div id="alLogros"></div>
-
+   <!-- IDs legacy ocultos para updateAlbumProgress() -->
+   <div style="display:none">
+    <span id="al-chip-total">0</span><span id="al-chip-count">0</span><span id="al-chip-level">Nivel 1</span>
+    <span id="al-stat-total">0</span><span id="al-stat-count">0</span><span id="al-stat-level-n">Nivel 1</span><span id="al-stat-level-l">Viajero Inicial</span>
+    <div class="al-prog-ring"><svg viewBox="0 0 64 64" width="64" height="64"><circle cx="32" cy="32" r="26"/><circle class="al-prog-ring-fill" id="al-prog-ring-fill" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4"/></svg><div id="al-pct-txt">0%</div></div>
+    <span id="al-count">0</span><span id="al-total">0</span>
+    <span id="al-next-benefit">5% OFF</span><span id="al-benefit-sub">Sumá sellos</span>
+    <span id="ppHeaderSub">0 sellos</span>
    </div>
+
+   <!-- Sección pasaporte con fondo -->
+   <div class="pb-sect">
+    <!-- ASSET: reemplazar ../assets/passport/bg-map.png con la imagen real cuando esté disponible -->
+    <div class="pb-bg">
+     <img src="../assets/passport/bg-map.png" class="pb-bg-img" alt="" aria-hidden="true" onerror="this.style.display='none'">
+     <div class="pb-bg-overlay"></div>
+     <div class="pb-bg-stamps" aria-hidden="true">
+      <div class="pb-bg-st pb-bg-st-1">ITALIA&#10;ROMA</div>
+      <div class="pb-bg-st pb-bg-st-2">JAPAN&#10;TOKYO</div>
+      <div class="pb-bg-st pb-bg-st-3">AUSTRALIA&#10;SYDNEY</div>
+     </div>
+    </div>
+
+    <!-- Layout principal -->
+    <div class="pb-layout">
+
+     <!-- Panel resumen -->
+     <div class="pb-summary" id="pbSummary">
+      <!-- Renderizado por renderPassportSummary() -->
+     </div>
+
+     <!-- Pasaporte + navegación -->
+     <div class="pb-main">
+
+      <div class="pb-book" id="pbBook">
+       <!-- Página izquierda -->
+       <div class="pb-pg pb-pg-l" id="ppLeft">
+        <div class="pb-pg-hdr">
+         <span class="pb-pg-title">REPÚBLICA ARGENTINA</span>
+         <span class="pb-pg-type">PASAPORTE</span>
+        </div>
+        <div class="pb-pg-wm">PASAPORTE</div>
+        <div class="pb-stamps-w" id="ppStampsLeft"></div>
+        <div class="pb-pnum" id="ppNumLeft">08</div>
+       </div>
+       <!-- Lomo -->
+       <div class="pb-spine"></div>
+       <!-- Página derecha -->
+       <div class="pb-pg pb-pg-r" id="ppRight">
+        <div class="pb-pg-hdr">
+         <span class="pb-pg-title">REPÚBLICA ARGENTINA</span>
+         <span class="pb-pg-type">PASAPORTE</span>
+        </div>
+        <div class="pb-pg-wm">VIAJERO</div>
+        <div class="pb-stamps-w" id="ppStampsRight"></div>
+        <div class="pb-pnum" id="ppNumRight">09</div>
+       </div>
+      </div>
+
+      <!-- Navegación -->
+      <div class="pb-nav-row">
+       <button class="pb-nb" onclick="ppChangePage(-1)" id="ppPrev" disabled><i class="fas fa-chevron-left"></i></button>
+       <div class="pb-nav-center">
+        <span class="pb-nav-lbl" id="ppPageLbl">1 / 5</span>
+        <div class="pb-nav-cap" id="pbNavCap">Pasaje por Sudamérica</div>
+       </div>
+       <button class="pb-nb" onclick="ppChangePage(1)" id="ppNext"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div id="ppDots" style="display:none"></div>
+
+     </div>
+    </div>
+   </div>
+
+   <!-- Secciones inferiores -->
+   <div class="vcontent">
+    <div class="al-inspo" id="alInspo"></div>
+    <div class="al-dest" id="alDest"></div>
+    <div id="alLogros"></div>
+   </div>
+
   </div>
 
   </div><!-- end view-wrap -->
@@ -2695,107 +2713,189 @@ function updateFutbolDonut(){
 /* ── ÁLBUM DE PAÍSES — PASAPORTE DIGITAL ────────────────────────────── */
 let _ppSpread=0;
 const STAMP_DESIGNS={
-  arg:{name:'Argentina',cd:'ARG',ico:'fa-mountain',c:'#1565C0',sh:'c'},
-  bra:{name:'Brasil',cd:'BRA',ico:'fa-leaf',c:'#2E7D32',sh:'r'},
-  chi:{name:'Chile',cd:'CHI',ico:'fa-mountain',c:'#6A1B9A',sh:'c'},
-  col:{name:'Colombia',cd:'COL',ico:'fa-star',c:'#E65100',sh:'r'},
-  per:{name:'Perú',cd:'PER',ico:'fa-sun',c:'#B71C1C',sh:'c'},
-  uru:{name:'Uruguay',cd:'URU',ico:'fa-futbol',c:'#00838F',sh:'r'},
-  bol:{name:'Bolivia',cd:'BOL',ico:'fa-gem',c:'#C62828',sh:'c'},
-  ecu:{name:'Ecuador',cd:'ECU',ico:'fa-fire',c:'#1B5E20',sh:'r'},
-  par:{name:'Paraguay',cd:'PAR',ico:'fa-star',c:'#0277BD',sh:'c'},
-  ven:{name:'Venezuela',cd:'VEN',ico:'fa-water',c:'#1A237E',sh:'r'},
-  mex:{name:'México',cd:'MEX',ico:'fa-sun',c:'#1B5E20',sh:'c'},
-  cub:{name:'Cuba',cd:'CUB',ico:'fa-music',c:'#B71C1C',sh:'r'},
-  cri:{name:'Costa Rica',cd:'CRI',ico:'fa-tree',c:'#2E7D32',sh:'c'},
-  pan:{name:'Panamá',cd:'PAN',ico:'fa-anchor',c:'#1565C0',sh:'r'},
-  dom:{name:'Rep. Dom.',cd:'DOM',ico:'fa-sun',c:'#C62828',sh:'c'},
-  gua:{name:'Guatemala',cd:'GUA',ico:'fa-feather',c:'#4A148C',sh:'r'},
-  jam:{name:'Jamaica',cd:'JAM',ico:'fa-music',c:'#F57F17',sh:'c'},
-  usa:{name:'Estados Unidos',cd:'USA',ico:'fa-flag',c:'#B71C1C',sh:'r'},
-  can:{name:'Canadá',cd:'CAN',ico:'fa-leaf',c:'#C62828',sh:'c'},
-  esp:{name:'España',cd:'ESP',ico:'fa-guitar',c:'#C62828',sh:'r'},
-  ita:{name:'Italia',cd:'ITA',ico:'fa-landmark',c:'#1565C0',sh:'c'},
-  fra:{name:'Francia',cd:'FRA',ico:'fa-wine-glass-alt',c:'#1565C0',sh:'r'},
-  ale:{name:'Alemania',cd:'DEU',ico:'fa-chess-king',c:'#4E342E',sh:'c'},
-  por:{name:'Portugal',cd:'POR',ico:'fa-ship',c:'#004D40',sh:'r'},
-  ing:{name:'Inglaterra',cd:'GBR',ico:'fa-crown',c:'#880E4F',sh:'c'},
-  gre:{name:'Grecia',cd:'GRE',ico:'fa-compass',c:'#1565C0',sh:'r'},
-  hol:{name:'Holanda',cd:'NLD',ico:'fa-anchor',c:'#E65100',sh:'c'},
-  bel:{name:'Bélgica',cd:'BEL',ico:'fa-gem',c:'#F57F17',sh:'r'},
-  sui:{name:'Suiza',cd:'CHE',ico:'fa-snowflake',c:'#C62828',sh:'c'},
-  irl:{name:'Irlanda',cd:'IRL',ico:'fa-leaf',c:'#1B5E20',sh:'r'},
-  cro:{name:'Croacia',cd:'HRV',ico:'fa-chess-rook',c:'#B71C1C',sh:'c'},
-  jpn:{name:'Japón',cd:'JPN',ico:'fa-building',c:'#C62828',sh:'r'},
-  tai:{name:'Tailandia',cd:'THA',ico:'fa-globe',c:'#E65100',sh:'c'},
-  dub:{name:'Dubai',cd:'UAE',ico:'fa-building',c:'#D4AF37',sh:'r'},
-  tur:{name:'Turquía',cd:'TUR',ico:'fa-mosque',c:'#880E4F',sh:'c'},
-  chn:{name:'China',cd:'CHN',ico:'fa-yin-yang',c:'#B71C1C',sh:'r'},
-  ind:{name:'India',cd:'IND',ico:'fa-star',c:'#E65100',sh:'c'},
-  vie:{name:'Vietnam',cd:'VNM',ico:'fa-dragon',c:'#B71C1C',sh:'r'},
-  idn:{name:'Indonesia',cd:'IDN',ico:'fa-fire',c:'#0277BD',sh:'c'},
-  aus:{name:'Australia',cd:'AUS',ico:'fa-paw',c:'#1565C0',sh:'r'},
-  nzl:{name:'Nueva Zelanda',cd:'NZL',ico:'fa-mountain',c:'#1B5E20',sh:'c'},
-  egy:{name:'Egipto',cd:'EGY',ico:'fa-sun',c:'#E65100',sh:'r'},
-  mar:{name:'Marruecos',cd:'MAR',ico:'fa-mosque',c:'#C62828',sh:'c'},
-  zaf:{name:'Sudáfrica',cd:'ZAF',ico:'fa-paw',c:'#1B5E20',sh:'r'},
-  tan:{name:'Tanzania',cd:'TZA',ico:'fa-paw',c:'#E65100',sh:'c'},
-  ken:{name:'Kenia',cd:'KEN',ico:'fa-paw',c:'#B71C1C',sh:'r'},
+  arg:{name:'Argentina',rep:'Rep\u00fablica Argentina',city:'Buenos Aires',land:'Obelisco',code:'EZE',c:'#1565C0',sh:'c',w:142,h:142},
+  bra:{name:'Brasil',rep:'Rep. Federativa del Brasil',city:'R\u00edo de Janeiro',land:'Pan de Az\u00facar',code:'GIG',c:'#2E7D32',sh:'c',w:132,h:132},
+  chi:{name:'Chile',rep:'Rep\u00fablica de Chile',city:'Santiago',land:'Volc\u00e1n Osorno',code:'SCL',c:'#C62828',sh:'c',w:128,h:128},
+  col:{name:'Colombia',rep:'Rep\u00fablica de Colombia',city:'Bogot\u00e1',land:'La Candelaria',code:'BOG',c:'#5D4037',sh:'o',w:135,h:118},
+  per:{name:'Per\u00fa',rep:'Rep\u00fablica del Per\u00fa',city:'Cusco',land:'Machu Picchu',code:'CUZ',c:'#E64A19',sh:'o',w:130,h:115},
+  uru:{name:'Uruguay',rep:'Rep. Oriental del Uruguay',city:'Punta del Este',land:'Faro Punta',code:'PDE',c:'#B71C1C',sh:'c',w:126,h:126},
+  bol:{name:'Bolivia',rep:'Estado Pluri. de Bolivia',city:'Salar de Uyuni',land:'Salar de Uyuni',code:'UYU',c:'#1B5E20',sh:'o',w:136,h:108},
+  ecu:{name:'Ecuador',rep:'Rep\u00fablica del Ecuador',city:'Quito',land:'Mitad del Mundo',code:'UIO',c:'#0277BD',sh:'c',w:116,h:116},
+  par:{name:'Paraguay',rep:'Rep\u00fablica del Paraguay',city:'Asunci\u00f3n',land:'Palacio de Gobierno',code:'ASU',c:'#6D4C41',sh:'r',w:132,h:105},
+  ven:{name:'Venezuela',rep:'Rep. Bolivariana de Vzla',city:'Caracas',land:'Salto \u00c1ngel',code:'CCS',c:'#4527A0',sh:'r',w:146,h:126},
+  mex:{name:'M\u00e9xico',rep:'Estados Unidos Mexicanos',city:'Ciudad de M\u00e9xico',land:'Chich\u00e9n Itz\u00e1',code:'MEX',c:'#1B5E20',sh:'c',w:134,h:134},
+  cub:{name:'Cuba',rep:'Rep\u00fablica de Cuba',city:'La Habana',land:'El Malec\u00f3n',code:'HAV',c:'#B71C1C',sh:'c',w:126,h:126},
+  cri:{name:'Costa Rica',rep:'Rep\u00fablica de Costa Rica',city:'San Jos\u00e9',land:'Volc\u00e1n Arenal',code:'SJO',c:'#1565C0',sh:'o',w:128,h:112},
+  pan:{name:'Panam\u00e1',rep:'Rep\u00fablica de Panam\u00e1',city:'Ciudad de Panam\u00e1',land:'Canal de Panam\u00e1',code:'PTY',c:'#0277BD',sh:'c',w:124,h:124},
+  dom:{name:'R. Dominicana',rep:'Rep. Dominicana',city:'Santo Domingo',land:'Zona Colonial',code:'SDQ',c:'#C62828',sh:'r',w:132,h:105},
+  gua:{name:'Guatemala',rep:'Rep\u00fablica de Guatemala',city:'Antigua',land:'Volc\u00e1n de Agua',code:'GUA',c:'#1B5E20',sh:'c',w:122,h:122},
+  jam:{name:'Jamaica',rep:'Jamaica',city:'Kingston',land:'Blue Mountains',code:'KIN',c:'#F9A825',sh:'r',w:130,h:102},
+  usa:{name:'EE.UU.',rep:'United States of America',city:'Nueva York',land:'Estatua de la Libertad',code:'JFK',c:'#1A237E',sh:'r',w:135,h:108},
+  can:{name:'Canad\u00e1',rep:'Canada',city:'Toronto',land:'Cataratas del Ni\u00e1gara',code:'YYZ',c:'#B71C1C',sh:'c',w:130,h:130},
+  esp:{name:'Espa\u00f1a',rep:'Reino de Espa\u00f1a',city:'Madrid',land:'Sagrada Familia',code:'MAD',c:'#C62828',sh:'c',w:132,h:132},
+  ita:{name:'Italia',rep:'Repubblica Italiana',city:'Roma',land:'Coliseo',code:'FCO',c:'#1565C0',sh:'c',w:134,h:134},
+  fra:{name:'Francia',rep:'R\u00e9publique Fran\u00e7aise',city:'Par\u00eds',land:'Torre Eiffel',code:'CDG',c:'#1A237E',sh:'c',w:130,h:130},
+  ale:{name:'Alemania',rep:'Bundesrepublik Deutschland',city:'Berl\u00edn',land:'Puerta de Brandeburgo',code:'BER',c:'#37474F',sh:'r',w:136,h:108},
+  por:{name:'Portugal',rep:'Rep\u00fablica Portuguesa',city:'Lisboa',land:'Torre de Bel\u00e9m',code:'LIS',c:'#1B5E20',sh:'c',w:126,h:126},
+  ing:{name:'Inglaterra',rep:'United Kingdom',city:'Londres',land:'Big Ben',code:'LHR',c:'#1A237E',sh:'c',w:132,h:132},
+  gre:{name:'Grecia',rep:'Hellen\u00edke Demokrat\u00eda',city:'Santorini',land:'Oia',code:'JTR',c:'#1565C0',sh:'o',w:130,h:115},
+  hol:{name:'Holanda',rep:'Koninkrijk der Nederlanden',city:'\u00c1msterdam',land:'Canales de \u00c1msterdam',code:'AMS',c:'#E64A19',sh:'r',w:132,h:105},
+  bel:{name:'B\u00e9lgica',rep:'Royaume de Belgique',city:'Bruselas',land:'Manneken Pis',code:'BRU',c:'#F9A825',sh:'c',w:124,h:124},
+  sui:{name:'Suiza',rep:'Confoederatio Helvetica',city:'Z\u00farich',land:'Los Alpes',code:'ZRH',c:'#C62828',sh:'c',w:126,h:126},
+  irl:{name:'Irlanda',rep:'\u00c9ire',city:'Dubl\u00edn',land:'Cliffs of Moher',code:'DUB',c:'#2E7D32',sh:'c',w:126,h:126},
+  cro:{name:'Croacia',rep:'Republika Hrvatska',city:'Dubrovnik',land:'Ciudad Vieja',code:'DBV',c:'#1565C0',sh:'r',w:130,h:105},
+  jpn:{name:'Jap\u00f3n',rep:'Nihon-koku',city:'Tokio',land:'Monte Fuji',code:'NRT',c:'#B71C1C',sh:'c',w:132,h:132},
+  tai:{name:'Tailandia',rep:'Ratcha Anachak Thai',city:'Bangkok',land:'Gran Palacio',code:'BKK',c:'#4527A0',sh:'c',w:130,h:130},
+  dub:{name:'Dubai',rep:'Emiratos \u00c1rabes Unidos',city:'Dub\u00e1i',land:'Burj Khalifa',code:'DXB',c:'#F9A825',sh:'r',w:135,h:108},
+  tur:{name:'Turqu\u00eda',rep:'T\u00fcrkiye Cumhuriyeti',city:'Estambul',land:'Hagia Sophia',code:'IST',c:'#C62828',sh:'c',w:130,h:130},
+  chn:{name:'China',rep:'Zh\u014dnghu\u00e1 R\u00e9nm\u00edn G\u00f2ngh\u00e9gu\u00f3',city:'Pek\u00edn',land:'Gran Muralla',code:'PEK',c:'#C62828',sh:'r',w:136,h:108},
+  ind:{name:'India',rep:'Bharat Ganarajya',city:'Mumbai',land:'Taj Mahal',code:'BOM',c:'#E64A19',sh:'c',w:130,h:130},
+  vie:{name:'Vietnam',rep:'C\u1ed9ng h\u00f2a XHCN Vi\u1ec7t Nam',city:'Han\u00f3i',land:'Bah\u00eda Ha Long',code:'HAN',c:'#C62828',sh:'o',w:128,h:112},
+  idn:{name:'Indonesia',rep:'Republik Indonesia',city:'Bali',land:'Templo Tanah Lot',code:'DPS',c:'#C62828',sh:'r',w:130,h:105},
+  aus:{name:'Australia',rep:'Commonwealth of Australia',city:'S\u00eddney',land:'Opera House',code:'SYD',c:'#1565C0',sh:'c',w:132,h:132},
+  nzl:{name:'Nueva Zelanda',rep:'New Zealand',city:'Queenstown',land:'Fiordlands',code:'ZQN',c:'#1B5E20',sh:'o',w:130,h:115},
+  egy:{name:'Egipto',rep:'Gumhuriyat Misr',city:'El Cairo',land:'Pir\u00e1mides de Guiza',code:'CAI',c:'#F9A825',sh:'c',w:130,h:130},
+  mar:{name:'Marruecos',rep:'Al-Mamlaka al-Maghribiya',city:'Marrakech',land:'Plaza Djemaa el-Fna',code:'RAK',c:'#C62828',sh:'r',w:132,h:105},
+  zaf:{name:'Sud\u00e1frica',rep:'Republic of South Africa',city:'Ciudad del Cabo',land:'Table Mountain',code:'CPT',c:'#1B5E20',sh:'c',w:130,h:130},
+  tan:{name:'Tanzania',rep:'Jamhuri ya Muungano',city:'Serengeti',land:'Monte Kilimanjaro',code:'JRO',c:'#E64A19',sh:'o',w:130,h:115},
+  ken:{name:'Kenia',rep:'Republic of Kenya',city:'Nairobi',land:'Masa\u00ed Mara',code:'NBO',c:'#B71C1C',sh:'r',w:132,h:105},
+};
+/* ── STAMP ASSETS CONFIG ─────────────────────────────────────────────────
+   Para usar imágenes reales de sellos, descomentá la línea del país y
+   copiá el archivo en ../assets/stamps/{nombre}.png
+   Ejemplo: arg:'../assets/stamps/argentina.png'
+────────────────────────────────────────────────────────────────────────── */
+const STAMP_ASSETS={
+  // arg:'../assets/stamps/argentina.png',
+  // bra:'../assets/stamps/brasil.png',
+  // chi:'../assets/stamps/chile.png',
+  // col:'../assets/stamps/colombia.png',
+  // per:'../assets/stamps/peru.png',
+  // uru:'../assets/stamps/uruguay.png',
+  // bol:'../assets/stamps/bolivia.png',
+  // ecu:'../assets/stamps/ecuador.png',
+  // par:'../assets/stamps/paraguay.png',
+  // ven:'../assets/stamps/venezuela.png',
+  // mex:'../assets/stamps/mexico.png',
+  // esp:'../assets/stamps/espana.png',
+  // ita:'../assets/stamps/italia.png',
+  // fra:'../assets/stamps/francia.png',
+  // jpn:'../assets/stamps/japon.png',
+  // aus:'../assets/stamps/australia.png',
 };
 const PP_SPREADS=[
-  ['arg','bra','chi','col','per','uru','bol','ecu'],
-  ['par','ven','mex','cub','cri','pan','dom','gua'],
-  ['jam','usa','can','esp','ita','fra','ale','por'],
-  ['ing','gre','hol','bel','sui','irl','cro','jpn'],
-  ['tai','dub','tur','chn','ind','vie','idn','aus'],
-  ['nzl','egy','mar','zaf','tan','ken',null,null],
+  ['arg','bra','chi','col','per','uru','bol','ecu','par','ven'],
+  ['mex','cub','cri','pan','dom','gua','jam','usa','can',null],
+  ['esp','ita','fra','ale','por','ing','gre','hol','bel','sui'],
+  ['irl','cro','jpn','tai','dub','tur','chn','ind','vie','idn'],
+  ['aus','nzl','egy','mar','zaf','tan','ken',null,null,null],
 ];
-const PP_L_SLOTS=[
-  {t:'3%',l:'5%',tr:'-13deg'},
-  {t:'18%',l:'48%',tr:'8deg'},
-  {t:'48%',l:'6%',tr:'-4deg'},
-  {t:'60%',l:'40%',tr:'11deg'},
+const PP_SPREAD_CAPTIONS=[
+  'Pasaje por Sudamérica',
+  'Centroamérica & Norteamérica',
+  'Europa Occidental',
+  'Asia & Oriente Medio',
+  'Oceanía & África',
 ];
-const PP_R_SLOTS=[
-  {t:'5%',l:'8%',tr:'10deg'},
-  {t:'15%',l:'49%',tr:'-14deg'},
-  {t:'48%',l:'5%',tr:'5deg'},
-  {t:'60%',l:'43%',tr:'-9deg'},
+const PB_L_SLOTS=[
+  {t:'2%',l:'0%',r:'-11deg',w:142,h:142},
+  {t:'4%',l:'47%',r:'7deg',w:130,h:130},
+  {t:'46%',l:'-1%',r:'5deg',w:136,h:108},
+  {t:'41%',l:'37%',r:'-9deg',w:132,h:118},
+  {t:'72%',l:'15%',r:'4deg',w:118,h:118},
 ];
+const PB_R_SLOTS=[
+  {t:'2%',l:'3%',r:'10deg',w:128,h:116},
+  {t:'1%',l:'49%',r:'-12deg',w:130,h:130},
+  {t:'42%',l:'44%',r:'8deg',w:136,h:108},
+  {t:'48%',l:'1%',r:'-6deg',w:130,h:105},
+  {t:'64%',l:'34%',r:'-9deg',w:146,h:126},
+];
+function ppGetStampDate(id){
+  const d=STAMP_DESIGNS[id];if(!d||!_allTrips||!_allTrips.length)return '';
+  const M=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+  const match=_allTrips.filter(function(t){
+    if(!t.destino||!t.fecha_salida)return false;
+    const dest=t.destino.toLowerCase();
+    return dest.includes(d.name.toLowerCase())||dest.includes(d.city.toLowerCase());
+  }).sort(function(a,b){return new Date(b.fecha_salida)-new Date(a.fecha_salida);})[0];
+  if(!match)return '';
+  const dt=new Date(match.fecha_salida);
+  return String(dt.getDate()).padStart(2,'0')+' '+M[dt.getMonth()]+' '+dt.getFullYear();
+}
 function ppBuildStamp(id,si,side){
   if(!id)return '';
-  const s=side==='l'?PP_L_SLOTS[si]:PP_R_SLOTS[si];
-  const d=STAMP_DESIGNS[id]||{name:id,cd:id.toUpperCase(),ico:'fa-globe',c:'#666',sh:'c'};
+  const sl=side==='l'?PB_L_SLOTS[si]:PB_R_SLOTS[si];
+  if(!sl)return '';
+  const d=STAMP_DESIGNS[id]||{name:id,rep:'',city:'',land:'',code:id.toUpperCase(),c:'#666',sh:'c',w:128,h:128};
   const visited=_viajeSelladosSet.has(id);
-  const tr='rotate('+s.tr+')';
-  const cls='ppst ppst-'+d.sh+(visited?' ink':'');
-  const st='--c:'+d.c+';--tr:'+tr+';top:'+s.t+';left:'+s.l+';transform:'+tr;
-  return ['<div class="',cls,'" id="ppstamp-',id,'" onclick="ppToggleStamp(this.dataset.id)" data-id="',id,'" style="',st,'">',
-    '<div class="ppst-o"><div class="ppst-i">',
-    '<div class="ppst-n">',d.name,'</div>',
-    '<i class="fas ',d.ico,' ppst-ico"></i>',
-    '<div class="ppst-cd">',d.cd,'</div>',
+  const rtr='rotate('+sl.r+')';
+  const wSt='top:'+sl.t+';left:'+sl.l+';width:'+sl.w+'px;height:'+sl.h+'px;transform:'+rtr+';--rtr:'+rtr;
+  const inkCls=visited?' ink':'';
+  const imgSrc=STAMP_ASSETS[id];
+  if(imgSrc){
+    return '<div class="pst-wrap'+inkCls+'" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="'+d.name+'" onerror="this.style.display=\'none\'"></div>';
+  }
+  const sr=d.sh==='c'?'50%':d.sh==='o'?'50% / 42%':'6px';
+  const fbSt='--sc:'+d.c+';--sr:'+sr;
+  const dt=ppGetStampDate(id);
+  return ['<div class="pst-wrap'+inkCls+'" id="ppstamp-'+id+'" onclick="ppToggleStamp(this.dataset.id)" data-id="'+id+'" style="'+wSt+'">',
+    '<div class="pst-fb" style="'+fbSt+'">',
+    '<div class="pst-fb-ring"></div>',
+    '<div class="pst-fb-inner">',
+    '<span class="pst-fb-rep">'+d.rep+'</span>',
+    '<span class="pst-fb-country">'+d.name+'</span>',
+    '<span class="pst-fb-land">'+d.land+'</span>',
+    '<span class="pst-fb-city">'+d.city+'</span>',
+    (dt?'<span class="pst-fb-date">'+dt+'</span>':''),
+    '<span class="pst-fb-code">'+d.code+'</span>',
     '</div></div></div>'].join('');
+}
+function renderPassportSummary(){
+  const el=document.getElementById('pbSummary');if(!el)return;
+  const count=[..._viajeSelladosSet].filter(function(id){return !!STAMP_DESIGNS[id];}).length;
+  const total=Object.keys(STAMP_DESIGNS).length;
+  const days=(_allTrips||[]).reduce(function(s,t){
+    if(!t.fecha_salida||!t.fecha_regreso)return s;
+    return s+Math.max(0,Math.round((new Date(t.fecha_regreso)-new Date(t.fecha_salida))/86400000));
+  },0);
+  const xp=count*25+days*2;
+  const LEVELS=[
+    {min:0,max:499,name:'Viajero Inicial',n:1},
+    {min:500,max:1499,name:'Explorador',n:2},
+    {min:1500,max:2999,name:'Viajero Frecuente',n:3},
+    {min:3000,max:5999,name:'Gran Viajero',n:4},
+    {min:6000,max:Infinity,name:'Embajador Herse',n:5},
+  ];
+  const lvl=[...LEVELS].reverse().find(function(l){return xp>=l.min;})||LEVELS[0];
+  const pct=lvl.max===Infinity?100:Math.min(100,Math.round((xp-lvl.min)/(lvl.max-lvl.min)*100));
+  const lastId=[..._viajeSelladosSet].filter(function(id){return !!STAMP_DESIGNS[id];}).pop();
+  const lastD=lastId?STAMP_DESIGNS[lastId]:null;
+  const lastDate=lastId?ppGetStampDate(lastId):'';
+  el.innerHTML='<div class="ps-head"><i class="fas fa-book-open"></i> Tu pasaporte</div>'
+    +'<div class="ps-stat"><div class="ps-stat-ico"><i class="fas fa-globe"></i></div><div><div class="ps-val">'+count+'</div><div class="ps-lbl">Pa\u00edses visitados</div><div class="ps-delta">de '+total+' disponibles</div></div></div>'
+    +'<div class="ps-stat"><div class="ps-stat-ico"><i class="fas fa-stamp"></i></div><div><div class="ps-val">'+count+'</div><div class="ps-lbl">Sellos obtenidos</div></div></div>'
+    +'<div class="ps-stat"><div class="ps-stat-ico"><i class="fas fa-calendar-alt"></i></div><div><div class="ps-val">'+days+'</div><div class="ps-lbl">D\u00edas de viaje</div></div></div>'
+    +'<div class="ps-level-row"><div class="ps-level-ico"><i class="fas fa-star"></i></div><div><div class="ps-level-name">Nivel '+lvl.n+'</div><div class="ps-level-sub">'+lvl.name+'</div><div class="ps-xp-bar"><div class="ps-xp-fill" style="width:'+pct+'%"></div></div><div class="ps-xp-lbl">'+xp+' / '+(lvl.max===Infinity?'\u221e':lvl.max)+' XP</div></div></div>'
+    +(lastD?'<div class="ps-last-sello"><div class="ps-last-ttl">\u00daltimo sello</div><div class="ps-last-country"><i class="fas fa-map-marker-alt"></i> '+lastD.name+'</div><div class="ps-last-sub">'+lastD.city+(lastDate?' \u00b7 '+lastDate:'')+'</div></div>':'');
 }
 function renderPassport(){
   const lEl=document.getElementById('ppStampsLeft');
   const rEl=document.getElementById('ppStampsRight');
   if(!lEl||!rEl)return;
   const sp=PP_SPREADS[_ppSpread]||PP_SPREADS[0];
-  lEl.innerHTML=sp.slice(0,4).map((id,i)=>ppBuildStamp(id,i,'l')).join('');
-  rEl.innerHTML=sp.slice(4,8).map((id,i)=>ppBuildStamp(id,i,'r')).join('');
+  lEl.innerHTML=sp.slice(0,5).map(function(id,i){return ppBuildStamp(id,i,'l');}).join('');
+  rEl.innerHTML=sp.slice(5,10).map(function(id,i){return ppBuildStamp(id,i,'r');}).join('');
   const nl=document.getElementById('ppNumLeft');const nr=document.getElementById('ppNumRight');
-  if(nl)nl.textContent=_ppSpread*2+1;if(nr)nr.textContent=_ppSpread*2+2;
+  if(nl)nl.textContent=String(_ppSpread*2+8).padStart(2,'0');
+  if(nr)nr.textContent=String(_ppSpread*2+9).padStart(2,'0');
   const prev=document.getElementById('ppPrev');const next=document.getElementById('ppNext');
   if(prev)prev.disabled=_ppSpread===0;if(next)next.disabled=_ppSpread>=PP_SPREADS.length-1;
   const lbl=document.getElementById('ppPageLbl');
-  if(lbl)lbl.textContent='P\u00e1gina '+(_ppSpread+1)+' / '+PP_SPREADS.length;
-  const dots=document.getElementById('ppDots');
-  if(dots)dots.innerHTML=PP_SPREADS.map(function(_,i){return '<button class="pp-dot'+(i===_ppSpread?' active':'')+'" onclick="ppGoToSpread('+i+')"></button>';}).join('');
-  const total=Object.keys(STAMP_DESIGNS).length;
-  const count=[..._viajeSelladosSet].filter(function(id){return !!STAMP_DESIGNS[id];}).length;
-  const sub=document.getElementById('ppHeaderSub');
-  if(sub)sub.textContent=count+' '+(count===1?'sello':'sellos')+' \u00b7 '+total+' pa\u00edses';
+  if(lbl)lbl.textContent=(_ppSpread+1)+' / '+PP_SPREADS.length;
+  const cap=document.getElementById('pbNavCap');
+  if(cap)cap.textContent=PP_SPREAD_CAPTIONS[_ppSpread]||'';
+  renderPassportSummary();
 }
 function ppChangePage(dir){
   _ppSpread=Math.max(0,Math.min(PP_SPREADS.length-1,_ppSpread+dir));
@@ -2860,21 +2960,18 @@ function ppToggleStamp(id){
   const el=document.getElementById('ppstamp-'+id);if(!el)return;
   if(_viajeSelladosSet.has(id)){
     _viajeSelladosSet.delete(id);
-    el.classList.remove('ink','fresh');
+    el.classList.remove('ink','pst-fresh');
   } else {
     _viajeSelladosSet.add(id);
-    el.classList.remove('fresh');
+    el.classList.remove('pst-fresh');
     void el.offsetWidth;
-    el.classList.add('ink','fresh');
-    setTimeout(()=>el.classList.remove('fresh'),550);
+    el.classList.add('ink','pst-fresh');
+    setTimeout(function(){el.classList.remove('pst-fresh');},560);
   }
   updateAlbumProgress();
   renderAlbumLogros();
   renderAlbumBenefits();
-  const total=Object.keys(STAMP_DESIGNS).length;
-  const count=[..._viajeSelladosSet].filter(i=>STAMP_DESIGNS[i]).length;
-  const sub=document.getElementById('ppHeaderSub');
-  if(sub)sub.textContent=`${count} ${count===1?'sello':'sellos'} · ${total} países`;
+  renderPassportSummary();
 }
 function _deadStampViaje(itemId){
   const card=document.getElementById('alcard-'+itemId);if(!card)return;
