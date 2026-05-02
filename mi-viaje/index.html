@@ -2282,8 +2282,12 @@ async function loadPassportStamps(userId){
   if(error){console.error('Error cargando sellos:',error);return;}
   if(data){
     _viajeSelladosSet.clear();
+    _adminStampsSet.clear();
     data.forEach(s=>{
-      if(s.country_code) _viajeSelladosSet.add(s.country_code);
+      if(s.country_code){
+        _viajeSelladosSet.add(s.country_code);
+        _adminStampsSet.add(s.country_code);
+      }
     });
   }
 }
