@@ -331,7 +331,10 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* Passport stamp styles */
 .pst-wrap{position:absolute;opacity:0;transition:opacity .3s}
 .pst-wrap.ink{opacity:1}
-.pst-img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:3px solid rgba(0,0,0,0.2);box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+/* Local PNG stamps - mantienen su forma original */
+.pst-img.pst-png{width:100%;height:100%;object-fit:contain}
+/* Flag fallbacks - estilo circular sello */
+.pst-img.pst-flag{width:100%;height:100%;object-fit:cover;border-radius:50%;border:3px solid rgba(0,0,0,0.2);box-shadow:0 2px 8px rgba(0,0,0,0.3)}
 /* ════════════════════════════════════════════════════════
    RESPONSIVE — Hamburger y Overlay
    ════════════════════════════════════════════════════════ */
@@ -2982,7 +2985,8 @@ const STAMP_DESIGNS={
    /public/images/stamps/{nombre}-stamp.png
    Las rutas no incluyen /public (se sirven desde la raíz del dominio).
 ────────────────────────────────────────────────────────────────────────── */
-const STAMP_ASSETS={
+// Fallback flags (se usan si el PNG local no existe)
+const STAMP_FLAGS={
   arg:'https://flagcdn.com/w160/ar.png',
   bra:'https://flagcdn.com/w160/br.png',
   chi:'https://flagcdn.com/w160/cl.png',
@@ -2994,6 +2998,10 @@ const STAMP_ASSETS={
   par:'https://flagcdn.com/w160/py.png',
   ven:'https://flagcdn.com/w160/ve.png',
   mex:'https://flagcdn.com/w160/mx.png',
+  cuba:'https://flagcdn.com/w160/cu.png',
+  cri:'https://flagcdn.com/w160/cr.png',
+  pan:'https://flagcdn.com/w160/pa.png',
+  dom:'https://flagcdn.com/w160/do.png',
   usa:'https://flagcdn.com/w160/us.png',
   can:'https://flagcdn.com/w160/ca.png',
   esp:'https://flagcdn.com/w160/es.png',
@@ -3002,6 +3010,32 @@ const STAMP_ASSETS={
   ale:'https://flagcdn.com/w160/de.png',
   por:'https://flagcdn.com/w160/pt.png',
   ing:'https://flagcdn.com/w160/gb.png',
+  gre:'https://flagcdn.com/w160/gr.png',
+  hol:'https://flagcdn.com/w160/nl.png',
+  bel:'https://flagcdn.com/w160/be.png',
+  sui:'https://flagcdn.com/w160/ch.png',
+  irl:'https://flagcdn.com/w160/ie.png',
+  cro:'https://flagcdn.com/w160/hr.png',
+  jpn:'https://flagcdn.com/w160/jp.png',
+  tai:'https://flagcdn.com/w160/th.png',
+  dub:'https://flagcdn.com/w160/ae.png',
+  tur:'https://flagcdn.com/w160/tr.png',
+  aus:'https://flagcdn.com/w160/au.png',
+  nzl:'https://flagcdn.com/w160/nz.png',
+  egy:'https://flagcdn.com/w160/eg.png',
+  mar:'https://flagcdn.com/w160/ma.png',
+};
+// Local stamp PNGs (se usan si existen en el servidor)
+const STAMP_ASSETS={
+  arg:'../assets/sellos/sello-argentina.png',
+  bra:'../assets/sellos/sello-brasil.png',
+  chi:'../assets/sellos/sello-chile.png',
+  col:'../assets/sellos/sello-colombia.png',
+  per:'../assets/sellos/sello-peru.png',
+  uru:'../assets/sellos/sello-uruguay.png',
+  bol:'../assets/sellos/sello-bolivia.png',
+  par:'../assets/sellos/sello-paraguay.png',
+  ven:'../assets/sellos/sello-venezuela.png',
   // mex:'/images/stamps/mexico-stamp.png',
   // cub:'/images/stamps/cuba-stamp.png',
   // cri:'/images/stamps/costa-rica-stamp.png',
@@ -3088,8 +3122,14 @@ function ppBuildStamp(id,si,side){
   const rtr='rotate('+sl.r+')';
   const wSt='top:'+sl.t+';left:'+sl.l+';width:'+sl.w+'px;height:'+sl.h+'px;transform:'+rtr+';--rtr:'+rtr;
   const imgSrc=STAMP_ASSETS[id];
+  const flagSrc = STAMP_FLAGS[id];
+  // Intentar cargar PNG local primero, si falla usar bandera
   if(imgSrc){
-    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="" onerror="this.style.display=\'none\';console.log(\'Error cargando sello: \'+this.src)"></div>';
+    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" data-id="'+id+'" style="'+wSt+'"><img class="pst-img pst-png" src="'+imgSrc+'" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'block\'"><img class="pst-img pst-flag" src="'+flagSrc+'" alt="" style="display:none"></div>';
+  }
+  // Solo bandera disponible
+  if(flagSrc){
+    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" data-id="'+id+'" style="'+wSt+'"><img class="pst-img pst-flag" src="'+flagSrc+'" alt=""></div>';
   }
   return '';
 }
