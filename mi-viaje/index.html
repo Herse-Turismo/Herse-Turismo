@@ -331,7 +331,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* Passport stamp styles */
 .pst-wrap{position:absolute;opacity:0;transition:opacity .3s}
 .pst-wrap.ink{opacity:1}
-.pst-img{width:100%;height:100%;object-fit:contain}
+.pst-img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:3px solid rgba(0,0,0,0.2);box-shadow:0 2px 8px rgba(0,0,0,0.3)}
 /* ════════════════════════════════════════════════════════
    RESPONSIVE — Hamburger y Overlay
    ════════════════════════════════════════════════════════ */
@@ -2983,16 +2983,25 @@ const STAMP_DESIGNS={
    Las rutas no incluyen /public (se sirven desde la raíz del dominio).
 ────────────────────────────────────────────────────────────────────────── */
 const STAMP_ASSETS={
-  arg:'../assets/sellos/sello-argentina.png',
-  bra:'../assets/sellos/sello-brasil.png',
-  chi:'../assets/sellos/sello-chile.png',
-  col:'../assets/sellos/sello-colombia.png',
-  per:'../assets/sellos/sello-peru.png',
-  uru:'../assets/sellos/sello-uruguay.png',
-  bol:'../assets/sellos/sello-bolivia.png',
-  // ecu:'/images/stamps/ecuador-stamp.png',
-  par:'../assets/sellos/sello-paraguay.png',
-  ven:'../assets/sellos/sello-venezuela.png',
+  arg:'https://flagcdn.com/w160/ar.png',
+  bra:'https://flagcdn.com/w160/br.png',
+  chi:'https://flagcdn.com/w160/cl.png',
+  col:'https://flagcdn.com/w160/co.png',
+  per:'https://flagcdn.com/w160/pe.png',
+  uru:'https://flagcdn.com/w160/uy.png',
+  bol:'https://flagcdn.com/w160/bo.png',
+  ecu:'https://flagcdn.com/w160/ec.png',
+  par:'https://flagcdn.com/w160/py.png',
+  ven:'https://flagcdn.com/w160/ve.png',
+  mex:'https://flagcdn.com/w160/mx.png',
+  usa:'https://flagcdn.com/w160/us.png',
+  can:'https://flagcdn.com/w160/ca.png',
+  esp:'https://flagcdn.com/w160/es.png',
+  ita:'https://flagcdn.com/w160/it.png',
+  fra:'https://flagcdn.com/w160/fr.png',
+  ale:'https://flagcdn.com/w160/de.png',
+  por:'https://flagcdn.com/w160/pt.png',
+  ing:'https://flagcdn.com/w160/gb.png',
   // mex:'/images/stamps/mexico-stamp.png',
   // cub:'/images/stamps/cuba-stamp.png',
   // cri:'/images/stamps/costa-rica-stamp.png',
