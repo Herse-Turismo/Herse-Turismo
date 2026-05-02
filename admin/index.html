@@ -460,9 +460,10 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                         <option value="en proceso">En proceso</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label>URL del archivo (opcional)</label>
-                                    <input type="url" id="d-url" placeholder="https://...">
+                                <div class="form-group full">
+                                    <label>Adjuntar archivo (PDF, imagen, etc.)</label>
+                                    <input type="file" id="d-file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="padding:8px;border:1.5px solid #e0e8f0;border-radius:10px;background:var(--light);">
+                                    <small style="font-size:.7rem;color:var(--muted)">Tamaño máximo: 10MB</small>
                                 </div>
                             </div>
                             <button type="submit" class="btn-add" style="margin-top:12px">
@@ -558,8 +559,12 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <input type="tel" id="p-telefono" placeholder="Ej: +54 9 11 1234-5678">
                                 </div>
                                 <div class="form-group">
-                                    <label>Ciudad / País</label>
-                                    <input type="text" id="p-ciudad" placeholder="Ej: Buenos Aires, Argentina">
+                                    <label>Ciudad</label>
+                                    <input type="text" id="p-ciudad" placeholder="Ej: Buenos Aires">
+                                </div>
+                                <div class="form-group">
+                                    <label>País</label>
+                                    <input type="text" id="p-pais" placeholder="Ej: Argentina">
                                 </div>
                                 <div class="form-group full">
                                     <label>Notas internas del cliente</label>
@@ -818,11 +823,39 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         async function addDoc(e) {
             e.preventDefault();
             if (!currentViaje?.id) { toast('Guardá el viaje primero', 'error'); return; }
+            
+            const fileInput = document.getElementById('d-file');
+            const file = fileInput?.files?.[0];
+            let fileUrl = null;
+            
+            // Upload file if selected
+            if (file) {
+                if (file.size > 10 * 1024 * 1024) {
+                    toast('El archivo es muy grande (máx 10MB)', 'error');
+                    return;
+                }
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${currentClient.id}/${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
+                
+                const { data: uploadData, error: uploadError } = await _db.storage
+                    .from('documentos')
+                    .upload(fileName, file, { upsert: false });
+                
+                if (uploadError) {
+                    toast('Error al subir archivo: ' + uploadError.message, 'error');
+                    return;
+                }
+                
+                // Get public URL
+                const { data: { publicUrl } } = _db.storage.from('documentos').getPublicUrl(fileName);
+                fileUrl = publicUrl;
+            }
+            
             const { error } = await _db.from('documentos').insert({
                 viaje_id: currentViaje.id,
                 nombre:   document.getElementById('d-nombre').value,
                 tipo:     document.getElementById('d-tipo').value,
-                url:      document.getElementById('d-url').value || null,
+                url:      fileUrl,
                 estado:   document.getElementById('d-estado').value
             });
             if (error) { toast('Error: ' + error.message, 'error'); return; }
@@ -923,6 +956,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             f('p-email', perfil.email);
             f('p-telefono', perfil.telefono);
             f('p-ciudad', perfil.ciudad);
+            f('p-pais', perfil.pais);
             f('p-notas', perfil.notas);
             document.getElementById('p-userid').textContent = perfil.id?.substring(0, 8) + '...' ?? '—';
             const desde = perfil.created_at ? new Date(perfil.created_at).toLocaleDateString('es-AR') : '—';
@@ -936,6 +970,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 nombre: document.getElementById('p-nombre').value || null,
                 telefono: document.getElementById('p-telefono').value || null,
                 ciudad: document.getElementById('p-ciudad').value || null,
+                pais: document.getElementById('p-pais').value || null,
                 notas: document.getElementById('p-notas').value || null,
                 updated_at: new Date().toISOString()
             };

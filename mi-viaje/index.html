@@ -1990,7 +1990,7 @@ function toggleTheme(){
   document.querySelectorAll('.name').forEach(el=>el.textContent=name);
   const ini=document.getElementById('avatarInitial');
   if(ini) ini.textContent=name.charAt(0).toUpperCase();
-  const {data:viajes}=await _db.from('viajes').select('*,documentos(*)').eq('activo',true).order('fecha_salida',{ascending:true}).limit(1);
+  const {data:viajes}=await _db.from('viajes').select('*,documentos(*),imagen_url,itinerario,timeline_status').eq('activo',true).order('fecha_salida',{ascending:true}).limit(1);
   if(viajes?.length>0){
     _hasTrip=true;
     const v=viajes[0];
@@ -2005,6 +2005,7 @@ function toggleTheme(){
   loadHistorial();
   initPasaporte(user.id);
   await loadPassportStamps(user.id);
+  renderPassport();
   const {data:fid}=await _db.from('fidelizacion').select('*').maybeSingle();
   if(fid) updateLoyalty(fid);
   if(fid){
@@ -2275,6 +2276,16 @@ function _ppMiniHtml(sealedCount,total,color,chips,label){
     +'<div class="pp-mini-chips">'+chipHtml+'</div>'
     +'</div>'
     +'</div>';
+}
+async function loadPassportStamps(userId){
+  const {data,error}=await _db.from('passport_stamps').select('*').eq('user_id',userId).eq('visible',true);
+  if(error){console.error('Error cargando sellos:',error);return;}
+  if(data){
+    _viajeSelladosSet.clear();
+    data.forEach(s=>{
+      if(s.country_code) _viajeSelladosSet.add(s.country_code);
+    });
+  }
 }
 function updateDashPassports(){
   const vRow=document.getElementById('dashViajeStamps');
