@@ -2983,16 +2983,16 @@ const STAMP_DESIGNS={
    Las rutas no incluyen /public (se sirven desde la raíz del dominio).
 ────────────────────────────────────────────────────────────────────────── */
 const STAMP_ASSETS={
-  arg:'/assets/sellos/sello-argentina.png',
-  bra:'/assets/sellos/sello-brasil.png',
-  chi:'/assets/sellos/sello-chile.png',
-  col:'/assets/sellos/sello-colombia.png',
-  per:'/assets/sellos/sello-peru.png',
-  uru:'/assets/sellos/sello-uruguay.png',
-  bol:'/assets/sellos/sello-bolivia.png',
+  arg:'../assets/sellos/sello-argentina.png',
+  bra:'../assets/sellos/sello-brasil.png',
+  chi:'../assets/sellos/sello-chile.png',
+  col:'../assets/sellos/sello-colombia.png',
+  per:'../assets/sellos/sello-peru.png',
+  uru:'../assets/sellos/sello-uruguay.png',
+  bol:'../assets/sellos/sello-bolivia.png',
   // ecu:'/images/stamps/ecuador-stamp.png',
-  par:'/assets/sellos/sello-paraguay.png',
-  ven:'/assets/sellos/sello-venezuela.png',
+  par:'../assets/sellos/sello-paraguay.png',
+  ven:'../assets/sellos/sello-venezuela.png',
   // mex:'/images/stamps/mexico-stamp.png',
   // cub:'/images/stamps/cuba-stamp.png',
   // cri:'/images/stamps/costa-rica-stamp.png',
@@ -3080,7 +3080,7 @@ function ppBuildStamp(id,si,side){
   const wSt='top:'+sl.t+';left:'+sl.l+';width:'+sl.w+'px;height:'+sl.h+'px;transform:'+rtr+';--rtr:'+rtr;
   const imgSrc=STAMP_ASSETS[id];
   if(imgSrc){
-    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="'+d.name+'"></div>';
+    return '<div class="pst-wrap ink" id="ppstamp-'+id+'" data-id="'+id+'" style="'+wSt+'"><img class="pst-img" src="'+imgSrc+'" alt="" onerror="this.style.display=\'none\';console.log(\'Error cargando sello: \'+this.src)"></div>';
   }
   return '';
 }
