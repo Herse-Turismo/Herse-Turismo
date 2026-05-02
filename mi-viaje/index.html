@@ -3068,7 +3068,8 @@ function ppGetStampDate(id){
 }
 function ppBuildStamp(id,si,side){
   if(!id)return '';
-  if(!_adminStampsSet.has(id))return '';  /* sin confirmación admin = sin sello */
+  if(!_adminStampsSet.has(id)){console.log('DEBUG - sello no encontrado en set:',id);return '';}
+  console.log('DEBUG - construyendo sello:',id);
   const sl=side==='l'?PB_L_SLOTS[si]:PB_R_SLOTS[si];
   if(!sl)return '';
   const d=STAMP_DESIGNS[id]||{name:id,code:id.toUpperCase(),c:'#666',sh:'c',w:128,h:128};
@@ -3109,12 +3110,15 @@ function renderPassportSummary(){
     +(lastD?'<div class="ps-last-sello"><div class="ps-last-ttl">\u00daltimo sello</div><div class="ps-last-country"><i class="fas fa-map-marker-alt"></i> '+lastD.name+'</div><div class="ps-last-sub">'+lastD.city+(lastDate?' \u00b7 '+lastDate:'')+'</div></div>':'');
 }
 function renderPassport(){
+  console.log('DEBUG - renderPassport, _adminStampsSet:',[..._adminStampsSet]);
   const lEl=document.getElementById('ppStampsLeft');
   const rEl=document.getElementById('ppStampsRight');
-  if(!lEl||!rEl)return;
+  if(!lEl||!rEl){console.log('DEBUG - no elements found');return;}
   const sp=PP_SPREADS[_ppSpread]||PP_SPREADS[0];
+  console.log('DEBUG - spread:',sp);
   const lHtml=sp.slice(0,5).map(function(id,i){return ppBuildStamp(id,i,'l');}).join('');
   const rHtml=sp.slice(5,10).map(function(id,i){return ppBuildStamp(id,i,'r');}).join('');
+  console.log('DEBUG - lHtml length:',lHtml.length,'rHtml length:',rHtml.length);
   lEl.innerHTML=lHtml;
   rEl.innerHTML=rHtml;
   const nl=document.getElementById('ppNumLeft');const nr=document.getElementById('ppNumRight');
