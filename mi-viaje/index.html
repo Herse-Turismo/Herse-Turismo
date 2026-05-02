@@ -2120,11 +2120,13 @@ function showSinViajeHero(){
     </div>`;
 }
 function updateTripUI(v){
+  console.log('DEBUG - viaje:',v);
   const dash=document.getElementById('mainDashboard');
   if(!dash)return;
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
   const flag=getFlag(v.destino);
   const heroImg=v.imagen_url||getHeroImg(v.destino);
+  console.log('DEBUG - imagen_url:',v.imagen_url,'heroImg:',heroImg);
   const pax=(v.pasajeros||v.pax||1);
   TRIP_DATE=new Date(v.fecha_salida);
   const tl=v.timeline_status||{};
