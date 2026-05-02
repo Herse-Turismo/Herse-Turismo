@@ -2280,7 +2280,9 @@ function _ppMiniHtml(sealedCount,total,color,chips,label){
     +'</div>';
 }
 async function loadPassportStamps(userId){
+  console.log('DEBUG - cargando sellos para user:',userId);
   const {data,error}=await _db.from('passport_stamps').select('*').eq('user_id',userId).eq('visible',true);
+  console.log('DEBUG - sellos data:',data,'error:',error);
   if(error){console.error('Error cargando sellos:',error);return;}
   if(data){
     _viajeSelladosSet.clear();
@@ -2291,6 +2293,7 @@ async function loadPassportStamps(userId){
         _adminStampsSet.add(s.country_code);
       }
     });
+    console.log('DEBUG - sellos cargados:',[..._adminStampsSet]);
   }
 }
 function updateDashPassports(){
