@@ -1337,7 +1337,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
     <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
     <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
-    <button class="ni" id="nav-album" onclick="showView('album')"><i class="fas fa-globe"></i> Álbum de Países</button>
+    <button class="ni" id="nav-pasaporte-virtual" onclick="showView('pasaporte-virtual')"><i class="fas fa-passport"></i> Pasaporte Virtual</button>
+    <button class="ni" id="nav-pasaporte-tribunero" onclick="showView('pasaporte-tribunero')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <div class="sb-sec">Más</div>
     <button class="ni" id="nav-perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
     <button class="ni" id="btnAdmin" style="display:none" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Panel Admin</button>
@@ -1688,87 +1689,63 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    </div>
   </div>
 
-  <!-- VIEW: ÁLBUM DE PAÍSES -->
-  <div class="view" id="view-album">
+  <!-- IDs legacy ocultos para updateAlbumProgress() -->
+  <div style="display:none">
+   <span id="al-chip-total">0</span><span id="al-chip-count">0</span><span id="al-chip-level">Nivel 1</span>
+   <span id="al-stat-total">0</span><span id="al-stat-count">0</span><span id="al-stat-level-n">Nivel 1</span><span id="al-stat-level-l">Viajero Inicial</span>
+   <div class="al-prog-ring"><svg viewBox="0 0 64 64" width="64" height="64"><circle cx="32" cy="32" r="26"/><circle class="al-prog-ring-fill" id="al-prog-ring-fill" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4"/></svg><div id="al-pct-txt">0%</div></div>
+   <span id="al-count">0</span><span id="al-total">0</span>
+   <span id="al-next-benefit">5% OFF</span><span id="al-benefit-sub">Sumá sellos</span>
+   <span id="ppHeaderSub">0 sellos</span>
+   <div id="pbSummary"></div><div id="ppStampsLeft"></div><div id="ppStampsRight"></div>
+  </div>
 
-   <!-- SVG defs (oculto) -->
-   <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="alRingGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#003B7A"/><stop offset="100%" stop-color="#0F62FE"/></linearGradient></defs></svg>
-
-   <!-- IDs legacy ocultos para updateAlbumProgress() -->
-   <div style="display:none">
-    <span id="al-chip-total">0</span><span id="al-chip-count">0</span><span id="al-chip-level">Nivel 1</span>
-    <span id="al-stat-total">0</span><span id="al-stat-count">0</span><span id="al-stat-level-n">Nivel 1</span><span id="al-stat-level-l">Viajero Inicial</span>
-    <div class="al-prog-ring"><svg viewBox="0 0 64 64" width="64" height="64"><circle cx="32" cy="32" r="26"/><circle class="al-prog-ring-fill" id="al-prog-ring-fill" cx="32" cy="32" r="26" stroke-dasharray="163.4" stroke-dashoffset="163.4"/></svg><div id="al-pct-txt">0%</div></div>
-    <span id="al-count">0</span><span id="al-total">0</span>
-    <span id="al-next-benefit">5% OFF</span><span id="al-benefit-sub">Sumá sellos</span>
-    <span id="ppHeaderSub">0 sellos</span>
-   </div>
-
-   <!-- Sección pasaporte con fondo -->
-   <div class="pb-sect">
-    <!-- ASSET: reemplazar ../assets/passport/bg-map.png con la imagen real cuando esté disponible -->
-    <div class="pb-bg">
-     <img src="../assets/passport/bg-map.png" class="pb-bg-img" alt="" aria-hidden="true" onerror="this.style.display='none'">
-     <div class="pb-bg-overlay"></div>
-     <div class="pb-bg-stamps" aria-hidden="true">
-      <div class="pb-bg-st pb-bg-st-1">ITALIA&#10;ROMA</div>
-      <div class="pb-bg-st pb-bg-st-2">JAPAN&#10;TOKYO</div>
-      <div class="pb-bg-st pb-bg-st-3">AUSTRALIA&#10;SYDNEY</div>
-     </div>
-    </div>
-
-    <!-- Layout principal -->
-    <div class="pb-layout">
-
-     <!-- Panel resumen -->
-     <div class="pb-summary" id="pbSummary">
-      <!-- Renderizado por renderPassportSummary() -->
-     </div>
-
-     <!-- Pasaporte + navegación -->
-     <div class="pb-main">
-
-      <div class="pb-book" id="pbBook">
-       <!-- Página izquierda -->
-       <div class="pb-pg pb-pg-l" id="ppLeft">
-        <div class="pb-pg-hdr">
-         <span class="pb-pg-title">HERSE TURISMO</span>
-         <span class="pb-pg-type">TRAVEL PASSPORT</span>
-        </div>
-        <div class="pb-pg-wm">PASSPORT</div>
-        <div class="pb-stamps-w" id="ppStampsLeft"></div>
-        <div class="pb-pnum" id="ppNumLeft">08</div>
-       </div>
-       <!-- Lomo -->
-       <div class="pb-spine"></div>
-       <!-- Página derecha -->
-       <div class="pb-pg pb-pg-r" id="ppRight">
-        <div class="pb-pg-hdr">
-         <span class="pb-pg-title">HERSE TURISMO</span>
-         <span class="pb-pg-type">TRAVEL PASSPORT</span>
-        </div>
-        <div class="pb-pg-wm">VIAJERO</div>
-        <div class="pb-stamps-w" id="ppStampsRight"></div>
-        <div class="pb-pnum" id="ppNumRight">09</div>
-       </div>
+  <!-- VIEW: PASAPORTE VIRTUAL -->
+  <div class="view" id="view-pasaporte-virtual">
+   <div class="vcontent">
+    <div style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh) - 80px);padding:40px 20px">
+     <div style="text-align:center;max-width:480px">
+      <div style="width:120px;height:120px;margin:0 auto 28px;border-radius:50%;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(0,59,122,.12)">
+       <i class="fas fa-passport" style="font-size:3rem;color:#003B7A"></i>
       </div>
-
-      <!-- Navegación -->
-      <div class="pb-nav-row">
-       <button class="pb-nb" onclick="ppChangePage(-1)" id="ppPrev" disabled><i class="fas fa-chevron-left"></i></button>
-       <div class="pb-nav-center">
-        <span class="pb-nav-lbl" id="ppPageLbl">1 / 5</span>
-        <div class="pb-nav-cap" id="pbNavCap">Pasaje por Sudamérica</div>
-       </div>
-       <button class="pb-nb" onclick="ppChangePage(1)" id="ppNext"><i class="fas fa-chevron-right"></i></button>
+      <h2 style="font-size:1.6rem;font-weight:900;color:var(--tx);margin-bottom:8px;line-height:1.2">Pasaporte Virtual</h2>
+      <p style="font-size:.85rem;color:var(--tx2);line-height:1.6;margin-bottom:24px">Tu pasaporte digital de viajes está en camino. Pronto vas a poder coleccionar sellos de cada destino que visites con Herse.</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.15)">
+       <i class="fas fa-clock" style="color:#D97706;font-size:1.1rem"></i>
+       <span style="font-size:.88rem;font-weight:800;color:#92400E">Próximamente</span>
       </div>
-      <div id="ppDots" style="display:none"></div>
-      <div class="pb-empty" id="pbEmptyState" style="display:none">Tu pasaporte está listo para recibir su primer sello</div>
-
+      <div style="margin-top:32px;display:flex;justify-content:center;gap:28px">
+       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#F0FDF4;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-globe" style="color:#16A34A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">46 países</div><div style="font-size:.58rem;color:var(--tx2)">disponibles</div></div>
+       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-stamp" style="color:#003B7A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Sellos únicos</div><div style="font-size:.58rem;color:var(--tx2)">por destino</div></div>
+       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#FEF3C7;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-trophy" style="color:#D97706;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Logros</div><div style="font-size:.58rem;color:var(--tx2)">y beneficios</div></div>
+      </div>
      </div>
     </div>
    </div>
+  </div>
 
+  <!-- VIEW: PASAPORTE TRIBUNERO -->
+  <div class="view" id="view-pasaporte-tribunero">
+   <div class="vcontent">
+    <div style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh) - 80px);padding:40px 20px">
+     <div style="text-align:center;max-width:480px">
+      <div style="width:120px;height:120px;margin:0 auto 28px;border-radius:50%;background:linear-gradient(135deg,#F5F3FF,#EDE9FE);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(139,92,246,.12)">
+       <i class="fas fa-futbol" style="font-size:3rem;color:#7C3AED"></i>
+      </div>
+      <h2 style="font-size:1.6rem;font-weight:900;color:var(--tx);margin-bottom:8px;line-height:1.2">Pasaporte Tribunero</h2>
+      <p style="font-size:.85rem;color:var(--tx2);line-height:1.6;margin-bottom:24px">Tu pasaporte futbolero está en desarrollo. Pronto vas a poder coleccionar sellos de cada estadio que visites en tus viajes con Herse.</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.15)">
+       <i class="fas fa-clock" style="color:#D97706;font-size:1.1rem"></i>
+       <span style="font-size:.88rem;font-weight:800;color:#92400E">Próximamente</span>
+      </div>
+      <div style="margin-top:32px;display:flex;justify-content:center;gap:28px">
+       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#F5F3FF;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-futbol" style="color:#7C3AED;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Estadios</div><div style="font-size:.58rem;color:var(--tx2)">de todo el mundo</div></div>
+       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#FEF2F2;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-ticket-alt" style="color:#DC2626;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Partidos</div><div style="font-size:.58rem;color:var(--tx2)">en vivo</div></div>
+       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#ECFDF5;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-medal" style="color:#059669;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Rankings</div><div style="font-size:.58rem;color:var(--tx2)">y premios</div></div>
+      </div>
+     </div>
+    </div>
+   </div>
   </div>
 
   </div><!-- end view-wrap -->
@@ -1809,7 +1786,8 @@ const VIEW_META={
   'mis-viajes': {title:'Historial de viajes', sub:'Todos tus recuerdos y experiencias con Herse.', ico:'fas fa-clock-rotate-left', cls:'blue'},
   'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple'},
   'fidelizacion':     {title:'Fidelización Herse',   sub:'Viajá más, sumá puntos y desbloqueá beneficios.',    ico:'fas fa-star',     cls:'gold'},
-  'album':            {title:'Álbum de Países',       sub:'Marcá los destinos que ya visitaste y coleccioná tu historia.',  ico:'fas fa-globe',    cls:'green'},
+  'pasaporte-virtual':  {title:'Pasaporte Virtual',     sub:'Tu pasaporte digital de viajes con Herse.',                    ico:'fas fa-passport', cls:'blue'},
+  'pasaporte-tribunero':{title:'Pasaporte Tribunero',   sub:'Tu pasaporte futbolero para coleccionar estadios.',            ico:'fas fa-futbol',   cls:'purple'},
 };
 function showView(id){
   closeSidebar();
@@ -1831,7 +1809,7 @@ function showView(id){
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
   if(id==='perfil') renderPerfil();
-  if(id==='album'){renderAlbum();updateAlbumProgress();}
+  // album legacy removed
 }
 function toggleItinerario(){
   const s=document.getElementById('itinerarioSection');
