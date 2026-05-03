@@ -1728,22 +1728,24 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE TRIBUNERO -->
   <div class="view" id="view-pasaporte-tribunero">
-   <div class="vcontent">
-    <div style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh) - 80px);padding:40px 20px">
-     <div style="text-align:center;max-width:480px">
-      <div style="width:120px;height:120px;margin:0 auto 28px;border-radius:50%;background:linear-gradient(135deg,#F5F3FF,#EDE9FE);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(139,92,246,.12)">
-       <i class="fas fa-futbol" style="font-size:3rem;color:#7C3AED"></i>
+   <div style="position:relative;min-height:calc(100vh - var(--hh));background:url('../assets/fondotribunero.png') center/cover no-repeat;overflow:hidden">
+    <!-- Overlay oscuro-violeta para legibilidad -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(30,15,60,.52) 0%,rgba(20,10,45,.62) 50%,rgba(10,5,30,.72) 100%);backdrop-filter:blur(1.5px)"></div>
+    <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));padding:40px 20px">
+     <div style="text-align:center;max-width:520px;background:rgba(255,255,255,.1);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.25)">
+      <div style="width:110px;height:110px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.35));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(139,92,246,.25);border:2px solid rgba(139,92,246,.2)">
+       <i class="fas fa-futbol" style="font-size:2.8rem;color:#C4B5FD;filter:drop-shadow(0 2px 6px rgba(139,92,246,.4))"></i>
       </div>
-      <h2 style="font-size:1.6rem;font-weight:900;color:var(--tx);margin-bottom:8px;line-height:1.2">Pasaporte Tribunero</h2>
-      <p style="font-size:.85rem;color:var(--tx2);line-height:1.6;margin-bottom:24px">Tu pasaporte futbolero está en desarrollo. Pronto vas a poder coleccionar sellos de cada estadio que visites en tus viajes con Herse.</p>
-      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.15)">
-       <i class="fas fa-clock" style="color:#D97706;font-size:1.1rem"></i>
-       <span style="font-size:.88rem;font-weight:800;color:#92400E">Próximamente</span>
+      <h2 style="font-size:1.7rem;font-weight:900;color:#fff;margin-bottom:8px;line-height:1.2;letter-spacing:-.02em">Pasaporte Tribunero</h2>
+      <p style="font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.65;margin-bottom:28px">Tu pasaporte futbolero está en desarrollo.<br>Pronto vas a poder coleccionar sellos de cada estadio que visites en tus viajes con Herse.</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(139,92,246,.35),rgba(124,58,237,.45));padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(139,92,246,.25);border:1px solid rgba(139,92,246,.3)">
+       <i class="fas fa-clock" style="color:#FDE68A;font-size:1.1rem"></i>
+       <span style="font-size:.88rem;font-weight:800;color:#FDE68A">Próximamente</span>
       </div>
-      <div style="margin-top:32px;display:flex;justify-content:center;gap:28px">
-       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#F5F3FF;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-futbol" style="color:#7C3AED;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Estadios</div><div style="font-size:.58rem;color:var(--tx2)">de todo el mundo</div></div>
-       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#FEF2F2;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-ticket-alt" style="color:#DC2626;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Partidos</div><div style="font-size:.58rem;color:var(--tx2)">en vivo</div></div>
-       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#ECFDF5;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-medal" style="color:#059669;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Rankings</div><div style="font-size:.58rem;color:var(--tx2)">y premios</div></div>
+      <div style="margin-top:36px;display:flex;justify-content:center;gap:32px">
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(139,92,246,.18);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(139,92,246,.22)"><i class="fas fa-futbol" style="color:#C4B5FD;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#fff">Estadios</div><div style="font-size:.58rem;color:rgba(255,255,255,.55)">de todo el mundo</div></div>
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(220,38,38,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(220,38,38,.2)"><i class="fas fa-ticket-alt" style="color:#FCA5A5;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#fff">Partidos</div><div style="font-size:.58rem;color:rgba(255,255,255,.55)">en vivo</div></div>
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(5,150,105,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(5,150,105,.2)"><i class="fas fa-medal" style="color:#6EE7B7;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#fff">Rankings</div><div style="font-size:.58rem;color:rgba(255,255,255,.55)">y premios</div></div>
       </div>
      </div>
     </div>
