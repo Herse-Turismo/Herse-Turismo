@@ -1702,22 +1702,24 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE VIRTUAL -->
   <div class="view" id="view-pasaporte-virtual">
-   <div class="vcontent">
-    <div style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh) - 80px);padding:40px 20px">
-     <div style="text-align:center;max-width:480px">
-      <div style="width:120px;height:120px;margin:0 auto 28px;border-radius:50%;background:linear-gradient(135deg,#EFF6FF,#DBEAFE);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(0,59,122,.12)">
-       <i class="fas fa-passport" style="font-size:3rem;color:#003B7A"></i>
+   <div style="position:relative;min-height:calc(100vh - var(--hh));background:url('../assets/fondopasaporte.png') center/cover no-repeat;overflow:hidden">
+    <!-- Overlay semi-transparente para legibilidad -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,248,235,.72) 0%,rgba(245,237,220,.58) 50%,rgba(230,220,200,.42) 100%);backdrop-filter:blur(1.5px)"></div>
+    <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));padding:40px 20px">
+     <div style="text-align:center;max-width:520px;background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.65);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.08)">
+      <div style="width:110px;height:110px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(0,59,122,.12),rgba(0,59,122,.22));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,59,122,.15);border:2px solid rgba(0,59,122,.1)">
+       <i class="fas fa-passport" style="font-size:2.8rem;color:#003B7A;filter:drop-shadow(0 2px 6px rgba(0,59,122,.25))"></i>
       </div>
-      <h2 style="font-size:1.6rem;font-weight:900;color:var(--tx);margin-bottom:8px;line-height:1.2">Pasaporte Virtual</h2>
-      <p style="font-size:.85rem;color:var(--tx2);line-height:1.6;margin-bottom:24px">Tu pasaporte digital de viajes está en camino. Pronto vas a poder coleccionar sellos de cada destino que visites con Herse.</p>
-      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.15)">
+      <h2 style="font-size:1.7rem;font-weight:900;color:#0F172A;margin-bottom:8px;line-height:1.2;letter-spacing:-.02em">Pasaporte Virtual</h2>
+      <p style="font-size:.85rem;color:#475569;line-height:1.65;margin-bottom:28px">Tu pasaporte digital de viajes está en camino.<br>Pronto vas a poder coleccionar sellos de cada destino que visites con Herse.</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.18)">
        <i class="fas fa-clock" style="color:#D97706;font-size:1.1rem"></i>
        <span style="font-size:.88rem;font-weight:800;color:#92400E">Próximamente</span>
       </div>
-      <div style="margin-top:32px;display:flex;justify-content:center;gap:28px">
-       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#F0FDF4;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-globe" style="color:#16A34A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">46 países</div><div style="font-size:.58rem;color:var(--tx2)">disponibles</div></div>
-       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-stamp" style="color:#003B7A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Sellos únicos</div><div style="font-size:.58rem;color:var(--tx2)">por destino</div></div>
-       <div style="text-align:center"><div style="width:48px;height:48px;border-radius:12px;background:#FEF3C7;display:flex;align-items:center;justify-content:center;margin:0 auto 8px"><i class="fas fa-trophy" style="color:#D97706;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:var(--tx)">Logros</div><div style="font-size:.58rem;color:var(--tx2)">y beneficios</div></div>
+      <div style="margin-top:36px;display:flex;justify-content:center;gap:32px">
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(240,253,244,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(22,163,74,.12)"><i class="fas fa-globe" style="color:#16A34A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">46 países</div><div style="font-size:.58rem;color:#64748B">disponibles</div></div>
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(239,246,255,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(0,59,122,.1)"><i class="fas fa-stamp" style="color:#003B7A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Sellos únicos</div><div style="font-size:.58rem;color:#64748B">por destino</div></div>
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(254,243,199,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(217,119,6,.12)"><i class="fas fa-trophy" style="color:#D97706;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Logros</div><div style="font-size:.58rem;color:#64748B">y beneficios</div></div>
       </div>
      </div>
     </div>
