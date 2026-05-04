@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="es" data-theme="light">
+<html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Herse Turismo</title>
@@ -7,7 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{--ac:#1a6cff;--ac2:#22c55e;--ac3:#f59e0b;--bg:#f4f5f8;--card:#fff;--bd:#e5e7eb;--tx:#111827;--tx2:#6b7280;--tx3:#9ca3af;--sw:220px;--hh:64px;--r:12px;--sh:0 1px 3px rgba(0,0,0,.07);--shl:0 4px 24px rgba(0,0,0,.10)}
-[data-theme=dark]{--bg:#0f1117;--card:#1a1d27;--bd:#2a2d3a;--tx:#f1f5f9;--tx2:#94a3b8;--tx3:#64748b;--sh:0 1px 3px rgba(0,0,0,.3);--shl:0 4px 24px rgba(0,0,0,.4)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
 button{font-family:inherit;cursor:pointer} a{text-decoration:none;color:inherit}
@@ -27,7 +26,6 @@ img{display:block}
 .ni i{width:15px;text-align:center;font-size:.82rem}
 .ni:hover{background:var(--bg);color:var(--tx)}
 .ni.active{background:#ebf1ff;color:var(--ac);font-weight:700}
-[data-theme=dark] .ni.active{background:rgba(26,108,255,.15)}
 .sb-promo{margin:10px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#0f2d5e,#1a6cff)}
 .sb-promo img{width:100%;height:80px;object-fit:cover;opacity:.65}
 .sb-promo-body{padding:10px}
@@ -214,11 +212,9 @@ img{display:block}
 .sl-lbl{color:var(--tx2);flex:1}
 .sl-v{font-weight:700;color:var(--tx)}
 .logro-c{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:11px;display:flex;gap:9px;align-items:center}
-[data-theme=dark] .logro-c{background:rgba(34,197,94,.07);border-color:rgba(34,197,94,.2)}
 .logro-ico{width:34px;height:34px;border-radius:9px;background:#22c55e;display:flex;align-items:center;justify-content:center;font-size:.88rem;color:#fff;flex-shrink:0}
 .logro-name{font-size:.74rem;font-weight:700;color:#15803d}
 .logro-desc{font-size:.6rem;color:#4ade80;margin-top:1px}
-[data-theme=dark] .logro-name{color:#4ade80}
 /* futbol tabs */
 .ftabs{display:flex;gap:2px;border-bottom:2px solid var(--bd);margin-bottom:10px}
 .ftab{padding:8px 14px;font-size:.76rem;font-weight:600;color:var(--tx2);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer;transition:.15s;white-space:nowrap}
@@ -266,11 +262,9 @@ img{display:block}
 .benef-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-bottom:7px}
 .ben-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;text-align:center}
 .ben-c.ok{border-color:#22c55e;background:#f0fdf4}
-[data-theme=dark] .ben-c.ok{background:rgba(34,197,94,.06)}
 .ben-tag{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;font-size:.56rem;font-weight:700;padding:2px 7px;border-radius:0 0 5px 5px;white-space:nowrap}
-.ben-tag.near{background:#f59e0b}
-.ben-c.near{border-color:#fde68a;background:#fefce8}
-.ben-c.locked{opacity:.7}
+.ben-tag.locked-tag{background:#94a3b8}
+.ben-c.locked{opacity:.65;background:var(--bg)}
 .ben-ico{width:38px;height:38px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1rem}
 .ben-c.ok .ben-ico{background:#dcfce7}
 .ben-name{font-size:.7rem;font-weight:700;color:var(--tx)}
@@ -293,7 +287,6 @@ img{display:block}
 .niv-list{display:flex;flex-direction:column;gap:5px}
 .niv-it{display:flex;align-items:center;gap:7px;font-size:.7rem;padding:5px 7px;border-radius:7px}
 .niv-it.active-n{background:#f0fdf4;font-weight:700}
-[data-theme=dark] .niv-it.active-n{background:rgba(34,197,94,.08)}
 .niv-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .niv-range{font-size:.6rem;color:var(--tx3);margin-left:auto}
 .act-list{display:flex;flex-direction:column}
@@ -529,7 +522,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .perfil-top-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
 .perfil-av-wrap{position:relative;flex-shrink:0}
 .perfil-av{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#6366f1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:900}
-.perfil-av-edit{position:absolute;bottom:0;right:0;width:22px;height:22px;background:var(--ac);border-radius:50%;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#fff;cursor:pointer}
+.perfil-av-edit{position:absolute;bottom:0;right:0;width:24px;height:24px;background:var(--ac);border-radius:50%;border:2px solid var(--card);display:flex;align-items:center;justify-content:center;font-size:.55rem;color:#fff;cursor:pointer;padding:0;transition:.15s}
+.perfil-av-edit:hover{background:#1554cc;transform:scale(1.08)}
+.perfil-av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
 .perfil-info{flex:1;min-width:0}
 .perfil-name{font-size:1.05rem;font-weight:900;color:var(--tx);margin-bottom:5px}
 .perfil-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.68rem;color:var(--tx2);margin-bottom:4px;align-items:center}
@@ -1341,6 +1336,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
     <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
     <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i> Club Herse</button>
+    <div class="sb-sec">Próximamente</div>
     <button class="ni" id="nav-pasaporte-virtual" onclick="showView('pasaporte-virtual')"><i class="fas fa-passport"></i> Pasaporte Virtual</button>
     <button class="ni" id="nav-pasaporte-tribunero" onclick="showView('pasaporte-tribunero')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <div class="sb-sec">Más</div>
@@ -1357,7 +1353,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       <div class="hdr-ttl"><h1 id="hdrTitle">Mi Viaje</h1><p id="hdrSub">Tu mundo, tus viajes, tu historia.</p></div>
     </div>
     <div class="hdr-r">
-      <button class="hdr-btn" onclick="toggleTheme()" id="themeBtn" title="Cambiar tema">🌙</button>
       <button class="hdr-btn" style="position:relative"><i class="fas fa-bell"></i><span class="ndot"></span></button>
       <button class="av-btn" onclick="showView('perfil')">
         <div class="av-circle" id="avatarInitial">?</div>
@@ -1494,7 +1489,11 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       <!-- Tarjeta principal -->
       <div class="card" style="margin-bottom:14px">
        <div class="perfil-top-card">
-        <div class="perfil-av-wrap"><div class="perfil-av" id="perfilAv">?</div><div class="perfil-av-edit"><i class="fas fa-camera"></i></div></div>
+        <div class="perfil-av-wrap">
+         <div class="perfil-av" id="perfilAv">?</div>
+         <button class="perfil-av-edit" onclick="document.getElementById('avatarFileInput').click()" title="Cambiar foto de perfil"><i class="fas fa-camera"></i></button>
+         <input type="file" id="avatarFileInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
+        </div>
         <div class="perfil-info">
          <div class="perfil-name" id="perfilName">Cargando…</div>
          <div class="perfil-meta"><span id="perfilEmail"><i class="fas fa-envelope"></i> —</span><span class="perfil-veri"><i class="fas fa-check-circle"></i> Verificado</span></div>
@@ -1522,29 +1521,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="ps-c go"><div class="ps-n" id="ps-puntos">—</div><div class="ps-l">Puntos acumulados</div><div class="ps-s">Viajero activo</div></div>
        </div>
       </div>
-      <!-- Info personal + Preferencias -->
-      <div class="perfil-2col">
-       <div class="card">
-        <div class="card-ttl"><i class="fas fa-id-card"></i> Información personal</div>
-        <div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-user"></i> Nombre completo</div><div class="pd-val" id="pd-nombre">—</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-calendar"></i> Miembro desde</div><div class="pd-val" id="pd-desde">—</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-flag"></i> Nacionalidad</div><div class="pd-val">Argentina</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-globe"></i> Idioma preferido</div><div class="pd-val">Español</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-dollar-sign"></i> Moneda preferida</div><div class="pd-val">USD</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-envelope"></i> Suscripción</div><div class="pd-val"><span class="badge badge-ok">Activa</span></div></div>
-        </div>
-       </div>
-       <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="card-ttl" style="margin-bottom:0"><i class="fas fa-heart"></i> Preferencias de viaje</div><button class="btn-a btn-ghost" style="font-size:.65rem">Editar</button></div>
-        <div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-map"></i> Tipo de viaje</div><div class="pd-val">Aventura, Cultura</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-wallet"></i> Presupuesto</div><div class="pd-val">Medio</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-hotel"></i> Alojamiento</div><div class="pd-val">Hotel 4 estrellas</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-plane"></i> Transporte</div><div class="pd-val">Aéreo</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-users"></i> Compañía</div><div class="pd-val">En pareja</div></div>
-         <div class="pd-row"><div class="pd-lbl"><i class="fas fa-star"></i> Intereses</div><div class="pd-val">Fútbol, Naturaleza</div></div>
-        </div>
+      <!-- Info personal -->
+      <div class="card">
+       <div class="card-ttl"><i class="fas fa-id-card"></i> Información personal</div>
+       <div>
+        <div class="pd-row"><div class="pd-lbl"><i class="fas fa-user"></i> Nombre</div><div class="pd-val" id="pd-nombre">—</div></div>
+        <div class="pd-row"><div class="pd-lbl"><i class="fas fa-user"></i> Apellido</div><div class="pd-val" id="pd-apellido">—</div></div>
+        <div class="pd-row"><div class="pd-lbl"><i class="fas fa-envelope"></i> Email</div><div class="pd-val" id="pd-email">—</div></div>
+        <div class="pd-row"><div class="pd-lbl"><i class="fas fa-flag"></i> Nacionalidad</div><div class="pd-val" id="pd-nacionalidad">—</div></div>
+        <div class="pd-row"><div class="pd-lbl"><i class="fas fa-birthday-cake"></i> Fecha de nacimiento</div><div class="pd-val" id="pd-nacimiento">—</div></div>
+        <div class="pd-row"><div class="pd-lbl"><i class="fas fa-calendar"></i> Miembro desde</div><div class="pd-val" id="pd-desde">—</div></div>
        </div>
       </div>
       <!-- Ayuda -->
@@ -1561,19 +1547,21 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
      <div>
       <!-- Actividad reciente -->
       <div class="card" style="margin-bottom:14px">
-       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px"><div class="card-ttl" style="margin-bottom:0"><i class="fas fa-history"></i> Actividad reciente</div><button class="btn-a btn-ghost" style="font-size:.65rem">Ver todo</button></div>
+       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px"><div class="card-ttl" style="margin-bottom:0"><i class="fas fa-history"></i> Actividad reciente</div></div>
        <div class="act-list" id="actividadList">
-        <div class="act-i"><div class="act-ico bl"><i class="fas fa-plane"></i></div><div class="act-body"><div class="act-name">Reserva confirmada</div><div class="act-date" id="actFecha">—</div></div><div class="act-pts">+120 pts</div></div>
-        <div class="act-i"><div class="act-ico go"><i class="fas fa-star"></i></div><div class="act-body"><div class="act-name">Nivel Explorador</div><div class="act-date">Al registrarte</div></div><div class="act-pts">+50 pts</div></div>
-        <div class="act-i"><div class="act-ico gr"><i class="fas fa-futbol"></i></div><div class="act-body"><div class="act-name">Pasaporte Tribunero</div><div class="act-date">Activado</div></div><div class="act-pts">+100 pts</div></div>
+        <div style="text-align:center;padding:24px 12px;color:var(--tx3)">
+         <i class="fas fa-inbox" style="font-size:1.6rem;opacity:.5;margin-bottom:8px;display:block"></i>
+         <div style="font-size:.74rem;font-weight:600;color:var(--tx2)">Todavía no hay movimientos</div>
+         <div style="font-size:.62rem;margin-top:4px">Tu actividad reciente aparecerá acá.</div>
+        </div>
        </div>
       </div>
       <!-- Acciones rápidas -->
       <div class="card" style="margin-bottom:14px">
        <div class="card-ttl"><i class="fas fa-bolt"></i> Acciones rápidas</div>
        <div class="qa-grid">
-        <button class="qa-btn" onclick="showView('mis-viajes')"><i class="fas fa-file-alt"></i><span>Mis viajes</span></button>
-        <button class="qa-btn" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i><span>Fidelización</span></button>
+        <button class="qa-btn" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i><span>Historial de Viajes</span></button>
+        <button class="qa-btn" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i><span>Club Herse</span></button>
         <button class="qa-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-headset"></i><span>Centro de ayuda</span></button>
        </div>
       </div>
@@ -1638,11 +1626,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE VIRTUAL -->
   <div class="view" id="view-pasaporte-virtual">
-   <div style="position:relative;min-height:calc(100vh - var(--hh));background:url('../assets/fondopasaporte.png') center/cover no-repeat;overflow:hidden">
-    <!-- Overlay semi-transparente para legibilidad -->
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,248,235,.72) 0%,rgba(245,237,220,.58) 50%,rgba(230,220,200,.42) 100%);backdrop-filter:blur(1.5px)"></div>
+   <div style="position:relative;min-height:calc(100vh - var(--hh));background:linear-gradient(135deg,#f8fafc 0%,#eff6ff 60%,#dbeafe 100%);overflow:hidden">
     <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));padding:40px 20px">
-     <div style="text-align:center;max-width:520px;background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.65);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.08)">
+     <div style="text-align:center;max-width:520px;background:#fff;border:1px solid var(--bd);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.08)">
       <div style="width:110px;height:110px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(0,59,122,.12),rgba(0,59,122,.22));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,59,122,.15);border:2px solid rgba(0,59,122,.1)">
        <i class="fas fa-passport" style="font-size:2.8rem;color:#003B7A;filter:drop-shadow(0 2px 6px rgba(0,59,122,.25))"></i>
       </div>
@@ -1664,11 +1650,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE TRIBUNERO -->
   <div class="view" id="view-pasaporte-tribunero">
-   <div style="position:relative;min-height:calc(100vh - var(--hh));background:url('../assets/fondo-pasaporte-tribunero.png') center/cover no-repeat;overflow:hidden">
-    <!-- Overlay oscuro-violeta para legibilidad -->
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(30,15,60,.52) 0%,rgba(20,10,45,.62) 50%,rgba(10,5,30,.72) 100%);backdrop-filter:blur(1.5px)"></div>
+   <div style="position:relative;min-height:calc(100vh - var(--hh));background:linear-gradient(135deg,#1e1b4b 0%,#312e81 60%,#4c1d95 100%);overflow:hidden">
     <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));padding:40px 20px">
-     <div style="text-align:center;max-width:520px;background:rgba(255,255,255,.1);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.25)">
+     <div style="text-align:center;max-width:520px;background:rgba(255,255,255,.08);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.25)">
       <div style="width:110px;height:110px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.35));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(139,92,246,.25);border:2px solid rgba(139,92,246,.2)">
        <i class="fas fa-futbol" style="font-size:2.8rem;color:#C4B5FD;filter:drop-shadow(0 2px 6px rgba(139,92,246,.4))"></i>
       </div>
@@ -1694,13 +1678,27 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
 <!-- MODAL: EDITAR PERFIL -->
 <div id="modalEditarPerfil" onclick="if(event.target===this)closeEditPerfil()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.46);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(5px)">
- <div style="background:var(--card);border-radius:16px;padding:28px 30px;width:90%;max-width:440px;box-shadow:0 24px 64px rgba(0,0,0,.22);position:relative">
+ <div style="background:var(--card);border-radius:16px;padding:28px 30px;width:90%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,.22);position:relative">
   <button onclick="closeEditPerfil()" style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:1.1rem;color:var(--tx2);cursor:pointer"><i class="fas fa-times"></i></button>
   <div style="font-size:.98rem;font-weight:900;color:var(--tx);margin-bottom:4px"><i class="fas fa-pen" style="color:var(--ac);margin-right:8px"></i>Editar perfil</div>
   <p style="font-size:.7rem;color:var(--tx2);margin-bottom:22px">Actualizá tu información personal.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+   <div>
+    <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Nombre</label>
+    <input id="ep-nombre" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu nombre">
+   </div>
+   <div>
+    <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Apellido</label>
+    <input id="ep-apellido" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu apellido">
+   </div>
+  </div>
   <div style="margin-bottom:14px">
-   <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Nombre completo</label>
-   <input id="ep-nombre" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu nombre completo">
+   <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Nacionalidad</label>
+   <input id="ep-nacionalidad" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Ej: Argentina">
+  </div>
+  <div style="margin-bottom:14px">
+   <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Fecha de nacimiento</label>
+   <input id="ep-nacimiento" type="date" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s">
   </div>
   <div style="margin-bottom:22px">
    <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Email <span style="font-size:.6rem;font-weight:600;color:var(--tx3)">(no se puede cambiar)</span></label>
@@ -1813,10 +1811,35 @@ function renderItinerario(){
       </div>`;
   }
 }
+let _userMeta={nombre:'',apellido:'',nacionalidad:'',fecha_nacimiento:'',avatar_url:'',created_at:''};
+function fmtFechaLarga(s){if(!s)return'—';try{const d=new Date(s);return d.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});}catch(e){return s;}}
+function _renderAvatar(){
+  const av=document.getElementById('perfilAv');if(!av)return;
+  const url=_userMeta.avatar_url||localStorage.getItem('herse_avatar');
+  if(url){av.innerHTML=`<img src="${url}" alt="avatar">`;}
+  else{av.textContent=(_userMeta.nombre||_userName||'?').charAt(0).toUpperCase();}
+}
+async function handleAvatarUpload(ev){
+  const file=ev.target.files?.[0];if(!file)return;
+  if(file.size>2*1024*1024){alert('La imagen no puede pesar más de 2MB.');ev.target.value='';return;}
+  const reader=new FileReader();
+  reader.onload=async(e)=>{
+    const dataUrl=e.target.result;
+    _userMeta.avatar_url=dataUrl;
+    try{localStorage.setItem('herse_avatar',dataUrl);}catch(_){}
+    _renderAvatar();
+    try{await _db.auth.updateUser({data:{avatar_url:dataUrl}});}catch(_){}
+  };
+  reader.readAsDataURL(file);
+  ev.target.value='';
+}
 function openEditPerfil(){
   const el=document.getElementById('modalEditarPerfil');if(!el)return;
-  const nm=document.getElementById('ep-nombre');if(nm)nm.value=_userName||'';
-  const em=document.getElementById('ep-email');if(em)em.value=_userEmail||'';
+  document.getElementById('ep-nombre').value=_userMeta.nombre||'';
+  document.getElementById('ep-apellido').value=_userMeta.apellido||'';
+  document.getElementById('ep-nacionalidad').value=_userMeta.nacionalidad||'';
+  document.getElementById('ep-nacimiento').value=_userMeta.fecha_nacimiento||'';
+  document.getElementById('ep-email').value=_userEmail||'';
   const msg=document.getElementById('ep-msg');if(msg)msg.style.display='none';
   el.style.display='flex';
   document.getElementById('ep-nombre').focus();
@@ -1826,48 +1849,54 @@ function closeEditPerfil(){
 }
 async function saveEditPerfil(){
   const nombre=document.getElementById('ep-nombre').value.trim();
+  const apellido=document.getElementById('ep-apellido').value.trim();
+  const nacionalidad=document.getElementById('ep-nacionalidad').value.trim();
+  const fecha_nacimiento=document.getElementById('ep-nacimiento').value;
   const btn=document.getElementById('ep-save');
   const msg=document.getElementById('ep-msg');
   if(!nombre){msg.style.display='block';msg.style.background='#fee2e2';msg.style.color='#dc2626';msg.textContent='El nombre no puede estar vacío.';return;}
   btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Guardando...';
-  const {error}=await _db.auth.updateUser({data:{nombre}});
+  const {error}=await _db.auth.updateUser({data:{nombre,apellido,nacionalidad,fecha_nacimiento}});
   btn.disabled=false;btn.innerHTML='<i class="fas fa-save"></i> Guardar cambios';
   if(error){
     msg.style.display='block';msg.style.background='#fee2e2';msg.style.color='#dc2626';msg.textContent='Error: '+error.message;
   } else {
-    _userName=nombre.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+    _userMeta.nombre=nombre;_userMeta.apellido=apellido;_userMeta.nacionalidad=nacionalidad;_userMeta.fecha_nacimiento=fecha_nacimiento;
+    const cap=s=>s.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(' ');
+    _userName=cap(nombre)+(apellido?' '+cap(apellido):'');
     document.querySelectorAll('.name').forEach(el=>el.textContent=_userName);
-    const ini=document.getElementById('avatarInitial');if(ini)ini.textContent=_userName.charAt(0).toUpperCase();
+    const ini=document.getElementById('avatarInitial');if(ini)ini.textContent=(_userMeta.nombre||'?').charAt(0).toUpperCase();
     renderPerfil();
     msg.style.display='block';msg.style.background='#dcfce7';msg.style.color='#15803d';msg.textContent='¡Cambios guardados correctamente!';
-    setTimeout(()=>{closeEditPerfil();msg.style.display='none';},1800);
+    setTimeout(()=>{closeEditPerfil();msg.style.display='none';},1500);
   }
 }
 function renderPerfil(){
-  const n=document.getElementById('perfilName');if(n)n.textContent=_userName||'—';
-  const av=document.getElementById('perfilAv');if(av)av.textContent=(_userName||'?').charAt(0).toUpperCase();
+  const fullName=(_userMeta.nombre||'')+(_userMeta.apellido?' '+_userMeta.apellido:'');
+  const n=document.getElementById('perfilName');if(n)n.textContent=fullName.trim()||_userName||'—';
+  _renderAvatar();
   const em=document.getElementById('perfilEmail');if(em)em.innerHTML='<i class="fas fa-envelope"></i> '+(_userEmail||'—');
-  const pdn=document.getElementById('pd-nombre');if(pdn)pdn.textContent=_userName||'—';
+  const pdn=document.getElementById('pd-nombre');if(pdn)pdn.textContent=_userMeta.nombre||'—';
+  const pda=document.getElementById('pd-apellido');if(pda)pda.textContent=_userMeta.apellido||'—';
+  const pde=document.getElementById('pd-email');if(pde)pde.textContent=_userEmail||'—';
+  const pdn2=document.getElementById('pd-nacionalidad');if(pdn2)pdn2.textContent=_userMeta.nacionalidad||'—';
+  const pdb=document.getElementById('pd-nacimiento');if(pdb)pdb.textContent=fmtFechaLarga(_userMeta.fecha_nacimiento);
+  const pdd=document.getElementById('pd-desde');if(pdd)pdd.textContent=fmtFechaLarga(_userMeta.created_at);
   const viajes=_allTrips.length;
   const comp=_allTrips.filter(t=>!t.activo).length;
   const paises=new Set(_allTrips.map(t=>t.destino.split(' ')[0].toLowerCase())).size;
   const estadios=_selladosSet.size;
-  const pts=comp*250;
-  const nivel=pts>=1000?'Elite VIP':pts>=500?'Viajero Frecuente':'Explorador';
-  const nivelIco=pts>=1000?'👑':pts>=500?'✈️':'🧭';
-  const pctN=Math.min((pts/1000)*100,100);
-  const faltaN=Math.max(0,1000-pts);
+  const lifetime=_loyaltyData?.lifetimePoints||0;
+  const prog=typeof getLevelProgress==='function'?getLevelProgress(lifetime):{current:{name:'Aventurero',emoji:'🎒'},next:null,pct:0,remaining:0};
   const sv=document.getElementById('ps-viajes');if(sv)sv.textContent=viajes||0;
   const sp=document.getElementById('ps-paises');if(sp)sp.textContent=paises||0;
   const se=document.getElementById('ps-estadios');if(se)se.textContent=estadios||0;
-  const spt=document.getElementById('ps-puntos');if(spt)spt.textContent=pts||0;
-  const nn=document.getElementById('pn-name');if(nn)nn.textContent=nivel;
-  const ni=document.querySelector('.pn-ico');if(ni)ni.textContent=nivelIco;
-  const nf=document.getElementById('pn-pts');if(nf)nf.textContent=faltaN>0?faltaN+' pts para el siguiente nivel':'¡Nivel máximo!';
-  const nb=document.getElementById('pn-fill');if(nb)setTimeout(()=>nb.style.width=pctN+'%',200);
-  const nl=document.getElementById('pn-lbl');if(nl)nl.textContent=pts+' / 1000 pts';
-  const fa=document.getElementById('actFecha');
-  if(_allTrips.length&&fa){const t=_allTrips.find(x=>x.activo)||_allTrips[0];fa.textContent=t?fmtDate(new Date(t.fecha_salida)):'—';}
+  const spt=document.getElementById('ps-puntos');if(spt)spt.textContent=(typeof fmtPts==='function'?fmtPts(lifetime):lifetime)||0;
+  const nn=document.getElementById('pn-name');if(nn)nn.textContent=prog.current.name;
+  const ni=document.querySelector('.pn-ico');if(ni)ni.textContent=prog.current.emoji;
+  const nf=document.getElementById('pn-pts');if(nf)nf.textContent=prog.next?(typeof fmtPts==='function'?fmtPts(prog.remaining):prog.remaining)+' pts para '+prog.next.name:'¡Nivel máximo!';
+  const nb=document.getElementById('pn-fill');if(nb)setTimeout(()=>nb.style.width=prog.pct+'%',200);
+  const nl=document.getElementById('pn-lbl');if(nl)nl.textContent=prog.next?(typeof fmtPts==='function'?fmtPts(lifetime):lifetime)+' / '+(typeof fmtPts==='function'?fmtPts(prog.next.min):prog.next.min)+' pts':(typeof fmtPts==='function'?fmtPts(lifetime):lifetime)+' pts';
 }
 function openPassport(type){
   const p=document.getElementById('passport-'+type);if(!p)return;
@@ -1878,21 +1907,6 @@ function openPassport(type){
 function closePassport(type){
   const p=document.getElementById('passport-'+type);if(!p)return;
   p.classList.remove('open');
-}
-/* THEME */
-(function(){
-  const s=localStorage.getItem('herse_theme')||'light';
-  document.documentElement.dataset.theme=s;
-  const b=document.getElementById('themeBtn');
-  if(b) b.textContent=s==='dark'?'☀️':'🌙';
-})();
-function toggleTheme(){
-  const h=document.documentElement;
-  const d=h.dataset.theme==='dark';
-  h.dataset.theme=d?'light':'dark';
-  const b=document.getElementById('themeBtn');
-  if(b) b.textContent=d?'🌙':'☀️';
-  localStorage.setItem('herse_theme',d?'light':'dark');
 }
 /* AUTH + DATA */
 (async()=>{
@@ -1909,12 +1923,21 @@ function toggleTheme(){
     document.getElementById('proximamente').style.display='block';
     return;
   }
-  const raw=user.user_metadata?.nombre||user.email.split('@')[0].replace(/[._-]/g,' ');
-  const name=raw.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
-  _userName=name; _userEmail=user.email||'';
-  document.querySelectorAll('.name').forEach(el=>el.textContent=name);
+  const md=user.user_metadata||{};
+  const raw=md.nombre||user.email.split('@')[0].replace(/[._-]/g,' ');
+  const cap=s=>s.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1).toLowerCase()).join(' ');
+  const nombreCap=cap(raw);
+  _userMeta.nombre=md.nombre?cap(md.nombre):nombreCap;
+  _userMeta.apellido=md.apellido?cap(md.apellido):'';
+  _userMeta.nacionalidad=md.nacionalidad||'';
+  _userMeta.fecha_nacimiento=md.fecha_nacimiento||'';
+  _userMeta.avatar_url=md.avatar_url||localStorage.getItem('herse_avatar')||'';
+  _userMeta.created_at=user.created_at||'';
+  _userName=_userMeta.nombre+(_userMeta.apellido?' '+_userMeta.apellido:'');
+  _userEmail=user.email||'';
+  document.querySelectorAll('.name').forEach(el=>el.textContent=_userName);
   const ini=document.getElementById('avatarInitial');
-  if(ini) ini.textContent=name.charAt(0).toUpperCase();
+  if(ini) ini.textContent=_userMeta.nombre.charAt(0).toUpperCase();
   const {data:viajes}=await _db.from('viajes').select('*,documentos(*),imagen_url,itinerario,timeline_status').eq('activo',true).order('fecha_salida',{ascending:true}).limit(1);
   if(viajes?.length>0){
     _hasTrip=true;
@@ -2487,12 +2510,15 @@ async function renderFidelizacion(){
   const nextBenRemaining=nextBenefit?nextBenefit.cost-avail:0;
   // Earn rules HTML
   const earnHtml=LOYALTY_CONFIG.earnRules.map(r=>`<div class="como-i"><div class="como-ico">${r.ico}</div><div class="como-name">${r.name}</div><div class="como-pts">${r.desc}</div></div>`).join('');
-  // Benefits HTML
+  // Benefits HTML — siempre requiere click "Canjear" explícito para descontar puntos
   const benHtml=benefits.map(b=>{
-    const st=b.unlocked?'ok':b.pct>=50?'near':'locked';
-    const tag=b.unlocked?'<span class="ben-tag">Desbloqueado</span>':b.pct>=50?`<span class="ben-tag near">${fmtPts(b.cost-avail)} pts restantes</span>`:'';
-    const btn=b.unlocked?`<button class="btn-canjear" onclick="canjearBeneficio('${b.id}')"><i class="fas fa-gift"></i> Canjear</button>`:'';
-    return `<div class="ben-c ${st}">${tag}<div class="ben-ico"><i class="fas ${b.ico}" style="color:${b.unlocked?b.color:'var(--tx3)'}"></i></div><div class="ben-name">${b.name}</div><div class="ben-desc">${b.desc}</div><div class="ben-pts">${fmtPts(b.cost)} puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:${b.pct}%;background:${b.unlocked?b.color:''}"></div></div>${btn}</div>`;
+    const canRedeem=b.unlocked;
+    const st=canRedeem?'ok':'locked';
+    const tag=canRedeem?'<span class="ben-tag">Disponible</span>':`<span class="ben-tag locked-tag">Faltan ${fmtPts(b.cost-avail)} pts</span>`;
+    const btn=canRedeem
+      ?`<button class="btn-canjear" onclick="canjearBeneficio('${b.id}')"><i class="fas fa-gift"></i> Canjear ${fmtPts(b.cost)} pts</button>`
+      :`<button class="btn-canjear" disabled style="background:#cbd5e1;cursor:not-allowed"><i class="fas fa-lock"></i> Bloqueado</button>`;
+    return `<div class="ben-c ${st}">${tag}<div class="ben-ico"><i class="fas ${b.ico}" style="color:${canRedeem?b.color:'var(--tx3)'}"></i></div><div class="ben-name">${b.name}</div><div class="ben-desc">${b.desc}</div><div class="ben-pts">${fmtPts(b.cost)} puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:${b.pct}%;background:${canRedeem?b.color:'var(--bd)'}"></div></div>${btn}</div>`;
   }).join('');
   // Activity HTML
   const actHtml=_loyaltyData.movements.length?_loyaltyData.movements.slice(0,8).map(m=>{
