@@ -259,18 +259,22 @@ img{display:block}
 .fpbar{height:7px;background:var(--bd);border-radius:99px;overflow:hidden;margin-bottom:5px}
 .fpfill{height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:99px;transition:width 1s}
 .fp-lbls{display:flex;justify-content:space-between;font-size:.6rem;color:var(--tx3)}
-.como-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:20px}
+.como-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px;margin-bottom:20px}
 .como-i{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 10px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:7px}
 .como-ico{font-size:1.35rem} .como-name{font-size:.7rem;font-weight:700;color:var(--tx);line-height:1.3}
 .como-pts{font-size:.63rem;color:var(--tx2);line-height:1.4}
-.benef-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:7px}
+.benef-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-bottom:7px}
 .ben-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;text-align:center}
 .ben-c.ok{border-color:#22c55e;background:#f0fdf4}
 [data-theme=dark] .ben-c.ok{background:rgba(34,197,94,.06)}
 .ben-tag{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;font-size:.56rem;font-weight:700;padding:2px 7px;border-radius:0 0 5px 5px;white-space:nowrap}
+.ben-tag.near{background:#f59e0b}
+.ben-c.near{border-color:#fde68a;background:#fefce8}
+.ben-c.locked{opacity:.7}
 .ben-ico{width:38px;height:38px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1rem}
 .ben-c.ok .ben-ico{background:#dcfce7}
 .ben-name{font-size:.7rem;font-weight:700;color:var(--tx)}
+.ben-desc{font-size:.58rem;color:var(--tx2);line-height:1.3;margin-top:-3px}
 .ben-pts{font-size:.6rem;color:var(--tx2)}
 .ben-bar{width:100%;height:3px;background:var(--bd);border-radius:99px;overflow:hidden}
 .ben-bfill{height:100%;background:var(--ac);border-radius:99px}
@@ -1336,7 +1340,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <nav class="sb-nav">
     <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
     <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
-    <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-star"></i> Fidelización Herse</button>
+    <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i> Club Herse</button>
     <button class="ni" id="nav-pasaporte-virtual" onclick="showView('pasaporte-virtual')"><i class="fas fa-passport"></i> Pasaporte Virtual</button>
     <button class="ni" id="nav-pasaporte-tribunero" onclick="showView('pasaporte-tribunero')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <div class="sb-sec">Más</div>
@@ -1612,80 +1616,11 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    </div>
   </div>
 
-  <!-- VIEW: FIDELIZACIÓN -->
+  <!-- VIEW: CLUB HERSE -->
   <div class="view" id="view-fidelizacion">
-   <div class="vcontent">
-    <div class="fid-layout">
-     <div>
-      <div class="pts-hero">
-       <div class="pts-l">
-        <div class="pts-lbl">Tus puntos disponibles</div>
-        <div class="pts-row"><span style="font-size:1.7rem">⭐</span><span class="pts-num" id="fidPtsHero">0</span><span class="pts-unit">puntos</span></div>
-        <div class="pts-sub"><i class="fas fa-arrow-up"></i><span id="fidMotivoHero">¡Vas por buen camino!</span></div>
-        <hr class="hr fid-sep">
-        <div class="prox-row">
-         <div class="prox-txt">Estás a <strong id="fidFaltanHero">—</strong> puntos de tu próximo beneficio</div>
-         <div class="prox-b"><i class="fas fa-ticket-alt" style="color:var(--ac3)"></i><span id="fidProxBen">5% OFF en tu próximo viaje</span></div>
-        </div>
-        <div class="fpbar"><div class="fpfill" id="fidProgHero" style="width:0%"></div></div>
-        <div class="fp-lbls"><span id="fidProgL">0 / 1000</span><span style="color:var(--ac3)" id="fidProgR">680 / 1000</span></div>
-       </div>
-      </div>
-      <div class="sec-ttl" style="margin-bottom:10px">Cómo sumás puntos</div>
-      <div class="como-grid">
-       <div class="como-i"><div class="como-ico">✈️</div><div class="como-name">Reserva de viajes</div><div class="como-pts">+ 10 pts por cada USD 1 gastado</div></div>
-       <div class="como-i"><div class="como-ico">🏨</div><div class="como-name">Alojamientos</div><div class="como-pts">+ 5 pts por cada USD 1 gastado</div></div>
-       <div class="como-i"><div class="como-ico">⚽</div><div class="como-name">Viajes futboleros</div><div class="como-pts">+ 15 pts por cada USD 1 gastado</div></div>
-       <div class="como-i"><div class="como-ico">👥</div><div class="como-name">Referí amigos</div><div class="como-pts">+ 200 pts por cada amigo que viaje</div></div>
-       <div class="como-i"><div class="como-ico">⭐</div><div class="como-name">Dejá tu opinión</div><div class="como-pts">+ 50 pts por cada reseña aprobada</div></div>
-      </div>
-      <div class="sec-ttl" style="margin-bottom:10px">Beneficios disponibles</div>
-      <div class="benef-grid">
-       <div class="ben-c ok"><span class="ben-tag">Desbloqueado</span><div style="margin-top:8px"></div><div class="ben-ico"><i class="fas fa-percent" style="color:#16a34a"></i></div><div class="ben-name">5% OFF en tu próximo viaje</div><div class="ben-pts">1.000 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:68%"></div></div><button class="btn-canjear">Canjear beneficio</button></div>
-       <div class="ben-c"><div class="ben-ico"><i class="fas fa-suitcase" style="color:var(--tx3)"></i></div><div class="ben-name">Equipaje extra gratis</div><div class="ben-pts">1.500 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:45%"></div></div></div>
-       <div class="ben-c"><div class="ben-ico"><i class="fas fa-arrow-up" style="color:var(--tx3)"></i></div><div class="ben-name">Upgrade de categoría</div><div class="ben-pts">2.500 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:27%"></div></div></div>
-       <div class="ben-c"><div class="ben-ico"><i class="fas fa-check-circle" style="color:var(--tx3)"></i></div><div class="ben-name">Check-in prioritario</div><div class="ben-pts">3.500 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:19%"></div></div></div>
-       <div class="ben-c"><div class="ben-ico"><i class="fas fa-concierge-bell" style="color:var(--tx3)"></i></div><div class="ben-name">Asistencia premium</div><div class="ben-pts">5.000 puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:14%"></div></div></div>
-      </div>
-      <div class="ver-todos">Ver todos los beneficios</div>
-      <div class="tip-bar"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>Tip Herse</strong><br>Acumulá más puntos reservando paquetes completos (vuelo + hotel) y participá de nuestras promociones exclusivas.</div></div>
-     </div>
-     <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="sb-card">
-       <div class="niv-hdr"><div class="sb-card-ttl" style="margin-bottom:0">Tu nivel actual</div><span class="niv-ver">Ver niveles</span></div>
-       <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
-        <div class="niv-badge" id="fidNivelBadge">✈️</div>
-        <div><div class="niv-name" id="fidNivelName">Explorador</div><div class="niv-sub" id="fidNivelSub">Nivel 2</div></div>
-       </div>
-       <div class="sb-card-ttl">Tu progreso de nivel</div>
-       <div class="niv-list">
-        <div class="niv-it"><div class="niv-dot" style="background:#94a3b8"></div>Aventurero<span class="niv-range">0 - 999 pts</span></div>
-        <div class="niv-it active-n" id="fidNivActivo"><div class="niv-dot" style="background:#22c55e"></div><strong>Explorador</strong><span class="niv-range">1.000 - 2.499 pts</span></div>
-        <div class="niv-it"><div class="niv-dot" style="background:#3b82f6"></div>Viajero Frecuente<span class="niv-range">2.500 - 4.999 pts</span></div>
-        <div class="niv-it"><div class="niv-dot" style="background:#8b5cf6"></div>Globetrotter<span class="niv-range">5.000 - 9.999 pts</span></div>
-        <div class="niv-it"><div class="niv-dot" style="background:#f59e0b"></div>Leyenda Herse<span class="niv-range">10.000+ pts</span></div>
-       </div>
-      </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Actividad reciente</div>
-       <div class="act-list">
-        <div class="act-i"><div class="act-ico"><i class="fas fa-plane"></i></div><div><div class="act-name">Reserva a Brasil</div><div class="act-date">15 may 2025</div></div><span class="act-pts">+120 pts</span></div>
-        <div class="act-i"><div class="act-ico"><i class="fas fa-star"></i></div><div><div class="act-name">Reseña publicada</div><div class="act-date">10 may 2025</div></div><span class="act-pts">+50 pts</span></div>
-        <div class="act-i"><div class="act-ico"><i class="fas fa-plane"></i></div><div><div class="act-name">Viaje a España</div><div class="act-date">21 abr 2025</div></div><span class="act-pts">+200 pts</span></div>
-       </div>
-       <span class="ver-act">Ver toda tu actividad</span>
-      </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Tus estadísticas</div>
-       <div class="fst-grid">
-        <div class="fst-i"><div class="fst-v" id="fidStatPts">0</div><div class="fst-l">Puntos totales</div></div>
-        <div class="fst-i"><div class="fst-v" id="fidStatViajes">0</div><div class="fst-l">Viajes realizados</div></div>
-        <div class="fst-i"><div class="fst-v">0</div><div class="fst-l">Referidos</div></div>
-        <div class="fst-i"><div class="fst-v" id="fidStatDesde">—</div><div class="fst-l">Miembro desde</div></div>
-       </div>
-      </div>
-     </div>
-    </div>
+   <div class="vcontent" id="clubHerseContent">
+    <!-- Rendered dynamically by renderFidelizacion() -->
+    <div style="text-align:center;padding:60px 20px;opacity:.4"><i class="fas fa-spinner fa-spin" style="font-size:1.5rem"></i><p style="margin-top:10px;font-size:.75rem">Cargando Club Herse...</p></div>
    </div>
   </div>
 
@@ -1698,6 +1633,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    <span id="al-next-benefit">5% OFF</span><span id="al-benefit-sub">Sumá sellos</span>
    <span id="ppHeaderSub">0 sellos</span>
    <div id="pbSummary"></div><div id="ppStampsLeft"></div><div id="ppStampsRight"></div>
+   <div id="fidNivelBadge"></div><div id="fidNivelName"></div><div id="fidNivelSub"></div>
   </div>
 
   <!-- VIEW: PASAPORTE VIRTUAL -->
@@ -1789,7 +1725,7 @@ const VIEW_META={
   'mi-viaje':   {title:'Mi Viaje',      sub:'Tu mundo, tus viajes, tu historia.',        ico:'fas fa-plane',     cls:'blue'},
   'mis-viajes': {title:'Historial de viajes', sub:'Todos tus recuerdos y experiencias con Herse.', ico:'fas fa-clock-rotate-left', cls:'blue'},
   'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple'},
-  'fidelizacion':     {title:'Fidelización Herse',   sub:'Viajá más, sumá puntos y desbloqueá beneficios.',    ico:'fas fa-star',     cls:'gold'},
+  'fidelizacion':     {title:'Club Herse',            sub:'Sumá puntos, subí de nivel y canjeá beneficios exclusivos.',    ico:'fas fa-crown',    cls:'gold'},
   'pasaporte-virtual':  {title:'Pasaporte Virtual',     sub:'Tu pasaporte digital de viajes con Herse.',                    ico:'fas fa-passport', cls:'blue'},
   'pasaporte-tribunero':{title:'Pasaporte Tribunero',   sub:'Tu pasaporte futbolero para coleccionar estadios.',            ico:'fas fa-futbol',   cls:'purple'},
 };
@@ -1997,20 +1933,6 @@ function toggleTheme(){
   renderPassport();
   const {data:fid}=await _db.from('fidelizacion').select('*').maybeSingle();
   if(fid) updateLoyalty(fid);
-  if(fid){
-    const done=fid.viajes_completados||0;
-    const pct=Math.min((done/5)*100,100);
-    const pts=done*250;
-    const next=Math.max(0,1000-pts);
-    const h=document.getElementById('fidProgHero');
-    if(h){setTimeout(()=>{h.style.width=Math.min((pts/1000)*100,100)+'%';},500);}
-    const fl=document.getElementById('fidFaltanHero');if(fl)fl.textContent=next;
-    const fp=document.getElementById('fidPtsHero');if(fp)fp.textContent=pts;
-    const fr=document.getElementById('fidProgR');if(fr)fr.textContent=pts+' / 1000';
-    const pl=document.getElementById('fidProgL');if(pl)pl.textContent='0 / 1000';
-    const sp=document.getElementById('fidStatPts');if(sp)sp.textContent=pts;
-    const sv=document.getElementById('fidStatViajes');if(sv)sv.textContent=done;
-  }
 })();
 function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
 async function signOut(){await _db.auth.signOut();window.location.href='/login';}
@@ -2079,7 +2001,7 @@ function showSinViajeHero(){
       </div>
       <div class="card">
         <div class="tc-hdr">
-          <div class="tc-ttl"><i class="fas fa-medal" style="color:var(--ac)"></i> Tu nivel Herse</div>
+          <div class="tc-ttl"><i class="fas fa-crown" style="color:var(--ac3)"></i> Club Herse</div>
           <button class="tc-lnk" onclick="showView('fidelizacion')">Ver más <i class="fas fa-chevron-right"></i></button>
         </div>
         <div id="ntNivelBody"><div style="opacity:.3;font-size:.7rem;text-align:center;padding:20px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
@@ -2191,7 +2113,7 @@ function updateTripUI(v){
       </div>
       <div class="card">
         <div class="tc-hdr">
-          <div class="tc-ttl"><i class="fas fa-star" style="color:#f59e0b"></i> Fidelización Herse</div>
+          <div class="tc-ttl"><i class="fas fa-crown" style="color:var(--ac3)"></i> Club Herse</div>
           <button class="tc-lnk" onclick="showView('fidelizacion')">Ver más <i class="fas fa-chevron-right"></i></button>
         </div>
         <div id="fidDashCard"><div style="opacity:.3;font-size:.7rem;text-align:center;padding:20px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
@@ -2223,27 +2145,21 @@ function updateTripUI(v){
 function updateFidDashCard(fid){
   const card=document.getElementById('fidDashCard');
   if(!card)return;
-  const done=fid.viajes_completados||0;
-  let level,icon,nextPts,nextName;
-  if(done>=10){level='Leyenda Herse';icon='🌟';nextPts=done*250;nextName='¡Nivel máximo!';}
-  else if(done>=7){level='Globetrotter';icon='🌍';nextPts=10*250;nextName='Leyenda Herse';}
-  else if(done>=5){level='Viajero Frecuente';icon='🧭';nextPts=7*250;nextName='Globetrotter';}
-  else if(done>=3){level='Explorador';icon='✈️';nextPts=5*250;nextName='Viajero Frecuente';}
-  else{level='Aventurero';icon='🎒';nextPts=3*250;nextName='Explorador';}
-  const pts=done*250;
-  const pct=nextPts?Math.min((pts/nextPts)*100,100):100;
+  const lifetime=_loyaltyData.lifetimePoints||fid.puntos_historicos||fid.puntos||0;
+  const avail=_loyaltyData.availablePoints||fid.puntos_disponibles||fid.puntos||0;
+  const prog=getLevelProgress(lifetime);
   card.innerHTML=`
     <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
       <div style="flex:1">
-        <div class="fid-level-lbl"><i class="fas fa-star"></i> Nivel actual</div>
-        <div class="fid-level-name">${level}</div>
+        <div class="fid-level-lbl"><i class="fas fa-crown"></i> Club Herse</div>
+        <div class="fid-level-name">${prog.current.name}</div>
         <div class="fid-bar-wrap"><div class="fid-bar-fill" style="width:0%" id="fidDashBar"></div></div>
-        <div class="fid-bar-info"><span>${pts} pts</span><span>${done>=10?'¡Nivel máximo!':nextPts+' pts para '+nextName}</span></div>
+        <div class="fid-bar-info"><span>${fmtPts(avail)} pts disp.</span><span>${prog.next?fmtPts(prog.remaining)+' pts → '+prog.next.name:'¡Nivel máximo!'}</span></div>
       </div>
-      <div class="fid-badge">${icon}</div>
+      <div class="fid-badge">${prog.current.emoji}</div>
     </div>
-    <button class="fid-prog-btn" onclick="showView('fidelizacion')"><i class="fas fa-chart-line"></i> Ver mi progreso <i class="fas fa-chevron-right"></i></button>`;
-  setTimeout(()=>{const b=document.getElementById('fidDashBar');if(b)b.style.width=pct+'%';},120);
+    <button class="fid-prog-btn" onclick="showView('fidelizacion')"><i class="fas fa-chart-line"></i> Ver Club Herse <i class="fas fa-chevron-right"></i></button>`;
+  setTimeout(()=>{const b=document.getElementById('fidDashBar');if(b)b.style.width=prog.pct+'%';},120);
 }
 function _ppMiniHtml(sealedCount,total,color,chips,label){
   const pct=total?Math.round((sealedCount/total)*100):0;
@@ -2330,39 +2246,29 @@ async function loadHistorial(){
 function updateNoTripNivelCard(){
   const body=document.getElementById('ntNivelBody');
   if(!body)return;
+  const lifetime=_loyaltyData.lifetimePoints;
+  const avail=_loyaltyData.availablePoints;
+  const prog=getLevelProgress(lifetime);
   const comp=_allTrips.filter(t=>!t.activo).length;
   const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(' ')[0])).size;
-  const pts=comp*250;
-  let level,icon,nextPts;
-  if(comp>=10){level='Leyenda Herse';icon='\uD83C\uDF1F';nextPts=0;}
-  else if(comp>=7){level='Globetrotter';icon='\uD83C\uDF0D';nextPts=10*250;}
-  else if(comp>=5){level='Viajero Frecuente';icon='\uD83E\uDDED';nextPts=7*250;}
-  else if(comp>=3){level='Explorador';icon='\u2708\uFE0F';nextPts=5*250;}
-  else{level='Aventurero';icon='\uD83C\uDF92';nextPts=3*250;}
-  const pct=nextPts?Math.min((pts/nextPts)*100,100):100;
-  const falta=Math.max(0,nextPts-pts);
-  const faltaTxt=falta>0?`Faltan <strong style="color:var(--ac)">${falta} pts</strong> para el siguiente nivel`:'¡Nivel máximo alcanzado! 🎉';
-  const ppViaje=_viajeSelladosSet.size;
-  const totalViaje=VIAJE_PAGES.reduce((s,p)=>s+p.left.items.length+p.right.items.length,0);
-  const nextName=nextPts===0?'¡Nivel máximo!':comp>=7?'Leyenda Herse':comp>=5?'Globetrotter':comp>=3?'Viajero Frecuente':'Explorador';
   body.innerHTML=`
     <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
       <div style="flex:1">
-        <div class="fid-level-lbl"><i class="fas fa-star"></i> Nivel actual</div>
-        <div class="fid-level-name">${level}</div>
+        <div class="fid-level-lbl"><i class="fas fa-crown"></i> Club Herse</div>
+        <div class="fid-level-name">${prog.current.name}</div>
         <div class="fid-bar-wrap"><div class="fid-bar-fill" style="width:0%" id="ntNivelBar"></div></div>
-        <div class="fid-bar-info"><span>${pts} pts</span><span>${nextPts===0?'¡Nivel máximo!':nextPts+' pts para '+nextName}</span></div>
+        <div class="fid-bar-info"><span>${fmtPts(avail)} pts disp.</span><span>${prog.next?fmtPts(prog.remaining)+' pts → '+prog.next.name:'¡Nivel máximo!'}</span></div>
       </div>
-      <div class="fid-badge">${icon}</div>
+      <div class="fid-badge">${prog.current.emoji}</div>
     </div>
     <div style="border-top:1px solid var(--bd);padding-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center;margin-bottom:13px">
       <div><div style="font-size:.9rem;font-weight:900;color:var(--tx)">${comp}</div><div style="font-size:.52rem;text-transform:uppercase;letter-spacing:.7px;color:var(--tx2);margin-top:2px">Viajes</div></div>
-      <div><div style="font-size:.9rem;font-weight:900;color:var(--tx)">${paises}</div><div style="font-size:.52rem;text-transform:uppercase;letter-spacing:.7px;color:var(--tx2);margin-top:2px">Pa\u00edses</div></div>
-      <div><div style="font-size:.9rem;font-weight:900;color:var(--tx)">${ppViaje}<span style="font-size:.56rem;font-weight:600;color:var(--tx3)">/${totalViaje}</span></div><div style="font-size:.52rem;text-transform:uppercase;letter-spacing:.7px;color:var(--tx2);margin-top:2px">Sellados</div></div>
+      <div><div style="font-size:.9rem;font-weight:900;color:var(--tx)">${paises}</div><div style="font-size:.52rem;text-transform:uppercase;letter-spacing:.7px;color:var(--tx2);margin-top:2px">Países</div></div>
+      <div><div style="font-size:.9rem;font-weight:900;color:var(--tx)">${fmtPts(lifetime)}</div><div style="font-size:.52rem;text-transform:uppercase;letter-spacing:.7px;color:var(--tx2);margin-top:2px">Pts totales</div></div>
     </div>
-    <button class="fid-prog-btn" onclick="showView('fidelizacion')"><i class="fas fa-chart-line"></i> Ver mi progreso <i class="fas fa-chevron-right"></i></button>
+    <button class="fid-prog-btn" onclick="showView('fidelizacion')"><i class="fas fa-chart-line"></i> Ver Club Herse <i class="fas fa-chevron-right"></i></button>
   `;
-  setTimeout(()=>{const b=document.getElementById('ntNivelBar');if(b)b.style.width=pct+'%';},120);
+  setTimeout(()=>{const b=document.getElementById('ntNivelBar');if(b)b.style.width=prog.pct+'%';},120);
 }
 let _tripTab='todos';
 function setViajesTab(btn,tab){
@@ -2495,21 +2401,183 @@ function renderAllTrips(){
     return `<div class="hv-year-group"><div class="hv-year-lbl"><div class="hv-year-txt">✈️ ${year}</div><div class="hv-year-line"></div><div class="hv-year-cnt">${trips.length} viaje${trips.length!==1?'s':''}</div></div><div class="hv-grid">${cards}</div></div>`;
   }).join('');
 }
-/* LOYALTY */
+/* ═══════════════ CLUB HERSE — LOYALTY SYSTEM ═══════════════ */
+const LOYALTY_CONFIG={
+  basePointsPerUsd:100,
+  productRates:{general:100,flight:60,hotel:80,package:100,football:130,insurance:150,excursion:100,cruise:130,transfer:70},
+  bonuses:{fullPackage:25000,internationalTrip:40000,firstTrip:30000,referral:50000,approvedReview:10000,birthday:15000,groupTrip:20000,completeProfile:5000,documentsOnTime:5000},
+  levels:[
+    {id:'aventurero',name:'Aventurero',emoji:'🎒',min:0,max:99999,multiplier:1,color:'#94a3b8'},
+    {id:'explorador',name:'Explorador',emoji:'✈️',min:100000,max:299999,multiplier:1.1,color:'#22c55e'},
+    {id:'viajero_frecuente',name:'Viajero Frecuente',emoji:'🧭',min:300000,max:799999,multiplier:1.25,color:'#3b82f6'},
+    {id:'globetrotter',name:'Globetrotter',emoji:'🌍',min:800000,max:1499999,multiplier:1.5,color:'#8b5cf6'},
+    {id:'leyenda_herse',name:'Leyenda Herse',emoji:'🌟',min:1500000,max:null,multiplier:2,color:'#f59e0b'}
+  ],
+  benefits:[
+    {id:'assist_5_off',name:'5% OFF en asistencia al viajero',desc:'Descuento en tu próxima asistencia de viaje.',cost:30000,ico:'fa-shield-alt',color:'#10b981'},
+    {id:'extra_luggage',name:'Equipaje extra',desc:'Llevá un equipaje adicional sin cargo.',cost:60000,ico:'fa-suitcase',color:'#3b82f6'},
+    {id:'gift_card',name:'Gift Card Herse',desc:'Tarjeta de regalo para usar en cualquier servicio.',cost:100000,ico:'fa-gift',color:'#8b5cf6'},
+    {id:'next_trip_5_off',name:'5% OFF en próximo viaje',desc:'Descuento en tu próxima reserva de viaje.',cost:150000,ico:'fa-percent',color:'#f59e0b'},
+    {id:'private_transfer',name:'Transfer privado bonificado',desc:'Traslado al aeropuerto sin cargo adicional.',cost:250000,ico:'fa-car',color:'#06b6d4'},
+    {id:'hotel_benefit',name:'Beneficio hotelero',desc:'Upgrade o noche extra en tu próximo hotel.',cost:400000,ico:'fa-hotel',color:'#ec4899'},
+    {id:'excursion',name:'Excursión o experiencia',desc:'Una excursión o actividad incluida en tu viaje.',cost:600000,ico:'fa-map-marked-alt',color:'#14b8a6'},
+    {id:'selected_trip_10_off',name:'10% OFF en viaje seleccionado',desc:'Gran descuento en un viaje a elección.',cost:1000000,ico:'fa-crown',color:'#f59e0b'}
+  ],
+  earnRules:[
+    {ico:'✈️',name:'Compra general',desc:'100 pts por cada USD 1'},
+    {ico:'📦',name:'Paquete vuelo + hotel',desc:'100 pts/USD + bonus 25.000 pts'},
+    {ico:'🌍',name:'Viaje internacional',desc:'100 pts/USD + bonus 40.000 pts'},
+    {ico:'⚽',name:'Viaje futbolero',desc:'130 pts por cada USD 1'},
+    {ico:'🛡️',name:'Asistencia al viajero',desc:'150 pts por cada USD 1'},
+    {ico:'🏨',name:'Hoteles',desc:'80 pts por cada USD 1'},
+    {ico:'🚢',name:'Cruceros',desc:'130 pts por cada USD 1'},
+    {ico:'👥',name:'Referir un amigo',desc:'+50.000 pts por referido'},
+    {ico:'⭐',name:'Reseña aprobada',desc:'+10.000 pts'},
+    {ico:'🎂',name:'Cumpleaños',desc:'+15.000 pts'},
+    {ico:'👨‍👩‍👧‍👦',name:'Viaje grupal',desc:'+20.000 pts bonus'}
+  ]
+};
+let _loyaltyData={availablePoints:0,lifetimePoints:0,movements:[]};
+function fmtPts(n){return n.toLocaleString('es-AR');}
+function getLoyaltyLevel(pts){
+  const lvls=LOYALTY_CONFIG.levels;
+  for(let i=lvls.length-1;i>=0;i--){if(pts>=lvls[i].min)return lvls[i];}
+  return lvls[0];
+}
+function getLevelProgress(pts){
+  const lvl=getLoyaltyLevel(pts);
+  const idx=LOYALTY_CONFIG.levels.indexOf(lvl);
+  const next=LOYALTY_CONFIG.levels[idx+1];
+  if(!next)return{current:lvl,next:null,pct:100,remaining:0};
+  const range=next.min-lvl.min;
+  const progress=pts-lvl.min;
+  return{current:lvl,next,pct:Math.min(Math.round((progress/range)*100),100),remaining:next.min-pts};
+}
+function calculatePurchasePoints(usd,type,level){
+  const rate=LOYALTY_CONFIG.productRates[type]||LOYALTY_CONFIG.basePointsPerUsd;
+  const base=Math.round(usd*rate);
+  const mult=level?level.multiplier:1;
+  return Math.round(base*mult);
+}
+function getAvailableBenefits(availPts){
+  return LOYALTY_CONFIG.benefits.map(b=>{
+    const pct=Math.min(Math.round((availPts/b.cost)*100),100);
+    const unlocked=availPts>=b.cost;
+    return{...b,pct,unlocked};
+  });
+}
 function updateLoyalty(fid){
-  const done=fid.viajes_completados||0;
-  let level,icon,sub;
-  if(done>=10){level='Leyenda Herse';icon='🌟';sub='Nivel 5';}
-  else if(done>=7){level='Globetrotter';icon='🌍';sub='Nivel 4';}
-  else if(done>=5){level='Viajero Frecuente';icon='🧭';sub='Nivel 3';}
-  else if(done>=3){level='Explorador';icon='✈️';sub='Nivel 2';}
-  else{level='Aventurero';icon='🎒';sub='Nivel 1';}
-  const nb=document.getElementById('fidNivelBadge');if(nb)nb.textContent=icon;
-  const nn=document.getElementById('fidNivelName');if(nn)nn.textContent=level;
-  const ns=document.getElementById('fidNivelSub');if(ns)ns.textContent=sub;
+  const pts=fid.puntos||0;
+  _loyaltyData.availablePoints=fid.puntos_disponibles??pts;
+  _loyaltyData.lifetimePoints=fid.puntos_historicos??pts;
   if(_hasTrip) updateFidDashCard(fid);
 }
-function renderFidelizacion(){}
+async function renderFidelizacion(){
+  const wrap=document.getElementById('clubHerseContent');
+  if(!wrap)return;
+  // Load transactions
+  const {data:trans}=await _db.from('fidelizacion_trans').select('*').order('created_at',{ascending:false}).limit(15);
+  _loyaltyData.movements=trans||[];
+  const avail=_loyaltyData.availablePoints;
+  const lifetime=_loyaltyData.lifetimePoints;
+  const prog=getLevelProgress(lifetime);
+  const benefits=getAvailableBenefits(avail);
+  const nextBenefit=benefits.find(b=>!b.unlocked);
+  const nextBenPct=nextBenefit?Math.min(Math.round((avail/nextBenefit.cost)*100),100):100;
+  const nextBenRemaining=nextBenefit?nextBenefit.cost-avail:0;
+  // Earn rules HTML
+  const earnHtml=LOYALTY_CONFIG.earnRules.map(r=>`<div class="como-i"><div class="como-ico">${r.ico}</div><div class="como-name">${r.name}</div><div class="como-pts">${r.desc}</div></div>`).join('');
+  // Benefits HTML
+  const benHtml=benefits.map(b=>{
+    const st=b.unlocked?'ok':b.pct>=50?'near':'locked';
+    const tag=b.unlocked?'<span class="ben-tag">Desbloqueado</span>':b.pct>=50?`<span class="ben-tag near">${fmtPts(b.cost-avail)} pts restantes</span>`:'';
+    const btn=b.unlocked?`<button class="btn-canjear" onclick="canjearBeneficio('${b.id}')"><i class="fas fa-gift"></i> Canjear</button>`:'';
+    return `<div class="ben-c ${st}">${tag}<div class="ben-ico"><i class="fas ${b.ico}" style="color:${b.unlocked?b.color:'var(--tx3)'}"></i></div><div class="ben-name">${b.name}</div><div class="ben-desc">${b.desc}</div><div class="ben-pts">${fmtPts(b.cost)} puntos</div><div class="ben-bar"><div class="ben-bfill" style="width:${b.pct}%;background:${b.unlocked?b.color:''}"></div></div>${btn}</div>`;
+  }).join('');
+  // Activity HTML
+  const actHtml=_loyaltyData.movements.length?_loyaltyData.movements.slice(0,8).map(m=>{
+    const isEarn=m.puntos>0;
+    const ico=m.tipo==='canje'?'fa-gift':m.concepto?.toLowerCase().includes('reseña')?'fa-star':m.concepto?.toLowerCase().includes('referido')?'fa-users':'fa-plane';
+    const d=new Date(m.created_at);
+    const dateStr=d.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+    return `<div class="act-i"><div class="act-ico" style="background:${isEarn?'#dcfce7':'#fee2e2'};color:${isEarn?'#16a34a':'#dc2626'}"><i class="fas ${ico}"></i></div><div><div class="act-name">${m.concepto||'Movimiento'}</div><div class="act-date">${dateStr}</div></div><span class="act-pts" style="color:${isEarn?'#16a34a':'#dc2626'}">${isEarn?'+':''}${fmtPts(m.puntos)} pts</span></div>`;
+  }).join(''):'<div style="text-align:center;padding:20px;opacity:.4;font-size:.72rem">Sin movimientos recientes</div>';
+  // Levels sidebar HTML
+  const levelsHtml=LOYALTY_CONFIG.levels.map(l=>{
+    const isActive=l.id===prog.current.id;
+    const maxStr=l.max?fmtPts(l.max):'+';
+    return `<div class="niv-it ${isActive?'active-n':''}"><div class="niv-dot" style="background:${l.color}"></div>${isActive?'<strong>':''} ${l.emoji} ${l.name}${isActive?'</strong>':''}<span class="niv-range">${fmtPts(l.min)} - ${maxStr} pts</span></div>`;
+  }).join('');
+  // Stats
+  const viajes=_allTrips.filter(t=>!t.activo).length;
+  wrap.innerHTML=`
+    <div class="fid-layout">
+     <div>
+      <div class="pts-hero">
+       <div class="pts-l">
+        <div class="pts-lbl">Tus puntos disponibles</div>
+        <div class="pts-row"><span style="font-size:1.7rem">👑</span><span class="pts-num">${fmtPts(avail)}</span><span class="pts-unit">puntos</span></div>
+        <div class="pts-sub"><i class="fas fa-chart-line"></i> Puntos acumulados: <strong>${fmtPts(lifetime)}</strong></div>
+        <hr class="hr fid-sep">
+        <div class="prox-row">
+         <div class="prox-txt">Estás a <strong>${nextBenefit?fmtPts(nextBenRemaining):'0'}</strong> puntos de tu próximo beneficio</div>
+         <div class="prox-b"><i class="fas fa-gift" style="color:var(--ac3)"></i> <span>${nextBenefit?nextBenefit.name:'¡Todos desbloqueados!'}</span></div>
+        </div>
+        <div class="fpbar"><div class="fpfill" id="clubProgBar" style="width:0%"></div></div>
+        <div class="fp-lbls"><span>${fmtPts(avail)}</span><span style="color:var(--ac3)">${nextBenefit?fmtPts(nextBenefit.cost)+' pts':'Máximo'}</span></div>
+       </div>
+      </div>
+      <div class="sec-ttl" style="margin-bottom:10px">Cómo sumás puntos</div>
+      <div class="como-grid">${earnHtml}</div>
+      <div class="sec-ttl" style="margin-bottom:10px;margin-top:20px">Beneficios canjeables</div>
+      <div class="benef-grid">${benHtml}</div>
+      <div class="tip-bar" style="margin-top:16px"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>Tip Club Herse</strong><br>Cada USD 1 que gastás = 100 puntos. Reservá paquetes completos para obtener bonuses de +25.000 pts. Tu multiplicador actual es <strong>x${prog.current.multiplier}</strong>.</div></div>
+     </div>
+     <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="sb-card">
+       <div class="niv-hdr"><div class="sb-card-ttl" style="margin-bottom:0">Tu nivel actual</div><span class="niv-ver">x${prog.current.multiplier} multiplicador</span></div>
+       <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+        <div class="niv-badge">${prog.current.emoji}</div>
+        <div><div class="niv-name">${prog.current.name}</div><div class="niv-sub">${prog.next?'Faltan '+fmtPts(prog.remaining)+' pts para '+prog.next.name:'¡Nivel máximo!'}</div></div>
+       </div>
+       <div class="sb-card-ttl">Progreso al siguiente nivel</div>
+       <div class="fid-bar-wrap"><div class="fid-bar-fill" id="clubLevelBar" style="width:0%"></div></div>
+       <div class="fid-bar-info"><span>${fmtPts(lifetime)} pts</span><span>${prog.next?fmtPts(prog.next.min)+' pts':'¡Máximo!'}</span></div>
+       <div class="sb-card-ttl" style="margin-top:14px">Todos los niveles</div>
+       <div class="niv-list">${levelsHtml}</div>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Actividad reciente</div>
+       <div class="act-list">${actHtml}</div>
+      </div>
+      <div class="sb-card">
+       <div class="sb-card-ttl">Tus estadísticas</div>
+       <div class="fst-grid">
+        <div class="fst-i"><div class="fst-v">${fmtPts(lifetime)}</div><div class="fst-l">Pts acumulados</div></div>
+        <div class="fst-i"><div class="fst-v">${viajes}</div><div class="fst-l">Viajes realizados</div></div>
+        <div class="fst-i"><div class="fst-v">${prog.current.name}</div><div class="fst-l">Nivel actual</div></div>
+        <div class="fst-i"><div class="fst-v">x${prog.current.multiplier}</div><div class="fst-l">Multiplicador</div></div>
+       </div>
+      </div>
+     </div>
+    </div>`;
+  setTimeout(()=>{
+    const pb=document.getElementById('clubProgBar');if(pb)pb.style.width=nextBenPct+'%';
+    const lb=document.getElementById('clubLevelBar');if(lb)lb.style.width=prog.pct+'%';
+  },200);
+}
+async function canjearBeneficio(benefitId){
+  const b=LOYALTY_CONFIG.benefits.find(x=>x.id===benefitId);
+  if(!b||!_passportUserId)return;
+  if(_loyaltyData.availablePoints<b.cost){alert('No tenés suficientes puntos para este beneficio.');return;}
+  if(!confirm('¿Querés canjear "'+b.name+'" por '+fmtPts(b.cost)+' puntos?'))return;
+  const newAvail=_loyaltyData.availablePoints-b.cost;
+  const {error:e1}=await _db.from('fidelizacion_trans').insert({cliente_id:_passportUserId,concepto:'Canje: '+b.name,puntos:-b.cost,tipo:'canje',created_at:new Date().toISOString()});
+  if(e1){alert('Error al canjear: '+e1.message);return;}
+  const {error:e2}=await _db.from('fidelizacion').upsert({cliente_id:_passportUserId,puntos_disponibles:newAvail,puntos:newAvail,updated_at:new Date().toISOString()},{onConflict:'cliente_id'});
+  _loyaltyData.availablePoints=newAvail;
+  renderFidelizacion();
+}
 /* COUNTDOWN */
 function pad(n){return String(n).padStart(2,'0');}
 function tick(){
