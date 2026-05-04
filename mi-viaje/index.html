@@ -1353,7 +1353,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       <div class="hdr-ttl"><h1 id="hdrTitle">Mi Viaje</h1><p id="hdrSub">Tu mundo, tus viajes, tu historia.</p></div>
     </div>
     <div class="hdr-r">
-      <button class="hdr-btn" style="position:relative"><i class="fas fa-bell"></i><span class="ndot"></span></button>
       <button class="av-btn" onclick="showView('perfil')">
         <div class="av-circle" id="avatarInitial">?</div>
         <div><div class="av-name name">Cargando…</div><div class="av-sub">Ver perfil</div></div>
@@ -1496,8 +1495,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         </div>
         <div class="perfil-info">
          <div class="perfil-name" id="perfilName">Cargando…</div>
-         <div class="perfil-meta"><span id="perfilEmail"><i class="fas fa-envelope"></i> —</span><span class="perfil-veri"><i class="fas fa-check-circle"></i> Verificado</span></div>
-         <div class="perfil-meta"><span><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</span></div>
+         <div class="perfil-meta"><span id="perfilEmail"><i class="fas fa-envelope"></i> —</span></div>
+         <div class="perfil-meta" id="perfilUbicRow" style="display:none"><span id="perfilUbic"><i class="fas fa-flag"></i> —</span></div>
          <button class="btn-editar" onclick="openEditPerfil()"><i class="fas fa-pen"></i> Editar perfil</button>
         </div>
         <div class="perfil-nivel">
@@ -1507,7 +1506,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
          <div class="pn-pts" id="pn-pts">— pts para el siguiente</div>
          <div class="pn-bar"><div class="pn-bar-fill" id="pn-fill" style="width:0%"></div></div>
          <div class="pn-bar-lbl" id="pn-lbl">0 / 1000 pts</div>
-         <button class="pn-link">Ver mi progreso <i class="fas fa-chevron-right"></i></button>
+         <button class="pn-link" onclick="showView('fidelizacion')">Ver mi progreso <i class="fas fa-chevron-right"></i></button>
         </div>
        </div>
       </div>
@@ -1517,8 +1516,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
        <div class="perfil-stats">
         <div class="ps-c bl"><div class="ps-n" id="ps-viajes">—</div><div class="ps-l">Viajes realizados</div><div class="ps-s">¡Seguí así!</div></div>
         <div class="ps-c pu"><div class="ps-n" id="ps-paises">—</div><div class="ps-l">Países visitados</div><div class="ps-s">Excelente</div></div>
-        <div class="ps-c gr"><div class="ps-n" id="ps-estadios">—</div><div class="ps-l">Estadios visitados</div><div class="ps-s">¡Hincha viajero!</div></div>
-        <div class="ps-c go"><div class="ps-n" id="ps-puntos">—</div><div class="ps-l">Puntos acumulados</div><div class="ps-s">Viajero activo</div></div>
+        <div class="ps-c go"><div class="ps-n" id="ps-puntos">—</div><div class="ps-l">Puntos disponibles</div><div class="ps-s">Para canjear</div></div>
+        <div class="ps-c gr"><div class="ps-n" id="ps-historicos">—</div><div class="ps-l">Puntos acumulados</div><div class="ps-s">Histórico total</div></div>
        </div>
       </div>
       <!-- Info personal -->
@@ -1714,7 +1713,7 @@ const SUPA_URL='https://yuukqdcjitxhaeevjxjb.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
 const {createClient}=supabase;
 const _db=createClient(SUPA_URL,SUPA_KEY);
-let TRIP_DATE=new Date('2025-08-15T08:30:00-03:00');
+let TRIP_DATE=null;
 let _tickInterval,_isAdmin=false,_userName='',_userEmail='',_hasTrip=false;
 let _adminStampsSet=new Set();
 
@@ -1847,6 +1846,12 @@ function openEditPerfil(){
 function closeEditPerfil(){
   const el=document.getElementById('modalEditarPerfil');if(el)el.style.display='none';
 }
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    const m=document.getElementById('modalEditarPerfil');
+    if(m&&m.style.display==='flex')closeEditPerfil();
+  }
+});
 async function saveEditPerfil(){
   const nombre=document.getElementById('ep-nombre').value.trim();
   const apellido=document.getElementById('ep-apellido').value.trim();
@@ -1876,6 +1881,10 @@ function renderPerfil(){
   const n=document.getElementById('perfilName');if(n)n.textContent=fullName.trim()||_userName||'—';
   _renderAvatar();
   const em=document.getElementById('perfilEmail');if(em)em.innerHTML='<i class="fas fa-envelope"></i> '+(_userEmail||'—');
+  const ur=document.getElementById('perfilUbicRow');
+  const u=document.getElementById('perfilUbic');
+  if(_userMeta.nacionalidad){if(ur)ur.style.display='flex';if(u)u.innerHTML='<i class="fas fa-flag"></i> '+_userMeta.nacionalidad;}
+  else if(ur)ur.style.display='none';
   const pdn=document.getElementById('pd-nombre');if(pdn)pdn.textContent=_userMeta.nombre||'—';
   const pda=document.getElementById('pd-apellido');if(pda)pda.textContent=_userMeta.apellido||'—';
   const pde=document.getElementById('pd-email');if(pde)pde.textContent=_userEmail||'—';
@@ -1883,15 +1892,15 @@ function renderPerfil(){
   const pdb=document.getElementById('pd-nacimiento');if(pdb)pdb.textContent=fmtFechaLarga(_userMeta.fecha_nacimiento);
   const pdd=document.getElementById('pd-desde');if(pdd)pdd.textContent=fmtFechaLarga(_userMeta.created_at);
   const viajes=_allTrips.length;
-  const comp=_allTrips.filter(t=>!t.activo).length;
-  const paises=new Set(_allTrips.map(t=>t.destino.split(' ')[0].toLowerCase())).size;
-  const estadios=_selladosSet.size;
+  const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(',')[0].split(' ')[0])).size;
   const lifetime=_loyaltyData?.lifetimePoints||0;
+  const avail=_loyaltyData?.availablePoints||0;
   const prog=typeof getLevelProgress==='function'?getLevelProgress(lifetime):{current:{name:'Aventurero',emoji:'🎒'},next:null,pct:0,remaining:0};
+  const fp=typeof fmtPts==='function'?fmtPts:(n=>n.toLocaleString('es-AR'));
   const sv=document.getElementById('ps-viajes');if(sv)sv.textContent=viajes||0;
   const sp=document.getElementById('ps-paises');if(sp)sp.textContent=paises||0;
-  const se=document.getElementById('ps-estadios');if(se)se.textContent=estadios||0;
-  const spt=document.getElementById('ps-puntos');if(spt)spt.textContent=(typeof fmtPts==='function'?fmtPts(lifetime):lifetime)||0;
+  const spt=document.getElementById('ps-puntos');if(spt)spt.textContent=fp(avail);
+  const sh=document.getElementById('ps-historicos');if(sh)sh.textContent=fp(lifetime);
   const nn=document.getElementById('pn-name');if(nn)nn.textContent=prog.current.name;
   const ni=document.querySelector('.pn-ico');if(ni)ni.textContent=prog.current.emoji;
   const nf=document.getElementById('pn-pts');if(nf)nf.textContent=prog.next?(typeof fmtPts==='function'?fmtPts(prog.remaining):prog.remaining)+' pts para '+prog.next.name:'¡Nivel máximo!';
@@ -2029,20 +2038,6 @@ function showSinViajeHero(){
         </div>
         <div id="ntNivelBody"><div style="opacity:.3;font-size:.7rem;text-align:center;padding:20px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
       </div>
-      <div class="card">
-        <div class="tc-hdr">
-          <div class="tc-ttl"><i class="fas fa-passport" style="color:#10b981"></i> Pasaporte de Viaje</div>
-          <button class="tc-lnk" onclick="showView('pasaporte-viaje')">Ver todos mis sellos <i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="stamp-row" id="dashViajeStamps"><div style="opacity:.3;font-size:.7rem;padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
-      </div>
-      <div class="card">
-        <div class="tc-hdr">
-          <div class="tc-ttl"><i class="fas fa-futbol" style="color:#8b5cf6"></i> Pasaporte Futbolero</div>
-          <button class="tc-lnk" onclick="showView('pasaporte-futbol')">Ver todos mis estadios <i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="stamp-row" id="dashFutbolStamps"><div style="opacity:.3;font-size:.7rem;padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
-      </div>
     </div>
     <div class="trip-cta-banner">
       <div class="trip-cta-ico">🌍</div>
@@ -2054,13 +2049,11 @@ function showSinViajeHero(){
     </div>`;
 }
 function updateTripUI(v){
-  console.log('DEBUG - viaje:',v);
   const dash=document.getElementById('mainDashboard');
   if(!dash)return;
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
   const flag=getFlag(v.destino);
   const heroImg=v.imagen_url||getHeroImg(v.destino);
-  console.log('DEBUG - imagen_url:',v.imagen_url,'heroImg:',heroImg);
   const pax=(v.pasajeros||v.pax||1);
   TRIP_DATE=new Date(v.fecha_salida);
   const tl=v.timeline_status||{};
@@ -2141,20 +2134,6 @@ function updateTripUI(v){
         </div>
         <div id="fidDashCard"><div style="opacity:.3;font-size:.7rem;text-align:center;padding:20px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
       </div>
-      <div class="card">
-        <div class="tc-hdr">
-          <div class="tc-ttl"><i class="fas fa-passport" style="color:#10b981"></i> Pasaporte de Viaje</div>
-          <button class="tc-lnk" onclick="showView('pasaporte-viaje')">Ver todos mis sellos <i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="stamp-row" id="dashViajeStamps"><div style="opacity:.3;font-size:.7rem;padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
-      </div>
-      <div class="card">
-        <div class="tc-hdr">
-          <div class="tc-ttl"><i class="fas fa-futbol" style="color:#8b5cf6"></i> Pasaporte Futbolero</div>
-          <button class="tc-lnk" onclick="showView('pasaporte-futbol')">Ver todos mis estadios <i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="stamp-row" id="dashFutbolStamps"><div style="opacity:.3;font-size:.7rem;padding:12px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
-      </div>
     </div>
     <div class="trip-cta-banner">
       <div class="trip-cta-ico">🎁</div>
@@ -2208,10 +2187,8 @@ function _ppMiniHtml(sealedCount,total,color,chips,label){
     +'</div>';
 }
 async function loadPassportStamps(userId){
-  console.log('DEBUG - cargando sellos para user:',userId);
   const {data,error}=await _db.from('passport_stamps').select('*').eq('user_id',userId).eq('visible',true);
-  console.log('DEBUG - sellos data:',data,'error:',error);
-  if(error){console.error('Error cargando sellos:',error);return;}
+  if(error)return;
   if(data){
     _viajeSelladosSet.clear();
     _adminStampsSet.clear();
@@ -2221,7 +2198,6 @@ async function loadPassportStamps(userId){
         _adminStampsSet.add(s.country_code);
       }
     });
-    console.log('DEBUG - sellos cargados:',[..._adminStampsSet]);
   }
 }
 function updateDashPassports(){
@@ -2607,6 +2583,7 @@ async function canjearBeneficio(benefitId){
 /* COUNTDOWN */
 function pad(n){return String(n).padStart(2,'0');}
 function tick(){
+  if(!TRIP_DATE){clearInterval(_tickInterval);return;}
   const diff=TRIP_DATE-new Date();
   if(diff<=0){['cd-d','cd-h','cd-m','cd-s'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent='00';});clearInterval(_tickInterval);return;}
   const vals=[Math.floor(diff/864e5),Math.floor((diff%864e5)/36e5),Math.floor((diff%36e5)/6e4),Math.floor((diff%6e4)/1e3)];
@@ -3238,15 +3215,12 @@ function renderPassportSummary(){
     +(lastD?'<div class="ps-last-sello"><div class="ps-last-ttl">\u00daltimo sello</div><div class="ps-last-country"><i class="fas fa-map-marker-alt"></i> '+lastD.name+'</div><div class="ps-last-sub">'+lastD.city+(lastDate?' \u00b7 '+lastDate:'')+'</div></div>':'');
 }
 function renderPassport(){
-  console.log('DEBUG - renderPassport, _adminStampsSet:',[..._adminStampsSet]);
   const lEl=document.getElementById('ppStampsLeft');
   const rEl=document.getElementById('ppStampsRight');
-  if(!lEl||!rEl){console.log('DEBUG - no elements found');return;}
+  if(!lEl||!rEl)return;
   const sp=PP_SPREADS[_ppSpread]||PP_SPREADS[0];
-  console.log('DEBUG - spread:',sp);
   const lHtml=sp.slice(0,5).map(function(id,i){return ppBuildStamp(id,i,'l');}).join('');
   const rHtml=sp.slice(5,10).map(function(id,i){return ppBuildStamp(id,i,'r');}).join('');
-  console.log('DEBUG - lHtml length:',lHtml.length,'rHtml length:',rHtml.length);
   lEl.innerHTML=lHtml;
   rEl.innerHTML=rHtml;
   const nl=document.getElementById('ppNumLeft');const nr=document.getElementById('ppNumRight');
