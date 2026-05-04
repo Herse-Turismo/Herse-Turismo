@@ -1959,11 +1959,12 @@ function closePassport(type){
   } else {
     showSinViajeHero();
   }
+  _passportUserId=user.id;
   loadHistorial();
   initPasaporte(user.id);
   await loadPassportStamps(user.id);
   renderPassport();
-  const {data:fid}=await _db.from('fidelizacion').select('*').maybeSingle();
+  const {data:fid}=await _db.from('fidelizacion').select('*').eq('cliente_id',user.id).maybeSingle();
   if(fid) updateLoyalty(fid);
 })();
 function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
@@ -2408,9 +2409,9 @@ const LOYALTY_CONFIG={
   levels:[
     {id:'aventurero',name:'Aventurero',emoji:'🎒',min:0,max:99999,multiplier:1,color:'#94a3b8'},
     {id:'explorador',name:'Explorador',emoji:'✈️',min:100000,max:299999,multiplier:1.1,color:'#22c55e'},
-    {id:'viajero_frecuente',name:'Viajero Frecuente',emoji:'🧭',min:300000,max:799999,multiplier:1.25,color:'#3b82f6'},
+    {id:'viajero',name:'Viajero Frecuente',emoji:'🧭',min:300000,max:799999,multiplier:1.25,color:'#3b82f6'},
     {id:'globetrotter',name:'Globetrotter',emoji:'🌍',min:800000,max:1499999,multiplier:1.5,color:'#8b5cf6'},
-    {id:'leyenda_herse',name:'Leyenda Herse',emoji:'🌟',min:1500000,max:null,multiplier:2,color:'#f59e0b'}
+    {id:'leyenda',name:'Leyenda Herse',emoji:'🌟',min:1500000,max:null,multiplier:2,color:'#f59e0b'}
   ],
   benefits:[
     {id:'assist_5_off',name:'5% OFF en asistencia al viajero',desc:'Descuento en tu próxima asistencia de viaje.',cost:30000,ico:'fa-shield-alt',color:'#10b981'},
@@ -2474,9 +2475,13 @@ function updateLoyalty(fid){
 async function renderFidelizacion(){
   const wrap=document.getElementById('clubHerseContent');
   if(!wrap)return;
-  // Load transactions
-  const {data:trans}=await _db.from('fidelizacion_trans').select('*').order('created_at',{ascending:false}).limit(15);
-  _loyaltyData.movements=trans||[];
+  // Load transactions (filtradas por cliente)
+  let trans=[];
+  if(_passportUserId){
+    const {data}=await _db.from('fidelizacion_trans').select('*').eq('cliente_id',_passportUserId).order('created_at',{ascending:false}).limit(15);
+    trans=data||[];
+  }
+  _loyaltyData.movements=trans;
   const avail=_loyaltyData.availablePoints;
   const lifetime=_loyaltyData.lifetimePoints;
   const prog=getLevelProgress(lifetime);
