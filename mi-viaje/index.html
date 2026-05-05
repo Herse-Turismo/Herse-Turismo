@@ -1667,20 +1667,20 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
    <div>
     <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Nombre</label>
-    <input id="ep-nombre" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu nombre">
+    <input id="ep-nombre" type="text" maxlength="40" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu nombre">
    </div>
    <div>
     <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Apellido</label>
-    <input id="ep-apellido" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu apellido">
+    <input id="ep-apellido" type="text" maxlength="40" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Tu apellido">
    </div>
   </div>
   <div style="margin-bottom:14px">
    <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Nacionalidad</label>
-   <input id="ep-nacionalidad" type="text" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Ej: Argentina">
+   <input id="ep-nacionalidad" type="text" maxlength="40" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s" placeholder="Ej: Argentina">
   </div>
   <div style="margin-bottom:14px">
    <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Fecha de nacimiento</label>
-   <input id="ep-nacimiento" type="date" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s">
+   <input id="ep-nacimiento" type="date" min="1900-01-01" style="width:100%;padding:11px 14px;border:1.5px solid var(--bd);border-radius:9px;font-size:.88rem;color:var(--tx);background:var(--bg);outline:none;font-family:inherit;transition:.2s">
   </div>
   <div style="margin-bottom:22px">
    <label style="font-size:.7rem;font-weight:700;color:var(--tx2);display:block;margin-bottom:5px">Email <span style="font-size:.6rem;font-weight:600;color:var(--tx3)">(no se puede cambiar)</span></label>
@@ -1820,7 +1820,10 @@ function openEditPerfil(){
   document.getElementById('ep-nombre').value=_userMeta.nombre||'';
   document.getElementById('ep-apellido').value=_userMeta.apellido||'';
   document.getElementById('ep-nacionalidad').value=_userMeta.nacionalidad||'';
-  document.getElementById('ep-nacimiento').value=_userMeta.fecha_nacimiento||'';
+  const epNac=document.getElementById('ep-nacimiento');
+  epNac.value=_userMeta.fecha_nacimiento||'';
+  const _maxD=new Date();_maxD.setFullYear(_maxD.getFullYear()-13);
+  epNac.max=_maxD.toISOString().split('T')[0];
   document.getElementById('ep-email').value=_userEmail||'';
   const msg=document.getElementById('ep-msg');if(msg)msg.style.display='none';
   el.style.display='flex';
@@ -1842,7 +1845,18 @@ async function saveEditPerfil(){
   const fecha_nacimiento=document.getElementById('ep-nacimiento').value;
   const btn=document.getElementById('ep-save');
   const msg=document.getElementById('ep-msg');
-  if(!nombre){msg.style.display='block';msg.style.background='#fee2e2';msg.style.color='#dc2626';msg.textContent='El nombre no puede estar vacío.';return;}
+  const showErr=(t)=>{msg.style.display='block';msg.style.background='#fee2e2';msg.style.color='#dc2626';msg.textContent=t;};
+  const NOMBRE_RE=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' .-]{2,40}$/;
+  if(!nombre){showErr('El nombre no puede estar vacío.');return;}
+  if(!NOMBRE_RE.test(nombre)){showErr('Nombre inválido (solo letras, 2 a 40 caracteres).');return;}
+  if(apellido&&!NOMBRE_RE.test(apellido)){showErr('Apellido inválido (solo letras, 2 a 40 caracteres).');return;}
+  if(nacionalidad&&nacionalidad.length>40){showErr('Nacionalidad demasiado larga.');return;}
+  if(fecha_nacimiento){
+    const fn=new Date(fecha_nacimiento);
+    const minD=new Date('1900-01-01');
+    const maxD=new Date();maxD.setFullYear(maxD.getFullYear()-13);
+    if(isNaN(fn)||fn<minD||fn>maxD){showErr('Fecha de nacimiento inválida (debes ser mayor de 13 años).');return;}
+  }
   btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Guardando...';
   const {error}=await _db.auth.updateUser({data:{nombre,apellido,nacionalidad,fecha_nacimiento}});
   btn.disabled=false;btn.innerHTML='<i class="fas fa-save"></i> Guardar cambios';
