@@ -1915,11 +1915,6 @@ function renderPerfil(){
   if(_perf?.is_admin){
     _isAdmin=true;
     const _ba=document.getElementById('btnAdmin');if(_ba)_ba.style.display='flex';
-  } else {
-    document.getElementById('mainDashboard').style.display='none';
-    document.getElementById('pendingState').style.display='none';
-    document.getElementById('proximamente').style.display='block';
-    return;
   }
   const md=user.user_metadata||{};
   const raw=md.nombre||user.email.split('@')[0].replace(/[._-]/g,' ');
@@ -1998,26 +1993,39 @@ function showSinViajeHero(){
     <div class="trip-hero" style="background-image:url('${heroImg}')">
       <div class="trip-hero-ov"></div>
       <div class="trip-hero-cnt">
-        <div class="trip-tag">PRÓXIMA AVENTURA</div>
-        <h1 class="trip-title">¿A dónde vas a viajar?</h1>
+        <div class="trip-tag" style="background:rgba(247,148,29,.18);border:1px solid rgba(247,148,29,.4);color:#fbbf24"><i class="fas fa-hourglass-half"></i> TU VIAJE EN PREPARACIÓN</div>
+        <h1 class="trip-title">Tu próxima aventura<br>está por comenzar ✈️</h1>
         <div class="trip-meta-row">
-          <div class="trip-date-pill"><i class="fas fa-compass"></i> Tu historia está por comenzar</div>
+          <div class="trip-date-pill"><i class="fas fa-compass"></i> Estamos armando todo para vos</div>
         </div>
       </div>
-      <button class="trip-det-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultá con Herse <i class="fas fa-chevron-right"></i></button>
+      <button class="trip-det-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Hablar con mi asesor <i class="fas fa-chevron-right"></i></button>
     </div>
     <div class="trip-grid">
       <div class="card">
         <div class="tc-hdr">
-          <div class="tc-ttl"><i class="fas fa-headset" style="color:var(--ac)"></i> ¿Necesitás ayuda?</div>
+          <div class="tc-ttl"><i class="fas fa-list-check" style="color:var(--ac)"></i> Próximos pasos</div>
         </div>
-        <div style="font-size:.7rem;color:var(--tx2);line-height:1.6;margin-bottom:15px">Nuestro equipo está para acompañarte en todo momento. Consultá sin compromiso.</div>
-        <button class="nt-help-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Contactar asesor</button>
+        <div class="tl">
+          <div class="tl-i"><div class="tl-side"><div class="tl-dot cur"><i class="fas fa-circle-notch fa-spin" style="font-size:.46rem"></i></div><div class="tl-ln"></div></div><div><div class="tl-name">Consulta y cotización</div><div class="tl-date">En proceso</div></div></div>
+          <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">Confirmación de reserva</div><div class="tl-date">Próximamente</div></div></div>
+          <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div><div class="tl-ln"></div></div><div><div class="tl-name">Documentación lista</div><div class="tl-date">Próximamente</div></div></div>
+          <div class="tl-i"><div class="tl-side"><div class="tl-dot pend"></div></div><div><div class="tl-name">¡A volar!</div><div class="tl-date">Te esperamos</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="tc-hdr">
+          <div class="tc-ttl"><i class="fas fa-headset" style="color:var(--ac)"></i> Tu asesor Herse</div>
+        </div>
+        <div style="font-size:.7rem;color:var(--tx2);line-height:1.6;margin-bottom:15px">Estamos para acompañarte en cada paso. Escribinos por WhatsApp o por email, sin costo ni compromiso.</div>
+        <button class="nt-help-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Escribir por WhatsApp</button>
         <div class="nt-contacts">
           <div class="nt-contact"><i class="fas fa-envelope"></i> info@herseturismo.com.ar</div>
           <div class="nt-contact"><i class="fas fa-phone"></i> +54 221 566 1704</div>
         </div>
       </div>
+    </div>
+    <div class="trip-grid" style="margin-top:0">
       <div class="card">
         <div class="tc-hdr">
           <div class="tc-ttl"><i class="fas fa-crown" style="color:var(--ac3)"></i> Club Herse</div>
@@ -2025,14 +2033,12 @@ function showSinViajeHero(){
         </div>
         <div id="ntNivelBody"><div style="opacity:.3;font-size:.7rem;text-align:center;padding:20px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
       </div>
-    </div>
-    <div class="trip-cta-banner">
-      <div class="trip-cta-ico">🌍</div>
-      <div>
-        <div class="trip-cta-ttl">Todavía no tenés un viaje activo.</div>
-        <div class="trip-cta-sub">Cuando tu agente confirme tu reserva, toda la información aparece acá automáticamente.</div>
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:24px">
+        <div style="font-size:2.2rem">🌍</div>
+        <div style="font-size:.8rem;font-weight:800;color:var(--tx)">¿Ya tenés un destino en mente?</div>
+        <div style="font-size:.7rem;color:var(--tx2)">Contanos a dónde querés ir y armamos el viaje perfecto para vos.</div>
+        <button class="nt-help-btn" style="width:100%;margin-top:4px" onclick="window.open('https://wa.me/5492215661704?text=Hola!%20Quiero%20consultar%20sobre%20un%20viaje.','_blank')"><i class="fas fa-paper-plane"></i> Consultar destino</button>
       </div>
-      <button class="trip-cta-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Reservar ahora</button>
     </div>`;
 }
 function updateTripUI(v){
