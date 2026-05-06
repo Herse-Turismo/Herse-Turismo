@@ -392,6 +392,11 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 
                 <!-- TAB: VIAJE -->
                 <div class="tab-content active" id="tab-viaje">
+                    <div id="tripSelectorBar" style="display:none;margin-bottom:14px;padding:14px 18px;background:white;border-radius:var(--radius);box-shadow:var(--shadow);display:none;align-items:center;gap:10px;flex-wrap:wrap">
+                        <span style="font-size:.72rem;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;white-space:nowrap"><i class="fas fa-exchange-alt" style="color:var(--orange)"></i> Viaje activo</span>
+                        <select id="tripSelector" onchange="onTripSelect()" style="flex:1;min-width:160px;padding:8px 12px;border:1.5px solid #e0e8f0;border-radius:10px;font-family:inherit;font-size:.88rem;font-weight:700;background:var(--light);outline:none"></select>
+                        <button type="button" onclick="createNewTrip()" class="btn-add" style="padding:8px 14px;font-size:.8rem;white-space:nowrap"><i class="fas fa-plus"></i> Nuevo viaje</button>
+                    </div>
                     <div class="card">
                         <div class="card-title"><i class="fas fa-plane-departure"></i> Datos del viaje</div>
                         <form id="viajeForm" onsubmit="saveViaje(event)">
@@ -855,9 +860,27 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             document.getElementById('clientName').textContent      = perfil.nombre || 'Sin nombre';
             document.getElementById('clientEmail').textContent     = perfil.email;
 
-            // Fetch viaje
-            const { data: viajes } = await _db.from('viajes').select('*').eq('cliente_id', id).order('fecha_salida').limit(1);
-            currentViaje = viajes?.[0] || null;
+            // Fetch viajes (todos los del cliente)
+            const { data: viajes } = await _db.from('viajes').select('*').eq('cliente_id', id).order('fecha_salida', { ascending: false });
+            const selectorBar = document.getElementById('tripSelectorBar');
+            const tripSel = document.getElementById('tripSelector');
+            if (viajes?.length > 0) {
+                currentViaje = viajes[0];
+                if (viajes.length > 1 && selectorBar && tripSel) {
+                    selectorBar.style.display = 'flex';
+                    tripSel.innerHTML = viajes.map(v => {
+                        const d = v.fecha_salida ? new Date(v.fecha_salida).toLocaleDateString('es-AR', { day:'numeric', month:'short', year:'numeric' }) : 'sin fecha';
+                        const tag = v.activo ? ' ✓' : '';
+                        return `<option value="${escapeHtml(v.id)}">${escapeHtml(v.destino || 'Sin destino')} · ${d}${tag}</option>`;
+                    }).join('');
+                    tripSel._viajesCache = viajes;
+                } else if (selectorBar) {
+                    selectorBar.style.display = 'none';
+                }
+            } else {
+                currentViaje = null;
+                if (selectorBar) selectorBar.style.display = 'none';
+            }
             fillViajeForm(currentViaje);
 
             // Fetch docs
@@ -873,6 +896,25 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             // Count total trips for profile display
             const { data: allViajes } = await _db.from('viajes').select('id').eq('cliente_id', id);
             document.getElementById('p-totalviajes').textContent = allViajes?.length ?? 0;
+        }
+
+        function onTripSelect() {
+            const sel = document.getElementById('tripSelector');
+            const id = sel?.value;
+            const cache = sel?._viajesCache || [];
+            const v = cache.find(t => t.id === id) || null;
+            currentViaje = v;
+            fillViajeForm(v);
+            loadDocs();
+        }
+
+        function createNewTrip() {
+            currentViaje = null;
+            fillViajeForm(null);
+            const sel = document.getElementById('tripSelector');
+            if (sel) sel.value = '';
+            document.getElementById('v-destino')?.focus();
+            toast('Completá los datos y guardá para crear un nuevo viaje', 'success');
         }
 
         // ===== VIAJE =====
