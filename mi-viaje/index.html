@@ -2467,7 +2467,7 @@ async function renderFidelizacion(){
         <div class="fp-lbls"><span>${fmtPts(avail)}</span><span style="color:var(--ac3)">${nextBenefit?fmtPts(nextBenefit.cost)+' pts':'Máximo'}</span></div>
        </div>
       </div>
-      <div class="sec-ttl" style="margin-bottom:10px">Cómo sumás puntos</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div class="sec-ttl" style="margin-bottom:0">Cómo sumás puntos</div><a href="/puntos/" target="_blank" style="font-size:.72rem;color:var(--ac);font-weight:700;display:flex;align-items:center;gap:5px;opacity:.8;text-decoration:none" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.8"><i class="fas fa-info-circle"></i> Ver guía completa</a></div>
       <div class="como-grid">${earnHtml}</div>
       <div class="sec-ttl" style="margin-bottom:10px;margin-top:20px">Beneficios canjeables</div>
       <div class="benef-grid">${benHtml}</div>

@@ -195,6 +195,38 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 .prox-dest { font-size: 0.76rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
 .prox-date { font-weight: 800; color: var(--orange); font-size: 0.82rem; white-space: nowrap; }
 .prox-empty { color: var(--muted); font-size: 0.88rem; font-weight: 600; padding: 12px 0; }
+/* ===== ALERTS ===== */
+.alert-card { background: white; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); margin-top: 20px; }
+.alert-title { font-size: 0.8rem; font-weight: 900; color: #92400e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.alert-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; margin-bottom: 7px; font-size: 0.86rem; cursor: pointer; transition: 0.2s; }
+.alert-item:last-child { margin-bottom: 0; }
+.alert-item:hover { filter: brightness(.97); }
+.alert-urgent { background: #fff1f2; border-left: 3px solid #ef4444; }
+.alert-warn { background: #fffbeb; border-left: 3px solid var(--orange); }
+.alert-ico { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
+.alert-ico-red { background: #fecaca; color: #dc2626; }
+.alert-ico-orange { background: #fed7aa; color: #c2700a; }
+.alert-info { flex: 1; }
+.alert-name { font-weight: 800; color: var(--text); font-size: 0.86rem; }
+.alert-sub { font-size: 0.73rem; color: var(--muted); font-weight: 600; margin-top: 1px; }
+.alert-tag { font-size: 0.7rem; font-weight: 800; padding: 2px 9px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
+.alert-tag-red { background: #fee2e2; color: #dc2626; }
+.alert-tag-orange { background: #fff3e0; color: #c2700a; }
+/* ===== ALL TRIPS TABLE ===== */
+.all-trips-card { background: white; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); margin-top: 20px; }
+.all-trips-header { font-size: 0.8rem; font-weight: 900; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+.all-trips-header i { color: var(--orange); }
+.trips-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+.trips-table th { background: var(--light); padding: 9px 13px; text-align: left; font-weight: 800; font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.trips-table th:first-child { border-radius: 8px 0 0 8px; }
+.trips-table th:last-child { border-radius: 0 8px 8px 0; }
+.trips-table td { padding: 11px 13px; border-bottom: 1px solid #f0f4f8; color: var(--text); }
+.trips-table tr:last-child td { border-bottom: none; }
+.trips-table tbody tr:hover td { background: #f5f8ff; cursor: pointer; }
+.tbadge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; }
+.tbadge-green { background: #dcfce7; color: #15803d; }
+.tbadge-gray { background: #f0f4f8; color: var(--muted); }
+.tbadge-orange { background: #fff3e0; color: #c2700a; }
 .btn-notify { display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; border: none; padding: 12px 22px; border-radius: 10px; font-weight: 800; font-size: 0.88rem; transition: 0.2s; margin-top: 6px; margin-left: 10px; }
 .btn-notify:hover:not(:disabled) { background: #047857; transform: translateY(-1px); }
 .btn-notify:disabled { background: #d1fae5; color: #6ee7b7; cursor: default; }
@@ -310,8 +342,19 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                         <div class="st-card"><div class="st-num" id="st-sinviaje">—</div><div class="st-lbl">Sin viaje cargado</div></div>
                     </div>
                     <div class="prox-card">
-                        <div class="prox-title"><i class="fas fa-plane-departure"></i> Próximas salidas</div>
+                        <div class="prox-title"><i class="fas fa-plane-departure"></i> Próximas salidas (7 días)</div>
                         <div id="proxList"><p class="prox-empty">Cargando...</p></div>
+                    </div>
+                    <div class="alert-card" id="alertsCard" style="display:none">
+                        <div class="alert-title"><i class="fas fa-bell"></i> Alertas que requieren atención</div>
+                        <div id="alertsList"></div>
+                    </div>
+                    <div class="all-trips-card">
+                        <div class="all-trips-header">
+                            <span><i class="fas fa-list-alt"></i> Todos los viajes activos</span>
+                            <span id="allTripsCount" style="font-size:.78rem;color:var(--muted);font-weight:600"></span>
+                        </div>
+                        <div id="allTripsList"><p class="prox-empty"><i class="fas fa-spinner fa-spin"></i> Cargando...</p></div>
                     </div>
                 </div>
             </div>
@@ -700,18 +743,21 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     </div>`;
                 return;
             }
-            await Promise.all([loadClients(), loadStats()]);
+            await Promise.all([loadClients(), loadStats(), loadAllTrips()]);
         })();
 
         // ===== CLIENTES =====
         async function loadStats() {
             const now = new Date();
             const weekLater = new Date(now.getTime() + 7 * 864e5).toISOString();
-            const [{ data: clientes }, { data: activos }, { data: proximos }] = await Promise.all([
+            const h48Later = new Date(now.getTime() + 48 * 36e5).toISOString();
+            const [{ data: clientes }, { data: activos }, { data: proximos }, { data: checkin48 }] = await Promise.all([
                 _db.from('perfiles').select('id, nombre, email'),
                 _db.from('viajes').select('id').eq('activo', true),
                 _db.from('viajes').select('id, cliente_id, destino, fecha_salida, perfiles(nombre)').eq('activo', true)
                     .gte('fecha_salida', now.toISOString()).lte('fecha_salida', weekLater).order('fecha_salida'),
+                _db.from('viajes').select('id, cliente_id, destino, fecha_salida, vuelo_ida, perfiles(nombre)').eq('activo', true)
+                    .gte('fecha_salida', now.toISOString()).lte('fecha_salida', h48Later).order('fecha_salida'),
             ]);
             const totalIds = (clientes || []).map(c => c.id);
             const { data: conViaje } = await _db.from('viajes').select('cliente_id').in('cliente_id', totalIds.length ? totalIds : ['none']);
@@ -728,9 +774,47 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 else proxList.innerHTML = proximos.map(v => {
                     const d = new Date(v.fecha_salida);
                     const lbl = d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-                    return `<div class="prox-item"><div><div class="prox-name">${escapeHtml(v.perfiles?.nombre || '—')}</div><div class="prox-dest">${escapeHtml(v.destino || '')}</div></div><div class="prox-date">${lbl}</div></div>`;
+                    return `<div class="prox-item" onclick="selectClientById('${escapeHtml(v.cliente_id)}')" style="cursor:pointer"><div><div class="prox-name">${escapeHtml(v.perfiles?.nombre || '—')}</div><div class="prox-dest">${escapeHtml(v.destino || '')}</div></div><div class="prox-date">${lbl}</div></div>`;
                 }).join('');
             }
+            // Alertas
+            const alerts = [];
+            (checkin48 || []).forEach(v => {
+                const d = new Date(v.fecha_salida);
+                const horasRestantes = Math.round((d - now) / 36e5);
+                alerts.push({ type: 'urgent', ico: 'fa-plane-departure', clientId: v.cliente_id, name: escapeHtml(v.perfiles?.nombre || '—'), sub: `${escapeHtml(v.destino)} · ${d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})} · ${v.vuelo_ida||'vuelo s/n'}`, tag: `Check-in en ${horasRestantes}h`, tagCls: 'alert-tag-red', itemCls: 'alert-urgent', icoCls: 'alert-ico-red' });
+            });
+            const alertsCard = document.getElementById('alertsCard');
+            const alertsList = document.getElementById('alertsList');
+            if (alerts.length && alertsCard && alertsList) {
+                alertsCard.style.display = '';
+                alertsList.innerHTML = alerts.map(a => `<div class="alert-item ${a.itemCls}" onclick="selectClientById('${a.clientId}')"><div class="alert-ico ${a.icoCls}"><i class="fas ${a.ico}"></i></div><div class="alert-info"><div class="alert-name">${a.name}</div><div class="alert-sub">${a.sub}</div></div><span class="alert-tag ${a.tagCls}">${a.tag}</span></div>`).join('');
+            } else if (alertsCard) { alertsCard.style.display = 'none'; }
+        }
+
+        async function loadAllTrips() {
+            const { data } = await _db.from('viajes').select('id, cliente_id, destino, fecha_salida, fecha_regreso, activo, perfiles(nombre)').order('fecha_salida', { ascending: false }).limit(50);
+            const wrap = document.getElementById('allTripsList');
+            const cnt = document.getElementById('allTripsCount');
+            if (!data?.length) { if(wrap) wrap.innerHTML = '<p class="prox-empty">No hay viajes registrados.</p>'; return; }
+            if(cnt) cnt.textContent = data.length + ' viajes';
+            const now = new Date();
+            wrap.innerHTML = `<table class="trips-table"><thead><tr><th>Cliente</th><th>Destino</th><th>Salida</th><th>Regreso</th><th>Estado</th></tr></thead><tbody>${
+                data.map(v => {
+                    const sd = new Date(v.fecha_salida);
+                    const ed = v.fecha_regreso ? new Date(v.fecha_regreso) : null;
+                    const isPast = ed ? ed < now : sd < now;
+                    const isActive = v.activo && !isPast;
+                    const badge = isPast ? '<span class="tbadge tbadge-gray">Finalizado</span>' : isActive ? '<span class="tbadge tbadge-green"><i class="fas fa-circle" style="font-size:.4rem"></i> Activo</span>' : '<span class="tbadge tbadge-orange">Inactivo</span>';
+                    return `<tr onclick="selectClientById('${escapeHtml(v.cliente_id)}')"><td style="font-weight:800">${escapeHtml(v.perfiles?.nombre||'—')}</td><td>${escapeHtml(v.destino||'—')}</td><td>${sd.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'})}</td><td>${ed?ed.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'—'}</td><td>${badge}</td></tr>`;
+                }).join('')
+            }</tbody></table>`;
+        }
+
+        async function selectClientById(id) {
+            if (!id) return;
+            const card = document.querySelector(`.client-card[data-id="${id}"]`);
+            if (card) { card.click(); card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
         }
 
         async function loadClients() {
