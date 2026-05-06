@@ -1,5 +1,11 @@
-const CACHE = 'herse-v1';
-const PRECACHE = ['/mi-viaje/', '/login/'];
+const CACHE = 'herse-v3';
+const PRECACHE = [
+    '/', '/login/', '/mi-viaje/', '/404.html',
+    '/assets/logo-web.png',
+    '/manifest.json'
+];
+// URLs que nunca se cachean (API calls)
+const SKIP_CACHE = ['supabase.co', 'sentry-cdn.com'];
 
 self.addEventListener('install', e => {
     e.waitUntil(
@@ -19,16 +25,19 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
     if (e.request.method !== 'GET') return;
+    // No cachear llamadas a APIs externas
+    if (SKIP_CACHE.some(s => e.request.url.includes(s))) return;
     if (!e.request.url.startsWith(self.location.origin)) return;
+    // Network first, fallback a cache
     e.respondWith(
-        caches.match(e.request).then(cached => {
-            const fresh = fetch(e.request).then(res => {
-                if (res && res.status === 200) {
-                    caches.open(CACHE).then(c => c.put(e.request, res.clone()));
-                }
-                return res;
-            }).catch(() => cached);
-            return cached || fresh;
-        })
+        fetch(e.request).then(res => {
+            if (res && res.status === 200) {
+                const clone = res.clone();
+                caches.open(CACHE).then(c => c.put(e.request, clone));
+            }
+            return res;
+        }).catch(() =>
+            caches.match(e.request).then(cached => cached || caches.match('/404.html'))
+        )
     );
 });

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /privacidad/
+Allow: /terminos/
+Allow: /puntos/
+
+Disallow: /login/
+Disallow: /admin/
+Disallow: /mi-viaje/
+
+Sitemap: https://herseturismo.com.ar/sitemap.xml

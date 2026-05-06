@@ -2,7 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Herse Turismo</title>
+<title>Mi Viaje · Portal Herse Turismo</title>
+<meta name="description" content="Tu portal exclusivo de viajes Herse Turismo.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1a2035">
+<meta property="og:title" content="Mi Viaje · Portal Herse Turismo">
+<meta property="og:image" content="https://herseturismo.com.ar/assets/og-cover.jpg">
+<meta property="og:site_name" content="Herse Turismo">
+<link rel="manifest" href="/manifest.json">
 <script src="https://js-de.sentry-cdn.com/d9f8b1eee56daacb0b9864323d164d4f.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -50,8 +57,16 @@ img{display:block}
 .av-circle{width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800}
 .av-name{font-size:.74rem;font-weight:700;color:var(--tx)}
 .av-sub{font-size:.6rem;color:var(--ac)}
-/* views */
-.view{display:none} .view.active{display:block}
+/* views — fade transition */
+.view{display:none;}
+.view.active{display:block;animation:viewIn .18s ease both}
+@keyframes viewIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+/* notification badge */
+.nb{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;background:#ef4444;color:#fff;border-radius:99px;font-size:.58rem;font-weight:900;padding:0 4px;margin-left:auto;animation:nbPop .2s ease}
+@keyframes nbPop{from{transform:scale(0)}to{transform:scale(1)}}
+/* skeleton */
+.sk{background:linear-gradient(90deg,#f0f2f5 25%,#e4e7ed 50%,#f0f2f5 75%);background-size:400% 100%;animation:skShim 1.4s ease infinite;border-radius:8px}
+@keyframes skShim{0%{background-position:100% 0}100%{background-position:-100% 0}}
 .vcontent{padding:24px 28px}
 /* cards */
 .card{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:18px 20px;box-shadow:var(--sh)}
@@ -1329,9 +1344,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
   </div>
   <nav class="sb-nav">
-    <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje</button>
+    <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje<span class="nb" id="badge-docs" style="display:none"></span></button>
     <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
-    <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i> Club Herse</button>
+    <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i> Club Herse<span class="nb" id="badge-pts" style="display:none">!</span></button>
     <div class="sb-sec">Próximamente</div>
     <button class="ni" id="nav-pasaporte-virtual" onclick="showView('pasaporte-virtual')"><i class="fas fa-passport"></i> Pasaporte Virtual</button>
     <button class="ni" id="nav-pasaporte-tribunero" onclick="showView('pasaporte-tribunero')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
@@ -1691,6 +1706,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <button onclick="saveEditPerfil()" id="ep-save" style="width:100%;padding:13px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-size:.86rem;font-weight:800;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s"><i class="fas fa-save"></i> Guardar cambios</button>
  </div>
 </div>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 const SUPA_URL='https://yuukqdcjitxhaeevjxjb.supabase.co';
@@ -1717,7 +1733,16 @@ function showView(id){
   const mainEl=document.querySelector('.main');
   if(mainEl)mainEl.classList.toggle('album-active',id==='album');
   const v=document.getElementById('view-'+id);
-  if(v) v.classList.add('active');
+  if(v){
+    v.style.animation='none'; v.offsetHeight; v.style.animation='';
+    v.classList.add('active');
+  }
+  // clear badge when opening Mi Viaje
+  if(id==='mi-viaje'){
+    const b=document.getElementById('badge-docs');
+    if(b){b.style.display='none';}
+    localStorage.setItem('lastDocSeen', new Date().toISOString());
+  }
   const n=document.getElementById('nav-'+id);
   if(n) n.classList.add('active');
   const m=VIEW_META[id]||{};
@@ -1940,6 +1965,30 @@ function renderPerfil(){
     checkCheckinReminder(v.fecha_salida,v.vuelo_ida);
     tick();
     _tickInterval=setInterval(tick,1000);
+    // Badge: nuevos documentos desde la última visita
+    const lastSeen=localStorage.getItem('lastDocSeen');
+    const docs=v.documentos||[];
+    const newDocs=lastSeen?docs.filter(d=>d.created_at>lastSeen):docs;
+    if(newDocs.length>0){
+      const b=document.getElementById('badge-docs');
+      if(b){b.textContent=newDocs.length;b.style.display='inline-flex';}
+    }
+    // Notificación web si el viaje sale en <24h
+    const horasRestantes=(TRIP_DATE-new Date())/36e5;
+    if(horasRestantes>0&&horasRestantes<=24&&'Notification' in window){
+      const notifKey='notifShown_'+v.id;
+      if(!localStorage.getItem(notifKey)){
+        Notification.requestPermission().then(p=>{
+          if(p==='granted'){
+            new Notification('¡Mañana es el gran día! ✈️',{
+              body:`Tu viaje a ${v.destino} sale en menos de 24 horas. ¡Tenés todo listo?`,
+              icon:'/assets/logo-web.png'
+            });
+            localStorage.setItem(notifKey,'1');
+          }
+        });
+      }
+    }
   } else {
     showSinViajeHero();
   }

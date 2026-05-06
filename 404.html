@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página no encontrada · Herse Turismo</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Nunito',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#003366 0%,#004A8F 50%,#005faa 100%);color:#fff;text-align:center;padding:24px}
+    .plane{font-size:5rem;margin-bottom:24px;animation:float 3s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-18px) rotate(5deg)}}
+    .code{font-size:6rem;font-weight:900;opacity:.15;line-height:1;margin-bottom:-20px}
+    h1{font-size:1.8rem;font-weight:900;margin-bottom:10px}
+    p{font-size:1rem;opacity:.75;max-width:380px;line-height:1.6;margin-bottom:32px}
+    .btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;border:none;transition:.2s;text-decoration:none}
+    .btn-primary{background:#F7941D;color:#fff}
+    .btn-primary:hover{background:#e07d0a;transform:translateY(-2px)}
+    .btn-secondary{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.25)}
+    .btn-secondary:hover{background:rgba(255,255,255,.25)}
+    .logo{margin-bottom:32px;opacity:.9}
+    .logo img{height:42px;filter:brightness(0) invert(1)}
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="/assets/logo-web.png" alt="Herse Turismo" onerror="this.parentElement.innerHTML='<span style=\'font-size:1.4rem;font-weight:900\'>HERSE TURISMO</span>'">
+  </div>
+  <div class="code">404</div>
+  <div class="plane">✈️</div>
+  <h1>¡Este destino no existe!</h1>
+  <p>La página que buscás no fue encontrada. Puede que el link esté roto o la URL haya cambiado.</p>
+  <div class="btns">
+    <a href="/" class="btn btn-primary"><i class="fas fa-home"></i> Ir al inicio</a>
+    <a href="/mi-viaje/" class="btn btn-secondary"><i class="fas fa-suitcase"></i> Mi portal</a>
+  </div>
+</body>
+</html>
