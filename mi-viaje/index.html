@@ -1795,6 +1795,7 @@ function renderItinerario(){
 }
 let _userMeta={nombre:'',apellido:'',nacionalidad:'',fecha_nacimiento:'',avatar_url:'',created_at:''};
 function fmtFechaLarga(s){if(!s)return'—';try{const d=new Date(s);return d.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});}catch(e){return s;}}
+function escapeHtml(s){if(s==null)return'';return String(s).replace(/[&<>"'`=\/]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;','=':'&#61;','/':'&#47;'}[c]));}
 function _renderAvatar(){
   const av=document.getElementById('perfilAv');if(!av)return;
   const url=_userMeta.avatar_url||localStorage.getItem('herse_avatar');
@@ -1877,10 +1878,10 @@ function renderPerfil(){
   const fullName=(_userMeta.nombre||'')+(_userMeta.apellido?' '+_userMeta.apellido:'');
   const n=document.getElementById('perfilName');if(n)n.textContent=fullName.trim()||_userName||'—';
   _renderAvatar();
-  const em=document.getElementById('perfilEmail');if(em)em.innerHTML='<i class="fas fa-envelope"></i> '+(_userEmail||'—');
+  const em=document.getElementById('perfilEmail');if(em)em.innerHTML='<i class="fas fa-envelope"></i> '+escapeHtml(_userEmail||'—');
   const ur=document.getElementById('perfilUbicRow');
   const u=document.getElementById('perfilUbic');
-  if(_userMeta.nacionalidad){if(ur)ur.style.display='flex';if(u)u.innerHTML='<i class="fas fa-flag"></i> '+_userMeta.nacionalidad;}
+  if(_userMeta.nacionalidad){if(ur)ur.style.display='flex';if(u)u.innerHTML='<i class="fas fa-flag"></i> '+escapeHtml(_userMeta.nacionalidad);}
   else if(ur)ur.style.display='none';
   const pdn=document.getElementById('pd-nombre');if(pdn)pdn.textContent=_userMeta.nombre||'—';
   const pda=document.getElementById('pd-apellido');if(pda)pda.textContent=_userMeta.apellido||'—';
@@ -1912,7 +1913,7 @@ function renderPerfil(){
   const {data:_perf}=await _db.from('perfiles').select('is_admin').eq('id',user.id).single();
   if(_perf?.is_admin){
     _isAdmin=true;
-    if(user.email==='facuzx2015@gmail.com') document.getElementById('btnAdmin').style.display='flex';
+    const _ba=document.getElementById('btnAdmin');if(_ba)_ba.style.display='flex';
   } else {
     document.getElementById('mainDashboard').style.display='none';
     document.getElementById('pendingState').style.display='none';
@@ -2063,7 +2064,7 @@ function updateTripUI(v){
       <div class="trip-hero-ov"></div>
       <div class="trip-hero-cnt">
         <div class="trip-tag">TU PRÓXIMA AVENTURA</div>
-        <h1 class="trip-title">${v.destino} te espera ${flag}</h1>
+        <h1 class="trip-title">${escapeHtml(v.destino)} te espera ${flag}</h1>
         <div class="trip-meta-row">
           <div class="trip-date-pill"><i class="fas fa-calendar-alt"></i> ${fmtDate(sd)} → ${fmtDate(ed)}</div>
           <div class="trip-cd-row">
@@ -2084,7 +2085,7 @@ function updateTripUI(v){
         <div class="itin-hdr-ttl"><i class="fas fa-route" style="color:var(--ac)"></i> Itinerario completo</div>
         <button class="btn-a btn-ghost" style="font-size:.65rem;pointer-events:none">Cerrar <i class="fas fa-times"></i></button>
       </div>
-      <div class="itin-body" id="itin-body" data-itinerario="${v.itinerario?v.itinerario.replace(/"/g,'&quot;'):''}"></div>
+      <div class="itin-body" id="itin-body" data-itinerario="${v.itinerario?escapeHtml(v.itinerario):''}"></div>
     </div>
     <div class="trip-grid">
       <div class="card">
@@ -2094,7 +2095,7 @@ function updateTripUI(v){
         </div>
         <div style="display:flex;align-items:center;gap:12px">
           <div>
-            <div class="tc-trip-dest">${v.destino} ${flag}</div>
+            <div class="tc-trip-dest">${escapeHtml(v.destino)} ${flag}</div>
             <div class="tc-trip-dates">${fmtDate(sd)} – ${fmtDate(ed)} ${sd.getFullYear()}</div>
           </div>
         </div>
@@ -2102,7 +2103,7 @@ function updateTripUI(v){
           <div><div class="tc-det-lbl"><i class="fas fa-plane-departure"></i> Salida</div><div class="tc-det-val">${fmtDateTime(sd)}</div></div>
           <div><div class="tc-det-lbl"><i class="fas fa-plane-arrival"></i> Regreso</div><div class="tc-det-val">${fmtDateTime(ed)}</div></div>
           <div><div class="tc-det-lbl"><i class="fas fa-users"></i> Pasajeros</div><div class="tc-det-val">${pax} ${pax===1?'adulto':'adultos'}</div></div>
-          <div><div class="tc-det-lbl"><i class="fas fa-hotel"></i> Hotel</div><div class="tc-det-val">${v.hotel||'—'}</div></div>
+          <div><div class="tc-det-lbl"><i class="fas fa-hotel"></i> Hotel</div><div class="tc-det-val">${escapeHtml(v.hotel||'—')}</div></div>
         </div>
         <div class="tc-status"><i class="fas fa-check-circle"></i> Tenés todo listo para disfrutar tu viaje</div>
       </div>
@@ -2307,17 +2308,17 @@ function renderAllTrips(){
       const dur=Math.round((ed-sd)/(864e5));
       const emo=getEmo(t);
       const thumb=img
-        ?`<img src="${img}" alt="${t.destino}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'hv-card-ph\'>${flag}</div>'">`
+        ?`<img src="${img}" alt="${escapeHtml(t.destino)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'hv-card-ph\'>${flag}</div>'">`
         :`<div class="hv-card-ph">${flag}</div>`;
       const ppBadge='';
-      const hotelChip=t.hotel?`<span class="hv-chip hv-chip-hotel"><i class="fas fa-hotel"></i> ${t.hotel}</span>`:'';
-      const vueloChip=t.vuelo_ida?`<span class="hv-chip hv-chip-vuelo"><i class="fas fa-plane-departure"></i> ${t.vuelo_ida}</span>`:'';
+      const hotelChip=t.hotel?`<span class="hv-chip hv-chip-hotel"><i class="fas fa-hotel"></i> ${escapeHtml(t.hotel)}</span>`:'';
+      const vueloChip=t.vuelo_ida?`<span class="hv-chip hv-chip-vuelo"><i class="fas fa-plane-departure"></i> ${escapeHtml(t.vuelo_ida)}</span>`:'';
       return `<div class="hv-card">
         <div class="hv-card-img">${thumb}<div class="hv-img-ov"></div>${emo?`<div class="hv-emo">${emo}</div>`:''}<div class="hv-st ${stCls}">${stTxt}</div></div>
         <div class="hv-card-body">
-          <div class="hv-dest">${flag} ${t.destino}</div>
+          <div class="hv-dest">${flag} ${escapeHtml(t.destino)}</div>
           <div class="hv-dates"><i class="fas fa-calendar-alt"></i> ${d1} &rarr; ${d2} · <i class="fas fa-moon"></i> ${dur} noches</div>
-          <div class="hv-chips" style="margin-bottom:8px"><span class="hv-chip"><i class="fas fa-users"></i> ${t.pasajeros||t.pax||2} pax</span>${hotelChip}${vueloChip}${t.codigo?`<span class="hv-chip">${t.codigo}</span>`:''}</div>
+          <div class="hv-chips" style="margin-bottom:8px"><span class="hv-chip"><i class="fas fa-users"></i> ${t.pasajeros||t.pax||2} pax</span>${hotelChip}${vueloChip}${t.codigo?`<span class="hv-chip">${escapeHtml(t.codigo)}</span>`:''}</div>
           ${ppBadge}
           <button class="hv-cta" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-eye"></i> Ver detalles</button>
         </div>

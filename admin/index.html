@@ -680,6 +680,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         let currentClient = null;
         let currentViaje  = null;
 
+        function escapeHtml(s){if(s==null)return'';return String(s).replace(/[&<>"'`=\/]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;','=':'&#61;','/':'&#47;'}[c]));}
+        function safeUrl(u){if(!u)return'';const s=String(u).trim();if(/^(https?:|\/|\.\/|\.\.\/)/i.test(s))return escapeHtml(s);return'';}
+
         // ===== AUTH + ADMIN CHECK =====
         (async () => {
             const { data: { session } } = await _db.auth.getSession();
@@ -724,7 +727,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 else proxList.innerHTML = proximos.map(v => {
                     const d = new Date(v.fecha_salida);
                     const lbl = d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-                    return `<div class="prox-item"><div><div class="prox-name">${v.perfiles?.nombre || '—'}</div><div class="prox-dest">${v.destino || ''}</div></div><div class="prox-date">${lbl}</div></div>`;
+                    return `<div class="prox-item"><div><div class="prox-name">${escapeHtml(v.perfiles?.nombre || '—')}</div><div class="prox-dest">${escapeHtml(v.destino || '')}</div></div><div class="prox-date">${lbl}</div></div>`;
                 }).join('');
             }
         }
@@ -737,11 +740,11 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 return;
             }
             list.innerHTML = data.map(c => `
-                <div class="client-card" onclick="selectClient('${c.id}')" data-id="${c.id}" data-name="${c.nombre||''}" data-email="${c.email||''}">
-                    <div class="cc-avatar">${(c.nombre||c.email||'?').charAt(0).toUpperCase()}</div>
+                <div class="client-card" onclick="selectClient('${escapeHtml(c.id)}')" data-id="${escapeHtml(c.id)}" data-name="${escapeHtml(c.nombre||'')}" data-email="${escapeHtml(c.email||'')}">
+                    <div class="cc-avatar">${escapeHtml((c.nombre||c.email||'?').charAt(0).toUpperCase())}</div>
                     <div>
-                        <div class="cc-name">${c.nombre || 'Sin nombre'}</div>
-                        <div class="cc-email">${c.email}</div>
+                        <div class="cc-name">${escapeHtml(c.nombre || 'Sin nombre')}</div>
+                        <div class="cc-email">${escapeHtml(c.email||'')}</div>
                     </div>
                 </div>
             `).join('');
@@ -878,15 +881,17 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             }
             const { data } = await _db.from('documentos').select('*').eq('viaje_id', currentViaje.id).order('created_at');
             if (!data?.length) { list.innerHTML = '<p class="no-data" style="padding:0">Sin documentos aún.</p>'; return; }
-            list.innerHTML = data.map(d => `
+            list.innerHTML = data.map(d => {
+                const u = safeUrl(d.url);
+                return `
                 <div class="doc-item">
                     <div>
-                        <div class="doc-item-name">${d.nombre}</div>
-                        <div class="doc-item-meta">${d.tipo} · ${d.estado}${d.url ? ' · <a href="'+d.url+'" target="_blank">Ver archivo</a>' : ''}</div>
+                        <div class="doc-item-name">${escapeHtml(d.nombre)}</div>
+                        <div class="doc-item-meta">${escapeHtml(d.tipo)} · ${escapeHtml(d.estado)}${u ? ' · <a href="'+u+'" target="_blank" rel="noopener noreferrer">Ver archivo</a>' : ''}</div>
                     </div>
-                    <button class="btn-delete" onclick="deleteDoc('${d.id}')"><i class="fas fa-trash"></i> Eliminar</button>
-                </div>
-            `).join('');
+                    <button class="btn-delete" onclick="deleteDoc('${escapeHtml(d.id)}')"><i class="fas fa-trash"></i> Eliminar</button>
+                </div>`;
+            }).join('');
         }
 
         async function addDoc(e) {
@@ -1081,7 +1086,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             wrap.innerHTML = data.map(t => `
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--light);border-radius:8px;margin-bottom:6px">
                     <div>
-                        <div style="font-size:.8rem;font-weight:700;color:var(--text)">${t.concepto}</div>
+                        <div style="font-size:.8rem;font-weight:700;color:var(--text)">${escapeHtml(t.concepto)}</div>
                         <div style="font-size:.65rem;color:var(--muted)">${new Date(t.created_at).toLocaleDateString('es-AR')}</div>
                     </div>
                     <div style="font-size:.9rem;font-weight:800;color:${t.puntos > 0 ? '#16a34a' : '#dc2626'}">${t.puntos > 0 ? '+' : ''}${t.puntos.toLocaleString('es-AR')} pts</div>
@@ -1246,7 +1251,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
           if(data){
             for(const t of data){
               const d=t.fecha_salida?new Date(t.fecha_salida).toLocaleDateString('es-AR'):'';
-              html+=`<option value="${t.id}">${t.destino||'Viaje'} ${d?'· '+d:''}</option>`;
+              html+=`<option value="${escapeHtml(t.id)}">${escapeHtml(t.destino||'Viaje')} ${d?'· '+d:''}</option>`;
             }
           }
           sel.innerHTML=html;
