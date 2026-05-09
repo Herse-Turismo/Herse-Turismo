@@ -43,8 +43,8 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Nunito', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
+body { font-family: 'Nunito', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; max-width: 100%; }
 a { text-decoration: none; color: inherit; transition: 0.3s; }
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
@@ -352,6 +352,11 @@ a.contact-val:hover { color: var(--orange); }
     .hero-content h1 { font-size: 2rem; }
     .stat-number { font-size: 1.8rem; }
     .consulta-form { padding: 26px 20px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .porque-card { padding: 22px 18px; }
+    .section-title-plain { font-size: 1.6rem; }
+    .footer-content { gap: 20px; }
+    .hero-content { padding: 16px; }
 }
     </style>
 </head>

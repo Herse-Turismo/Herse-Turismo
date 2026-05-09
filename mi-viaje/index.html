@@ -16,7 +16,8 @@
 <style>
 :root{--ac:#1a6cff;--ac2:#22c55e;--ac3:#f59e0b;--bg:#f4f5f8;--card:#fff;--bd:#e5e7eb;--tx:#111827;--tx2:#6b7280;--tx3:#9ca3af;--sw:220px;--hh:64px;--r:12px;--sh:0 1px 3px rgba(0,0,0,.07);--shl:0 4px 24px rgba(0,0,0,.10)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+html{overflow-x:hidden;max-width:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;max-width:100%}
 button{font-family:inherit;cursor:pointer} a{text-decoration:none;color:inherit}
 img{display:block}
 /* layout */
@@ -484,6 +485,16 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .mj-cd-v{font-size:1.2rem}
   .mj-hero{height:210px}
   .mj-hero-cnt{padding:14px}
+  .mj-snap{grid-template-columns:1fr 1fr;gap:8px}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .info-grid{grid-template-columns:1fr}
+  .como-grid{grid-template-columns:1fr}
+  .benef-grid{grid-template-columns:1fr}
+  .hv-stats{grid-template-columns:1fr 1fr}
+  .tc-details{grid-template-columns:1fr}
+  .trip-meta{grid-template-columns:1fr}
+  .logros-grid{grid-template-columns:repeat(2,1fr)}
+  .fst-grid{grid-template-columns:1fr 1fr}
   .hdr-ttl h1{font-size:.9rem}
   .hdr-ttl p{display:none}
   .trip-title{font-size:1.1rem}
