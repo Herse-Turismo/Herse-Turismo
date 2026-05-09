@@ -16,8 +16,7 @@
 <style>
 :root{--ac:#1a6cff;--ac2:#22c55e;--ac3:#f59e0b;--bg:#f4f5f8;--card:#fff;--bd:#e5e7eb;--tx:#111827;--tx2:#6b7280;--tx3:#9ca3af;--sw:220px;--hh:64px;--r:12px;--sh:0 1px 3px rgba(0,0,0,.07);--shl:0 4px 24px rgba(0,0,0,.10)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{overflow-x:hidden;max-width:100%}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;max-width:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
 button{font-family:inherit;cursor:pointer} a{text-decoration:none;color:inherit}
 img{display:block}
 /* layout */
@@ -25,7 +24,7 @@ img{display:block}
 .sidebar{width:var(--sw);background:var(--card);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto}
 .main{flex:1;margin-left:var(--sw);display:flex;flex-direction:column;min-height:100vh}
 .top-hdr{height:var(--hh);background:var(--card);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;flex-shrink:0}
-.view-wrap{flex:1;overflow-y:auto}
+.view-wrap{flex:1;overflow-y:auto;overflow-x:hidden;max-width:100vw}
 /* sidebar */
 .sb-logo{display:flex;align-items:center;justify-content:center;padding:22px 16px 18px;border-bottom:1px solid var(--bd)}
 .sb-logo img{height:52px;width:auto}
@@ -397,6 +396,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    ════════════════════════════════════════════════════════ */
 @media(max-width:767px){
   :root{--hh:58px}
+  .vcontent{max-width:100%;overflow-x:hidden}
   /* Sidebar deslizable */
   .hamburger{display:flex}
   .sidebar{transform:translateX(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);width:268px;z-index:200}
@@ -426,7 +426,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .perfil-layout{grid-template-columns:1fr}
   .pp-layout{grid-template-columns:1fr}
   .perfil-2col{grid-template-columns:1fr}
-  .perfil-stats{grid-template-columns:1fr 1fr;gap:8px}
+  .perfil-stats{grid-template-columns:1fr 1fr 1fr 1fr;gap:6px}
   .nt-features{grid-template-columns:1fr 1fr}
   .nt-cats{grid-template-columns:1fr 1fr}
   .nt-wrap{flex-direction:column}
@@ -450,8 +450,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .tabs-bar{overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px;scrollbar-width:none}
   .tabs-bar::-webkit-scrollbar{display:none}
   .tabs-search{width:100%;margin-left:0;padding-top:6px}
-  .hv-filters{flex-wrap:wrap}
-  .hv-search{margin-left:0;width:100%}
+  .hv-filters{flex-wrap:wrap;gap:6px}
+  .hv-search{margin-left:0;width:100%;flex-basis:100%}
+  .hv-year-sel{max-width:140px}
   /* Pasaporte — scroll horizontal */
   .passport-scene{padding:14px 0;gap:12px}
   .passport-wrapper{overflow-x:auto;width:100%;padding:0 14px 14px;justify-content:flex-start;scrollbar-width:none}
