@@ -150,7 +150,7 @@ img{display:block}
 .srch-wrap input::placeholder{color:var(--tx3)}
 .btn-filtros{display:flex;align-items:center;gap:5px;padding:6px 11px;border:1.5px solid var(--bd);border-radius:8px;background:var(--card);font-size:.74rem;font-weight:600;color:var(--tx2);cursor:pointer}
 .btn-filtros:hover{border-color:var(--ac);color:var(--ac)}
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
 .stat-c{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh)}
 .stat-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
 .stat-ico.b{background:#ebf1ff;color:var(--ac)} .stat-ico.g{background:#dcfce7;color:#16a34a}
@@ -426,7 +426,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .perfil-layout{grid-template-columns:1fr}
   .pp-layout{grid-template-columns:1fr}
   .perfil-2col{grid-template-columns:1fr}
-  .perfil-stats{grid-template-columns:1fr 1fr 1fr 1fr;gap:6px}
+  .perfil-stats{grid-template-columns:1fr 1fr;gap:9px}
   .nt-features{grid-template-columns:1fr 1fr}
   .nt-cats{grid-template-columns:1fr 1fr}
   .nt-wrap{flex-direction:column}
@@ -510,6 +510,15 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .vj-bottom-bar{flex-wrap:wrap;gap:10px}
   .vj-ver-btn{width:100%;justify-content:center;margin-left:0;margin-top:4px}
 }
+/* ════════════════════════════════════════════════════════
+   DESKTOP GRANDE — desde 900px
+   ════════════════════════════════════════════════════════ */
+@media(min-width:900px){
+  .hv-stats{grid-template-columns:repeat(4,1fr)}
+  .perfil-stats{grid-template-columns:repeat(4,1fr)}
+  .mj-snap{grid-template-columns:repeat(4,1fr)}
+  .stats-row{grid-template-columns:repeat(4,1fr)}
+}
 /* PASSPORT MINI DASHBOARD */
 .pp-mini-wrap{display:flex;align-items:center;gap:14px;padding:8px 0}
 .pp-mini-donut{position:relative;flex-shrink:0}
@@ -565,7 +574,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .pn-bar-fill{height:100%;background:linear-gradient(90deg,#0ea5e9,#6366f1);border-radius:99px;transition:width .6s ease}
 .pn-bar-lbl{font-size:.56rem;color:#0ea5e9;font-weight:700;margin-bottom:6px}
 .pn-link{font-size:.6rem;color:#0ea5e9;font-weight:700;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;padding:0}
-.perfil-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.perfil-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .ps-c{border-radius:9px;padding:11px 8px;text-align:center;border:1px solid transparent}
 .ps-c.bl{background:#eff6ff;border-color:#bfdbfe}.ps-c.pu{background:#f5f3ff;border-color:#ddd6fe}.ps-c.gr{background:#f0fdf4;border-color:#bbf7d0}.ps-c.go{background:#fefce8;border-color:#fef08a}
 .ps-n{font-size:1.3rem;font-weight:900;color:var(--tx);line-height:1;margin-bottom:3px}
@@ -595,7 +604,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .hv-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
 .hv-title{font-size:1.45rem;font-weight:900;color:var(--tx);margin-bottom:3px}
 .hv-sub{font-size:.75rem;color:var(--tx2)}
-.hv-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.hv-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
 .hvs-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:11px;box-shadow:var(--sh)}
 .hvs-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
 .hvs-lbl{font-size:.56rem;font-weight:700;color:var(--tx2);margin-bottom:1px;text-transform:uppercase;letter-spacing:.5px}
@@ -748,7 +757,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .mj-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:rgba(255,255,255,.16);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1.5px solid rgba(255,255,255,.38);border-radius:10px;color:#fff;font-size:.8rem;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit}
 .mj-cta:hover{background:rgba(255,255,255,.26);border-color:rgba(255,255,255,.65)}
 /* Snap row */
-.mj-snap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.mj-snap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
 .snap-c{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:16px;box-shadow:var(--sh);transition:.18s}
 .snap-c:hover{border-color:var(--ac);box-shadow:var(--shl);transform:translateY(-2px)}
 .snap-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem;margin-bottom:11px}
@@ -1296,7 +1305,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .trip-tag{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.68);margin-bottom:9px}
 .trip-title{font-size:2.05rem;font-weight:900;color:#fff;margin-bottom:18px;line-height:1.1;text-shadow:0 2px 10px rgba(0,0,0,.35)}
 .trip-meta-row{display:flex;align-items:center;gap:13px;flex-wrap:wrap}
-.trip-date-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(8px);border-radius:99px;padding:7px 15px;color:#fff;font-size:.74rem;font-weight:700}
+.trip-date-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);backdrop-filter:blur(8px);border-radius:99px;padding:7px 15px;color:#fff;font-size:.74rem;font-weight:700;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .trip-cd-row{display:flex;align-items:center;gap:7px}
 .trip-cd-u{display:flex;align-items:baseline;gap:4px}
 .trip-cd-v{font-size:1.45rem;font-weight:900;color:#fff;line-height:1;min-width:30px;text-align:center}
