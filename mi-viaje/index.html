@@ -1349,6 +1349,31 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .trip-cta-sub{font-size:.66rem;color:var(--tx2);line-height:1.45}
 .trip-cta-btn{margin-left:auto;flex-shrink:0;padding:9px 16px;background:#fff;border:1.5px solid #bfdbfe;border-radius:10px;font-size:.7rem;font-weight:800;color:var(--ac);cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;font-family:inherit;transition:.15s}
 .trip-cta-btn:hover{border-color:var(--ac);background:#eff6ff}
+/* ════════════════════════════════════════════════════════
+   MOBILE OVERRIDE FINAL — viene último para ganar cascada
+   ════════════════════════════════════════════════════════ */
+@media(max-width:767px){
+  .trip-grid{grid-template-columns:1fr!important}
+  .perfil-layout{grid-template-columns:1fr!important}
+  .perfil-top-card{flex-direction:column}
+  .perfil-nivel{width:100%;min-width:unset}
+  .trip-hero{height:200px}
+  .trip-hero-cnt{padding:0 20px}
+  .trip-title{font-size:1.3rem;margin-bottom:10px}
+  .trip-meta-row{flex-direction:column;gap:8px}
+  .trip-cta-banner{flex-wrap:wrap}
+  .trip-cta-btn{width:100%;justify-content:center;margin-left:0;margin-top:4px}
+  .hv-stats{grid-template-columns:1fr 1fr}
+  .perfil-stats{grid-template-columns:1fr 1fr}
+  .mj-snap{grid-template-columns:1fr 1fr}
+  .tc-details{grid-template-columns:1fr 1fr}
+  .mj-hero{height:235px}
+  .mj-hero-cnt{padding:18px}
+  .mj-bottom{flex-direction:column;gap:10px;align-items:flex-start}
+  .mj-cd{gap:12px}
+  .mj-cd-v{font-size:1.4rem}
+  .nt-contact{word-break:break-all}
+}
 </style>
 </head>
 <body>
