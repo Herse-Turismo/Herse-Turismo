@@ -1373,7 +1373,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .mj-cd{gap:12px}
   .mj-cd-v{font-size:1.4rem}
   .nt-contact{word-break:break-all}
-  #fabWa{display:flex}
 }
 </style>
 </head>
@@ -1775,7 +1774,6 @@ const VIEW_META={
 };
 function showView(id){
   closeSidebar();
-  const fab=document.getElementById('fabWa');if(fab)fab.style.display='none';
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
   const mainEl=document.querySelector('.main');
@@ -2085,7 +2083,6 @@ const _HERO_IMGS_EMPTY=[
 function showSinViajeHero(){
   const dash=document.getElementById('mainDashboard');
   if(!dash)return;
-  const fab=document.getElementById('fabWa');if(fab)fab.style.display='';
   const heroImg=_HERO_IMGS_EMPTY[Math.floor(Math.random()*_HERO_IMGS_EMPTY.length)];
   dash.innerHTML=`
     <div class="trip-hero" style="background-image:url('${heroImg}')">
@@ -2141,7 +2138,6 @@ function showSinViajeHero(){
 function updateTripUI(v){
   const dash=document.getElementById('mainDashboard');
   if(!dash)return;
-  const fab=document.getElementById('fabWa');if(fab)fab.style.display='none';
   const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
   const flag=getFlag(v.destino);
   const heroImg=v.imagen_url||getHeroImg(v.destino);
@@ -2661,8 +2657,5 @@ function closeSidebar(){
   if(ov)ov.classList.remove('show');
   document.body.style.overflow='';
 }
-</script>
-<button id="fabWa" onclick="window.open('https://wa.me/5492215661704','_blank')" style="display:none;position:fixed;bottom:20px;right:20px;z-index:9999;background:#25D366;border:none;border-radius:99px;padding:14px 20px;color:#fff;font-size:.78rem;font-weight:800;cursor:pointer;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif;animation:fabPulse 2s ease infinite"><i class="fab fa-whatsapp"></i> Hablar con un vendedor</button>
-<style>@keyframes fabPulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.25)}50%{box-shadow:0 4px 28px rgba(37,211,102,.45)}}@media(min-width:768px){#fabWa{display:none!important}}</style>
-</body>
+</script></body>
 </html>
