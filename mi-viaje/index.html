@@ -1373,6 +1373,9 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .mj-cd{gap:12px}
   .mj-cd-v{font-size:1.4rem}
   .nt-contact{word-break:break-all}
+  .fab-mobile{position:fixed!important;bottom:20px;right:20px;z-index:999;background:#25D366;border:none;backdrop-filter:none;padding:14px 20px;font-size:.78rem;box-shadow:0 4px 20px rgba(0,0,0,.25);animation:fabPulse 2s ease infinite}
+  .fab-mobile .fab-mobile-arrow{display:none}
+  @keyframes fabPulse{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.25)}50%{box-shadow:0 4px 28px rgba(37,211,102,.45)}}
 }
 </style>
 </head>
@@ -2094,7 +2097,7 @@ function showSinViajeHero(){
           <div class="trip-date-pill"><i class="fas fa-compass"></i> Estamos armando todo para vos</div>
         </div>
       </div>
-      <button class="trip-det-btn" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Hablar con mi asesor <i class="fas fa-chevron-right"></i></button>
+      <button class="trip-det-btn fab-mobile" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> <span class="fab-mobile-label">Hablar con un vendedor</span> <i class="fas fa-chevron-right fab-mobile-arrow"></i></button>
     </div>
     <div class="trip-grid">
       <div class="card">
