@@ -1840,28 +1840,12 @@ function renderItinerario(){
     html+=`<div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)"><p style="font-size:.7rem;color:var(--tx2);margin-bottom:10px">Itinerario personalizado por tu agente de viajes.</p><button class="btn-a btn-prim" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultar a Herse</button></div>`;
     body.innerHTML=html;
   }else{
-    // Default itinerary
+    // No itinerary loaded — show placeholder
     body.innerHTML=`
-      <div class="itin-day">
-        <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 1 — Salida y Llegada</div>
-        <div class="itin-item"><div class="itin-time">06:00</div><div class="itin-ico"><i class="fas fa-car"></i></div><div><div class="itin-name">Traslado al aeropuerto</div><div class="itin-det">Transfer privado desde tu domicilio hasta Ezeiza.</div></div></div>
-        <div class="itin-item"><div class="itin-time">09:30</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo hacia el destino</div><div class="itin-det">Embarque y vuelo. Recordá llegar 3 hs antes.</div></div></div>
-        <div class="itin-item"><div class="itin-time">14:00</div><div class="itin-ico"><i class="fas fa-hotel"></i></div><div><div class="itin-name">Check-in en el hotel</div><div class="itin-det">Llegada, acomodación y descanso libre.</div></div></div>
-        <div class="itin-item"><div class="itin-time">20:00</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Cena de bienvenida</div><div class="itin-det">Cena en restaurante local seleccionado por Herse.</div></div></div>
-      </div>
-      <div class="itin-day">
-        <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 2 — City Tour</div>
-        <div class="itin-item"><div class="itin-time">09:00</div><div class="itin-ico"><i class="fas fa-bus"></i></div><div><div class="itin-name">City Tour guiado</div><div class="itin-det">Recorrido por los principales atractivos con guía bilingüe.</div></div></div>
-        <div class="itin-item"><div class="itin-time">13:30</div><div class="itin-ico"><i class="fas fa-utensils"></i></div><div><div class="itin-name">Almuerzo libre</div><div class="itin-det">Tiempo libre para explorar y almorzar a tu ritmo.</div></div></div>
-        <div class="itin-item"><div class="itin-time">19:00</div><div class="itin-ico"><i class="fas fa-futbol"></i></div><div><div class="itin-name">Experiencia deportiva</div><div class="itin-det">Partido o visita guiada a estadio según disponibilidad.</div></div></div>
-      </div>
-      <div class="itin-day">
-        <div class="itin-day-hdr"><i class="fas fa-calendar-day"></i> Día 3 — Excursión y Vuelta</div>
-        <div class="itin-item"><div class="itin-time">08:00</div><div class="itin-ico"><i class="fas fa-map-marked-alt"></i></div><div><div class="itin-name">Excursión opcional</div><div class="itin-det">Actividad incluida según el paquete contratado.</div></div></div>
-        <div class="itin-item"><div class="itin-time">18:00</div><div class="itin-ico"><i class="fas fa-plane"></i></div><div><div class="itin-name">Vuelo de regreso</div><div class="itin-det">Check-out del hotel y traslado al aeropuerto.</div></div></div>
-      </div>
-      <div style="text-align:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)">
-        <p style="font-size:.7rem;color:var(--tx2);margin-bottom:10px">El itinerario detallado y definitivo se envía por WhatsApp antes del viaje.</p>
+      <div style="text-align:center;padding:40px 20px">
+        <div style="font-size:2.5rem;margin-bottom:12px">📋</div>
+        <div style="font-size:.85rem;font-weight:800;color:var(--tx);margin-bottom:6px">Tu itinerario está en preparación</div>
+        <div style="font-size:.72rem;color:var(--tx2);line-height:1.6;max-width:320px;margin:0 auto 18px">Tu agente de viajes está armando el itinerario personalizado para tu viaje. Lo vas a ver acá cuando esté listo.</div>
         <button class="btn-a btn-prim" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fab fa-whatsapp"></i> Consultar a Herse</button>
       </div>`;
   }
@@ -2442,14 +2426,14 @@ const LOYALTY_CONFIG={
     {id:'leyenda',name:'Leyenda Herse',emoji:'🌟',min:1500000,max:null,multiplier:2,color:'#f59e0b'}
   ],
   benefits:[
-    {id:'assist_5_off',name:'5% OFF en asistencia al viajero',desc:'Descuento en tu próxima asistencia de viaje.',cost:30000,ico:'fa-shield-alt',color:'#10b981'},
-    {id:'extra_luggage',name:'Equipaje extra',desc:'Llevá un equipaje adicional sin cargo.',cost:60000,ico:'fa-suitcase',color:'#3b82f6'},
-    {id:'gift_card',name:'Gift Card Herse',desc:'Tarjeta de regalo para usar en cualquier servicio.',cost:100000,ico:'fa-gift',color:'#8b5cf6'},
-    {id:'next_trip_5_off',name:'5% OFF en próximo viaje',desc:'Descuento en tu próxima reserva de viaje.',cost:150000,ico:'fa-percent',color:'#f59e0b'},
-    {id:'private_transfer',name:'Transfer privado bonificado',desc:'Traslado al aeropuerto sin cargo adicional.',cost:250000,ico:'fa-car',color:'#06b6d4'},
-    {id:'hotel_benefit',name:'Beneficio hotelero',desc:'Upgrade o noche extra en tu próximo hotel.',cost:400000,ico:'fa-hotel',color:'#ec4899'},
-    {id:'excursion',name:'Excursión o experiencia',desc:'Una excursión o actividad incluida en tu viaje.',cost:600000,ico:'fa-map-marked-alt',color:'#14b8a6'},
-    {id:'selected_trip_10_off',name:'10% OFF en viaje seleccionado',desc:'Gran descuento en un viaje a elección.',cost:1000000,ico:'fa-crown',color:'#f59e0b'}
+    {id:'assist_5_off',name:'5% OFF en asistencia al viajero',desc:'Descuento en tu próxima asistencia de viaje.',cost:100000,ico:'fa-shield-alt',color:'#10b981'},
+    {id:'extra_luggage',name:'Equipaje extra',desc:'Llevá un equipaje adicional sin cargo.',cost:200000,ico:'fa-suitcase',color:'#3b82f6'},
+    {id:'gift_card',name:'Gift Card Herse',desc:'Tarjeta de regalo para usar en cualquier servicio.',cost:350000,ico:'fa-gift',color:'#8b5cf6'},
+    {id:'next_trip_5_off',name:'5% OFF en próximo viaje',desc:'Descuento en tu próxima reserva de viaje.',cost:500000,ico:'fa-percent',color:'#f59e0b'},
+    {id:'private_transfer',name:'Transfer privado bonificado',desc:'Traslado al aeropuerto sin cargo adicional.',cost:750000,ico:'fa-car',color:'#06b6d4'},
+    {id:'hotel_benefit',name:'Beneficio hotelero',desc:'Upgrade o noche extra en tu próximo hotel.',cost:1200000,ico:'fa-hotel',color:'#ec4899'},
+    {id:'excursion',name:'Excursión o experiencia',desc:'Una excursión o actividad incluida en tu viaje.',cost:2000000,ico:'fa-map-marked-alt',color:'#14b8a6'},
+    {id:'selected_trip_10_off',name:'10% OFF en viaje seleccionado',desc:'Gran descuento en un viaje a elección.',cost:3500000,ico:'fa-crown',color:'#f59e0b'}
   ],
   earnRules:[
     {ico:'✈️',name:'Compra general',desc:'100 pts por cada USD 1'},

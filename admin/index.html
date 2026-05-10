@@ -406,6 +406,11 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <input type="text" id="v-destino" placeholder="Ej: Cancún, México">
                                 </div>
                                 <div class="form-group full">
+                                    <label>Nombre del circuito (opcional)</label>
+                                    <input type="text" id="v-circuito" placeholder="Ej: Circuito Sur Patagónico, Europa Clásica...">
+                                    <small style="font-size:.7rem;color:var(--muted)">Se muestra al cliente como subtítulo del viaje</small>
+                                </div>
+                                <div class="form-group full">
                                     <label>URL Imagen del viaje (hero)</label>
                                     <input type="url" id="v-imagen" placeholder="https://images.unsplash.com/... (opcional)">
                                     <small style="font-size:.7rem;color:var(--muted)">Deja vacío para usar imagen por defecto</small>
@@ -638,6 +643,15 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 <label>Puntos (+ o -)</label>
                                 <input type="number" id="f-trans-pts" placeholder="Ej: 50000 o -30000">
                                 <small style="font-size:.7rem;color:var(--muted)">Positivo: suma puntos | Negativo: resta (canje). Base: 1 USD = 100 pts</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de movimiento</label>
+                                <select id="f-trans-tipo" style="padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:.82rem;background:var(--white);color:var(--text)">
+                                    <option value="ganancia">✅ Ganancia (compra, bonus)</option>
+                                    <option value="canje">🎁 Canje de beneficio</option>
+                                    <option value="correccion">⚠️ Corrección por error</option>
+                                    <option value="bonus">🎉 Bonus especial</option>
+                                </select>
                             </div>
                         </div>
                         <button onclick="addFidTransaction()" class="btn-add" style="margin-top:12px">
@@ -922,6 +936,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         function fillViajeForm(v) {
             const f = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
             f('v-destino', v?.destino);
+            f('v-circuito', v?.circuito);
             f('v-imagen', v?.imagen_url);
             f('v-salida',  v?.fecha_salida  ? v.fecha_salida.replace('Z','').substring(0,16) : '');
             f('v-regreso', v?.fecha_regreso ? v.fecha_regreso.replace('Z','').substring(0,16) : '');
@@ -949,6 +964,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             const payload = {
                 cliente_id:   currentClient.id,
                 destino:      document.getElementById('v-destino').value,
+                circuito:     document.getElementById('v-circuito').value || null,
                 imagen_url:   document.getElementById('v-imagen').value || null,
                 fecha_salida: document.getElementById('v-salida').value || null,
                 fecha_regreso:document.getElementById('v-regreso').value || null,
@@ -1185,9 +1201,10 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             const pts = parseInt(document.getElementById('f-trans-pts').value) || 0;
             if (!concepto || pts === 0) { toast('Completá concepto y puntos', 'error'); return; }
 
+            const tipo = document.getElementById('f-trans-tipo').value || (pts > 0 ? 'ganancia' : 'canje');
             const { error } = await _db.from('fidelizacion_trans').insert({
                 cliente_id: currentClient.id, concepto, puntos: pts,
-                tipo: pts > 0 ? 'ganancia' : 'canje',
+                tipo,
                 created_at: new Date().toISOString()
             });
             if (error) { toast('Error: ' + error.message, 'error'); return; }
@@ -1455,6 +1472,23 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         function logout() {
             _db.auth.signOut().then(() => { window.location.href = '/login'; });
         }
+
+        // ===== REALTIME: notificar canjes =====
+        _db.channel('admin-canjes')
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'fidelizacion_trans', filter: 'tipo=eq.canje' }, async (payload) => {
+            const row = payload.new;
+            let clienteName = 'Un cliente';
+            try {
+              const { data: p } = await _db.from('perfiles').select('nombre,email').eq('id', row.cliente_id).single();
+              if (p) clienteName = p.nombre || p.email;
+            } catch(_){}
+            toast(`🎁 ¡${clienteName} canjeó ${Math.abs(row.puntos).toLocaleString('es-AR')} pts! → ${row.concepto}`, 'success');
+            if (Notification.permission === 'granted') {
+              new Notification('Canje de puntos', { body: `${clienteName} canjeó: ${row.concepto}`, icon: '/assets/logo-web.png' });
+            }
+          })
+          .subscribe();
+        if (Notification.permission === 'default') Notification.requestPermission();
 
         // ===== TOAST =====
         function toast(msg, type = 'success') {
