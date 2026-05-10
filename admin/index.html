@@ -1230,13 +1230,36 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             if (!data?.length) { wrap.innerHTML = '<p class="no-data">Sin movimientos recientes</p>'; return; }
             wrap.innerHTML = data.map(t => `
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--light);border-radius:8px;margin-bottom:6px">
-                    <div>
+                    <div style="flex:1;min-width:0">
                         <div style="font-size:.8rem;font-weight:700;color:var(--text)">${escapeHtml(t.concepto)}</div>
-                        <div style="font-size:.65rem;color:var(--muted)">${new Date(t.created_at).toLocaleDateString('es-AR')}</div>
+                        <div style="font-size:.65rem;color:var(--muted)">${new Date(t.created_at).toLocaleDateString('es-AR')} · ${escapeHtml(t.tipo||'')}</div>
                     </div>
-                    <div style="font-size:.9rem;font-weight:800;color:${t.puntos > 0 ? '#16a34a' : '#dc2626'}">${t.puntos > 0 ? '+' : ''}${t.puntos.toLocaleString('es-AR')} pts</div>
+                    <div style="font-size:.9rem;font-weight:800;color:${t.puntos > 0 ? '#16a34a' : '#dc2626'};white-space:nowrap;margin:0 10px">${t.puntos > 0 ? '+' : ''}${t.puntos.toLocaleString('es-AR')} pts</div>
+                    <button onclick="revertFidTransaction('${t.id}',${t.puntos},'${escapeHtml(t.concepto).replace(/'/g,"\\'")}')"
+                      style="background:none;border:1.5px solid #ef4444;color:#ef4444;border-radius:6px;padding:4px 8px;font-size:.65rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:.15s"
+                      onmouseover="this.style.background='#ef4444';this.style.color='#fff'" onmouseout="this.style.background='none';this.style.color='#ef4444'"
+                      title="Revertir este movimiento"><i class="fas fa-undo"></i> Revertir</button>
                 </div>
             `).join('');
+        }
+
+        async function revertFidTransaction(transId, puntos, concepto) {
+            if (!currentClient) return;
+            if (!confirm('¿Revertir movimiento "' + concepto + '" (' + (puntos > 0 ? '+' : '') + puntos.toLocaleString('es-AR') + ' pts)?\n\nEsto elimina el movimiento y ajusta los puntos.')) return;
+
+            // 1. Delete the transaction
+            const { error: e1 } = await _db.from('fidelizacion_trans').delete().eq('id', transId);
+            if (e1) { toast('Error al eliminar: ' + e1.message, 'error'); return; }
+
+            // 2. Reverse the points effect
+            const curAvail = parseInt(document.getElementById('f-puntos').value) || 0;
+            const curHist = parseInt(document.getElementById('f-puntos-hist').value) || 0;
+            document.getElementById('f-puntos').value = Math.max(0, curAvail - puntos);
+            if (puntos > 0) document.getElementById('f-puntos-hist').value = Math.max(0, curHist - puntos);
+            await saveFid({ preventDefault: () => {} });
+
+            toast('Movimiento revertido ✅', 'success');
+            loadFidTransactions();
         }
 
         // ===== PERFIL =====
