@@ -1,27 +1,44 @@
 {
     "name": "Mi Viaje · Herse Turismo",
     "short_name": "Mi Viaje",
-    "description": "Tu portal personal de viaje con Herse Turismo",
+    "description": "Tu portal personal de viaje con Herse Turismo. Dashboard, documentos, itinerario y más.",
+    "id": "/mi-viaje",
     "start_url": "/mi-viaje",
     "scope": "/",
     "display": "standalone",
-    "background_color": "#003366",
-    "theme_color": "#003366",
+    "background_color": "#0f1117",
+    "theme_color": "#1a6cff",
     "orientation": "portrait-primary",
     "lang": "es",
+    "dir": "ltr",
     "icons": [
         {
             "src": "/assets/logo-web.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
         },
         {
             "src": "/assets/logo-web.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         }
     ],
-    "categories": ["travel", "lifestyle"]
+    "shortcuts": [
+        {
+            "name": "Mi Viaje",
+            "short_name": "Viaje",
+            "url": "/mi-viaje#mi-viaje",
+            "icons": [{"src": "/assets/logo-web.png", "sizes": "96x96"}]
+        },
+        {
+            "name": "Club Herse",
+            "short_name": "Club",
+            "url": "/mi-viaje#fidelizacion",
+            "icons": [{"src": "/assets/logo-web.png", "sizes": "96x96"}]
+        }
+    ],
+    "categories": ["travel", "lifestyle"],
+    "prefer_related_applications": false
 }

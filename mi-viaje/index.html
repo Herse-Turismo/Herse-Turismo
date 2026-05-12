@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Mi Viaje · Portal Herse Turismo</title>
 <meta name="description" content="Tu portal exclusivo de viajes Herse Turismo.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#1a2035">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1a1d27" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="Mi Viaje · Portal Herse Turismo">
 <meta property="og:image" content="https://herseturismo.com.ar/assets/og-cover.png">
 <meta property="og:site_name" content="Herse Turismo">
@@ -1661,6 +1661,46 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 /* Dark mode toggle */
 .dm-toggle{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--bd);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:.82rem;color:var(--tx2);cursor:pointer;transition:.15s}
 .dm-toggle:hover{border-color:var(--ac);color:var(--ac)}
+/* Install app button */
+.install-btn{display:none;align-items:center;gap:6px;padding:6px 13px;border-radius:99px;border:1.5px solid var(--ac);background:var(--ac);color:#fff;font-size:.7rem;font-weight:700;cursor:pointer;transition:.18s;font-family:inherit;white-space:nowrap}
+.install-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.install-btn i{font-size:.72rem}
+.install-btn.show{display:inline-flex}
+@media(max-width:480px){.install-btn span{display:none}.install-btn{padding:6px 10px;border-radius:50%;width:34px;height:34px;justify-content:center}.install-btn i{margin:0}}
+/* PWA standalone — hide install button and adjust for no browser chrome */
+@media(display-mode:standalone){.install-btn{display:none!important}}
+/* Bottom nav mobile */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--card);border-top:1px solid var(--bd);padding:4px 0 env(safe-area-inset-bottom,4px);box-shadow:0 -4px 24px rgba(0,0,0,.06)}
+.bottom-nav-inner{display:flex;justify-content:space-around;align-items:center;max-width:440px;margin:0 auto;padding:0 8px}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 12px;border:none;background:none;color:var(--tx3);font-size:.5rem;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit;min-width:52px;border-radius:12px;position:relative;-webkit-tap-highlight-color:transparent}
+.bnav-item i{font-size:1.1rem;transition:.2s}
+.bnav-item.active{color:var(--ac)}
+.bnav-item.active i{transform:scale(1.12)}
+.bnav-item.active::before{content:'';position:absolute;top:2px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--ac);border-radius:99px}
+.bnav-item:active{transform:scale(.92);opacity:.7}
+@media(max-width:767px){
+  .bottom-nav{display:block}
+  .view-wrap{padding-bottom:72px}
+  .hamburger{display:none!important}
+  /* Mobile compact header */
+  .hdr-ico{display:none}
+  .hdr-ttl p{display:none}
+  .hdr-ttl h1{font-size:.92rem}
+  .top-hdr{height:52px;padding:0 14px}
+  /* Scroll to top on view change */
+  .view-wrap{scroll-behavior:smooth}
+  /* Bigger touch targets */
+  .snap-c{padding:14px 12px;min-height:78px}
+  .tli{padding:12px}
+  .mj-act{padding:12px}
+}
+[data-theme="dark"] .bottom-nav{background:var(--card);border-color:var(--bd);box-shadow:0 -4px 24px rgba(0,0,0,.4)}
+/* PWA standalone polish */
+@media(display-mode:standalone){
+  .top-hdr{padding-top:env(safe-area-inset-top,0)}
+  .bottom-nav{padding-bottom:max(env(safe-area-inset-bottom,4px),4px)}
+  body{overscroll-behavior-y:contain;-webkit-user-select:none;user-select:text}
+}
 </style>
 </head>
 <body>
@@ -1726,6 +1766,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       <div class="hdr-ttl"><h1 id="hdrTitle">Mi Viaje</h1><p id="hdrSub">Tu mundo, tus viajes, tu historia.</p></div>
     </div>
     <div class="hdr-r">
+      <button class="install-btn" id="installBtn" onclick="installPWA()" title="Instalar app"><i class="fas fa-download"></i><span>Instalar app</span></button>
       <button class="dm-toggle" id="dmToggle" onclick="toggleDarkMode()" title="Modo oscuro"><i class="fas fa-moon"></i></button>
       <button class="av-btn" onclick="showView('perfil')">
         <div class="av-circle" id="avatarInitial">?</div>
@@ -2049,6 +2090,26 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   </div>
 
   </div><!-- end view-wrap -->
+  <!-- BOTTOM NAV MOBILE -->
+  <nav class="bottom-nav" id="bottomNav">
+   <div class="bottom-nav-inner">
+    <button class="bnav-item active" data-view="mi-viaje" onclick="showView('mi-viaje')">
+     <i class="fas fa-plane"></i><span>Mi Viaje</span>
+    </button>
+    <button class="bnav-item" data-view="mis-viajes" onclick="showView('mis-viajes')">
+     <i class="fas fa-clock-rotate-left"></i><span>Historial</span>
+    </button>
+    <button class="bnav-item" data-view="fidelizacion" onclick="showView('fidelizacion')">
+     <i class="fas fa-crown"></i><span>Club</span>
+    </button>
+    <button class="bnav-item" data-view="misiones" onclick="showView('fidelizacion');setTimeout(()=>{if(typeof switchFidTab==='function')switchFidTab('misiones');},200)">
+     <i class="fas fa-bullseye"></i><span>Misiones</span>
+    </button>
+    <button class="bnav-item" data-view="perfil" onclick="showView('perfil')">
+     <i class="fas fa-user"></i><span>Perfil</span>
+    </button>
+   </div>
+  </nav>
  </div><!-- end main -->
 </div><!-- end app -->
 
@@ -2099,12 +2160,56 @@ function toggleDarkMode(){
   else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('herse_theme','dark');}
   const btn=document.getElementById('dmToggle');
   if(btn)btn.innerHTML=isDark?'<i class="fas fa-moon"></i>':'<i class="fas fa-sun"></i>';
+  document.querySelectorAll('meta[name=theme-color]').forEach(m=>m.content=isDark?'#ffffff':'#1a1d27');
 }
 document.addEventListener('DOMContentLoaded',()=>{
   const isDark=document.documentElement.getAttribute('data-theme')==='dark';
   const btn=document.getElementById('dmToggle');
   if(btn)btn.innerHTML=isDark?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';
 });
+
+/* ===== PWA INSTALL ===== */
+let _deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();
+  _deferredPrompt=e;
+  const btn=document.getElementById('installBtn');
+  if(btn)btn.classList.add('show');
+});
+function installPWA(){
+  if(_deferredPrompt){
+    _deferredPrompt.prompt();
+    _deferredPrompt.userChoice.then(r=>{
+      if(r.outcome==='accepted'){const b=document.getElementById('installBtn');if(b)b.classList.remove('show');}
+      _deferredPrompt=null;
+    });
+  } else {
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+    if(isIOS){
+      showInstallIOSHint();
+    } else {
+      const b=document.getElementById('installBtn');if(b)b.classList.remove('show');
+    }
+  }
+}
+window.addEventListener('appinstalled',()=>{
+  const b=document.getElementById('installBtn');if(b)b.classList.remove('show');
+  _deferredPrompt=null;
+});
+function showInstallIOSHint(){
+  const d=document.createElement('div');
+  d.id='iosInstallHint';
+  d.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:18px 22px;box-shadow:0 12px 48px rgba(0,0,0,.18);max-width:320px;width:calc(100% - 40px);text-align:center;animation:fadeUp .3s ease both';
+  d.innerHTML='<div style="font-size:1.2rem;margin-bottom:8px">📱</div><div style="font-size:.82rem;font-weight:800;color:var(--tx);margin-bottom:6px">Instalá Mi Viaje</div><div style="font-size:.72rem;color:var(--tx2);line-height:1.6;margin-bottom:12px">Tocá <i class="fas fa-arrow-up-from-bracket" style="color:var(--ac)"></i> <strong>Compartir</strong> y luego <strong>"Agregar a pantalla de inicio"</strong></div><button onclick="this.parentElement.remove()" style="padding:8px 20px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit">Entendido</button>';
+  document.body.appendChild(d);
+  setTimeout(()=>{if(d.parentElement)d.remove();},12000);
+}
+(function(){
+  const isStandalone=window.matchMedia('(display-mode:standalone)').matches||window.navigator.standalone;
+  if(isStandalone)return;
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+  if(isIOS){const b=document.getElementById('installBtn');if(b)b.classList.add('show');}
+})();
 
 const SUPA_URL='https://yuukqdcjitxhaeevjxjb.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
@@ -2143,6 +2248,7 @@ function showView(id){
   }
   const n=document.getElementById('nav-'+id);
   if(n) n.classList.add('active');
+  document.querySelectorAll('.bnav-item').forEach(b=>{b.classList.toggle('active',b.dataset.view===id);});
   const m=VIEW_META[id]||{};
   const ico=document.getElementById('hdrIcon');
   const ttl=document.getElementById('hdrTitle');
@@ -2153,6 +2259,7 @@ function showView(id){
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
   if(id==='perfil') renderPerfil();
+  const vw=document.querySelector('.view-wrap');if(vw)vw.scrollTo({top:0,behavior:'instant'});
 }
 function toggleItinerario(){
   const s=document.getElementById('itinerarioSection');
