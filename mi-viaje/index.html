@@ -255,6 +255,10 @@ img{display:block}
 .lg-desc{font-size:.58rem;color:var(--tx2);line-height:1.3}
 /* fidelizacion */
 .fid-layout{display:grid;grid-template-columns:1fr 286px;gap:18px;align-items:start}
+.fid-tab-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px !important;font-size:.74rem !important;border-radius:99px 99px 0 0;white-space:nowrap}
+.fid-tab-btn i{font-size:.72rem}
+.fid-tab-pane{animation:fadeInTab .25s ease}
+@keyframes fadeInTab{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .pts-hero{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:22px 26px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .pts-l{flex:1}
 .pts-lbl{font-size:.7rem;font-weight:600;color:var(--tx2);margin-bottom:7px}
@@ -2530,61 +2534,108 @@ async function renderFidelizacion(){
   }).join('');
   // Stats
   const viajes=_allTrips.filter(t=>!t.activo).length;
+  // Full activity (all movements, not just 8)
+  const actFullHtml=_loyaltyData.movements.length?_loyaltyData.movements.map(m=>{
+    const isEarn=m.puntos>0;
+    const ico=m.tipo==='canje'?'fa-gift':m.concepto?.toLowerCase().includes('reseña')?'fa-star':m.concepto?.toLowerCase().includes('referido')?'fa-users':'fa-plane';
+    const d=new Date(m.created_at);
+    const dateStr=d.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'});
+    return `<div class="act-i"><div class="act-ico" style="background:${isEarn?'#dcfce7':'#fee2e2'};color:${isEarn?'#16a34a':'#dc2626'}"><i class="fas ${ico}"></i></div><div><div class="act-name">${m.concepto||'Movimiento'}</div><div class="act-date">${dateStr}</div></div><span class="act-pts" style="color:${isEarn?'#16a34a':'#dc2626'}">${isEarn?'+':''}${fmtPts(m.puntos)} pts</span></div>`;
+  }).join(''):'<div style="text-align:center;padding:30px;opacity:.4;font-size:.78rem">No tenés movimientos todavía</div>';
+
+  const ptsHeroHtml=`
+    <div class="pts-hero">
+     <div class="pts-l">
+      <div class="pts-lbl">Tus puntos disponibles</div>
+      <div class="pts-row"><span style="font-size:1.7rem">👑</span><span class="pts-num">${fmtPts(avail)}</span><span class="pts-unit">puntos</span></div>
+      <div class="pts-sub"><i class="fas fa-chart-line"></i> Puntos acumulados: <strong>${fmtPts(lifetime)}</strong></div>
+      <hr class="hr fid-sep">
+      <div class="prox-row">
+       <div class="prox-txt">Estás a <strong>${nextBenefit?fmtPts(nextBenRemaining):'0'}</strong> puntos de tu próximo beneficio</div>
+       <div class="prox-b"><i class="fas fa-gift" style="color:var(--ac3)"></i> <span>${nextBenefit?nextBenefit.name:'¡Todos desbloqueados!'}</span></div>
+      </div>
+      <div class="fpbar"><div class="fpfill" id="clubProgBar" style="width:0%"></div></div>
+      <div class="fp-lbls"><span>${fmtPts(avail)}</span><span style="color:var(--ac3)">${nextBenefit?fmtPts(nextBenefit.cost)+' pts':'Máximo'}</span></div>
+     </div>
+    </div>`;
+
+  const sidebarHtml=`
+    <div style="display:flex;flex-direction:column;gap:12px">
+     <div class="sb-card">
+      <div class="niv-hdr"><div class="sb-card-ttl" style="margin-bottom:0">Tu nivel actual</div><span class="niv-ver">x${prog.current.multiplier} multiplicador</span></div>
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
+       <div class="niv-badge">${prog.current.emoji}</div>
+       <div><div class="niv-name">${prog.current.name}</div><div class="niv-sub">${prog.next?'Faltan '+fmtPts(prog.remaining)+' pts para '+prog.next.name:'¡Nivel máximo!'}</div></div>
+      </div>
+      <div class="sb-card-ttl">Progreso al siguiente nivel</div>
+      <div class="fid-bar-wrap"><div class="fid-bar-fill" id="clubLevelBar" style="width:0%"></div></div>
+      <div class="fid-bar-info"><span>${fmtPts(lifetime)} pts</span><span>${prog.next?fmtPts(prog.next.min)+' pts':'¡Máximo!'}</span></div>
+      <div class="sb-card-ttl" style="margin-top:14px">Todos los niveles</div>
+      <div class="niv-list">${levelsHtml}</div>
+     </div>
+     <div class="sb-card">
+      <div class="sb-card-ttl">Tus estadísticas</div>
+      <div class="fst-grid">
+       <div class="fst-i"><div class="fst-v">${fmtPts(lifetime)}</div><div class="fst-l">Pts acumulados</div></div>
+       <div class="fst-i"><div class="fst-v">${viajes}</div><div class="fst-l">Viajes realizados</div></div>
+       <div class="fst-i"><div class="fst-v">${prog.current.name}</div><div class="fst-l">Nivel actual</div></div>
+       <div class="fst-i"><div class="fst-v">x${prog.current.multiplier}</div><div class="fst-l">Multiplicador</div></div>
+      </div>
+     </div>
+    </div>`;
+
   wrap.innerHTML=`
+    <div class="tabs-bar" style="margin-bottom:16px">
+      <button class="tab-btn fid-tab-btn active" data-fid-tab="resumen" onclick="switchFidTab('resumen')"><i class="fas fa-chart-pie"></i> Resumen</button>
+      <button class="tab-btn fid-tab-btn" data-fid-tab="ganar" onclick="switchFidTab('ganar')"><i class="fas fa-plus-circle"></i> Cómo sumás</button>
+      <button class="tab-btn fid-tab-btn" data-fid-tab="canjear" onclick="switchFidTab('canjear')"><i class="fas fa-gift"></i> Canjeá</button>
+      <button class="tab-btn fid-tab-btn" data-fid-tab="historial" onclick="switchFidTab('historial')"><i class="fas fa-history"></i> Historial</button>
+    </div>
     <div class="fid-layout">
      <div>
-      <div class="pts-hero">
-       <div class="pts-l">
-        <div class="pts-lbl">Tus puntos disponibles</div>
-        <div class="pts-row"><span style="font-size:1.7rem">👑</span><span class="pts-num">${fmtPts(avail)}</span><span class="pts-unit">puntos</span></div>
-        <div class="pts-sub"><i class="fas fa-chart-line"></i> Puntos acumulados: <strong>${fmtPts(lifetime)}</strong></div>
-        <hr class="hr fid-sep">
-        <div class="prox-row">
-         <div class="prox-txt">Estás a <strong>${nextBenefit?fmtPts(nextBenRemaining):'0'}</strong> puntos de tu próximo beneficio</div>
-         <div class="prox-b"><i class="fas fa-gift" style="color:var(--ac3)"></i> <span>${nextBenefit?nextBenefit.name:'¡Todos desbloqueados!'}</span></div>
-        </div>
-        <div class="fpbar"><div class="fpfill" id="clubProgBar" style="width:0%"></div></div>
-        <div class="fp-lbls"><span>${fmtPts(avail)}</span><span style="color:var(--ac3)">${nextBenefit?fmtPts(nextBenefit.cost)+' pts':'Máximo'}</span></div>
-       </div>
+      <div class="fid-tab-pane" id="fid-pane-resumen">
+        ${ptsHeroHtml}
+        <div class="tip-bar" style="margin-top:16px"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>Tip Club Herse</strong><br>Cada USD 1 que gastás = 100 puntos. Reservá paquetes completos para obtener bonuses de +25.000 pts. Tu multiplicador actual es <strong>x${prog.current.multiplier}</strong>.</div></div>
+        <div class="sec-ttl" style="margin-bottom:10px;margin-top:20px">Actividad reciente</div>
+        <div class="card" style="padding:14px"><div class="act-list">${actHtml}</div>${_loyaltyData.movements.length>8?`<button onclick="switchFidTab('historial')" style="width:100%;margin-top:10px;background:none;border:1px solid var(--bd);border-radius:8px;padding:8px;font-size:.72rem;font-weight:700;color:var(--ac);cursor:pointer">Ver historial completo <i class="fas fa-chevron-right"></i></button>`:''}</div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div class="sec-ttl" style="margin-bottom:0">Cómo sumás puntos</div><a href="/puntos/" target="_blank" style="font-size:.72rem;color:var(--ac);font-weight:700;display:flex;align-items:center;gap:5px;opacity:.8;text-decoration:none" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.8"><i class="fas fa-info-circle"></i> Ver guía completa</a></div>
-      <div class="como-grid">${earnHtml}</div>
-      <div class="sec-ttl" style="margin-bottom:10px;margin-top:20px">Beneficios canjeables</div>
-      <div class="benef-grid">${benHtml}</div>
-      <div class="tip-bar" style="margin-top:16px"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>Tip Club Herse</strong><br>Cada USD 1 que gastás = 100 puntos. Reservá paquetes completos para obtener bonuses de +25.000 pts. Tu multiplicador actual es <strong>x${prog.current.multiplier}</strong>.</div></div>
-     </div>
-     <div style="display:flex;flex-direction:column;gap:12px">
-      <div class="sb-card">
-       <div class="niv-hdr"><div class="sb-card-ttl" style="margin-bottom:0">Tu nivel actual</div><span class="niv-ver">x${prog.current.multiplier} multiplicador</span></div>
-       <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px">
-        <div class="niv-badge">${prog.current.emoji}</div>
-        <div><div class="niv-name">${prog.current.name}</div><div class="niv-sub">${prog.next?'Faltan '+fmtPts(prog.remaining)+' pts para '+prog.next.name:'¡Nivel máximo!'}</div></div>
-       </div>
-       <div class="sb-card-ttl">Progreso al siguiente nivel</div>
-       <div class="fid-bar-wrap"><div class="fid-bar-fill" id="clubLevelBar" style="width:0%"></div></div>
-       <div class="fid-bar-info"><span>${fmtPts(lifetime)} pts</span><span>${prog.next?fmtPts(prog.next.min)+' pts':'¡Máximo!'}</span></div>
-       <div class="sb-card-ttl" style="margin-top:14px">Todos los niveles</div>
-       <div class="niv-list">${levelsHtml}</div>
+      <div class="fid-tab-pane" id="fid-pane-ganar" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div class="sec-ttl" style="margin-bottom:0">Cómo sumás puntos</div><a href="/puntos/" target="_blank" style="font-size:.72rem;color:var(--ac);font-weight:700;display:flex;align-items:center;gap:5px;opacity:.8;text-decoration:none" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.8"><i class="fas fa-info-circle"></i> Ver guía completa</a></div>
+        <div class="como-grid">${earnHtml}</div>
+        <div class="tip-bar" style="margin-top:16px"><i class="fas fa-lightbulb"></i><div class="tip-bar-t"><strong>¿Sabías?</strong><br>Los puntos no caducan y tu nivel nunca baja. Mientras más viajes con Herse, más beneficios desbloqueás.</div></div>
       </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Actividad reciente</div>
-       <div class="act-list">${actHtml}</div>
+      <div class="fid-tab-pane" id="fid-pane-canjear" style="display:none">
+        <div class="sec-ttl" style="margin-bottom:12px">Beneficios canjeables</div>
+        <div class="benef-grid">${benHtml}</div>
+        <div class="tip-bar" style="margin-top:16px"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>Importante</strong><br>Los canjes se procesan dentro de las 48 hs hábiles. Para aplicar un beneficio a un viaje en curso, canjealo con al menos 72 hs de anticipación.</div></div>
       </div>
-      <div class="sb-card">
-       <div class="sb-card-ttl">Tus estadísticas</div>
-       <div class="fst-grid">
-        <div class="fst-i"><div class="fst-v">${fmtPts(lifetime)}</div><div class="fst-l">Pts acumulados</div></div>
-        <div class="fst-i"><div class="fst-v">${viajes}</div><div class="fst-l">Viajes realizados</div></div>
-        <div class="fst-i"><div class="fst-v">${prog.current.name}</div><div class="fst-l">Nivel actual</div></div>
-        <div class="fst-i"><div class="fst-v">x${prog.current.multiplier}</div><div class="fst-l">Multiplicador</div></div>
-       </div>
+      <div class="fid-tab-pane" id="fid-pane-historial" style="display:none">
+        <div class="sec-ttl" style="margin-bottom:12px">Historial completo de movimientos</div>
+        <div class="card" style="padding:14px"><div class="act-list">${actFullHtml}</div></div>
       </div>
      </div>
+     ${sidebarHtml}
     </div>`;
   setTimeout(()=>{
     const pb=document.getElementById('clubProgBar');if(pb)pb.style.width=nextBenPct+'%';
     const lb=document.getElementById('clubLevelBar');if(lb)lb.style.width=prog.pct+'%';
   },200);
+}
+function switchFidTab(tab){
+  document.querySelectorAll('.fid-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.fidTab===tab));
+  document.querySelectorAll('.fid-tab-pane').forEach(p=>p.style.display=p.id==='fid-pane-'+tab?'':'none');
+  // Re-trigger progress bars if returning to resumen
+  if(tab==='resumen'){
+    setTimeout(()=>{
+      const pb=document.getElementById('clubProgBar');
+      const lb=document.getElementById('clubLevelBar');
+      if(pb){const w=pb.style.width;pb.style.width='0';setTimeout(()=>pb.style.width=w,50);}
+      if(lb){const w=lb.style.width;lb.style.width='0';setTimeout(()=>lb.style.width=w,50);}
+    },50);
+  }
+  // Scroll to top of content
+  const wrap=document.getElementById('clubHerseContent');
+  if(wrap)wrap.scrollIntoView({behavior:'smooth',block:'start'});
 }
 async function canjearBeneficio(benefitId){
   const b=LOYALTY_CONFIG.benefits.find(x=>x.id===benefitId);
