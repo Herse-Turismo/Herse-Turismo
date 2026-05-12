@@ -1844,34 +1844,23 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE VIRTUAL -->
   <div class="view" id="view-pasaporte-virtual">
-   <div style="min-height:calc(100vh - var(--hh));background:linear-gradient(135deg,#f8fafc 0%,#eff6ff 60%,#dbeafe 100%);padding:28px 20px">
-    <div style="max-width:680px;margin:0 auto">
-     <!-- Header pasaporte -->
-     <div style="text-align:center;margin-bottom:28px">
-      <div style="width:72px;height:72px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(135deg,#003B7A,#004A8F);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,59,122,.2)">
-       <i class="fas fa-passport" style="font-size:1.8rem;color:#fff"></i>
+   <div style="position:relative;min-height:calc(100vh - var(--hh));background:linear-gradient(135deg,#f8fafc 0%,#eff6ff 60%,#dbeafe 100%);overflow:hidden">
+    <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));padding:40px 20px">
+     <div style="text-align:center;max-width:520px;background:#fff;border:1px solid var(--bd);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.08)">
+      <div style="width:110px;height:110px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(0,59,122,.12),rgba(0,59,122,.22));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,59,122,.15);border:2px solid rgba(0,59,122,.1)">
+       <i class="fas fa-passport" style="font-size:2.8rem;color:#003B7A;filter:drop-shadow(0 2px 6px rgba(0,59,122,.25))"></i>
       </div>
-      <h2 style="font-size:1.3rem;font-weight:900;color:#0F172A;margin-bottom:4px">Mi Pasaporte Virtual</h2>
-      <p style="font-size:.74rem;color:#64748b">Coleccioná sellos de cada destino que visites con Herse</p>
-     </div>
-     <!-- Stats -->
-     <div id="pvStats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
-      <div style="background:#fff;border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-       <div style="font-size:1.3rem;font-weight:900;color:#004A8F" id="pvUnlocked">0</div>
-       <div style="font-size:.6rem;color:#64748b;font-weight:700">Desbloqueados</div>
+      <h2 style="font-size:1.7rem;font-weight:900;color:#0F172A;margin-bottom:8px;line-height:1.2;letter-spacing:-.02em">Pasaporte Virtual</h2>
+      <p style="font-size:.85rem;color:#475569;line-height:1.65;margin-bottom:28px">Tu pasaporte digital de viajes está en camino.<br>Pronto vas a poder coleccionar sellos de cada destino que visites con Herse.</p>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.18)">
+       <i class="fas fa-clock" style="color:#D97706;font-size:1.1rem"></i>
+       <span style="font-size:.88rem;font-weight:800;color:#92400E">Próximamente</span>
       </div>
-      <div style="background:#fff;border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-       <div style="font-size:1.3rem;font-weight:900;color:#d97706" id="pvLocked">0</div>
-       <div style="font-size:.6rem;color:#64748b;font-weight:700">Por descubrir</div>
+      <div style="margin-top:36px;display:flex;justify-content:center;gap:32px">
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(240,253,244,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(22,163,74,.12)"><i class="fas fa-globe" style="color:#16A34A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">46 países</div><div style="font-size:.58rem;color:#64748B">disponibles</div></div>
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(239,246,255,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(0,59,122,.1)"><i class="fas fa-stamp" style="color:#003B7A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Sellos únicos</div><div style="font-size:.58rem;color:#64748B">por destino</div></div>
+       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(254,243,199,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(217,119,6,.12)"><i class="fas fa-trophy" style="color:#D97706;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Logros</div><div style="font-size:.58rem;color:#64748B">y beneficios</div></div>
       </div>
-      <div style="background:#fff;border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.05)">
-       <div style="font-size:1.3rem;font-weight:900;color:#16a34a" id="pvPct">0%</div>
-       <div style="font-size:.6rem;color:#64748b;font-weight:700">Completado</div>
-      </div>
-     </div>
-     <!-- Grid de sellos -->
-     <div id="pvGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px">
-      <div style="text-align:center;padding:40px;color:#94a3b8"><i class="fas fa-spinner fa-spin"></i></div>
      </div>
     </div>
    </div>
@@ -1987,7 +1976,6 @@ function showView(id){
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
   if(id==='perfil') renderPerfil();
-  if(id==='pasaporte-virtual') loadPassportVirtual();
 }
 function toggleItinerario(){
   const s=document.getElementById('itinerarioSection');
@@ -2173,76 +2161,6 @@ async function shareTwDoc(nombre,url){
     await navigator.clipboard.writeText(url);
     toast('Link copiado al portapapeles','success');
   }
-}
-
-/* ===== PASAPORTE VIRTUAL ===== */
-const PV_ALL_COUNTRIES=[
-  {code:'arg',name:'Argentina',flag:'🇦🇷',region:'Sudamérica'},
-  {code:'bra',name:'Brasil',flag:'🇧🇷',region:'Sudamérica'},
-  {code:'uru',name:'Uruguay',flag:'🇺🇾',region:'Sudamérica'},
-  {code:'chi',name:'Chile',flag:'🇨🇱',region:'Sudamérica'},
-  {code:'col',name:'Colombia',flag:'🇨🇴',region:'Sudamérica'},
-  {code:'per',name:'Perú',flag:'🇵🇪',region:'Sudamérica'},
-  {code:'mex',name:'México',flag:'🇲🇽',region:'Centroamérica'},
-  {code:'cub',name:'Cuba',flag:'🇨🇺',region:'Centroamérica'},
-  {code:'dom',name:'R. Dominicana',flag:'🇩🇴',region:'Centroamérica'},
-  {code:'usa',name:'Estados Unidos',flag:'🇺🇸',region:'Norteamérica'},
-  {code:'can',name:'Canadá',flag:'🇨🇦',region:'Norteamérica'},
-  {code:'esp',name:'España',flag:'🇪🇸',region:'Europa'},
-  {code:'ita',name:'Italia',flag:'🇮🇹',region:'Europa'},
-  {code:'fra',name:'Francia',flag:'🇫🇷',region:'Europa'},
-  {code:'deu',name:'Alemania',flag:'🇩🇪',region:'Europa'},
-  {code:'gbr',name:'Reino Unido',flag:'🇬🇧',region:'Europa'},
-  {code:'prt',name:'Portugal',flag:'🇵🇹',region:'Europa'},
-  {code:'nld',name:'Países Bajos',flag:'🇳🇱',region:'Europa'},
-  {code:'grc',name:'Grecia',flag:'🇬🇷',region:'Europa'},
-  {code:'tur',name:'Turquía',flag:'🇹🇷',region:'Europa'},
-  {code:'hrv',name:'Croacia',flag:'🇭🇷',region:'Europa'},
-  {code:'che',name:'Suiza',flag:'🇨🇭',region:'Europa'},
-  {code:'jpn',name:'Japón',flag:'🇯🇵',region:'Asia'},
-  {code:'tha',name:'Tailandia',flag:'🇹🇭',region:'Asia'},
-  {code:'idn',name:'Indonesia',flag:'🇮🇩',region:'Asia'},
-  {code:'ind',name:'India',flag:'🇮🇳',region:'Asia'},
-  {code:'are',name:'Emiratos Árabes',flag:'🇦🇪',region:'Asia'},
-  {code:'egy',name:'Egipto',flag:'🇪🇬',region:'África'},
-  {code:'zaf',name:'Sudáfrica',flag:'🇿🇦',region:'África'},
-  {code:'mar',name:'Marruecos',flag:'🇲🇦',region:'África'},
-  {code:'aus',name:'Australia',flag:'🇦🇺',region:'Oceanía'},
-  {code:'nzl',name:'Nueva Zelanda',flag:'🇳🇿',region:'Oceanía'},
-];
-let _pvLoaded=false;
-async function loadPassportVirtual(){
-  if(_pvLoaded)return;
-  const grid=document.getElementById('pvGrid');if(!grid)return;
-  const uid=_passportUserId;if(!uid)return;
-  const {data:stamps}=await _db.from('passport_stamps').select('country_code,country_name,visited_at').eq('user_id',uid);
-  const visitedCodes=new Set((stamps||[]).map(s=>s.country_code.toLowerCase()));
-  const unlocked=visitedCodes.size;
-  const total=PV_ALL_COUNTRIES.length;
-  const locked=total-unlocked;
-  const pct=Math.round((unlocked/total)*100);
-  const pu=document.getElementById('pvUnlocked');if(pu)pu.textContent=unlocked;
-  const pl=document.getElementById('pvLocked');if(pl)pl.textContent=locked;
-  const pp=document.getElementById('pvPct');if(pp)pp.textContent=pct+'%';
-  const visited=PV_ALL_COUNTRIES.filter(c=>visitedCodes.has(c.code));
-  const notVisited=PV_ALL_COUNTRIES.filter(c=>!visitedCodes.has(c.code));
-  grid.innerHTML=[...visited.map(c=>{
-    const stamp=stamps.find(s=>s.country_code.toLowerCase()===c.code);
-    const dateStr=stamp?.visited_at?new Date(stamp.visited_at).toLocaleDateString('es-AR',{month:'short',year:'numeric'}):'';
-    return `<div style="background:#fff;border:2px solid #bbf7d0;border-radius:16px;padding:16px 12px;text-align:center;position:relative;box-shadow:0 4px 16px rgba(22,163,74,.08);transition:.2s">
-      <div style="position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:#22c55e;display:flex;align-items:center;justify-content:center"><i class="fas fa-check" style="font-size:.5rem;color:#fff"></i></div>
-      <div style="font-size:2.2rem;margin-bottom:6px">${c.flag}</div>
-      <div style="font-size:.72rem;font-weight:800;color:#0f172a">${c.name}</div>
-      <div style="font-size:.55rem;color:#64748b;margin-top:2px">${c.region}</div>
-      ${dateStr?`<div style="font-size:.5rem;color:#16a34a;font-weight:700;margin-top:4px"><i class="fas fa-stamp"></i> ${dateStr}</div>`:''}
-    </div>`;
-  }),...notVisited.map(c=>`<div style="background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:16px;padding:16px 12px;text-align:center;opacity:.55;transition:.2s;cursor:default" title="Viajá a ${c.name} para desbloquear este sello">
-      <div style="font-size:2.2rem;margin-bottom:6px;filter:grayscale(1) opacity(.4)">${c.flag}</div>
-      <div style="font-size:.72rem;font-weight:800;color:#94a3b8">${c.name}</div>
-      <div style="font-size:.55rem;color:#cbd5e1;margin-top:2px">${c.region}</div>
-      <div style="font-size:.5rem;color:#cbd5e1;margin-top:4px"><i class="fas fa-lock"></i> Bloqueado</div>
-    </div>`)].join('');
-  _pvLoaded=true;
 }
 
 let _userMeta={nombre:'',apellido:'',nacionalidad:'',fecha_nacimiento:'',avatar_url:'',created_at:''};
