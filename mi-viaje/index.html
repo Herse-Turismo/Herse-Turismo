@@ -282,6 +282,34 @@ img{display:block}
 .ck-add button{padding:8px 14px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:.72rem;font-weight:700;cursor:pointer}
 .ck-del{margin-left:auto;background:none;border:none;color:#d1d9e6;cursor:pointer;font-size:.7rem;padding:2px 6px;border-radius:6px;transition:.2s}
 .ck-del:hover{color:var(--danger,#ef4444);background:#fef2f2}
+/* travel wallet */
+.tw-wrap{margin-top:16px}
+.tw-card{background:var(--bg);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.tw-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;border-bottom:1px solid #edf2f7}
+.tw-hdr-ttl{font-size:.82rem;font-weight:800;display:flex;align-items:center;gap:8px;color:var(--tx)}
+.tw-hdr-ttl i{color:var(--ac)}
+.tw-count{font-size:.65rem;font-weight:700;color:var(--ac);background:var(--ac)15;padding:3px 10px;border-radius:99px}
+.tw-body{padding:6px 14px 14px}
+.tw-doc{display:flex;align-items:center;gap:12px;padding:12px;margin-top:8px;background:var(--card);border:1.5px solid var(--bd);border-radius:12px;transition:.18s;position:relative}
+.tw-doc:hover{border-color:var(--ac);box-shadow:0 4px 16px rgba(0,74,143,.06);transform:translateY(-1px)}
+.tw-doc-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.tw-doc-ico.pasaje{background:#dbeafe;color:#2563eb}
+.tw-doc-ico.hotel{background:#dcfce7;color:#16a34a}
+.tw-doc-ico.seguro{background:#fef3c7;color:#d97706}
+.tw-doc-ico.transfer{background:#ede9fe;color:#7c3aed}
+.tw-doc-ico.voucher{background:#fce7f3;color:#db2777}
+.tw-doc-ico.otro{background:#f1f5f9;color:#64748b}
+.tw-doc-info{flex:1;min-width:0}
+.tw-doc-name{font-size:.76rem;font-weight:700;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tw-doc-meta{font-size:.6rem;color:var(--tx2);display:flex;align-items:center;gap:6px;margin-top:2px}
+.tw-doc-badge{font-size:.55rem;font-weight:800;padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.3px}
+.tw-doc-badge.listo{background:#dcfce7;color:#16a34a}
+.tw-doc-badge.proceso{background:#fef3c7;color:#d97706}
+.tw-doc-acts{display:flex;gap:4px;flex-shrink:0}
+.tw-doc-act{width:30px;height:30px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.65rem;color:var(--tx2);cursor:pointer;transition:.15s}
+.tw-doc-act:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tw-empty{text-align:center;padding:28px 18px;color:var(--tx2);font-size:.73rem}
+.tw-empty i{font-size:1.4rem;display:block;margin-bottom:8px;opacity:.3}
 /* misiones */
 .mi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .mi-card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;transition:.2s;position:relative;overflow:hidden}
@@ -2042,6 +2070,67 @@ async function deleteCkItem(id,viajeId){
   renderChecklist(viajeId);
 }
 
+/* ===== TRAVEL WALLET ===== */
+const TW_TYPE_MAP={
+  'Pasaje':{ico:'fa-plane-departure',cls:'pasaje'},
+  'Hotel':{ico:'fa-hotel',cls:'hotel'},
+  'Seguro':{ico:'fa-shield-alt',cls:'seguro'},
+  'Transfer':{ico:'fa-car',cls:'transfer'},
+  'Voucher':{ico:'fa-ticket-alt',cls:'voucher'},
+  'Otro':{ico:'fa-file-alt',cls:'otro'}
+};
+function renderTravelWallet(docs){
+  const wrap=document.getElementById('travelWalletWrap');if(!wrap)return;
+  if(!docs||docs.length===0){
+    wrap.innerHTML=`<div class="tw-card">
+      <div class="tw-hdr"><div class="tw-hdr-ttl"><i class="fas fa-wallet"></i> Travel Wallet</div></div>
+      <div class="tw-empty"><i class="fas fa-folder-open"></i>Tu agente todavía no subió documentos.<br>Cuando estén listos, los vas a ver acá.</div>
+    </div>`;
+    return;
+  }
+  const listos=docs.filter(d=>d.estado==='listo').length;
+  wrap.innerHTML=`<div class="tw-card">
+    <div class="tw-hdr">
+      <div class="tw-hdr-ttl"><i class="fas fa-wallet"></i> Travel Wallet</div>
+      <div class="tw-count">${listos}/${docs.length} listos</div>
+    </div>
+    <div class="tw-body">
+      ${docs.map(d=>{
+        const t=TW_TYPE_MAP[d.tipo]||TW_TYPE_MAP['Otro'];
+        const hasUrl=!!d.url;
+        const badgeCls=d.estado==='listo'?'listo':'proceso';
+        const badgeTxt=d.estado==='listo'?'Listo':'En proceso';
+        const fecha=d.created_at?new Date(d.created_at).toLocaleDateString('es-AR',{day:'numeric',month:'short'}):'';
+        return `<div class="tw-doc">
+          <div class="tw-doc-ico ${t.cls}"><i class="fas ${t.ico}"></i></div>
+          <div class="tw-doc-info">
+            <div class="tw-doc-name">${escapeHtml(d.nombre)}</div>
+            <div class="tw-doc-meta">
+              <span class="tw-doc-badge ${badgeCls}">${badgeTxt}</span>
+              <span>${d.tipo}</span>
+              ${fecha?'<span>'+fecha+'</span>':''}
+            </div>
+          </div>
+          <div class="tw-doc-acts">
+            ${hasUrl?`<a class="tw-doc-act" href="${d.url}" target="_blank" title="Ver"><i class="fas fa-eye"></i></a>
+            <a class="tw-doc-act" href="${d.url}" download title="Descargar"><i class="fas fa-download"></i></a>
+            <button class="tw-doc-act" onclick="shareTwDoc('${escapeHtml(d.nombre)}','${d.url}')" title="Compartir"><i class="fas fa-share-alt"></i></button>`
+            :'<span style="font-size:.6rem;color:var(--tx2);opacity:.5">Pendiente</span>'}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+async function shareTwDoc(nombre,url){
+  if(navigator.share){
+    try{await navigator.share({title:nombre,text:'Documento de viaje: '+nombre,url:url});}catch(_){}
+  } else {
+    await navigator.clipboard.writeText(url);
+    toast('Link copiado al portapapeles','success');
+  }
+}
+
 let _userMeta={nombre:'',apellido:'',nacionalidad:'',fecha_nacimiento:'',avatar_url:'',created_at:''};
 function fmtFechaLarga(s){if(!s)return'—';try{const d=new Date(s);return d.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'});}catch(e){return s;}}
 function escapeHtml(s){if(s==null)return'';return String(s).replace(/[&<>"'`=\/]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;','=':'&#61;','/':'&#47;'}[c]));}
@@ -2401,6 +2490,7 @@ function updateTripUI(v){
       </div>
     </div>
     <div class="ck-wrap" id="checklistWrap"></div>
+    <div class="tw-wrap" id="travelWalletWrap"></div>
     <div class="trip-cta-banner">
       <div class="trip-cta-ico">🎁</div>
       <div>
@@ -2410,6 +2500,7 @@ function updateTripUI(v){
       <button class="trip-cta-btn" onclick="showView('fidelizacion')"><i class="fas fa-gift"></i> Conocé los beneficios</button>
     </div>`;
   loadChecklist(v.id);
+  renderTravelWallet(v.documentos||[]);
 }
 function updateFidDashCard(fid){
   const card=document.getElementById('fidDashCard');
