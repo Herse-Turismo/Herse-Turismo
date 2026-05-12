@@ -382,6 +382,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     <button class="tab-btn" onclick="switchTab('fid', this)">
                         <i class="fas fa-crown"></i> Club Herse
                     </button>
+                    <button class="tab-btn" onclick="switchTab('misiones', this)">
+                        <i class="fas fa-bullseye"></i> Misiones
+                    </button>
                     <button class="tab-btn" onclick="switchTab('passport', this)">
                         <i class="fas fa-stamp"></i> Pasaporte
                     </button>
@@ -661,6 +664,14 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                             <div class="card-title" style="font-size:.75rem;margin-bottom:10px"><i class="fas fa-history"></i> Movimientos recientes</div>
                             <div id="f-trans-list"><p class="no-data">Cargando...</p></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- TAB: MISIONES -->
+                <div class="tab-content" id="tab-misiones">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-bullseye"></i> Misiones del cliente</div>
+                        <div id="adminMisionesWrap"><p class="no-data">Seleccioná un cliente para ver sus misiones.</p></div>
                     </div>
                 </div>
 
@@ -1480,6 +1491,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             btn.classList.add('active');
             document.getElementById('tab-' + name).classList.add('active');
             if (name === 'passport') loadPassportAdmin();
+            if (name === 'misiones') loadMisionesAdmin();
             if (name === 'fid') loadFidTransactions();
             if (name === 'perfil') {
                 fillPerfilForm(currentClient);
@@ -1496,7 +1508,122 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             _db.auth.signOut().then(() => { window.location.href = '/login'; });
         }
 
+        // ===== MISIONES ADMIN =====
+        async function loadMisionesAdmin() {
+            const wrap = document.getElementById('adminMisionesWrap');
+            if (!wrap || !currentClient) { if(wrap) wrap.innerHTML='<p class="no-data">Seleccioná un cliente primero.</p>'; return; }
+            wrap.innerHTML = '<p class="no-data"><i class="fas fa-spinner fa-spin"></i> Cargando...</p>';
+
+            const { data: misiones } = await _db.from('cliente_misiones')
+                .select('*, misiones(nombre, ico, color, puntos, descripcion, categoria, dificultad)')
+                .eq('cliente_id', currentClient.id)
+                .order('reclamada_at', { ascending: false });
+
+            if (!misiones?.length) {
+                wrap.innerHTML = '<p class="no-data">Este cliente no tiene misiones reclamadas todavía.</p>';
+                return;
+            }
+
+            const pendientes = misiones.filter(m => m.estado === 'pendiente');
+            const otras = misiones.filter(m => m.estado !== 'pendiente');
+            const all = [...pendientes, ...otras];
+
+            wrap.innerHTML = all.map(m => {
+                const mi = m.misiones;
+                const isImg = m.evidencia_url && !m.evidencia_url.match(/\.(mp4|mov|webm)$/i);
+                const mediaHtml = m.evidencia_url ? (isImg
+                    ? `<a href="${m.evidencia_url}" target="_blank" style="display:block;margin:10px 0"><img src="${m.evidencia_url}" style="width:100%;max-height:200px;object-fit:cover;border-radius:10px;border:1px solid #e0e8f0"></a>`
+                    : `<video src="${m.evidencia_url}" controls style="width:100%;max-height:200px;border-radius:10px;margin:10px 0"></video>`
+                ) : '';
+                const estadoColor = m.estado === 'aprobada' ? '#10b981' : m.estado === 'pendiente' ? '#f59e0b' : '#ef4444';
+                const estadoIco = m.estado === 'aprobada' ? 'fa-check-circle' : m.estado === 'pendiente' ? 'fa-hourglass-half' : 'fa-times-circle';
+                const actionsHtml = m.estado === 'pendiente' ? `
+                    <div style="display:flex;gap:8px;margin-top:10px">
+                        <button onclick="approveMision('${m.id}', ${mi.puntos})" style="flex:1;padding:8px;background:#10b981;color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer"><i class="fas fa-check"></i> Aprobar (+${mi.puntos.toLocaleString('es-AR')} pts)</button>
+                        <button onclick="rejectMision('${m.id}')" style="flex:1;padding:8px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer"><i class="fas fa-times"></i> Rechazar</button>
+                    </div>` : (m.estado === 'aprobada' ? '<div style="margin-top:8px;font-size:.7rem;color:#10b981;font-weight:700"><i class="fas fa-check-circle"></i> Aprobada — puntos acreditados</div>' : `<div style="margin-top:8px;font-size:.7rem;color:#ef4444;font-weight:700"><i class="fas fa-times-circle"></i> Rechazada${m.comentario_admin ? ' — ' + escapeHtml(m.comentario_admin) : ''}</div>`);
+                return `<div style="padding:14px;background:white;border:1.5px solid ${m.estado==='pendiente'?'#fcd34d':'#e0e8f0'};border-radius:12px;margin-bottom:10px${m.estado==='pendiente'?';box-shadow:0 0 0 3px rgba(252,211,77,.2)':''}">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                        <div style="width:36px;height:36px;border-radius:9px;background:${mi.color}22;display:flex;align-items:center;justify-content:center;font-size:1.2rem">${mi.ico}</div>
+                        <div style="flex:1">
+                            <div style="font-size:.82rem;font-weight:800">${escapeHtml(mi.nombre)}</div>
+                            <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">${mi.categoria} · ${mi.dificultad}</div>
+                        </div>
+                        <span style="font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:99px;background:${estadoColor}20;color:${estadoColor}"><i class="fas ${estadoIco}"></i> ${m.estado}</span>
+                    </div>
+                    ${mediaHtml}
+                    ${m.comentario_cliente ? '<div style="font-size:.72rem;color:var(--text);background:var(--light);padding:8px 10px;border-radius:8px;margin-bottom:6px"><strong>Cliente dice:</strong> ' + escapeHtml(m.comentario_cliente) + '</div>' : ''}
+                    <div style="font-size:.6rem;color:var(--muted)">${m.reclamada_at ? new Date(m.reclamada_at).toLocaleString('es-AR') : '—'}</div>
+                    ${actionsHtml}
+                </div>`;
+            }).join('');
+        }
+
+        async function approveMision(cmId, puntos) {
+            if (!confirm('¿Aprobar esta misión y sumar ' + puntos.toLocaleString('es-AR') + ' pts al cliente?')) return;
+            const { error: e1 } = await _db.from('cliente_misiones').update({
+                estado: 'aprobada',
+                resuelta_at: new Date().toISOString()
+            }).eq('id', cmId);
+            if (e1) { toast('Error: ' + e1.message, 'error'); return; }
+
+            // Sumar puntos
+            await _db.from('fidelizacion_trans').insert({
+                cliente_id: currentClient.id,
+                concepto: 'Misión completada',
+                puntos: puntos,
+                tipo: 'bonus',
+                created_at: new Date().toISOString()
+            });
+            const curAvail = parseInt(document.getElementById('f-puntos')?.value) || 0;
+            const curHist = parseInt(document.getElementById('f-puntos-hist')?.value) || 0;
+            if (document.getElementById('f-puntos')) document.getElementById('f-puntos').value = curAvail + puntos;
+            if (document.getElementById('f-puntos-hist')) document.getElementById('f-puntos-hist').value = curHist + puntos;
+            await saveFid({ preventDefault: () => {} });
+            toast('Misión aprobada ✅ +' + puntos.toLocaleString('es-AR') + ' pts', 'success');
+            loadMisionesAdmin();
+        }
+
+        async function rejectMision(cmId) {
+            const motivo = prompt('Motivo del rechazo (opcional):') || '';
+            const { error } = await _db.from('cliente_misiones').update({
+                estado: 'rechazada',
+                comentario_admin: motivo || null,
+                resuelta_at: new Date().toISOString()
+            }).eq('id', cmId);
+            if (error) { toast('Error: ' + error.message, 'error'); return; }
+            toast('Misión rechazada', 'error');
+            loadMisionesAdmin();
+        }
+
         // ===== REALTIME: notificar canjes =====
+        _db.channel('admin-misiones')
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'cliente_misiones', filter: 'estado=eq.pendiente' }, async (payload) => {
+            const row = payload.new;
+            let clienteName = 'Un cliente';
+            try {
+              const { data: p } = await _db.from('perfiles').select('nombre,email').eq('id', row.cliente_id).single();
+              if (p) clienteName = p.nombre || p.email;
+            } catch(_){}
+            toast(`🎯 ¡${clienteName} envió evidencia de misión! Revisala en su pestaña Misiones.`, 'success');
+            if (Notification.permission === 'granted') {
+              new Notification('Nueva evidencia de misión', { body: `${clienteName} quiere reclamar una misión.`, icon: '/assets/logo-web.png' });
+            }
+          })
+          .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'cliente_misiones', filter: 'estado=eq.pendiente' }, async (payload) => {
+            const row = payload.new;
+            let clienteName = 'Un cliente';
+            try {
+              const { data: p } = await _db.from('perfiles').select('nombre,email').eq('id', row.cliente_id).single();
+              if (p) clienteName = p.nombre || p.email;
+            } catch(_){}
+            toast(`🎯 ¡${clienteName} envió evidencia de misión! Revisala en su pestaña Misiones.`, 'success');
+            if (Notification.permission === 'granted') {
+              new Notification('Nueva evidencia de misión', { body: `${clienteName} quiere reclamar una misión.`, icon: '/assets/logo-web.png' });
+            }
+          })
+          .subscribe();
+
         _db.channel('admin-canjes')
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'fidelizacion_trans', filter: 'tipo=eq.canje' }, async (payload) => {
             const row = payload.new;

@@ -259,6 +259,64 @@ img{display:block}
 .fid-tab-btn i{font-size:.72rem}
 .fid-tab-pane{animation:fadeInTab .25s ease}
 @keyframes fadeInTab{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes skel{0%{background-position:100% 50%}100%{background-position:0 50%}}
+.skel{background:linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 37%,#f1f5f9 63%);background-size:400% 100%;animation:skel 1.5s infinite;border-radius:8px}
+/* misiones */
+.mi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.mi-card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;transition:.2s;position:relative;overflow:hidden}
+.mi-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.mi-card.aprobada{border-color:#86efac;background:linear-gradient(135deg,#fff,#f0fdf4)}
+.mi-card.pendiente{border-color:#fcd34d;background:linear-gradient(135deg,#fff,#fffbeb)}
+.mi-card.rechazada{border-color:#fca5a5;background:linear-gradient(135deg,#fff,#fef2f2)}
+.mi-hdr{display:flex;align-items:flex-start;gap:10px}
+.mi-ico{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.mi-info{flex:1;min-width:0}
+.mi-name{font-size:.82rem;font-weight:800;color:var(--tx);line-height:1.25;margin-bottom:3px}
+.mi-cat{font-size:.55rem;text-transform:uppercase;letter-spacing:.6px;color:var(--tx2);font-weight:700}
+.mi-desc{font-size:.7rem;color:var(--tx2);line-height:1.5}
+.mi-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid var(--bd);padding-top:10px;margin-top:auto}
+.mi-pts{font-size:.85rem;font-weight:900;color:var(--ac3);display:flex;align-items:center;gap:4px}
+.mi-pts i{font-size:.72rem}
+.mi-btn{padding:6px 12px;border-radius:8px;font-size:.7rem;font-weight:700;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:inherit;transition:.15s}
+.mi-btn-prim{background:var(--ac);color:#fff}
+.mi-btn-prim:hover{filter:brightness(1.1)}
+.mi-btn-dis{background:var(--bg);color:var(--tx2);cursor:default}
+.mi-status{display:inline-flex;align-items:center;gap:5px;font-size:.62rem;font-weight:800;padding:4px 9px;border-radius:99px}
+.mi-status.aprobada{background:#dcfce7;color:#15803d}
+.mi-status.pendiente{background:#fef3c7;color:#a16207}
+.mi-status.rechazada{background:#fee2e2;color:#b91c1c}
+.mi-difi{display:inline-flex;align-items:center;gap:3px;font-size:.55rem;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--bg);color:var(--tx2);text-transform:uppercase;letter-spacing:.5px}
+.mi-progress{background:linear-gradient(135deg,#eef2ff,#fef3c7);border:1px solid #c7d2fe;border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.mi-progress-ico{font-size:1.8rem}
+.mi-progress-info{flex:1}
+.mi-progress-ttl{font-size:.78rem;font-weight:800;color:var(--tx);margin-bottom:3px}
+.mi-progress-sub{font-size:.66rem;color:var(--tx2)}
+.mi-progress-pct{font-size:1.2rem;font-weight:900;color:var(--ac)}
+.mi-evid-thumb{width:100%;height:120px;background:var(--bg);border-radius:8px;object-fit:cover;border:1px solid var(--bd);cursor:pointer}
+.mi-empty{text-align:center;padding:50px 20px;color:var(--tx2)}
+.mi-empty-ico{font-size:3rem;opacity:.3;margin-bottom:10px}
+.mi-empty-ttl{font-size:.95rem;font-weight:800;color:var(--tx);margin-bottom:6px}
+.mi-empty-sub{font-size:.74rem;line-height:1.6;max-width:360px;margin:0 auto}
+/* modal misiones */
+.mi-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.mi-modal-bg.active{display:flex;animation:fadeInTab .2s ease}
+.mi-modal{background:#fff;border-radius:18px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:24px}
+.mi-modal-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.mi-modal-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.mi-modal-ttl{font-size:1.05rem;font-weight:900;color:var(--tx)}
+.mi-modal-cat{font-size:.6rem;text-transform:uppercase;letter-spacing:.6px;color:var(--tx2);font-weight:700;margin-top:2px}
+.mi-modal-desc{font-size:.78rem;color:var(--tx2);line-height:1.6;margin-bottom:16px;background:var(--bg);padding:12px 14px;border-radius:10px}
+.mi-modal-upload{border:2px dashed var(--bd);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:.15s;margin-bottom:14px}
+.mi-modal-upload:hover{border-color:var(--ac);background:var(--bg)}
+.mi-modal-upload input{display:none}
+.mi-modal-upload-ico{font-size:2rem;color:var(--tx2);margin-bottom:8px}
+.mi-modal-upload-ttl{font-size:.82rem;font-weight:800;color:var(--tx);margin-bottom:4px}
+.mi-modal-upload-sub{font-size:.65rem;color:var(--tx2)}
+.mi-modal-preview{width:100%;max-height:200px;border-radius:10px;object-fit:contain;background:#000;margin-bottom:14px}
+.mi-modal-comment{width:100%;border:1.5px solid var(--bd);border-radius:10px;padding:10px 12px;font-size:.78rem;font-family:inherit;resize:vertical;min-height:70px;margin-bottom:14px}
+.mi-modal-comment:focus{outline:none;border-color:var(--ac)}
+.mi-modal-acts{display:flex;gap:8px;justify-content:flex-end}
+@media (max-width:600px){.mi-grid{grid-template-columns:1fr}.mi-progress{flex-wrap:wrap}}
 .pts-hero{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:22px 26px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .pts-l{flex:1}
 .pts-lbl{font-size:.7rem;font-weight:600;color:var(--tx2);margin-bottom:7px}
@@ -1382,6 +1440,35 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 </style>
 </head>
 <body>
+<!-- Modal de subida de evidencia de misión -->
+<div class="mi-modal-bg" id="miModalBg" onclick="if(event.target===this)closeMisionModal()">
+  <div class="mi-modal" onclick="event.stopPropagation()">
+    <div class="mi-modal-hdr">
+      <div class="mi-modal-ico" id="miModalIco" style="background:#eef2ff">🎯</div>
+      <div style="flex:1">
+        <div class="mi-modal-ttl" id="miModalTtl">Misión</div>
+        <div class="mi-modal-cat" id="miModalCat">categoría</div>
+      </div>
+      <button onclick="closeMisionModal()" style="background:none;border:none;font-size:1.2rem;color:var(--tx2);cursor:pointer">&times;</button>
+    </div>
+    <div class="mi-modal-desc" id="miModalDesc">Descripción</div>
+    <label class="mi-modal-upload" id="miUploadBox">
+      <div class="mi-modal-upload-ico"><i class="fas fa-cloud-upload-alt"></i></div>
+      <div class="mi-modal-upload-ttl">Subí tu evidencia</div>
+      <div class="mi-modal-upload-sub">Foto o video (máx 25MB) · JPG, PNG, MP4</div>
+      <input type="file" id="miFile" accept="image/*,video/*" onchange="previewMisionFile(this)">
+    </label>
+    <img id="miPreview" class="mi-modal-preview" style="display:none">
+    <video id="miPreviewVid" class="mi-modal-preview" controls style="display:none"></video>
+    <textarea id="miComentario" class="mi-modal-comment" placeholder="¿Querés contar algo de cómo cumpliste la misión? (opcional)"></textarea>
+    <div class="mi-modal-acts">
+      <button class="mi-btn mi-btn-dis" onclick="closeMisionModal()" style="cursor:pointer">Cancelar</button>
+      <button class="mi-btn mi-btn-prim" id="miModalSubmit" onclick="submitMisionEvidence()"><i class="fas fa-paper-plane"></i> Enviar para revisión</button>
+    </div>
+    <div style="margin-top:12px;padding:10px;background:#fef3c7;border-radius:8px;font-size:.66rem;color:#92400e;line-height:1.5"><i class="fas fa-info-circle"></i> Tu agente de Herse va a revisar la evidencia y aprobar los puntos. Se notifica por WhatsApp cuando se resuelve.</div>
+  </div>
+</div>
+
 <div id="checkinBanner">
   <i class="fas fa-plane" style="color:#fff;font-size:.88rem"></i>
   <p id="checkinBannerText">Recordatorio de check-in</p>
@@ -1767,6 +1854,7 @@ const _db=createClient(SUPA_URL,SUPA_KEY);
 let TRIP_DATE=null;
 let _tickInterval,_isAdmin=false,_userName='',_userEmail='',_hasTrip=false;
 let _passportUserId=null;
+let _currentTrip=null;
 
 /* VIEW SWITCHING */
 const VIEW_META={
@@ -1995,6 +2083,7 @@ function renderPerfil(){
   if(viajes?.length>0){
     _hasTrip=true;
     const v=viajes[0];
+    _currentTrip=v;
     TRIP_DATE=new Date(v.fecha_salida);
     updateTripUI(v);
     checkCheckinReminder(v.fecha_salida,v.vuelo_ida);
@@ -2587,6 +2676,7 @@ async function renderFidelizacion(){
   wrap.innerHTML=`
     <div class="tabs-bar" style="margin-bottom:16px">
       <button class="tab-btn fid-tab-btn active" data-fid-tab="resumen" onclick="switchFidTab('resumen')"><i class="fas fa-chart-pie"></i> Resumen</button>
+      <button class="tab-btn fid-tab-btn" data-fid-tab="misiones" onclick="switchFidTab('misiones')"><i class="fas fa-bullseye"></i> Misiones <span id="miBadge" style="display:none;background:#ef4444;color:#fff;border-radius:99px;padding:1px 6px;font-size:.55rem;font-weight:800">!</span></button>
       <button class="tab-btn fid-tab-btn" data-fid-tab="ganar" onclick="switchFidTab('ganar')"><i class="fas fa-plus-circle"></i> Cómo sumás</button>
       <button class="tab-btn fid-tab-btn" data-fid-tab="canjear" onclick="switchFidTab('canjear')"><i class="fas fa-gift"></i> Canjeá</button>
       <button class="tab-btn fid-tab-btn" data-fid-tab="historial" onclick="switchFidTab('historial')"><i class="fas fa-history"></i> Historial</button>
@@ -2598,6 +2688,9 @@ async function renderFidelizacion(){
         <div class="tip-bar" style="margin-top:16px"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>Tip Club Herse</strong><br>Cada USD 1 que gastás = 100 puntos. Reservá paquetes completos para obtener bonuses de +25.000 pts. Tu multiplicador actual es <strong>x${prog.current.multiplier}</strong>.</div></div>
         <div class="sec-ttl" style="margin-bottom:10px;margin-top:20px">Actividad reciente</div>
         <div class="card" style="padding:14px"><div class="act-list">${actHtml}</div>${_loyaltyData.movements.length>8?`<button onclick="switchFidTab('historial')" style="width:100%;margin-top:10px;background:none;border:1px solid var(--bd);border-radius:8px;padding:8px;font-size:.72rem;font-weight:700;color:var(--ac);cursor:pointer">Ver historial completo <i class="fas fa-chevron-right"></i></button>`:''}</div>
+      </div>
+      <div class="fid-tab-pane" id="fid-pane-misiones" style="display:none">
+        <div id="misionesContent"><div style="text-align:center;padding:40px"><i class="fas fa-spinner fa-spin" style="font-size:1.5rem;color:var(--ac);opacity:.5"></i></div></div>
       </div>
       <div class="fid-tab-pane" id="fid-pane-ganar" style="display:none">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><div class="sec-ttl" style="margin-bottom:0">Cómo sumás puntos</div><a href="/puntos/" target="_blank" style="font-size:.72rem;color:var(--ac);font-weight:700;display:flex;align-items:center;gap:5px;opacity:.8;text-decoration:none" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.8"><i class="fas fa-info-circle"></i> Ver guía completa</a></div>
@@ -2633,9 +2726,206 @@ function switchFidTab(tab){
       if(lb){const w=lb.style.width;lb.style.width='0';setTimeout(()=>lb.style.width=w,50);}
     },50);
   }
+  if(tab==='misiones')loadMisiones();
   // Scroll to top of content
   const wrap=document.getElementById('clubHerseContent');
   if(wrap)wrap.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ========== SISTEMA DE MISIONES ========== */
+let _misionesCatalog=[];
+let _misionesProgreso=[];
+let _misionActual=null;
+let _misionFile=null;
+
+async function loadMisiones(){
+  const wrap=document.getElementById('misionesContent');
+  if(!wrap||!_passportUserId)return;
+  // Skeleton
+  wrap.innerHTML='<div class="mi-grid">'+Array(4).fill('<div class="mi-card" style="background:linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 37%,#f1f5f9 63%);background-size:400% 100%;animation:skel 1.5s infinite;height:200px"></div>').join('')+'</div>';
+
+  const [catRes,progRes]=await Promise.all([
+    _db.from('misiones').select('*').eq('activa',true).order('puntos',{ascending:true}),
+    _db.from('cliente_misiones').select('*, misiones(*)').eq('cliente_id',_passportUserId).order('created_at',{ascending:false})
+  ]);
+  _misionesCatalog=catRes.data||[];
+  _misionesProgreso=progRes.data||[];
+  renderMisiones();
+}
+
+function renderMisiones(){
+  const wrap=document.getElementById('misionesContent');
+  if(!wrap)return;
+  const hasTrip=!!_currentTrip&&_currentTrip.activo;
+
+  if(!hasTrip&&_allTrips.filter(t=>!t.activo).length===0){
+    wrap.innerHTML=`<div class="mi-empty">
+      <div class="mi-empty-ico">🎯</div>
+      <div class="mi-empty-ttl">Las misiones se desbloquean cuando reservás un viaje</div>
+      <div class="mi-empty-sub">Cuando confirmes tu próximo viaje con Herse, vas a poder cumplir misiones divertidas y sumar puntos extra.</div>
+    </div>`;
+    return;
+  }
+
+  // Map: codigo -> progreso (latest per mision)
+  const progMap={};
+  _misionesProgreso.forEach(p=>{ if(!progMap[p.mision_id]) progMap[p.mision_id]=p; });
+
+  const aprobadas=_misionesProgreso.filter(p=>p.estado==='aprobada').length;
+  const pendientes=_misionesProgreso.filter(p=>p.estado==='pendiente').length;
+  const total=_misionesCatalog.length;
+  const pct=total?Math.round((aprobadas/total)*100):0;
+
+  const cardsHtml=_misionesCatalog.map(m=>{
+    const prog=progMap[m.id];
+    const estado=prog?.estado||'disponible';
+    const cardClass=['aprobada','pendiente','rechazada'].includes(estado)?estado:'';
+    let actionBtn='';
+    let statusBadge='';
+    if(estado==='aprobada'){
+      statusBadge='<span class="mi-status aprobada"><i class="fas fa-check-circle"></i> Cumplida</span>';
+      actionBtn='<button class="mi-btn mi-btn-dis" disabled><i class="fas fa-trophy"></i> Lograda</button>';
+    }else if(estado==='pendiente'){
+      statusBadge='<span class="mi-status pendiente"><i class="fas fa-hourglass-half"></i> En revisión</span>';
+      actionBtn='<button class="mi-btn mi-btn-dis" disabled><i class="fas fa-clock"></i> Esperando</button>';
+    }else if(estado==='rechazada'){
+      statusBadge='<span class="mi-status rechazada"><i class="fas fa-times-circle"></i> Rechazada</span>';
+      actionBtn=`<button class="mi-btn mi-btn-prim" onclick="openMisionModal('${m.id}')"><i class="fas fa-redo"></i> Reintentar</button>`;
+    }else{
+      statusBadge=`<span class="mi-difi">${m.dificultad}</span>`;
+      actionBtn=`<button class="mi-btn mi-btn-prim" onclick="openMisionModal('${m.id}')"><i class="fas fa-camera"></i> Reclamar</button>`;
+    }
+    const motivoHtml=estado==='rechazada'&&prog?.comentario_admin?`<div style="font-size:.65rem;background:#fee2e2;color:#b91c1c;padding:6px 9px;border-radius:6px;margin-top:4px"><strong>Motivo:</strong> ${escapeHtml(prog.comentario_admin)}</div>`:'';
+    return `<div class="mi-card ${cardClass}">
+      <div class="mi-hdr">
+        <div class="mi-ico" style="background:${m.color}22;color:${m.color}">${m.ico}</div>
+        <div class="mi-info">
+          <div class="mi-name">${escapeHtml(m.nombre)}</div>
+          <div class="mi-cat">${m.categoria}</div>
+        </div>
+        ${statusBadge}
+      </div>
+      <div class="mi-desc">${escapeHtml(m.descripcion)}</div>
+      ${motivoHtml}
+      <div class="mi-foot">
+        <span class="mi-pts"><i class="fas fa-coins"></i> ${fmtPts(m.puntos)} pts</span>
+        ${actionBtn}
+      </div>
+    </div>`;
+  }).join('');
+
+  wrap.innerHTML=`
+    <div class="mi-progress">
+      <div class="mi-progress-ico">🏆</div>
+      <div class="mi-progress-info">
+        <div class="mi-progress-ttl">Misiones del Aventurero</div>
+        <div class="mi-progress-sub">${aprobadas} de ${total} cumplidas${pendientes?' · '+pendientes+' en revisión':''}</div>
+      </div>
+      <div class="mi-progress-pct">${pct}%</div>
+    </div>
+    <div class="tip-bar" style="margin-bottom:16px"><i class="fas fa-info-circle"></i><div class="tip-bar-t"><strong>¿Cómo funciona?</strong><br>Reclamá la misión, subí foto/video como evidencia y tu agente de Herse te aprueba los puntos. ¡Animate a las locuras!</div></div>
+    <div class="mi-grid">${cardsHtml}</div>
+    <div class="tip-bar" style="margin-top:16px;background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fas fa-trophy" style="color:#d97706"></i><div class="tip-bar-t"><strong>Bonus Aventurero Completo</strong><br>Si cumplís TODAS las misiones de tu viaje, ganás <strong>+50.000 pts extra</strong> automáticamente.</div></div>`;
+}
+
+function openMisionModal(misionId){
+  const m=_misionesCatalog.find(x=>x.id===misionId);
+  if(!m)return;
+  _misionActual=m;
+  _misionFile=null;
+  document.getElementById('miModalIco').style.background=m.color+'22';
+  document.getElementById('miModalIco').textContent=m.ico;
+  document.getElementById('miModalTtl').textContent=m.nombre;
+  document.getElementById('miModalCat').textContent=m.categoria+' · '+fmtPts(m.puntos)+' pts';
+  document.getElementById('miModalDesc').textContent=m.descripcion;
+  document.getElementById('miFile').value='';
+  document.getElementById('miPreview').style.display='none';
+  document.getElementById('miPreviewVid').style.display='none';
+  document.getElementById('miComentario').value='';
+  document.getElementById('miModalBg').classList.add('active');
+}
+
+function closeMisionModal(){
+  document.getElementById('miModalBg').classList.remove('active');
+  _misionActual=null;_misionFile=null;
+}
+
+function previewMisionFile(input){
+  const f=input.files?.[0];
+  if(!f)return;
+  if(f.size>26214400){alert('El archivo es muy grande (máx 25MB).');input.value='';return;}
+  _misionFile=f;
+  const url=URL.createObjectURL(f);
+  const isVid=f.type.startsWith('video/');
+  const img=document.getElementById('miPreview');
+  const vid=document.getElementById('miPreviewVid');
+  if(isVid){vid.src=url;vid.style.display='block';img.style.display='none';}
+  else{img.src=url;img.style.display='block';vid.style.display='none';}
+}
+
+async function submitMisionEvidence(){
+  if(!_misionActual||!_passportUserId)return;
+  if(!_misionFile){alert('Tenés que subir una foto o video como evidencia.');return;}
+  const btn=document.getElementById('miModalSubmit');
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Subiendo...';
+
+  try{
+    const ext=_misionFile.name.split('.').pop()||'jpg';
+    const fname=`${_passportUserId}/${_misionActual.id}_${Date.now()}.${ext}`;
+    const {error:upErr}=await _db.storage.from('misiones-evidencia').upload(fname,_misionFile,{upsert:false});
+    if(upErr)throw upErr;
+    const {data:urlData}=_db.storage.from('misiones-evidencia').getPublicUrl(fname);
+    const evidenciaUrl=urlData.publicUrl;
+
+    const comentario=document.getElementById('miComentario').value.trim()||null;
+    // Check if there's already a record (e.g. rechazada → upsert)
+    const existing=_misionesProgreso.find(p=>p.mision_id===_misionActual.id);
+    if(existing){
+      const {error}=await _db.from('cliente_misiones').update({
+        evidencia_url:evidenciaUrl,
+        estado:'pendiente',
+        comentario_cliente:comentario,
+        comentario_admin:null,
+        reclamada_at:new Date().toISOString(),
+        viaje_id:_currentTrip?.id||null
+      }).eq('id',existing.id);
+      if(error)throw error;
+    }else{
+      const {error}=await _db.from('cliente_misiones').insert({
+        cliente_id:_passportUserId,
+        mision_id:_misionActual.id,
+        viaje_id:_currentTrip?.id||null,
+        evidencia_url:evidenciaUrl,
+        estado:'pendiente',
+        comentario_cliente:comentario,
+        reclamada_at:new Date().toISOString()
+      });
+      if(error)throw error;
+    }
+    closeMisionModal();
+    await loadMisiones();
+    if(typeof toast==='function')toast('¡Evidencia enviada! Tu agente la va a revisar pronto 🎯','success');
+    else alert('¡Evidencia enviada! Tu agente la va a revisar pronto.');
+  }catch(err){
+    alert('Error al enviar: '+(err.message||err));
+    btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Enviar para revisión';
+  }
+}
+
+// Toast helper (lightweight)
+function toast(msg,type){
+  let t=document.getElementById('_globalToast');
+  if(!t){
+    t=document.createElement('div');
+    t.id='_globalToast';
+    t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2937;color:#fff;padding:12px 20px;border-radius:10px;font-size:.82rem;font-weight:600;z-index:99999;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transition:.3s;max-width:90vw;text-align:center';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg;
+  t.style.background=type==='error'?'#dc2626':type==='success'?'#16a34a':'#1f2937';
+  t.style.opacity='1';
+  clearTimeout(t._timer);
+  t._timer=setTimeout(()=>t.style.opacity='0',3500);
 }
 async function canjearBeneficio(benefitId){
   const b=LOYALTY_CONFIG.benefits.find(x=>x.id===benefitId);
