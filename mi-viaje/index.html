@@ -16,7 +16,7 @@
 <style>
 :root{--ac:#1a6cff;--ac2:#22c55e;--ac3:#f59e0b;--bg:#f4f5f8;--card:#fff;--bd:#e5e7eb;--tx:#111827;--tx2:#6b7280;--tx3:#9ca3af;--sw:220px;--hh:64px;--r:12px;--sh:0 1px 3px rgba(0,0,0,.07);--shl:0 4px 24px rgba(0,0,0,.10)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
 button{font-family:inherit;cursor:pointer} a{text-decoration:none;color:inherit}
 img{display:block}
 /* layout */
@@ -1504,6 +1504,163 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .nt-contact{word-break:break-all}
   .trip-date-pill{display:none}
 }
+/* ════════════════════════════════════════════════════════
+   DARK MODE
+   ════════════════════════════════════════════════════════ */
+[data-theme="dark"]{
+  --bg:#0f1117;--card:#1a1d27;--bd:#2a2e3a;--tx:#e8eaf0;--tx2:#9ca3b4;--tx3:#636b7e;
+  --sh:0 1px 3px rgba(0,0,0,.3);--shl:0 4px 24px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+[data-theme="dark"] .view-wrap{background:var(--bg);background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.02) 1px,transparent 0);background-size:28px 28px}
+[data-theme="dark"] .sk{background:linear-gradient(90deg,#1e2130 25%,#282c3a 50%,#1e2130 75%);background-size:400% 100%}
+[data-theme="dark"] .skel{background:linear-gradient(90deg,#1e2130 25%,#282c3a 37%,#1e2130 63%);background-size:400% 100%}
+[data-theme="dark"] .ni.active{background:rgba(26,108,255,.15);border-left-color:var(--ac)}
+[data-theme="dark"] .hdr-ico.blue{background:rgba(26,108,255,.15)}
+[data-theme="dark"] .hdr-ico.green{background:rgba(22,163,74,.15)}
+[data-theme="dark"] .hdr-ico.purple{background:rgba(147,51,234,.15)}
+[data-theme="dark"] .hdr-ico.gold{background:rgba(217,119,6,.15)}
+[data-theme="dark"] .sb-logo img{filter:brightness(1.8) contrast(.9)}
+[data-theme="dark"] .sb-promo{background:linear-gradient(180deg,#0a1a33,#0f2952)}
+[data-theme="dark"] .btn-promo{background:var(--card);color:var(--ac)}
+[data-theme="dark"] .ayuda{background:linear-gradient(135deg,#111827,#1e293b);border-color:#334155}
+[data-theme="dark"] .ayuda-ttl{color:#93c5fd}
+[data-theme="dark"] .ayuda-sub{color:#60a5fa}
+[data-theme="dark"] .btn-contact{background:var(--card);border-color:#334155}
+[data-theme="dark"] .consejo{background:var(--card)}
+[data-theme="dark"] .consejo-ico{background:rgba(217,119,6,.15)}
+[data-theme="dark"] .stat-ico.b{background:rgba(26,108,255,.15)}
+[data-theme="dark"] .stat-ico.g{background:rgba(22,163,74,.15)}
+[data-theme="dark"] .stat-ico.o{background:rgba(217,119,6,.15)}
+[data-theme="dark"] .stat-ico.p{background:rgba(147,51,234,.15)}
+[data-theme="dark"] .snap-ico.bl{background:rgba(26,108,255,.15)}
+[data-theme="dark"] .snap-ico.gr{background:rgba(22,163,74,.15)}
+[data-theme="dark"] .snap-ico.pu{background:rgba(124,58,237,.15)}
+[data-theme="dark"] .snap-ico.or{background:rgba(217,119,6,.15)}
+[data-theme="dark"] .tl-dot.ok{background:rgba(34,197,94,.15);border-color:#22c55e}
+[data-theme="dark"] .tl-dot.cur{background:rgba(217,119,6,.15);border-color:#d97706}
+[data-theme="dark"] .tl-dot.pend{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .info-i{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .paso-ico{background:var(--card)}
+[data-theme="dark"] .doc-i{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .mj-act:hover{background:var(--bg)}
+[data-theme="dark"] .mj-act-ico.bl{background:rgba(26,108,255,.15)}
+[data-theme="dark"] .mj-act-ico.gr{background:rgba(22,163,74,.15)}
+[data-theme="dark"] .mj-act-ico.wa{background:rgba(22,163,74,.15)}
+[data-theme="dark"] .itin-ico{background:rgba(26,108,255,.12)}
+[data-theme="dark"] .itin-body{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .itin-hdr{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .itin-item{border-color:var(--bd)}
+/* Checklist dark */
+[data-theme="dark"] .ck-card{background:var(--card)}
+[data-theme="dark"] .ck-hdr{border-color:var(--bd)}
+[data-theme="dark"] .ck-item{border-color:var(--bd)}
+[data-theme="dark"] .ck-chk{border-color:var(--bd)}
+[data-theme="dark"] .ck-add{border-color:var(--bd)}
+[data-theme="dark"] .ck-add input{border-color:var(--bd);background:var(--bg);color:var(--tx)}
+[data-theme="dark"] .ck-del:hover{background:rgba(239,68,68,.12)}
+/* Travel wallet dark */
+[data-theme="dark"] .tw-card{background:var(--card)}
+[data-theme="dark"] .tw-hdr{border-color:var(--bd)}
+[data-theme="dark"] .tw-doc{background:var(--bg);border-color:var(--bd)}
+[data-theme="dark"] .tw-doc-ico.pasaje{background:rgba(37,99,235,.15)}
+[data-theme="dark"] .tw-doc-ico.hotel{background:rgba(22,163,74,.15)}
+[data-theme="dark"] .tw-doc-ico.seguro{background:rgba(217,119,6,.15)}
+[data-theme="dark"] .tw-doc-ico.transfer{background:rgba(124,58,237,.15)}
+[data-theme="dark"] .tw-doc-ico.voucher{background:rgba(219,39,119,.15)}
+[data-theme="dark"] .tw-doc-ico.otro{background:rgba(100,116,139,.15)}
+[data-theme="dark"] .tw-doc-act{background:var(--card);border-color:var(--bd)}
+/* Misiones dark */
+[data-theme="dark"] .mi-card.aprobada{border-color:rgba(34,197,94,.3);background:linear-gradient(135deg,var(--card),rgba(22,163,74,.06))}
+[data-theme="dark"] .mi-card.pendiente{border-color:rgba(252,211,77,.3);background:linear-gradient(135deg,var(--card),rgba(217,119,6,.06))}
+[data-theme="dark"] .mi-card.rechazada{border-color:rgba(252,165,165,.3);background:linear-gradient(135deg,var(--card),rgba(239,68,68,.06))}
+[data-theme="dark"] .mi-modal{background:var(--card)}
+[data-theme="dark"] .mi-modal-desc{background:var(--bg)}
+[data-theme="dark"] .mi-modal-upload{border-color:var(--bd)}
+[data-theme="dark"] .mi-modal-upload:hover{background:var(--bg)}
+[data-theme="dark"] .mi-modal-comment{background:var(--bg);border-color:var(--bd);color:var(--tx)}
+[data-theme="dark"] .mi-progress{background:linear-gradient(135deg,rgba(26,108,255,.08),rgba(217,119,6,.08));border-color:var(--bd)}
+/* Club Herse / fidelizacion dark */
+[data-theme="dark"] .pts-hero{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .como-i{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .ben-c{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .ben-c.ok{background:rgba(22,163,94,.08);border-color:rgba(34,197,94,.3)}
+[data-theme="dark"] .ben-c.locked{background:var(--bg)}
+[data-theme="dark"] .ben-ico{background:var(--bg)}
+[data-theme="dark"] .ben-c.ok .ben-ico{background:rgba(34,197,94,.15)}
+[data-theme="dark"] .fpbar{background:var(--bd)}
+[data-theme="dark"] .tip-bar{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .logro-c{background:rgba(22,163,94,.08);border-color:rgba(34,197,94,.2)}
+[data-theme="dark"] .act-ico.bl{background:rgba(26,108,255,.15)}
+[data-theme="dark"] .act-ico.go{background:rgba(217,119,6,.15)}
+[data-theme="dark"] .act-ico.gr{background:rgba(22,163,94,.15)}
+[data-theme="dark"] .act-ico.rd{background:rgba(239,68,68,.15)}
+[data-theme="dark"] .act-ico.pu{background:rgba(124,58,237,.15)}
+[data-theme="dark"] .niv-badge{background:rgba(34,197,94,.15)}
+[data-theme="dark"] .niv-it.active-n{background:rgba(22,163,94,.08)}
+[data-theme="dark"] .fst-i{background:var(--card)}
+/* Historial dark */
+[data-theme="dark"] .hv-card-ph{background:linear-gradient(135deg,var(--card),var(--bd))}
+[data-theme="dark"] .hv-chip{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .hv-cta{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .hv-ftab{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .hv-search{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .hv-search input{color:var(--tx)}
+[data-theme="dark"] .hv-year-sel{background-color:var(--card);border-color:var(--bd);color:var(--tx2)}
+[data-theme="dark"] .hv-year-cnt{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .hv-passport-badge{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.25);color:#4ade80}
+[data-theme="dark"] .hv-chip-hotel{background:rgba(3,105,161,.12);border-color:rgba(3,105,161,.25);color:#38bdf8}
+[data-theme="dark"] .hv-chip-vuelo{background:rgba(109,40,217,.12);border-color:rgba(109,40,217,.25);color:#a78bfa}
+/* Perfil dark */
+[data-theme="dark"] .perfil-nivel{background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(99,102,241,.08));border-color:rgba(14,165,233,.25)}
+[data-theme="dark"] .pn-bar{background:var(--bd)}
+[data-theme="dark"] .btn-editar{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .ps-c.bl{background:rgba(26,108,255,.08);border-color:rgba(26,108,255,.2)}
+[data-theme="dark"] .ps-c.pu{background:rgba(124,58,237,.08);border-color:rgba(124,58,237,.2)}
+[data-theme="dark"] .ps-c.gr{background:rgba(22,163,94,.08);border-color:rgba(22,163,94,.2)}
+[data-theme="dark"] .ps-c.go{background:rgba(217,119,6,.08);border-color:rgba(217,119,6,.2)}
+[data-theme="dark"] .qa-btn{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .qa-btn:hover{background:rgba(26,108,255,.08);border-color:var(--ac)}
+/* CTA banner dark */
+[data-theme="dark"] .trip-cta-banner{background:linear-gradient(135deg,rgba(26,108,255,.08),rgba(37,99,235,.12));border-color:rgba(26,108,255,.25)}
+[data-theme="dark"] .trip-cta-btn{background:var(--card);border-color:rgba(26,108,255,.25)}
+/* Stamps / passport book — keep leather look */
+[data-theme="dark"] .sb-logout{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .sb-logout:hover{background:rgba(239,68,68,.08)}
+/* Tabs dark */
+[data-theme="dark"] .tab-btn.active{color:var(--ac);border-bottom-color:var(--ac)}
+[data-theme="dark"] .srch-wrap{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .srch-wrap input{color:var(--tx)}
+[data-theme="dark"] .btn-filtros{background:var(--card);border-color:var(--bd)}
+/* Scrollbar dark */
+[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#3a3f4e}
+/* Badge status dark */
+[data-theme="dark"] .badge-ok{background:rgba(34,197,94,.15);color:#4ade80}
+[data-theme="dark"] .badge-done{background:rgba(26,108,255,.15);color:#60a5fa}
+[data-theme="dark"] .badge-pend{background:rgba(217,119,6,.15);color:#fbbf24}
+[data-theme="dark"] .badge-cancel{background:rgba(100,116,139,.15);color:#94a3b8}
+/* Lg/logros dark */
+[data-theme="dark"] .lg-c{background:var(--card);border-color:var(--bd)}
+/* Pasaporte Virtual/Tribunero dark bg override */
+[data-theme="dark"] #view-pasaporte-virtual>div{background:linear-gradient(135deg,#0f1117 0%,#131825 60%,#1a2035 100%)!important}
+[data-theme="dark"] #view-pasaporte-virtual .fa-passport{color:#60a5fa!important}
+[data-theme="dark"] #view-pasaporte-virtual h2{color:var(--tx)!important}
+[data-theme="dark"] #view-pasaporte-virtual p{color:var(--tx2)!important}
+[data-theme="dark"] #view-pasaporte-virtual>div>div>div{background:var(--card)!important;border-color:var(--bd)!important}
+[data-theme="dark"] #view-pasaporte-virtual>div>div>div>div:last-child>div{border-color:var(--bd)!important}
+[data-theme="dark"] #view-pasaporte-tribunero>div{background:linear-gradient(135deg,#0f0a1e 0%,#1a1545 60%,#2d1b6b 100%)!important}
+/* Pending/proximamente dark */
+[data-theme="dark"] #pendingState,
+[data-theme="dark"] #proximamente{color:var(--tx)}
+/* Edit perfil modal dark */
+[data-theme="dark"] #editPerfilModal>div:last-child{background:var(--card)!important;border-color:var(--bd)!important}
+[data-theme="dark"] #editPerfilModal input:not(:disabled){background:var(--bg)!important;border-color:var(--bd)!important;color:var(--tx)!important}
+[data-theme="dark"] #editPerfilModal>div:first-child{background:rgba(0,0,0,.7)!important}
+/* Toast dark */
+[data-theme="dark"] .toast-msg{background:var(--card)!important;border-color:var(--bd)!important;color:var(--tx)!important}
+/* Dark mode toggle */
+.dm-toggle{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--bd);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:.82rem;color:var(--tx2);cursor:pointer;transition:.15s}
+.dm-toggle:hover{border-color:var(--ac);color:var(--ac)}
 </style>
 </head>
 <body>
@@ -1569,6 +1726,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       <div class="hdr-ttl"><h1 id="hdrTitle">Mi Viaje</h1><p id="hdrSub">Tu mundo, tus viajes, tu historia.</p></div>
     </div>
     <div class="hdr-r">
+      <button class="dm-toggle" id="dmToggle" onclick="toggleDarkMode()" title="Modo oscuro"><i class="fas fa-moon"></i></button>
       <button class="av-btn" onclick="showView('perfil')">
         <div class="av-circle" id="avatarInitial">?</div>
         <div><div class="av-name name">Cargando…</div><div class="av-sub">Ver perfil</div></div>
@@ -1929,6 +2087,25 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{});}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
+/* ===== DARK MODE ===== */
+(function(){
+  const saved=localStorage.getItem('herse_theme');
+  const prefersDark=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  if(saved==='dark'||(saved===null&&prefersDark)){document.documentElement.setAttribute('data-theme','dark');}
+})();
+function toggleDarkMode(){
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  if(isDark){document.documentElement.removeAttribute('data-theme');localStorage.setItem('herse_theme','light');}
+  else{document.documentElement.setAttribute('data-theme','dark');localStorage.setItem('herse_theme','dark');}
+  const btn=document.getElementById('dmToggle');
+  if(btn)btn.innerHTML=isDark?'<i class="fas fa-moon"></i>':'<i class="fas fa-sun"></i>';
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const btn=document.getElementById('dmToggle');
+  if(btn)btn.innerHTML=isDark?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';
+});
+
 const SUPA_URL='https://yuukqdcjitxhaeevjxjb.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
 const {createClient}=supabase;
