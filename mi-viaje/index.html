@@ -722,15 +722,18 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .perfil-veri{color:#15803d;font-weight:700;display:flex;align-items:center;gap:4px}
 .btn-editar{margin-top:8px;padding:6px 14px;border:1.5px solid var(--bd);border-radius:8px;background:var(--card);font-size:.7rem;font-weight:700;color:var(--tx);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s}
 .btn-editar:hover{border-color:var(--ac);color:var(--ac)}
-.perfil-nivel{background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd;border-radius:12px;padding:13px 15px;min-width:170px;flex-shrink:0}
-.pn-lbl{font-size:.53rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#0ea5e9;margin-bottom:4px}
-.pn-ico{font-size:1.2rem;margin-bottom:3px}
-.pn-name{font-size:.88rem;font-weight:900;color:var(--tx);margin-bottom:2px}
-.pn-pts{font-size:.6rem;color:var(--tx2);margin-bottom:8px}
-.pn-bar{height:6px;background:#e0f2fe;border-radius:99px;overflow:hidden;margin-bottom:3px}
-.pn-bar-fill{height:100%;background:linear-gradient(90deg,#0ea5e9,#6366f1);border-radius:99px;transition:width .6s ease}
-.pn-bar-lbl{font-size:.56rem;color:#0ea5e9;font-weight:700;margin-bottom:6px}
-.pn-link{font-size:.6rem;color:#0ea5e9;font-weight:700;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:4px;padding:0}
+.perfil-nivel{background:linear-gradient(135deg,#0c4a6e,#0369a1,#0ea5e9);border:none;border-radius:16px;padding:18px 18px;min-width:180px;flex-shrink:0;color:#fff;position:relative;overflow:hidden}
+.perfil-nivel::before{content:'';position:absolute;top:-50%;right:-30%;width:120px;height:120px;background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.pn-lbl{font-size:.52rem;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;color:rgba(255,255,255,.7);margin-bottom:6px}
+.pn-ico{font-size:1.8rem;margin-bottom:4px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2))}
+.pn-name{font-size:1rem;font-weight:900;color:#fff;margin-bottom:3px;text-shadow:0 1px 3px rgba(0,0,0,.2)}
+.pn-pts{font-size:.6rem;color:rgba(255,255,255,.75);margin-bottom:10px}
+.pn-bar{height:6px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;margin-bottom:3px}
+.pn-bar-fill{height:100%;background:linear-gradient(90deg,#38bdf8,#a78bfa,#f472b6);background-size:200% 100%;border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1);animation:pnShimmer 3s ease infinite}
+@keyframes pnShimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.pn-bar-lbl{font-size:.56rem;color:rgba(255,255,255,.8);font-weight:700;margin-bottom:8px}
+.pn-link{font-size:.6rem;color:#fff;font-weight:700;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:4px;padding:6px 12px;backdrop-filter:blur(4px);transition:.15s}
+.pn-link:hover{background:rgba(255,255,255,.25)}
 .perfil-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .ps-c{border-radius:9px;padding:11px 8px;text-align:center;border:1px solid transparent}
 .ps-c.bl{background:#eff6ff;border-color:#bfdbfe}.ps-c.pu{background:#f5f3ff;border-color:#ddd6fe}.ps-c.gr{background:#f0fdf4;border-color:#bbf7d0}.ps-c.go{background:#fefce8;border-color:#fef08a}
@@ -1681,7 +1684,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 [data-theme="dark"] .hv-chip-hotel{background:rgba(3,105,161,.12);border-color:rgba(3,105,161,.25);color:#38bdf8}
 [data-theme="dark"] .hv-chip-vuelo{background:rgba(109,40,217,.12);border-color:rgba(109,40,217,.25);color:#a78bfa}
 /* Perfil dark */
-[data-theme="dark"] .perfil-nivel{background:linear-gradient(135deg,rgba(14,165,233,.08),rgba(99,102,241,.08));border-color:rgba(14,165,233,.25)}
+[data-theme="dark"] .perfil-nivel{background:linear-gradient(135deg,#0f172a,#1e1b4b,#172554);border:1px solid rgba(99,102,241,.2)}
 [data-theme="dark"] .pn-bar{background:var(--bd)}
 [data-theme="dark"] .btn-editar{background:var(--card);border-color:var(--bd)}
 [data-theme="dark"] .ps-c.bl{background:rgba(26,108,255,.08);border-color:rgba(26,108,255,.2)}
