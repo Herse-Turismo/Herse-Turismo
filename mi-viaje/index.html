@@ -1491,6 +1491,26 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .badge-check i{font-size:.42rem;color:#fff}
 [data-theme="dark"] .badge-item.unlocked{background:rgba(26,108,255,.08);border-color:rgba(26,108,255,.2)}
 [data-theme="dark"] .badge-item{background:var(--bg);border-color:var(--bd)}
+/* ── TRIP PHOTO ALBUM ── */
+.tp-album{margin-top:12px;padding:14px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r)}
+.tp-album-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.tp-album-ttl{font-size:.76rem;font-weight:800;color:var(--tx);display:flex;align-items:center;gap:7px}
+.tp-album-ttl i{color:var(--ac)}
+.tp-upload-btn{font-size:.62rem;font-weight:700;padding:6px 12px;border-radius:8px;border:1.5px solid var(--ac);background:transparent;color:var(--ac);cursor:pointer;display:flex;align-items:center;gap:5px;transition:.15s}
+.tp-upload-btn:hover{background:var(--ac);color:#fff}
+.tp-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.tp-photo{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;cursor:pointer}
+.tp-photo img{width:100%;height:100%;object-fit:cover;transition:transform .25s}
+.tp-photo:hover img{transform:scale(1.06)}
+.tp-photo-del{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;border:none;font-size:.5rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:.15s}
+.tp-photo:hover .tp-photo-del{opacity:1}
+.tp-empty{text-align:center;padding:24px;color:var(--tx3);font-size:.7rem}
+.tp-empty i{font-size:1.5rem;display:block;margin-bottom:8px;opacity:.4}
+/* Photo lightbox */
+.tp-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);padding:20px}
+.tp-lightbox.active{display:flex}
+.tp-lightbox img{max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain}
+.tp-lightbox-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 /* ── TRIP DASHBOARD (viaje activo) ── */
 .trip-hero{position:relative;height:265px;border-radius:18px;overflow:hidden;margin-bottom:18px;background-size:cover;background-position:center}
 .trip-hero-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.72) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,.04) 100%)}
@@ -3049,7 +3069,7 @@ function updateFidDashCard(fid){
 /* HISTORIAL */
 let _allTrips=[];
 async function loadHistorial(){
-  const {data}=await _db.from('viajes').select('destino,fecha_salida,fecha_regreso,activo').order('fecha_salida',{ascending:false});
+  const {data}=await _db.from('viajes').select('id,destino,fecha_salida,fecha_regreso,activo').order('fecha_salida',{ascending:false});
   _allTrips=data||[];
   const _yf=document.getElementById('yearFilter');
   if(_yf){
@@ -3057,6 +3077,7 @@ async function loadHistorial(){
     _yf.innerHTML='<option value="">Todos los años</option>'+_yrs.map(y=>'<option value="'+y+'">'+y+'</option>').join('');
   }
   renderAllTrips();
+  _allTrips.filter(t=>!t.activo).forEach(t=>{if(t.id)loadTripPhotos(t.id);});
   const activo=_allTrips.filter(t=>t.activo).length;
   const completados=_allTrips.filter(t=>!t.activo).length;
   const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(',')[0].split(' ')[0])).size;
@@ -3218,6 +3239,7 @@ function renderAllTrips(){
           <div class="hv-chips" style="margin-bottom:8px"><span class="hv-chip"><i class="fas fa-users"></i> ${t.pasajeros||t.pax||2} pax</span>${hotelChip}${vueloChip}${t.codigo?`<span class="hv-chip">${escapeHtml(t.codigo)}</span>`:''}</div>
           ${ppBadge}
           <button class="hv-cta" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-eye"></i> Ver detalles</button>
+          ${isPast?`<div class="tp-album" id="album-${t.id}"><div class="tp-album-hdr"><div class="tp-album-ttl"><i class="fas fa-images"></i> Mis fotos</div><button class="tp-upload-btn" onclick="event.stopPropagation();triggerPhotoUpload('${t.id}')"><i class="fas fa-plus"></i> Subir</button></div><div class="tp-photos" id="photos-${t.id}"><div class="tp-empty"><i class="fas fa-camera"></i>Subí fotos de tu viaje</div></div><input type="file" id="photoInput-${t.id}" accept="image/*" multiple style="display:none" onchange="uploadTripPhotos('${t.id}',this.files)"></div>`:''}
         </div>
       </div>`;
     }).join('');
@@ -3699,6 +3721,65 @@ function closeSidebar(){
   const ov=document.getElementById('sbOverlay');
   if(sb)sb.classList.remove('open');
   if(ov)ov.classList.remove('show');
+  document.body.style.overflow='';
+}
+
+/* ===== TRIP PHOTO ALBUM ===== */
+function triggerPhotoUpload(viajeId){
+  const inp=document.getElementById('photoInput-'+viajeId);
+  if(inp)inp.click();
+}
+async function uploadTripPhotos(viajeId,files){
+  if(!files||!files.length||!_passportUserId)return;
+  const grid=document.getElementById('photos-'+viajeId);
+  if(!grid)return;
+  const empty=grid.querySelector('.tp-empty');if(empty)empty.remove();
+  for(const file of files){
+    const ext=file.name.split('.').pop().toLowerCase();
+    const path=`${_passportUserId}/${viajeId}/${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+    grid.insertAdjacentHTML('beforeend',`<div class="tp-photo" id="uploading-${path.replace(/\//g,'-')}"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg)"><i class="fas fa-spinner fa-spin" style="color:var(--ac)"></i></div></div>`);
+    const {data:upData,error:upErr}=await _db.storage.from('trip-photos').upload(path,file,{cacheControl:'3600',upsert:false});
+    if(upErr){const ph=document.getElementById('uploading-'+path.replace(/\//g,'-'));if(ph)ph.remove();continue;}
+    const {data:urlData}=_db.storage.from('trip-photos').getPublicUrl(path);
+    const url=urlData.publicUrl;
+    const {data:row}=await _db.from('trip_photos').insert({viaje_id:viajeId,cliente_id:_passportUserId,url}).select().single();
+    const ph=document.getElementById('uploading-'+path.replace(/\//g,'-'));
+    if(ph&&row){
+      ph.id='';
+      ph.innerHTML=`<img src="${url}" alt="Foto del viaje" loading="lazy" onclick="openPhotoLightbox('${url}')"><button class="tp-photo-del" onclick="event.stopPropagation();deleteTripPhoto('${row.id}','${path}','${viajeId}',this)"><i class="fas fa-trash"></i></button>`;
+    }
+  }
+  document.getElementById('photoInput-'+viajeId).value='';
+}
+async function deleteTripPhoto(id,path,viajeId,btn){
+  if(!confirm('¿Eliminar esta foto?'))return;
+  await _db.from('trip_photos').delete().eq('id',id);
+  await _db.storage.from('trip-photos').remove([path]);
+  const card=btn.closest('.tp-photo');if(card)card.remove();
+  const grid=document.getElementById('photos-'+viajeId);
+  if(grid&&!grid.querySelector('.tp-photo')){
+    grid.innerHTML='<div class="tp-empty"><i class="fas fa-camera"></i>Subí fotos de tu viaje</div>';
+  }
+}
+async function loadTripPhotos(viajeId){
+  const grid=document.getElementById('photos-'+viajeId);if(!grid)return;
+  const {data}=await _db.from('trip_photos').select('*').eq('viaje_id',viajeId).order('created_at',{ascending:true});
+  if(!data||!data.length)return;
+  grid.innerHTML=data.map(p=>`<div class="tp-photo"><img src="${p.url}" alt="Foto" loading="lazy" onclick="openPhotoLightbox('${p.url}')"><button class="tp-photo-del" onclick="event.stopPropagation();deleteTripPhoto('${p.id}','${_passportUserId}/${viajeId}/${p.url.split('/').pop()}','${viajeId}',this)"><i class="fas fa-trash"></i></button></div>`).join('');
+}
+function openPhotoLightbox(url){
+  let lb=document.getElementById('photoLightbox');
+  if(!lb){
+    document.body.insertAdjacentHTML('beforeend','<div class="tp-lightbox" id="photoLightbox" onclick="if(event.target===this)closePhotoLightbox()"><button class="tp-lightbox-close" onclick="closePhotoLightbox()"><i class="fas fa-times"></i></button><img id="lightboxImg" src="" alt="Foto"></div>');
+    lb=document.getElementById('photoLightbox');
+  }
+  document.getElementById('lightboxImg').src=url;
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closePhotoLightbox(){
+  const lb=document.getElementById('photoLightbox');
+  if(lb)lb.classList.remove('active');
   document.body.style.overflow='';
 }
 
