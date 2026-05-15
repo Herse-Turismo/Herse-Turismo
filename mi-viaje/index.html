@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://js-de.sentry-cdn.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https://images.unsplash.com https://yuukqdcjitxhaeevjxjb.supabase.co https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org; connect-src 'self' https://yuukqdcjitxhaeevjxjb.supabase.co https://api.open-meteo.com https://*.sentry.io; frame-src 'none'; object-src 'none'; base-uri 'self'">
 <title>Mi Viaje · Portal Herse Turismo</title>
 <meta name="description" content="Tu portal exclusivo de viajes con Herse Turismo. Dashboard personal con itinerario, documentos, misiones y más.">
 <meta name="robots" content="noindex, nofollow">
@@ -1491,6 +1492,17 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .badge-check i{font-size:.42rem;color:#fff}
 [data-theme="dark"] .badge-item.unlocked{background:rgba(26,108,255,.08);border-color:rgba(26,108,255,.2)}
 [data-theme="dark"] .badge-item{background:var(--bg);border-color:var(--bd)}
+/* ── TRAVEL STREAK ── */
+.streak-card{display:flex;align-items:center;gap:14px;padding:14px 16px;background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #fbbf24;border-radius:12px;margin-bottom:14px}
+.streak-fire{font-size:1.8rem;filter:drop-shadow(0 2px 4px rgba(245,158,11,.3))}
+.streak-info{flex:1}
+.streak-num{font-size:1.3rem;font-weight:900;color:#92400e;line-height:1}
+.streak-lbl{font-size:.6rem;font-weight:700;color:#b45309;margin-top:2px}
+.streak-sub{font-size:.55rem;color:#92400e;margin-top:4px;opacity:.7}
+[data-theme="dark"] .streak-card{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(251,191,36,.08));border-color:rgba(251,191,36,.25)}
+[data-theme="dark"] .streak-num{color:#fbbf24}
+[data-theme="dark"] .streak-lbl{color:#f59e0b}
+[data-theme="dark"] .streak-sub{color:#fbbf24}
 /* ── TRIP PHOTO ALBUM ── */
 .tp-album{margin-top:12px;padding:14px;background:var(--card);border:1px solid var(--bd);border-radius:var(--r)}
 .tp-album-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
@@ -2053,6 +2065,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         <div class="ps-c gr"><div class="ps-n" id="ps-historicos">—</div><div class="ps-l">Puntos acumulados</div><div class="ps-s">Histórico total</div></div>
        </div>
       </div>
+      <!-- Travel Streak -->
+      <div id="streakCard" style="display:none"></div>
       <!-- Badges / Logros -->
       <div class="card" style="margin-bottom:14px">
        <div class="card-ttl"><i class="fas fa-trophy"></i> Logros del viajero</div>
@@ -2690,6 +2704,23 @@ function renderBadges(viajes,paises,lifetime){
       <div class="badge-name">${b.name}</div>
     </div>`;
   }).join('');
+  renderStreak();
+}
+function renderStreak(){
+  const card=document.getElementById('streakCard');if(!card)return;
+  if(!_allTrips||_allTrips.length<1){card.style.display='none';return;}
+  const years=[...new Set(_allTrips.map(t=>new Date(t.fecha_salida).getFullYear()))].sort((a,b)=>b-a);
+  let streak=0;
+  const curYear=new Date().getFullYear();
+  for(let i=0;i<years.length;i++){
+    if(years[i]===curYear-i)streak++;
+    else break;
+  }
+  if(streak<1){card.style.display='none';return;}
+  card.style.display='block';
+  const msgs=['','¡Gran arranque!','¡Vas con todo!','¡Increíble constancia!','¡Imparable!','¡Leyenda viajera!'];
+  const msg=msgs[Math.min(streak,msgs.length-1)]||'🔥';
+  card.innerHTML=`<div class="streak-card"><div class="streak-fire">🔥</div><div class="streak-info"><div class="streak-num">${streak} año${streak>1?'s':''}</div><div class="streak-lbl">Racha de viajes consecutivos</div><div class="streak-sub">${msg}</div></div></div>`;
 }
 /* AUTH + DATA */
 (async()=>{
@@ -2724,6 +2755,7 @@ function renderBadges(viajes,paises,lifetime){
     TRIP_DATE=new Date(v.fecha_salida);
     updateTripUI(v);
     checkCheckinReminder(v.fecha_salida,v.vuelo_ida);
+    initNotifications();
     tick();
     _tickInterval=setInterval(tick,1000);
     // Badge: nuevos documentos desde la última visita
@@ -3722,6 +3754,34 @@ function closeSidebar(){
   if(sb)sb.classList.remove('open');
   if(ov)ov.classList.remove('show');
   document.body.style.overflow='';
+}
+
+/* ===== PUSH NOTIFICATIONS ===== */
+async function initNotifications(){
+  if(!('Notification' in window))return;
+  if(Notification.permission==='default'){
+    const perm=await Notification.requestPermission();
+    if(perm!=='granted')return;
+  }
+  if(Notification.permission!=='granted')return;
+  checkTripReminders();
+}
+function checkTripReminders(){
+  if(!_currentTrip)return;
+  const sd=new Date(_currentTrip.fecha_salida);
+  const now=new Date();
+  const diff=Math.ceil((sd-now)/(864e5));
+  const key='notif_'+_currentTrip.id+'_'+diff;
+  if(localStorage.getItem(key))return;
+  let msg=null;
+  if(diff===7)msg=`¡Una semana para tu viaje a ${_currentTrip.destino}! 🎒 Revisá tu checklist.`;
+  else if(diff===3)msg=`¡Faltan solo 3 días para ${_currentTrip.destino}! ✈️ ¿Tenés todo listo?`;
+  else if(diff===1)msg=`¡Mañana viajás a ${_currentTrip.destino}! 🌟 Buen viaje!`;
+  else if(diff===0)msg=`¡Hoy empieza tu aventura en ${_currentTrip.destino}! 🎉`;
+  if(msg){
+    localStorage.setItem(key,'1');
+    new Notification('Herse Turismo',{body:msg,icon:'/assets/logo-web.png',badge:'/assets/logo-web.png',tag:'trip-reminder'});
+  }
 }
 
 /* ===== TRIP PHOTO ALBUM ===== */
