@@ -1453,6 +1453,21 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .nt-of-det{font-size:.61rem;color:var(--tx2);margin-top:1px}
 .nt-of-all{font-size:.74rem;font-weight:800;color:var(--ac);display:block;text-align:center;margin-top:4px;text-decoration:none}
 .nt-of-all:hover{text-decoration:underline}
+/* ── TRIP SMART WIDGETS ── */
+.smart-widgets{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+.sw-card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;box-shadow:var(--sh);transition:.18s}
+.sw-card:hover{box-shadow:var(--shl);transform:translateY(-1px)}
+.sw-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1rem;margin-bottom:10px}
+.sw-ico.weather{background:#ebf8ff;color:#0284c7}
+.sw-ico.tz{background:#fef3c7;color:#d97706}
+.sw-ico.emer{background:#fee2e2;color:#dc2626}
+.sw-label{font-size:.56rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.sw-val{font-size:1.15rem;font-weight:900;color:var(--tx);line-height:1.2}
+.sw-sub{font-size:.62rem;color:var(--tx2);margin-top:3px;line-height:1.4}
+[data-theme="dark"] .sw-ico.weather{background:rgba(2,132,199,.15)}
+[data-theme="dark"] .sw-ico.tz{background:rgba(217,119,6,.15)}
+[data-theme="dark"] .sw-ico.emer{background:rgba(220,38,38,.15)}
+@media(max-width:600px){.smart-widgets{grid-template-columns:1fr}.sw-card{display:flex;align-items:center;gap:14px;padding:14px}.sw-ico{margin-bottom:0;flex-shrink:0}}
 /* ── TRIP DASHBOARD (viaje activo) ── */
 .trip-hero{position:relative;height:265px;border-radius:18px;overflow:hidden;margin-bottom:18px;background-size:cover;background-position:center}
 .trip-hero-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.72) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,.04) 100%)}
@@ -2806,6 +2821,7 @@ function updateTripUI(v){
       </div>
       <button class="trip-det-btn" onclick="toggleItinerario()"><i class="fas fa-route"></i> Ver detalles del viaje <i class="fas fa-chevron-right"></i></button>
     </div>
+    <div class="smart-widgets" id="smartWidgets"></div>
     <div id="itinerarioSection" style="display:none;margin-bottom:16px">
       <div class="itin-hdr" onclick="toggleItinerario()">
         <div class="itin-hdr-ttl"><i class="fas fa-route" style="color:var(--ac)"></i> Itinerario completo</div>
@@ -2859,7 +2875,82 @@ function updateTripUI(v){
     </div>`;
   loadChecklist(v.id);
   renderTravelWallet(v.documentos||[]);
+  loadSmartWidgets(v.destino);
 }
+
+/* ===== SMART WIDGETS: Clima, Zona Horaria, Emergencia ===== */
+const DEST_INFO={
+  brasil:{lat:-22.9,lon:-43.17,tz:'America/Sao_Paulo',cur:'BRL',curName:'Real',emer:'190',emerPol:'190',emerAmb:'192',pais:'Brasil'},
+  brazil:{lat:-22.9,lon:-43.17,tz:'America/Sao_Paulo',cur:'BRL',curName:'Real',emer:'190',emerPol:'190',emerAmb:'192',pais:'Brasil'},
+  espana:{lat:40.42,lon:-3.7,tz:'Europe/Madrid',cur:'EUR',curName:'Euro',emer:'112',emerPol:'091',emerAmb:'112',pais:'España'},
+  spain:{lat:40.42,lon:-3.7,tz:'Europe/Madrid',cur:'EUR',curName:'Euro',emer:'112',emerPol:'091',emerAmb:'112',pais:'España'},
+  italia:{lat:41.9,lon:12.5,tz:'Europe/Rome',cur:'EUR',curName:'Euro',emer:'112',emerPol:'113',emerAmb:'118',pais:'Italia'},
+  italy:{lat:41.9,lon:12.5,tz:'Europe/Rome',cur:'EUR',curName:'Euro',emer:'112',emerPol:'113',emerAmb:'118',pais:'Italia'},
+  mexico:{lat:19.43,lon:-99.13,tz:'America/Mexico_City',cur:'MXN',curName:'Peso MX',emer:'911',emerPol:'911',emerAmb:'065',pais:'México'},
+  colombia:{lat:4.71,lon:-74.07,tz:'America/Bogota',cur:'COP',curName:'Peso CO',emer:'123',emerPol:'123',emerAmb:'125',pais:'Colombia'},
+  peru:{lat:-12.05,lon:-77.04,tz:'America/Lima',cur:'PEN',curName:'Sol',emer:'105',emerPol:'105',emerAmb:'116',pais:'Perú'},
+  chile:{lat:-33.45,lon:-70.67,tz:'America/Santiago',cur:'CLP',curName:'Peso CL',emer:'131',emerPol:'133',emerAmb:'131',pais:'Chile'},
+  uruguay:{lat:-34.9,lon:-56.16,tz:'America/Montevideo',cur:'UYU',curName:'Peso UY',emer:'911',emerPol:'911',emerAmb:'105',pais:'Uruguay'},
+  'estados unidos':{lat:40.71,lon:-74.01,tz:'America/New_York',cur:'USD',curName:'Dólar',emer:'911',emerPol:'911',emerAmb:'911',pais:'EE.UU.'},
+  eeuu:{lat:40.71,lon:-74.01,tz:'America/New_York',cur:'USD',curName:'Dólar',emer:'911',emerPol:'911',emerAmb:'911',pais:'EE.UU.'},
+  francia:{lat:48.86,lon:2.35,tz:'Europe/Paris',cur:'EUR',curName:'Euro',emer:'112',emerPol:'17',emerAmb:'15',pais:'Francia'},
+  france:{lat:48.86,lon:2.35,tz:'Europe/Paris',cur:'EUR',curName:'Euro',emer:'112',emerPol:'17',emerAmb:'15',pais:'Francia'},
+  portugal:{lat:38.72,lon:-9.14,tz:'Europe/Lisbon',cur:'EUR',curName:'Euro',emer:'112',emerPol:'112',emerAmb:'112',pais:'Portugal'},
+  turquia:{lat:41.01,lon:28.98,tz:'Europe/Istanbul',cur:'TRY',curName:'Lira',emer:'112',emerPol:'155',emerAmb:'112',pais:'Turquía'},
+  argentina:{lat:-34.6,lon:-58.38,tz:'America/Argentina/Buenos_Aires',cur:'ARS',curName:'Peso AR',emer:'911',emerPol:'911',emerAmb:'107',pais:'Argentina'},
+  japon:{lat:35.68,lon:139.69,tz:'Asia/Tokyo',cur:'JPY',curName:'Yen',emer:'110',emerPol:'110',emerAmb:'119',pais:'Japón'},
+  tailandia:{lat:13.76,lon:100.5,tz:'Asia/Bangkok',cur:'THB',curName:'Baht',emer:'191',emerPol:'191',emerAmb:'1669',pais:'Tailandia'},
+  'reino unido':{lat:51.51,lon:-0.13,tz:'Europe/London',cur:'GBP',curName:'Libra',emer:'999',emerPol:'999',emerAmb:'999',pais:'Reino Unido'},
+  inglaterra:{lat:51.51,lon:-0.13,tz:'Europe/London',cur:'GBP',curName:'Libra',emer:'999',emerPol:'999',emerAmb:'999',pais:'Reino Unido'},
+  alemania:{lat:52.52,lon:13.41,tz:'Europe/Berlin',cur:'EUR',curName:'Euro',emer:'112',emerPol:'110',emerAmb:'112',pais:'Alemania'},
+  grecia:{lat:37.98,lon:23.73,tz:'Europe/Athens',cur:'EUR',curName:'Euro',emer:'112',emerPol:'100',emerAmb:'166',pais:'Grecia'},
+  'republica dominicana':{lat:18.49,lon:-69.93,tz:'America/Santo_Domingo',cur:'DOP',curName:'Peso DO',emer:'911',emerPol:'911',emerAmb:'911',pais:'Rep. Dominicana'},
+  dominicana:{lat:18.49,lon:-69.93,tz:'America/Santo_Domingo',cur:'DOP',curName:'Peso DO',emer:'911',emerPol:'911',emerAmb:'911',pais:'Rep. Dominicana'},
+  cancun:{lat:21.16,lon:-86.85,tz:'America/Cancun',cur:'MXN',curName:'Peso MX',emer:'911',emerPol:'911',emerAmb:'065',pais:'México'},
+  caribe:{lat:18.49,lon:-69.93,tz:'America/Santo_Domingo',cur:'USD',curName:'Dólar',emer:'911',emerPol:'911',emerAmb:'911',pais:'Caribe'},
+};
+function getDestInfo(dest){
+  const k=dest.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const found=Object.entries(DEST_INFO).find(([key])=>k.includes(key));
+  return found?found[1]:null;
+}
+const WEATHER_ICONS={'01d':'☀️','01n':'🌙','02d':'⛅','02n':'☁️','03d':'☁️','03n':'☁️','04d':'☁️','04n':'☁️','09d':'🌧️','09n':'🌧️','10d':'🌦️','10n':'🌧️','11d':'⛈️','11n':'⛈️','13d':'❄️','13n':'❄️','50d':'🌫️','50n':'🌫️'};
+async function loadSmartWidgets(destino){
+  const wrap=document.getElementById('smartWidgets');if(!wrap)return;
+  const info=getDestInfo(destino);
+  if(!info){wrap.style.display='none';return;}
+  // Render skeleton
+  wrap.innerHTML=`
+    <div class="sw-card"><div class="sw-ico weather"><i class="fas fa-cloud-sun"></i></div><div><div class="sw-label">Clima en destino</div><div class="sw-val" id="swTemp"><span class="sk" style="display:inline-block;width:50px;height:18px"></span></div><div class="sw-sub" id="swWeatherSub">Cargando...</div></div></div>
+    <div class="sw-card"><div class="sw-ico tz"><i class="fas fa-clock"></i></div><div><div class="sw-label">Hora en ${escapeHtml(info.pais)}</div><div class="sw-val" id="swTime">--:--</div><div class="sw-sub" id="swTzSub">Moneda: ${info.curName} (${info.cur})</div></div></div>
+    <div class="sw-card"><div class="sw-ico emer"><i class="fas fa-phone-alt"></i></div><div><div class="sw-label">Emergencias</div><div class="sw-val">${info.emer}</div><div class="sw-sub">Policía: ${info.emerPol} · Ambulancia: ${info.emerAmb}</div></div></div>`;
+  // Update timezone clock
+  function updateClock(){
+    try{
+      const now=new Date();
+      const t=now.toLocaleTimeString('es-AR',{timeZone:info.tz,hour:'2-digit',minute:'2-digit'});
+      const el=document.getElementById('swTime');if(el)el.textContent=t;
+    }catch(e){}
+  }
+  updateClock();setInterval(updateClock,30000);
+  // Fetch weather
+  try{
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${info.lat}&longitude=${info.lon}&current=temperature_2m,weather_code&timezone=auto`);
+    const d=await r.json();
+    const temp=Math.round(d.current.temperature_2m);
+    const wmo=d.current.weather_code;
+    const wDesc={0:'Despejado',1:'Mayormente despejado',2:'Parcialmente nublado',3:'Nublado',45:'Niebla',48:'Niebla',51:'Llovizna leve',53:'Llovizna',55:'Llovizna fuerte',61:'Lluvia leve',63:'Lluvia',65:'Lluvia fuerte',71:'Nieve leve',73:'Nieve',75:'Nieve fuerte',80:'Chubascos',81:'Chubascos fuertes',95:'Tormenta',96:'Tormenta con granizo'};
+    const desc=wDesc[wmo]||'—';
+    const wEmoji={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌧️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',95:'⛈️',96:'⛈️'};
+    const emoji=wEmoji[wmo]||'🌍';
+    const elT=document.getElementById('swTemp');if(elT)elT.textContent=`${emoji} ${temp}°C`;
+    const elS=document.getElementById('swWeatherSub');if(elS)elS.textContent=desc;
+  }catch(e){
+    const elT=document.getElementById('swTemp');if(elT)elT.textContent='—';
+    const elS=document.getElementById('swWeatherSub');if(elS)elS.textContent='No disponible';
+  }
+}
+
 function updateFidDashCard(fid){
   const card=document.getElementById('fidDashCard');
   if(!card)return;
