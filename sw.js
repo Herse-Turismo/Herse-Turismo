@@ -1,4 +1,4 @@
-const CACHE = 'herse-v19';
+const CACHE = 'herse-v20';
 const PRECACHE = [
     '/', '/login/', '/mi-viaje/', '/404.html',
     '/assets/logo-web.png',
