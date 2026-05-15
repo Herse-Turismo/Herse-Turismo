@@ -3,22 +3,36 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Mi Viaje · Portal Herse Turismo</title>
-<meta name="description" content="Tu portal exclusivo de viajes Herse Turismo.">
+<meta name="description" content="Tu portal exclusivo de viajes con Herse Turismo. Dashboard personal con itinerario, documentos, misiones y más.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1a1d27" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://herseturismo.com.ar/mi-viaje/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://herseturismo.com.ar/mi-viaje/">
 <meta property="og:title" content="Mi Viaje · Portal Herse Turismo">
+<meta property="og:description" content="Tu portal exclusivo de viajes con Herse Turismo. Dashboard personal con itinerario, documentos, misiones y más.">
 <meta property="og:image" content="https://herseturismo.com.ar/assets/og-cover.png">
 <meta property="og:site_name" content="Herse Turismo">
+<meta property="og:locale" content="es_AR">
 <link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://yuukqdcjitxhaeevjxjb.supabase.co" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="https://js-de.sentry-cdn.com">
 <script src="https://js-de.sentry-cdn.com/d9f8b1eee56daacb0b9864323d164d4f.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TravelAgency","name":"Herse Turismo","url":"https://herseturismo.com.ar","logo":"https://herseturismo.com.ar/assets/logo-web.png","description":"Agencia de turismo especializada en viajes grupales e individuales.","address":{"@type":"PostalAddress","addressCountry":"AR"}}</script>
 <style>
 :root{--ac:#1a6cff;--ac2:#22c55e;--ac3:#f59e0b;--bg:#f4f5f8;--card:#fff;--bd:#e5e7eb;--tx:#111827;--tx2:#6b7280;--tx3:#9ca3af;--sw:220px;--hh:64px;--r:12px;--sh:0 1px 3px rgba(0,0,0,.07);--shl:0 4px 24px rgba(0,0,0,.10)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
 button{font-family:inherit;cursor:pointer} a{text-decoration:none;color:inherit}
 img{display:block}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px;border-radius:4px}
+:focus:not(:focus-visible){outline:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 /* layout */
 .app{display:flex;min-height:100vh}
 .sidebar{width:var(--sw);background:linear-gradient(180deg,var(--card) 0%,var(--bg) 100%);border-right:1px solid var(--bd);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow-y:auto}
@@ -78,6 +92,16 @@ img{display:block}
 .view-wrap{background:var(--bg);background-image:radial-gradient(circle at 1px 1px,rgba(0,0,0,.018) 1px,transparent 0);background-size:28px 28px}
 /* micro-animations */
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+.anim-in{opacity:0;transform:translateY(18px);transition:opacity .45s ease,transform .45s ease}
+.anim-in.visible{opacity:1;transform:none}
+.anim-in:nth-child(2){transition-delay:.06s}
+.anim-in:nth-child(3){transition-delay:.12s}
+.anim-in:nth-child(4){transition-delay:.18s}
+.anim-in:nth-child(5){transition-delay:.24s}
+.anim-in:nth-child(6){transition-delay:.3s}
+@media(prefers-reduced-motion:reduce){.anim-in{opacity:1;transform:none;transition:none}}
 .vcontent{padding:24px 28px}
 /* cards */
 .card{background:var(--card);border-radius:var(--r);border:1px solid var(--bd);padding:18px 20px;box-shadow:var(--sh);transition:box-shadow .18s,transform .18s}
@@ -1754,7 +1778,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 </div>
 <div class="app">
 <div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
-<aside class="sidebar">
+<aside class="sidebar" role="navigation" aria-label="Navegación principal">
   <a href="javascript:void(0)" class="sb-logo" style="cursor:pointer" onclick="showView('mi-viaje')">
    <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
   </a>
@@ -1777,26 +1801,26 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   <div style="padding:0 14px 8px;text-align:center">
     <div style="font-size:.5rem;color:var(--tx3);letter-spacing:.5px">Herse Turismo · v2.0</div>
   </div>
-  <button class="sb-logout" onclick="signOut()"><i class="fas fa-right-from-bracket"></i> Cerrar sesión</button>
+  <button class="sb-logout" onclick="signOut()" aria-label="Cerrar sesión"><i class="fas fa-right-from-bracket" aria-hidden="true"></i> Cerrar sesión</button>
 </aside>
 <div class="main">
-  <header class="top-hdr">
+  <header class="top-hdr" role="banner">
     <div class="hdr-l">
-      <button class="hamburger" onclick="toggleSidebar()" title="Menú"><i class="fas fa-bars"></i></button>
+      <button class="hamburger" onclick="toggleSidebar()" title="Menú" aria-label="Abrir menú de navegación"><i class="fas fa-bars" aria-hidden="true"></i></button>
       <div class="hdr-ico blue" id="hdrIcon"><i class="fas fa-plane"></i></div>
       <div class="hdr-ttl"><h1 id="hdrTitle">Mi Viaje</h1><p id="hdrSub">Tu mundo, tus viajes, tu historia.</p></div>
     </div>
     <div class="hdr-r">
-      <button class="install-btn" id="installBtn" onclick="installPWA()" title="Instalar app"><i class="fas fa-download"></i><span>Instalar app</span></button>
-      <button class="dm-toggle" id="dmToggle" onclick="toggleDarkMode()" title="Modo oscuro"><i class="fas fa-moon"></i></button>
-      <button class="av-btn" onclick="showView('perfil')">
-        <div class="av-circle" id="avatarInitial">?</div>
+      <button class="install-btn" id="installBtn" onclick="installPWA()" title="Instalar app" aria-label="Instalar aplicación"><i class="fas fa-download" aria-hidden="true"></i><span>Instalar app</span></button>
+      <button class="dm-toggle" id="dmToggle" onclick="toggleDarkMode()" title="Modo oscuro" aria-label="Alternar modo oscuro"><i class="fas fa-moon" aria-hidden="true"></i></button>
+      <button class="av-btn" onclick="showView('perfil')" aria-label="Ver perfil de usuario">
+        <div class="av-circle" id="avatarInitial" aria-hidden="true">?</div>
         <div><div class="av-name name">Cargando…</div><div class="av-sub">Ver perfil</div></div>
-        <i class="fas fa-chevron-down" style="font-size:.58rem;color:var(--tx3);margin-left:3px"></i>
+        <i class="fas fa-chevron-down" style="font-size:.58rem;color:var(--tx3);margin-left:3px" aria-hidden="true"></i>
       </button>
     </div>
   </header>
-  <div class="view-wrap">
+  <div class="view-wrap" role="main" aria-label="Contenido principal">
 
   <!-- VIEW: MI VIAJE -->
   <div class="view active" id="view-mi-viaje">
@@ -2112,19 +2136,19 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   </div><!-- end view-wrap -->
   <!-- BOTTOM NAV MOBILE -->
-  <nav class="bottom-nav" id="bottomNav">
+  <nav class="bottom-nav" id="bottomNav" role="navigation" aria-label="Navegación rápida">
    <div class="bottom-nav-inner">
-    <button class="bnav-item active" data-view="mi-viaje" onclick="showView('mi-viaje')">
-     <i class="fas fa-plane"></i><span>Mi Viaje</span>
+    <button class="bnav-item active" data-view="mi-viaje" onclick="showView('mi-viaje')" aria-label="Mi Viaje">
+     <i class="fas fa-plane" aria-hidden="true"></i><span>Mi Viaje</span>
     </button>
-    <button class="bnav-item" data-view="mis-viajes" onclick="showView('mis-viajes')">
-     <i class="fas fa-clock-rotate-left"></i><span>Historial</span>
+    <button class="bnav-item" data-view="mis-viajes" onclick="showView('mis-viajes')" aria-label="Historial de viajes">
+     <i class="fas fa-clock-rotate-left" aria-hidden="true"></i><span>Historial</span>
     </button>
-    <button class="bnav-item" data-view="fidelizacion" onclick="showView('fidelizacion')">
-     <i class="fas fa-crown"></i><span>Club</span>
+    <button class="bnav-item" data-view="fidelizacion" onclick="showView('fidelizacion')" aria-label="Club Herse">
+     <i class="fas fa-crown" aria-hidden="true"></i><span>Club</span>
     </button>
-    <button class="bnav-item" data-view="perfil" onclick="showView('perfil')">
-     <i class="fas fa-user"></i><span>Perfil</span>
+    <button class="bnav-item" data-view="perfil" onclick="showView('perfil')" aria-label="Mi Perfil">
+     <i class="fas fa-user" aria-hidden="true"></i><span>Perfil</span>
     </button>
    </div>
   </nav>
@@ -3510,5 +3534,23 @@ function closeSidebar(){
   if(ov)ov.classList.remove('show');
   document.body.style.overflow='';
 }
+
+/* ===== SCROLL ANIMATIONS ===== */
+(function(){
+  if(typeof IntersectionObserver==='undefined')return;
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  function observe(){
+    document.querySelectorAll('.card,.snap-c,.tli,.mi-card,.hv-card,.lg-c,.stat-card,.doc-c,.itin-day').forEach(el=>{
+      if(!el.classList.contains('anim-in')&&!el.classList.contains('visible')){
+        el.classList.add('anim-in');io.observe(el);
+      }
+    });
+  }
+  const mo=new MutationObserver(()=>requestAnimationFrame(observe));
+  mo.observe(document.body,{childList:true,subtree:true});
+  document.addEventListener('DOMContentLoaded',observe);
+})();
 </script></body>
 </html>
