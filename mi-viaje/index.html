@@ -22,6 +22,8 @@
 <link rel="dns-prefetch" href="https://js-de.sentry-cdn.com">
 <script src="https://js-de.sentry-cdn.com/d9f8b1eee56daacb0b9864323d164d4f.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"TravelAgency","name":"Herse Turismo","url":"https://herseturismo.com.ar","logo":"https://herseturismo.com.ar/assets/logo-web.png","description":"Agencia de turismo especializada en viajes grupales e individuales.","address":{"@type":"PostalAddress","addressCountry":"AR"}}</script>
 <style>
@@ -1468,6 +1470,12 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 [data-theme="dark"] .sw-ico.tz{background:rgba(217,119,6,.15)}
 [data-theme="dark"] .sw-ico.emer{background:rgba(220,38,38,.15)}
 @media(max-width:600px){.smart-widgets{grid-template-columns:1fr}.sw-card{display:flex;align-items:center;gap:14px;padding:14px}.sw-ico{margin-bottom:0;flex-shrink:0}}
+.dest-map-card{background:var(--card);border:1px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:18px;box-shadow:var(--sh)}
+.dest-map-hdr{display:flex;align-items:center;gap:9px;padding:14px 16px;font-size:.78rem;font-weight:800;color:var(--tx)}
+.dest-map-hdr i{color:var(--ac)}
+#destMap{height:220px;width:100%;z-index:1}
+.leaflet-control-attribution{font-size:.5rem!important;opacity:.6}
+@media(max-width:600px){#destMap{height:180px}}
 /* ── TRIP DASHBOARD (viaje activo) ── */
 .trip-hero{position:relative;height:265px;border-radius:18px;overflow:hidden;margin-bottom:18px;background-size:cover;background-position:center}
 .trip-hero-ov{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.72) 0%,rgba(0,0,0,.22) 55%,rgba(0,0,0,.04) 100%)}
@@ -2822,6 +2830,7 @@ function updateTripUI(v){
       <button class="trip-det-btn" onclick="toggleItinerario()"><i class="fas fa-route"></i> Ver detalles del viaje <i class="fas fa-chevron-right"></i></button>
     </div>
     <div class="smart-widgets" id="smartWidgets"></div>
+    <div class="dest-map-card" id="destMapCard" style="display:none"><div class="dest-map-hdr"><i class="fas fa-map-marked-alt"></i> Tu destino en el mapa</div><div id="destMap"></div></div>
     <div id="itinerarioSection" style="display:none;margin-bottom:16px">
       <div class="itin-hdr" onclick="toggleItinerario()">
         <div class="itin-hdr-ttl"><i class="fas fa-route" style="color:var(--ac)"></i> Itinerario completo</div>
@@ -2949,6 +2958,26 @@ async function loadSmartWidgets(destino){
     const elT=document.getElementById('swTemp');if(elT)elT.textContent='—';
     const elS=document.getElementById('swWeatherSub');if(elS)elS.textContent='No disponible';
   }
+  // Init map
+  initDestMap(info,destino);
+}
+let _destMap=null;
+function initDestMap(info,destino){
+  const card=document.getElementById('destMapCard');
+  const el=document.getElementById('destMap');
+  if(!card||!el||typeof L==='undefined')return;
+  card.style.display='';
+  if(_destMap){_destMap.remove();_destMap=null;}
+  _destMap=L.map('destMap',{zoomControl:false,attributionControl:true,scrollWheelZoom:false,dragging:true}).setView([info.lat,info.lon],6);
+  L.control.zoom({position:'bottomright'}).addTo(_destMap);
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  const tiles=isDark
+    ?'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
+    :'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+  L.tileLayer(tiles,{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'}).addTo(_destMap);
+  const icon=L.divIcon({className:'',html:`<div style="width:36px;height:36px;background:var(--ac);border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center"><i class="fas fa-location-dot" style="color:#fff;font-size:.9rem"></i></div>`,iconSize:[36,36],iconAnchor:[18,18]});
+  L.marker([info.lat,info.lon],{icon}).addTo(_destMap).bindPopup(`<b>${escapeHtml(destino)}</b><br>${info.pais}`);
+  setTimeout(()=>_destMap.invalidateSize(),300);
 }
 
 function updateFidDashCard(fid){
