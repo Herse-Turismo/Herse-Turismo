@@ -3119,17 +3119,24 @@ async function loadSmartWidgets(destino){
     const elT=document.getElementById('swTemp');if(elT)elT.textContent='—';
     const elS=document.getElementById('swWeatherSub');if(elS)elS.textContent='No disponible';
   }
-  // Init map
+  // Init map — geocode real city, fallback to country coords
   initDestMap(info,destino);
 }
 let _destMap=null;
-function initDestMap(info,destino){
+async function initDestMap(info,destino){
   const card=document.getElementById('destMapCard');
   const el=document.getElementById('destMap');
   if(!card||!el||typeof L==='undefined')return;
   card.style.display='';
+  let lat=info.lat,lon=info.lon;
+  try{
+    const q=encodeURIComponent(destino);
+    const r=await fetch(`https://nominatim.openstreetmap.org/search?q=${q}&format=json&limit=1&accept-language=es`);
+    const d=await r.json();
+    if(d&&d.length>0){lat=parseFloat(d[0].lat);lon=parseFloat(d[0].lon);}
+  }catch(e){}
   if(_destMap){_destMap.remove();_destMap=null;}
-  _destMap=L.map('destMap',{zoomControl:false,attributionControl:true,scrollWheelZoom:false,dragging:true}).setView([info.lat,info.lon],6);
+  _destMap=L.map('destMap',{zoomControl:false,attributionControl:true,scrollWheelZoom:false,dragging:true}).setView([lat,lon],10);
   L.control.zoom({position:'bottomright'}).addTo(_destMap);
   const isDark=document.documentElement.getAttribute('data-theme')==='dark';
   const tiles=isDark
@@ -3137,7 +3144,7 @@ function initDestMap(info,destino){
     :'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
   L.tileLayer(tiles,{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'}).addTo(_destMap);
   const icon=L.divIcon({className:'',html:`<div style="width:36px;height:36px;background:var(--ac);border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center"><i class="fas fa-location-dot" style="color:#fff;font-size:.9rem"></i></div>`,iconSize:[36,36],iconAnchor:[18,18]});
-  L.marker([info.lat,info.lon],{icon}).addTo(_destMap).bindPopup(`<b>${escapeHtml(destino)}</b><br>${info.pais}`);
+  L.marker([lat,lon],{icon}).addTo(_destMap).bindPopup(`<b>${escapeHtml(destino)}</b><br>${info.pais}`);
   setTimeout(()=>_destMap.invalidateSize(),300);
 }
 
