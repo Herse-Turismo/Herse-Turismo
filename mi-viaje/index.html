@@ -64,6 +64,37 @@ img{display:block}
 .sb-promo-body h4{font-size:.74rem;font-weight:800;color:#fff;margin-bottom:3px}
 .sb-promo-body p{font-size:.63rem;color:rgba(255,255,255,.7);margin-bottom:8px;line-height:1.4}
 .btn-promo{display:block;text-align:center;background:#fff;color:#1a6cff;font-size:.7rem;font-weight:800;padding:6px;border-radius:7px}
+/* ── SIDEBAR THEME VARIANTS ── */
+/* Variant A: Dark Navy */
+.sb-dark .sidebar{background:linear-gradient(180deg,#0c1929 0%,#132f4c 100%);border-right:1px solid rgba(255,255,255,.08)}
+.sb-dark .sb-logo{border-bottom:1px solid rgba(255,255,255,.08)}
+.sb-dark .ni{color:rgba(255,255,255,.6)}
+.sb-dark .ni:hover{background:rgba(255,255,255,.06);color:#fff}
+.sb-dark .ni.active{background:rgba(26,108,255,.2);color:#60a5fa;border-left-color:#60a5fa}
+.sb-dark .sb-sec{color:rgba(255,255,255,.3)}
+.sb-dark .sb-info{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+.sb-dark .sb-info-ttl{color:#fff}
+.sb-dark .sb-info-sub{color:rgba(255,255,255,.5)}
+.sb-dark .sb-info-link{color:#60a5fa}
+/* Variant B: Gradient */
+.sb-gradient .sidebar{background:linear-gradient(180deg,#eef4ff 0%,#e0e7ff 40%,#f5f3ff 100%);border-right:1px solid rgba(99,102,241,.12)}
+.sb-gradient .sb-logo{border-bottom:1px solid rgba(99,102,241,.1)}
+.sb-gradient .ni.active{background:rgba(99,102,241,.12);color:#6366f1;border-left-color:#6366f1}
+.sb-gradient .sb-sec{color:#6366f1}
+/* Variant C: Colored sections */
+.sb-colored .sidebar{background:var(--card);border-right:1px solid var(--bd)}
+.sb-colored .ni[data-view="mi-viaje"].active{background:#eff6ff;color:#2563eb;border-left-color:#2563eb}
+.sb-colored .ni[data-view="mis-viajes"].active{background:#f0fdf4;color:#16a34a;border-left-color:#16a34a}
+.sb-colored .ni[data-view="fidelizacion"].active{background:#fefce8;color:#ca8a04;border-left-color:#ca8a04}
+.sb-colored .ni[data-view="perfil"].active{background:#fdf4ff;color:#a855f7;border-left-color:#a855f7}
+.sb-colored .ni[data-view="pasaporte"].active{background:#fff7ed;color:#ea580c;border-left-color:#ea580c}
+.sb-colored .ni[data-view="pasaporte-tribunero"].active{background:#ecfdf5;color:#059669;border-left-color:#059669}
+/* Theme switcher (temporary) */
+.sb-theme-switch{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:6px;background:#fff;padding:12px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.15);border:1px solid #e5e7eb}
+.sb-theme-switch span{font-size:.55rem;font-weight:800;text-transform:uppercase;color:#6b7280;letter-spacing:1px}
+.sb-theme-switch button{padding:7px 12px;border:1.5px solid #e5e7eb;border-radius:8px;font-size:.68rem;font-weight:700;background:#fff;color:#374151;cursor:pointer;transition:.15s}
+.sb-theme-switch button:hover{border-color:#1a6cff;color:#1a6cff}
+.sb-theme-switch button.active-theme{background:#1a6cff;border-color:#1a6cff;color:#fff}
 /* top header */
 .hdr-l{display:flex;align-items:center;gap:11px}
 .hdr-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
@@ -1866,14 +1897,14 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    <img src="../assets/logo-web.png" alt="Herse" onerror="this.style.display='none'">
   </a>
   <nav class="sb-nav">
-    <button class="ni active" id="nav-mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje<span class="nb" id="badge-docs" style="display:none"></span></button>
-    <button class="ni" id="nav-mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
-    <button class="ni" id="nav-fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i> Club Herse<span class="nb" id="badge-pts" style="display:none">!</span></button>
+    <button class="ni active" id="nav-mi-viaje" data-view="mi-viaje" onclick="showView('mi-viaje')"><i class="fas fa-plane"></i> Mi Viaje<span class="nb" id="badge-docs" style="display:none"></span></button>
+    <button class="ni" id="nav-mis-viajes" data-view="mis-viajes" onclick="showView('mis-viajes')"><i class="fas fa-clock-rotate-left"></i> Historial de Viajes</button>
+    <button class="ni" id="nav-fidelizacion" data-view="fidelizacion" onclick="showView('fidelizacion')"><i class="fas fa-crown"></i> Club Herse<span class="nb" id="badge-pts" style="display:none">!</span></button>
     <div class="sb-sec">Próximamente</div>
-    <button class="ni" id="nav-pasaporte-virtual" onclick="showView('pasaporte-virtual')"><i class="fas fa-passport"></i> Pasaporte Virtual</button>
-    <button class="ni" id="nav-pasaporte-tribunero" onclick="showView('pasaporte-tribunero')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
+    <button class="ni" id="nav-pasaporte-virtual" data-view="pasaporte" onclick="showView('pasaporte-virtual')"><i class="fas fa-passport"></i> Pasaporte Virtual</button>
+    <button class="ni" id="nav-pasaporte-tribunero" data-view="pasaporte-tribunero" onclick="showView('pasaporte-tribunero')"><i class="fas fa-futbol"></i> Pasaporte Tribunero</button>
     <div class="sb-sec">Más</div>
-    <button class="ni" id="nav-perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
+    <button class="ni" id="nav-perfil" data-view="perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
     <button class="ni" id="btnAdmin" style="display:none" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Panel Admin</button>
   </nav>
   <div class="sb-info">
@@ -3883,6 +3914,23 @@ function closePhotoLightbox(){
   const mo=new MutationObserver(()=>requestAnimationFrame(observe));
   mo.observe(document.body,{childList:true,subtree:true});
   document.addEventListener('DOMContentLoaded',observe);
+})();
+/* ===== SIDEBAR THEME SWITCHER (TEMPORAL — BORRAR DESPUÉS) ===== */
+(function(){
+  const sw=document.createElement('div');
+  sw.className='sb-theme-switch';
+  sw.innerHTML=`<span>Probar sidebar</span>
+    <button onclick="setSbTheme('')" class="active-theme">Original</button>
+    <button onclick="setSbTheme('sb-dark')">Oscuro Navy</button>
+    <button onclick="setSbTheme('sb-gradient')">Gradiente</button>
+    <button onclick="setSbTheme('sb-colored')">Colores x sección</button>`;
+  document.body.appendChild(sw);
+  window.setSbTheme=function(cls){
+    document.body.classList.remove('sb-dark','sb-gradient','sb-colored');
+    if(cls)document.body.classList.add(cls);
+    sw.querySelectorAll('button').forEach(b=>b.classList.remove('active-theme'));
+    event.target.classList.add('active-theme');
+  };
 })();
 </script></body>
 </html>
