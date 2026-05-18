@@ -83,6 +83,24 @@ img{display:block}
 .sb-info-link{color:#60a5fa!important}
 .sb-logout{color:rgba(255,255,255,.5)!important;border-top-color:rgba(255,255,255,.06)!important}
 .sb-logout:hover{color:#f87171!important}
+/* ── SECTION IDENTITY: color accent per view ── */
+.view-wrap{transition:background .4s ease}
+.view-wrap[data-accent="blue"]{background:linear-gradient(180deg,#f0f5ff 0%,var(--bg) 18%)!important}
+.view-wrap[data-accent="green"]{background:linear-gradient(180deg,#f0fdf4 0%,var(--bg) 18%)!important}
+.view-wrap[data-accent="gold"]{background:linear-gradient(180deg,#fffbeb 0%,var(--bg) 18%)!important}
+.view-wrap[data-accent="purple"]{background:linear-gradient(180deg,#faf5ff 0%,var(--bg) 18%)!important}
+[data-theme="dark"] .view-wrap[data-accent="blue"]{background:linear-gradient(180deg,rgba(26,108,255,.04) 0%,var(--bg) 18%)!important}
+[data-theme="dark"] .view-wrap[data-accent="green"]{background:linear-gradient(180deg,rgba(34,197,94,.04) 0%,var(--bg) 18%)!important}
+[data-theme="dark"] .view-wrap[data-accent="gold"]{background:linear-gradient(180deg,rgba(245,158,11,.04) 0%,var(--bg) 18%)!important}
+[data-theme="dark"] .view-wrap[data-accent="purple"]{background:linear-gradient(180deg,rgba(168,85,247,.04) 0%,var(--bg) 18%)!important}
+/* ── HOVER 3D TILT on historial cards ── */
+.hv-card{transform-style:preserve-3d;perspective:800px}
+.hv-card:hover{transform:rotateY(-2deg) rotateX(2deg) translateY(-4px);box-shadow:8px 12px 30px rgba(0,74,143,.12)}
+/* ── BOUNCE IN for icons ── */
+@keyframes bounceIn{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}80%{transform:scale(.95)}100%{transform:scale(1);opacity:1}}
+.stat-ico,.hdr-ico{animation:bounceIn .5s ease both}
+/* ── COUNTER animation class ── */
+.stat-val{transition:opacity .2s}
 /* top header */
 .hdr-l{display:flex;align-items:center;gap:11px}
 .hdr-ico{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
@@ -1922,7 +1940,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       </button>
     </div>
   </header>
-  <div class="view-wrap" role="main" aria-label="Contenido principal">
+  <div class="view-wrap" role="main" aria-label="Contenido principal" data-accent="blue">
 
   <!-- VIEW: MI VIAJE -->
   <div class="view active" id="view-mi-viaje">
@@ -2375,12 +2393,12 @@ let _currentTrip=null;
 
 /* VIEW SWITCHING */
 const VIEW_META={
-  'mi-viaje':   {title:'Mi Viaje',      sub:'Tu mundo, tus viajes, tu historia.',        ico:'fas fa-plane',     cls:'blue'},
-  'mis-viajes': {title:'Historial de viajes', sub:'Todos tus recuerdos y experiencias con Herse.', ico:'fas fa-clock-rotate-left', cls:'blue'},
-  'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple'},
-  'fidelizacion':     {title:'Club Herse',            sub:'Sumá puntos, subí de nivel y canjeá beneficios exclusivos.',    ico:'fas fa-crown',    cls:'gold'},
-  'pasaporte-virtual':  {title:'Pasaporte Virtual',     sub:'Tu pasaporte digital de viajes con Herse.',                    ico:'fas fa-passport', cls:'blue'},
-  'pasaporte-tribunero':{title:'Pasaporte Tribunero',   sub:'Tu pasaporte futbolero para coleccionar estadios.',            ico:'fas fa-futbol',   cls:'purple'},
+  'mi-viaje':   {title:'Mi Viaje',      sub:'Tu mundo, tus viajes, tu historia.',        ico:'fas fa-plane',     cls:'blue',   accent:'blue'},
+  'mis-viajes': {title:'Historial de viajes', sub:'Todos tus recuerdos y experiencias con Herse.', ico:'fas fa-clock-rotate-left', cls:'green', accent:'green'},
+  'perfil':           {title:'Mi Perfil',            sub:'Gestioná tu información personal, preferencias y estadísticas.', ico:'fas fa-user', cls:'purple', accent:'purple'},
+  'fidelizacion':     {title:'Club Herse',            sub:'Sumá puntos, subí de nivel y canjeá beneficios exclusivos.',    ico:'fas fa-crown',    cls:'gold', accent:'gold'},
+  'pasaporte-virtual':  {title:'Pasaporte Virtual',     sub:'Tu pasaporte digital de viajes con Herse.',                    ico:'fas fa-passport', cls:'blue', accent:'blue'},
+  'pasaporte-tribunero':{title:'Pasaporte Tribunero',   sub:'Tu pasaporte futbolero para coleccionar estadios.',            ico:'fas fa-futbol',   cls:'purple', accent:'purple'},
 };
 function showView(id){
   closeSidebar();
@@ -2406,13 +2424,14 @@ function showView(id){
   const ico=document.getElementById('hdrIcon');
   const ttl=document.getElementById('hdrTitle');
   const sub=document.getElementById('hdrSub');
-  if(ico){ico.className='hdr-ico '+(m.cls||'blue');ico.innerHTML='<i class="'+m.ico+'"></i>';}
+  if(ico){ico.className='hdr-ico '+(m.cls||'blue');ico.innerHTML='<i class="'+m.ico+'"></i>';ico.style.animation='none';ico.offsetHeight;ico.style.animation='';}
   if(ttl) ttl.textContent=m.title||'';
   if(sub) sub.textContent=m.sub||'';
+  const vw=document.querySelector('.view-wrap');if(vw&&m.accent)vw.setAttribute('data-accent',m.accent);
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
   if(id==='perfil') renderPerfil();
-  const vw=document.querySelector('.view-wrap');if(vw)vw.scrollTo({top:0,behavior:'instant'});
+  if(vw)vw.scrollTo({top:0,behavior:'instant'});
 }
 function toggleItinerario(){
   const s=document.getElementById('itinerarioSection');
@@ -3156,10 +3175,10 @@ async function loadHistorial(){
   const activo=_allTrips.filter(t=>t.activo).length;
   const completados=_allTrips.filter(t=>!t.activo).length;
   const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(',')[0].split(' ')[0])).size;
-  const st=document.getElementById('statTotal');if(st)st.textContent=_allTrips.length;
-  const sp=document.getElementById('statProximos');if(sp)sp.textContent=activo;
-  const sc=document.getElementById('statCompletados');if(sc)sc.textContent=completados;
-  const sk=document.getElementById('statPaises');if(sk)sk.textContent=paises;
+  const st=document.getElementById('statTotal');if(st)animateCount(st,_allTrips.length);
+  const sp=document.getElementById('statProximos');if(sp)animateCount(sp,activo);
+  const sc=document.getElementById('statCompletados');if(sc)animateCount(sc,completados);
+  const sk=document.getElementById('statPaises');if(sk)animateCount(sk,paises);
   if(!_hasTrip) updateNoTripNivelCard();
   if(typeof renderPerfil==='function') renderPerfil();
 }
@@ -3884,6 +3903,19 @@ function closePhotoLightbox(){
   const lb=document.getElementById('photoLightbox');
   if(lb)lb.classList.remove('active');
   document.body.style.overflow='';
+}
+function animateCount(el,target){
+  if(!el||target<=0){el.textContent=target;return;}
+  const dur=600;
+  const start=performance.now();
+  const from=0;
+  function step(now){
+    const t=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-t,3);
+    el.textContent=Math.round(from+(target-from)*ease);
+    if(t<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
