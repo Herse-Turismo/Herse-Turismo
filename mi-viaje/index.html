@@ -1858,88 +1858,65 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .bottom-nav{padding-bottom:max(env(safe-area-inset-bottom,4px),4px)}
   body{overscroll-behavior-y:contain;-webkit-user-select:none;user-select:text}
 }
- /* ── PASAPORTE VIRTUAL PREMIUM UI ── */
- .vcontent-pp{padding:40px 20px;max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:30px;min-height:calc(100vh - var(--hh));position:relative}
- .pp-header{display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;margin-bottom:20px}
- .pp-title-area{flex:1}
- .pp-eyebrow{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:3px;color:#003B7A;margin-bottom:8px;display:flex;align-items:center;gap:10px}
- .pp-eyebrow::after{content:'';height:1px;width:60px;background:#003B7A;opacity:.2}
- .pp-title{font-size:2.4rem;font-weight:900;color:#0F172A;margin:0;letter-spacing:-1px;line-height:1.1}
- .pp-desc{font-size:.95rem;color:#64748B;max-width:500px;line-height:1.5;margin-top:10px}
+ /* ── PASAPORTE VIRTUAL ULTRA-FOCUS UI ── */
+ .vcontent-pp{padding:0;max-width:100%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));position:relative;background: radial-gradient(circle at center, #f1f5f9 0%, #e2e8f0 100%)}
  
- /* Stats Card - Estilo Membresía Platinum */
- .pp-card-membership{background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border-radius:20px;padding:24px;color:#fff;position:relative;overflow:hidden;width:340px;height:200px;box-shadow:0 15px 35px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;justify-content:space-between}
- .pp-card-membership::before{content:'';position:absolute;top:-50%;right:-20%;width:260px;height:260px;background:radial-gradient(circle,rgba(255,255,255,.05) 0%,transparent 70%);border-radius:50%}
- .pp-card-logo{font-size:1.1rem;font-weight:900;letter-spacing:2px;display:flex;align-items:center;gap:8px}
- .pp-card-logo i{color:#D4AF37}
- .pp-card-chip{width:40px;height:28px;background:linear-gradient(135deg,#e2e8f0 0%,#94a3b8 100%);border-radius:5px;position:relative;margin-top:10px}
- .pp-card-chip::after{content:'';position:absolute;inset:4px;border:1px solid rgba(0,0,0,.1);border-radius:2px}
- .pp-card-number{font-family:'Courier New',monospace;font-size:1.1rem;letter-spacing:3px;opacity:.9;margin:15px 0}
- .pp-card-footer{display:flex;justify-content:space-between;align-items:flex-end}
- .pp-card-name{font-size:.6rem;text-transform:uppercase;letter-spacing:1.5px;opacity:.6}
- .pp-card-val{font-size:.85rem;font-weight:700;margin-top:2px}
+ /* Fondo estilo "Escritorio de Viajero" */
+ .pp-desk-overlay { position: absolute; inset: 0; pointer-events: none; opacity: 0.4; background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); mix-blend-mode: multiply; }
  
- /* El Pasaporte 3D - Estructura Reforzada */
- .pp-container{display:flex;justify-content:center;perspective:2500px;margin:20px 0;min-height:550px;align-items:center}
- .pp-book-wrap{position:relative;width:700px;height:480px;transform-style:preserve-3d;transition:transform 0.8s cubic-bezier(.4,0,.2,1);transform:rotateX(5deg)}
- .pp-book-wrap.is-open{transform:rotateX(5deg) rotateY(0deg)}
+ .pp-header-simple{text-align:center;margin-bottom:40px;z-index:10;position:relative;padding-top:40px}
+ .pp-eyebrow{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:4px;color:#003B7A;margin-bottom:12px;display:block}
+ .pp-title{font-size:3rem;font-weight:950;color:#0F172A;margin:0;letter-spacing:-1.5px;line-height:1}
+ .pp-desc{font-size:.9rem;color:#64748B;max-width:550px;line-height:1.6;margin:15px auto 0}
  
- .pp-page{position:absolute;width:350px;height:100%;top:0;transform-origin:left center;transition:transform 1s cubic-bezier(.645,.045,.355,1);transform-style:preserve-3d;cursor:pointer}
- .pp-page.front{left:350px;z-index:10;transform:rotateY(0deg)}
- .pp-page.back{left:350px;z-index:9}
+ /* Pasaporte Gigante y Centrado */
+ .pp-container{display:flex;justify-content:center;perspective:3000px;width:100%;margin:0;padding:20px;z-index:5}
+ .pp-book-wrap{position:relative;width:800px;height:550px;transform-style:preserve-3d;transition:transform 0.8s cubic-bezier(.4,0,.2,1);transform:rotateX(10deg)}
+ 
+ .pp-page{position:absolute;width:400px;height:100%;top:0;transform-origin:left center;transition:transform 1.2s cubic-bezier(.645,.045,.355,1);transform-style:preserve-3d;cursor:pointer}
+ .pp-page.front{left:400px;z-index:10;transform:rotateY(0deg)}
+ .pp-page.back{left:400px;z-index:9}
  .is-open .pp-page.front{transform:rotateY(-180deg)}
  
  /* Caras de las páginas */
- .pp-side{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;padding:30px;box-shadow:inset 0 0 60px rgba(0,0,0,.05);overflow:hidden;transition:box-shadow 0.5s}
+ .pp-side{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;padding:40px;box-shadow:inset 0 0 80px rgba(0,0,0,.06);overflow:hidden}
  
- /* Portada (Cuero) */
- .pp-side.pp-cover{background:linear-gradient(135deg, #1a365d, #0d1e3c);color:#D4AF37;border-radius:0 15px 15px 0;border-left:12px solid rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;box-shadow:10px 20px 50px rgba(0,0,0,0.4)}
- .pp-cover-emblem{width:110px;height:110px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:3.8rem;filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3))}
- .pp-cover-title{font-size:1.8rem;font-weight:900;letter-spacing:8px;text-transform:uppercase;margin:0;text-shadow: 0 2px 4px rgba(0,0,0,0.3)}
- .pp-cover-subtitle{font-size:.7rem;letter-spacing:4px;opacity:.8}
+ /* Portada Premium */
+ .pp-side.pp-cover{background:linear-gradient(135deg, #1e3a8a, #1e1b4b);color:#D4AF37;border-radius:0 20px 20px 0;border-left:15px solid rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:25px;box-shadow:20px 30px 60px rgba(0,0,0,0.4)}
+ .pp-cover-emblem{width:130px;height:130px;border:3px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:4.5rem;filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4))}
+ .pp-cover-title{font-size:2.2rem;font-weight:900;letter-spacing:10px;text-transform:uppercase;margin:0;text-shadow: 0 3px 6px rgba(0,0,0,0.4)}
  
- /* Interior (Papel) */
- .pp-side.pp-paper{background:#fdfcf0;background-image:radial-gradient(#e5e7eb 1px,transparent 1px);background-size:20px 20px;color:#1e293b;border:1px solid rgba(0,0,0,.1);transition: transform 0.6s ease}
- .pp-side.pp-paper-left{border-radius:15px 0 0 15px;transform:rotateY(180deg);box-shadow:inset -15px 0 40px rgba(0,0,0,.08)}
- .pp-side.pp-paper-right{border-radius:0 15px 15px 0;left:0;box-shadow:inset 15px 0 40px rgba(0,0,0,.08)}
+ /* Interior Refinado */
+ .pp-side.pp-paper{background:#fefcf5;background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');color:#1e293b;border:1px solid rgba(0,0,0,.12)}
+ .pp-side.pp-paper-left{border-radius:20px 0 0 20px;transform:rotateY(180deg);box-shadow:inset -20px 0 50px rgba(0,0,0,.1)}
+ .pp-side.pp-paper-right{border-radius:0 20px 20px 0;left:0;box-shadow:inset 20px 0 50px rgba(0,0,0,.1)}
  
- .pp-side.pp-paper:hover { box-shadow: inset 0 0 80px rgba(0,0,0,0.1); }
+ .pp-paper-header{border-bottom:2px solid rgba(0,0,0,.05);padding-bottom:15px;margin-bottom:25px;display:flex;justify-content:space-between;align-items:center}
+ .pp-paper-title{font-family:'Courier New',monospace;font-size:.85rem;font-weight:900;letter-spacing:3px;opacity:.7;text-transform:uppercase}
  
- .pp-paper-header{border-bottom:1px solid rgba(0,0,0,.08);padding-bottom:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
- .pp-paper-title{font-family:'Courier New',monospace;font-size:.75rem;font-weight:900;letter-spacing:2px;opacity:.6;text-transform:uppercase}
+ /* Sellos Realistas */
+ .pp-stamps-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:25px;flex:1}
+ .pp-stamp-slot{position:relative;display:flex;align-items:center;justify-content:center;border-radius:15px;background:rgba(255,255,255,0.4);box-shadow: inset 0 2px 10px rgba(0,0,0,0.02)}
+ .pp-stamp-img{width:120px;height:120px;object-fit:contain;filter:drop-shadow(3px 6px 10px rgba(0,0,0,0.15));mix-blend-mode:multiply;opacity:.92;transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
  
- /* Sellos Realistas - Grid corregido */
- .pp-stamps-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;flex:1}
- .pp-stamp-slot{position:relative;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(0,0,0,.05);border-radius:12px;background:rgba(255,255,255,0.3);transition: transform 0.3s ease}
- .pp-stamp-slot:hover { transform: scale(1.05); }
- .pp-stamp-img{width:100px;height:100px;object-fit:contain;filter:drop-shadow(2px 5px 8px rgba(0,0,0,0.12));mix-blend-mode:multiply;opacity:.9;transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
+ .pp-stamp-locked{text-align:center;opacity:.08;filter:grayscale(1)}
+ .pp-stamp-locked i{font-size:2.5rem;display:block;margin-bottom:8px}
+ .pp-stamp-locked span{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:2px}
  
- .pp-stamp-locked{text-align:center;opacity:.12;filter:grayscale(1)}
- .pp-stamp-locked i{font-size:2rem;display:block;margin-bottom:6px}
- .pp-stamp-locked span{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px}
- 
- /* Navegación y Controles */
- .pp-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:15px;z-index:5}
- .pp-page-info{font-size:.9rem;font-weight:900;color:#64748B;letter-spacing:2px;text-transform:uppercase;opacity:0.8}
- 
- /* Animación de Cambio de Página */
- @keyframes pageFlipIn {
-   0% { transform: scale(0.95); opacity: 0.5; }
-   100% { transform: scale(1); opacity: 1; }
- }
- .pp-stamps-grid.flipping { animation: pageFlipIn 0.4s ease-out; }
+ /* Stats Flotantes */
+ .pp-floating-stats { position: absolute; bottom: 40px; right: 40px; display: flex; gap: 20px; z-index: 10; }
+ .pp-stat-pill { background: #fff; padding: 12px 24px; border-radius: 99px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 10px; border: 1px solid #f1f5f9; }
+ .pp-stat-val { font-weight: 900; color: #003B7A; font-size: 1.2rem; }
+ .pp-stat-lbl { font-size: .65rem; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 1px; }
 
+ .pp-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin:30px 0 40px;z-index:5}
+ .pp-page-info{font-size:.9rem;font-weight:900;color:#64748B;letter-spacing:3px;text-transform:uppercase}
+ 
  @media(max-width:900px){
-   .vcontent-pp{padding:20px 15px;gap:20px}
-   .pp-header{grid-template-columns:1fr;gap:20px}
-   .pp-title{font-size:2rem}
-   .pp-card-membership{width:100%;height:auto;padding:20px}
-   .pp-container{min-height:450px;margin:10px 0}
-   .pp-book-wrap{width:100%;max-width:350px;height:450px}
+   .pp-book-wrap{width:100%;max-width:350px;height:500px}
    .pp-page{width:100%;left:0!important}
-   .pp-page.back{display:none}
-   .is-open .pp-page.front{transform:rotateY(-180deg) scale(0.9);opacity:0;pointer-events:none}
-   .pp-side.pp-paper-right{left:0;border-radius:15px;box-shadow:0 15px 40px rgba(0,0,0,0.2)}
+   .pp-side{padding:25px}
+   .pp-floating-stats { position: relative; bottom: 0; right: 0; justify-content: center; margin-bottom: 20px; }
  }
 </style>
 </head>
@@ -2300,82 +2277,65 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 
   <!-- VIEW: PASAPORTE VIRTUAL PREMIUM -->
   <div class="view" id="view-pasaporte-virtual">
-    <div style="background:#f8fafc; min-height:100vh; position:relative; overflow-x:hidden">
+    <div class="vcontent-pp">
+      <div class="pp-desk-overlay"></div>
       
-      <div class="vcontent-pp">
-        <header class="pp-header">
-          <div class="pp-title-area">
-            <div class="pp-eyebrow"><i class="fas fa-star"></i> Beneficio Exclusive</div>
-            <h1 class="pp-title">Pasaporte Virtual</h1>
-            <p class="pp-desc">Tu historia como viajero de Herse, inmortalizada en sellos. Cada destino es un nuevo logro en tu colección personal.</p>
-          </div>
+      <header class="pp-header-simple">
+        <span class="pp-eyebrow">Tu bitácora de aventuras</span>
+        <h1 class="pp-title">Pasaporte Virtual</h1>
+        <p class="pp-desc">Explorá tu historial de viajes con Herse. Cada sello cuenta una historia, cada página es un destino conquistado.</p>
+      </header>
+
+      <!-- El Pasaporte Protagonista -->
+      <div class="pp-container">
+        <div class="pp-book-wrap" id="pp-book-element">
           
-          <!-- Membership Card -->
-          <div class="pp-card-membership">
-            <div class="pp-card-logo">HERSE <i class="fas fa-crown"></i></div>
-            <div class="pp-card-chip"></div>
-            <div class="pp-card-number">4512 8800 9921 4450</div>
-            <div class="pp-card-footer">
-              <div>
-                <div class="pp-card-name">VIAJERO CATEGORÍA</div>
-                <div class="pp-card-val" id="pp-level-text">PLATINUM MEMBER</div>
+          <!-- Portada y Página 1 -->
+          <div class="pp-page front" id="pp-front-page" onclick="handlePassportClick(event, 'left')">
+            <div class="pp-side pp-cover">
+              <div class="pp-cover-emblem"><i class="fas fa-globe-americas"></i></div>
+              <div class="pp-cover-title">Passport</div>
+              <div style="margin-top:20px; font-size:.7rem; letter-spacing:3px; opacity:.6">REPUBLICA HERSE</div>
+            </div>
+            <div class="pp-side pp-paper pp-paper-left">
+              <div class="pp-paper-header">
+                <span class="pp-paper-title">VISAS / SELLOS</span>
+                <span class="pp-paper-title" id="pp-num-left">PAG. 1</span>
               </div>
-              <div style="text-align:right">
-                <div class="pp-card-name">SELLOS</div>
-                <div class="pp-card-val" id="pp-total-sellos-card">0</div>
-              </div>
+              <div class="pp-stamps-grid" id="pp-grid-left"></div>
             </div>
           </div>
-        </header>
 
-        <!-- El Pasaporte Interactivo -->
-        <div class="pp-container">
-          <div class="pp-book-wrap" id="pp-book-element">
-            
-            <!-- Portada y Página 1 -->
-            <div class="pp-page front" id="pp-front-page" onclick="handlePassportClick(event, 'left')">
-              <!-- Cara Frontal (Portada de Cuero) -->
-              <div class="pp-side pp-cover">
-                <div class="pp-cover-subtitle">REPUBLICA HERSE</div>
-                <div class="pp-cover-emblem"><i class="fas fa-globe-americas"></i></div>
-                <div class="pp-cover-title">Pasaporte</div>
-                <div class="pp-cover-subtitle">VIRTUAL DE VIAJES</div>
-                <div style="margin-top:20px; font-size:.6rem; opacity:.5">CLICK PARA ABRIR</div>
+          <!-- Página 2 -->
+          <div class="pp-page back" onclick="handlePassportClick(event, 'right')">
+            <div class="pp-side pp-paper pp-paper-right">
+              <div class="pp-paper-header">
+                <span class="pp-paper-title">VISAS / SELLOS</span>
+                <span class="pp-paper-title" id="pp-num-right">PAG. 2</span>
               </div>
-              <!-- Cara Trasera (Primera página de papel) -->
-              <div class="pp-side pp-paper pp-paper-left">
-                <div class="pp-paper-header">
-                  <span class="pp-paper-title">VISAS / SELLOS</span>
-                  <span class="pp-paper-title" id="pp-num-left">PAG. 1</span>
-                </div>
-                <div class="pp-stamps-grid" id="pp-grid-left">
-                  <!-- Sellos dinámicos -->
-                </div>
-              </div>
+              <div class="pp-stamps-grid" id="pp-grid-right"></div>
             </div>
-
-            <!-- Página 2 (Fija detrás) -->
-            <div class="pp-page back" onclick="handlePassportClick(event, 'right')">
-              <div class="pp-side pp-paper pp-paper-right">
-                <div class="pp-paper-header">
-                  <span class="pp-paper-title">VISAS / SELLOS</span>
-                  <span class="pp-paper-title" id="pp-num-right">PAG. 2</span>
-                </div>
-                <div class="pp-stamps-grid" id="pp-grid-right">
-                  <!-- Sellos dinámicos -->
-                </div>
-              </div>
-            </div>
-
           </div>
-        </div>
 
-        <!-- Controles Premium (Simplificados) -->
-        <div class="pp-controls">
-          <div class="pp-page-info" id="pp-page-indicator">PÁGINAS 1 - 2</div>
         </div>
-
       </div>
+
+      <!-- Stats Flotantes (Más discretas) -->
+      <div class="pp-floating-stats">
+        <div class="pp-stat-pill">
+          <div class="pp-stat-val" id="pp-total-sellos-card">0</div>
+          <div class="pp-stat-lbl">Sellos</div>
+        </div>
+        <div class="pp-stat-pill">
+          <div class="pp-stat-val" id="pp-level-text">SILVER</div>
+          <div class="pp-stat-lbl">Categoría</div>
+        </div>
+      </div>
+
+      <div class="pp-controls">
+        <div class="pp-page-info" id="pp-page-indicator">PÁGINAS 1 - 2</div>
+      </div>
+
     </div>
   </div>
 
