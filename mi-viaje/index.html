@@ -1858,66 +1858,87 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .bottom-nav{padding-bottom:max(env(safe-area-inset-bottom,4px),4px)}
   body{overscroll-behavior-y:contain;-webkit-user-select:none;user-select:text}
 }
- /* ── PASAPORTE VIRTUAL ULTRA-FOCUS UI ── */
- .vcontent-pp{padding:0;max-width:100%;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));position:relative;background: radial-gradient(circle at center, #f1f5f9 0%, #e2e8f0 100%)}
- 
- /* Fondo estilo "Escritorio de Viajero" */
- .pp-desk-overlay { position: absolute; inset: 0; pointer-events: none; opacity: 0.4; background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png'); mix-blend-mode: multiply; }
- 
- .pp-header-simple{text-align:center;margin-bottom:40px;z-index:10;position:relative;padding-top:40px}
- .pp-eyebrow{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:4px;color:#003B7A;margin-bottom:12px;display:block}
- .pp-title{font-size:3rem;font-weight:950;color:#0F172A;margin:0;letter-spacing:-1.5px;line-height:1}
- .pp-desc{font-size:.9rem;color:#64748B;max-width:550px;line-height:1.6;margin:15px auto 0}
- 
- /* Pasaporte Gigante y Centrado */
- .pp-container{display:flex;justify-content:center;perspective:3000px;width:100%;margin:0;padding:20px;z-index:5}
- .pp-book-wrap{position:relative;width:800px;height:550px;transform-style:preserve-3d;transition:transform 0.8s cubic-bezier(.4,0,.2,1);transform:rotateX(10deg)}
- 
- .pp-page{position:absolute;width:400px;height:100%;top:0;transform-origin:left center;transition:transform 1.2s cubic-bezier(.645,.045,.355,1);transform-style:preserve-3d;cursor:pointer}
- .pp-page.front{left:400px;z-index:10;transform:rotateY(0deg)}
- .pp-page.back{left:400px;z-index:9}
- .is-open .pp-page.front{transform:rotateY(-180deg)}
- 
- /* Caras de las páginas */
- .pp-side{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;padding:40px;box-shadow:inset 0 0 80px rgba(0,0,0,.06);overflow:hidden}
- 
- /* Portada Premium */
- .pp-side.pp-cover{background:linear-gradient(135deg, #1e3a8a, #1e1b4b);color:#D4AF37;border-radius:0 20px 20px 0;border-left:15px solid rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:25px;box-shadow:20px 30px 60px rgba(0,0,0,0.4)}
- .pp-cover-emblem{width:130px;height:130px;border:3px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:4.5rem;filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4))}
- .pp-cover-title{font-size:2.2rem;font-weight:900;letter-spacing:10px;text-transform:uppercase;margin:0;text-shadow: 0 3px 6px rgba(0,0,0,0.4)}
- 
- /* Interior Refinado */
- .pp-side.pp-paper{background:#fefcf5;background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');color:#1e293b;border:1px solid rgba(0,0,0,.12)}
- .pp-side.pp-paper-left{border-radius:20px 0 0 20px;transform:rotateY(180deg);box-shadow:inset -20px 0 50px rgba(0,0,0,.1)}
- .pp-side.pp-paper-right{border-radius:0 20px 20px 0;left:0;box-shadow:inset 20px 0 50px rgba(0,0,0,.1)}
- 
- .pp-paper-header{border-bottom:2px solid rgba(0,0,0,.05);padding-bottom:15px;margin-bottom:25px;display:flex;justify-content:space-between;align-items:center}
- .pp-paper-title{font-family:'Courier New',monospace;font-size:.85rem;font-weight:900;letter-spacing:3px;opacity:.7;text-transform:uppercase}
- 
- /* Sellos Realistas */
- .pp-stamps-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:25px;flex:1}
- .pp-stamp-slot{position:relative;display:flex;align-items:center;justify-content:center;border-radius:15px;background:rgba(255,255,255,0.4);box-shadow: inset 0 2px 10px rgba(0,0,0,0.02)}
- .pp-stamp-img{width:120px;height:120px;object-fit:contain;filter:drop-shadow(3px 6px 10px rgba(0,0,0,0.15));mix-blend-mode:multiply;opacity:.92;transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
- 
- .pp-stamp-locked{text-align:center;opacity:.08;filter:grayscale(1)}
- .pp-stamp-locked i{font-size:2.5rem;display:block;margin-bottom:8px}
- .pp-stamp-locked span{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:2px}
- 
- /* Stats Flotantes */
- .pp-floating-stats { position: absolute; bottom: 40px; right: 40px; display: flex; gap: 20px; z-index: 10; }
- .pp-stat-pill { background: #fff; padding: 12px 24px; border-radius: 99px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 10px; border: 1px solid #f1f5f9; }
- .pp-stat-val { font-weight: 900; color: #003B7A; font-size: 1.2rem; }
- .pp-stat-lbl { font-size: .65rem; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 1px; }
+  /* ── PASAPORTE VIRTUAL LABORATORY (STYLES) ── */
+  .vcontent-pp{padding:0;max-width:100%;margin:0;display:flex;flex-direction:column;min-height:calc(100vh - var(--hh));position:relative;background:#f1f5f9;overflow:hidden}
+  
+  /* Switcher de Estilos */
+  .pp-lab-nav{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.8);backdrop-filter:blur(15px);padding:6px;border-radius:99px;display:flex;gap:5px;z-index:1000;box-shadow:0 8px 32px rgba(0,0,0,0.1);border:1px solid rgba(255,255,255,0.5)}
+  .pp-lab-btn{border:none;background:none;padding:10px 20px;border-radius:99px;font-size:.75rem;font-weight:800;color:#64748B;cursor:pointer;transition:.3s;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .pp-lab-btn i{font-size:1rem}
+  .pp-lab-btn.active{background:#003B7A;color:#fff;box-shadow:0 4px 12px rgba(0,59,122,0.2)}
+  .pp-lab-btn:hover:not(.active){background:rgba(0,59,122,0.05);color:#003B7A}
 
- .pp-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin:30px 0 40px;z-index:5}
- .pp-page-info{font-size:.9rem;font-weight:900;color:#64748B;letter-spacing:3px;text-transform:uppercase}
- 
- @media(max-width:900px){
-   .pp-book-wrap{width:100%;max-width:350px;height:500px}
-   .pp-page{width:100%;left:0!important}
-   .pp-side{padding:25px}
-   .pp-floating-stats { position: relative; bottom: 0; right: 0; justify-content: center; margin-bottom: 20px; }
- }
+  /* Contenedores de Estilo */
+  .pp-style-pane{display:none;width:100%;flex:1;animation:fadeIn 0.5s ease-out;overflow-y:auto;padding-top:80px}
+  .pp-style-pane.active{display:flex;flex-direction:column;align-items:center;justify-content:center}
+
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ESTILO 1: LIBRETA ULTRA-REALISTA (MEJORADA) */
+  .pp-realistic-bg{background: radial-gradient(circle at center, #fdfcf5 0%, #e5e7eb 100%); width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px; position:relative}
+  .pp-book-wrap{position:relative;width:800px;height:550px;transform-style:preserve-3d;transition:transform 0.8s cubic-bezier(.4,0,.2,1);transform:rotateX(10deg)}
+  .pp-page{position:absolute;width:400px;height:100%;top:0;transform-origin:left center;transition:transform 1.2s cubic-bezier(.645,.045,.355,1);transform-style:preserve-3d;cursor:pointer}
+  .pp-page.front{left:400px;z-index:10;transform:rotateY(0deg)}
+  .pp-page.back{left:400px;z-index:9}
+  .is-open .pp-page.front{transform:rotateY(-180deg)}
+  .pp-side{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;padding:40px;box-shadow:inset 0 0 80px rgba(0,0,0,.06);overflow:hidden}
+  .pp-side.pp-cover{background:linear-gradient(135deg, #1e3a8a, #1e1b4b);color:#D4AF37;border-radius:0 20px 20px 0;border-left:15px solid rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:25px;box-shadow:20px 30px 60px rgba(0,0,0,0.4)}
+  .pp-cover-emblem{width:130px;height:130px;border:3px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:4.5rem;filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4))}
+  .pp-cover-title{font-size:2.2rem;font-weight:900;letter-spacing:10px;text-transform:uppercase;margin:0;text-shadow: 0 3px 6px rgba(0,0,0,0.4)}
+  .pp-side.pp-paper{background:#fefcf5;background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');color:#1e293b;border:1px solid rgba(0,0,0,.12)}
+  .pp-side.pp-paper-left{border-radius:20px 0 0 20px;transform:rotateY(180deg);box-shadow:inset -20px 0 50px rgba(0,0,0,.1)}
+  .pp-side.pp-paper-right{border-radius:0 20px 20px 0;left:0;box-shadow:inset 20px 0 50px rgba(0,0,0,.1)}
+  .pp-paper-header{border-bottom:2px solid rgba(0,0,0,.05);padding-bottom:15px;margin-bottom:25px;display:flex;justify-content:space-between;align-items:center}
+  .pp-paper-title{font-family:'Courier New',monospace;font-size:.85rem;font-weight:900;letter-spacing:3px;opacity:.7;text-transform:uppercase}
+  .pp-stamps-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:25px;flex:1}
+  .pp-stamp-slot{position:relative;display:flex;align-items:center;justify-content:center;border-radius:15px;background:rgba(255,255,255,0.4);box-shadow: inset 0 2px 10px rgba(0,0,0,0.02)}
+  .pp-stamp-img{width:120px;height:120px;object-fit:contain;filter:drop-shadow(3px 6px 10px rgba(0,0,0,0.15));mix-blend-mode:multiply;opacity:.92;transition:transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
+  .pp-stamp-locked{text-align:center;opacity:.08;filter:grayscale(1)}
+  .pp-stamp-locked i{font-size:2.5rem;display:block;margin-bottom:8px}
+  .pp-stamp-locked span{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:2px}
+  .pp-page-info{margin-top:30px;font-size:.9rem;font-weight:900;color:#64748B;letter-spacing:3px;text-transform:uppercase}
+
+  /* ESTILO 2: MAPA DE CONQUISTAS */
+  .pp-map-container{width:100%;height:100%;background:#e0f2fe;position:relative;display:flex;align-items:center;justify-content:center;padding:40px}
+  .pp-map-svg{width:100%;max-width:800px;height:auto;filter:drop-shadow(0 20px 50px rgba(0,0,0,0.1))}
+  .pp-map-country{fill:#cbd5e1;stroke:#fff;stroke-width:1;transition:.5s;cursor:pointer}
+  .pp-map-country.visited{fill:#003B7A}
+  .pp-map-country:hover{fill:#3b82f6}
+
+  /* ESTILO 3: GALERIA DE TROFEOS */
+  .pp-trophy-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));gap:30px;width:100%;max-width:1000px;padding:40px}
+  .pp-trophy-item{background:linear-gradient(135deg, #1e293b, #0f172a);border-radius:24px;aspect-ratio:1/1.2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.1);transition:.4s}
+  .pp-trophy-item:hover{transform:translateY(-10px);border-color:#D4AF37;box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+  .pp-medal{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;z-index:2;transition:.5s;color:rgba(255,255,255,0.1)}
+  .pp-trophy-item.visited .pp-medal{color:#D4AF37;text-shadow:0 0 20px rgba(212,175,55,0.5)}
+  .pp-trophy-item.locked{opacity:0.4}
+  .pp-trophy-name{color:#fff;font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:1px}
+
+  /* ESTILO 4: MAZO DE CARTAS */
+  .pp-cards-container{width:100%;height:100%;display:flex;align-items:center;gap:30px;padding:40px;overflow-x:auto;scroll-snap-type: x mandatory;justify-content:flex-start}
+  .pp-card-item{min-width:300px;height:450px;perspective:1000px;cursor:pointer;scroll-snap-align: center}
+  .pp-card-inner{position:relative;width:100%;height:100%;transition:transform 0.8s;transform-style:preserve-3d}
+  .pp-card-item.flipped .pp-card-inner{transform:rotateY(180deg)}
+  .pp-card-front, .pp-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:24px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.15);border:1px solid rgba(0,0,0,0.05)}
+  .pp-card-front{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px}
+  .pp-card-back{background:linear-gradient(135deg, #003B7A, #001f3f);color:#fff;transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;text-align:center}
+  .pp-card-img{width:140px;height:140px;object-fit:contain;margin-bottom:30px;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.1))}
+  .pp-card-title{font-size:1.5rem;font-weight:900;color:#0F172A;margin-bottom:10px}
+  .pp-card-subtitle{font-size:.8rem;color:#64748B;font-weight:700;text-transform:uppercase;letter-spacing:2px}
+
+  /* Stats Flotantes */
+  .pp-floating-stats { position: absolute; bottom: 40px; right: 40px; display: flex; gap: 20px; z-index: 10; }
+  .pp-stat-pill { background: #fff; padding: 12px 24px; border-radius: 99px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 10px; border: 1px solid #f1f5f9; font-size: 0.8rem; font-weight: 800; }
+  .pp-stat-val { color: #003B7A; }
+  .pp-stat-lbl { color: #64748B; text-transform: uppercase; letter-spacing: 1px; }
+
+  @media(max-width:900px){
+    .pp-book-wrap{width:100%;max-width:350px;height:500px}
+    .pp-page{width:100%;left:0!important}
+    .pp-side{padding:25px}
+    .pp-cards-container{padding:20px}
+    .pp-card-item{min-width:260px}
+  }
 </style>
 </head>
 <body>
@@ -2275,65 +2296,73 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    </div>
   </div>
 
-  <!-- VIEW: PASAPORTE VIRTUAL PREMIUM -->
+  <!-- VIEW: PASAPORTE VIRTUAL LABORATORY -->
   <div class="view" id="view-pasaporte-virtual">
     <div class="vcontent-pp">
-      <div class="pp-desk-overlay"></div>
       
-      <header class="pp-header-simple">
-        <span class="pp-eyebrow">Tu bitácora de aventuras</span>
-        <h1 class="pp-title">Pasaporte Virtual</h1>
-        <p class="pp-desc">Explorá tu historial de viajes con Herse. Cada sello cuenta una historia, cada página es un destino conquistado.</p>
-      </header>
+      <!-- Nav de Estilos -->
+      <nav class="pp-lab-nav">
+        <button class="pp-lab-btn active" onclick="switchPPStyle('realistic')"><i class="fas fa-book-open"></i> Libreta Pro</button>
+        <button class="pp-lab-btn" onclick="switchPPStyle('map')"><i class="fas fa-map-marked-alt"></i> Mapa Mundi</button>
+        <button class="pp-lab-btn" onclick="switchPPStyle('trophy')"><i class="fas fa-award"></i> Vitrinas</button>
+        <button class="pp-lab-btn" onclick="switchPPStyle('cards')"><i class="fas fa-clone"></i> Cards</button>
+      </nav>
 
-      <!-- El Pasaporte Protagonista -->
-      <div class="pp-container">
-        <div class="pp-book-wrap" id="pp-book-element">
-          
-          <!-- Portada y Página 1 -->
-          <div class="pp-page front" id="pp-front-page" onclick="handlePassportClick(event, 'left')">
-            <div class="pp-side pp-cover">
-              <div class="pp-cover-emblem"><i class="fas fa-globe-americas"></i></div>
-              <div class="pp-cover-title">Passport</div>
-              <div style="margin-top:20px; font-size:.7rem; letter-spacing:3px; opacity:.6">REPUBLICA HERSE</div>
-            </div>
-            <div class="pp-side pp-paper pp-paper-left">
-              <div class="pp-paper-header">
-                <span class="pp-paper-title">VISAS / SELLOS</span>
-                <span class="pp-paper-title" id="pp-num-left">PAG. 1</span>
+      <!-- PANE 1: LIBRETA REALISTA -->
+      <div class="pp-style-pane active" id="pane-realistic">
+        <div class="pp-realistic-bg">
+          <div class="pp-book-wrap" id="pp-book-element">
+            <div class="pp-page front" id="pp-front-page" onclick="handlePassportClick(event, 'left')">
+              <div class="pp-side pp-cover">
+                <div class="pp-cover-emblem"><i class="fas fa-globe-americas"></i></div>
+                <div class="pp-cover-title">Passport</div>
+                <div style="margin-top:20px; font-size:.7rem; letter-spacing:3px; opacity:.6">REPUBLICA HERSE</div>
               </div>
-              <div class="pp-stamps-grid" id="pp-grid-left"></div>
+              <div class="pp-side pp-paper pp-paper-left">
+                <div class="pp-paper-header">
+                  <span class="pp-paper-title">VISAS / SELLOS</span>
+                  <span class="pp-paper-title" id="pp-num-left">PAG. 1</span>
+                </div>
+                <div class="pp-stamps-grid" id="pp-grid-left"></div>
+              </div>
+            </div>
+            <div class="pp-page back" onclick="handlePassportClick(event, 'right')">
+              <div class="pp-side pp-paper pp-paper-right">
+                <div class="pp-paper-header">
+                  <span class="pp-paper-title">VISAS / SELLOS</span>
+                  <span class="pp-paper-title" id="pp-num-right">PAG. 2</span>
+                </div>
+                <div class="pp-stamps-grid" id="pp-grid-right"></div>
+              </div>
             </div>
           </div>
-
-          <!-- Página 2 -->
-          <div class="pp-page back" onclick="handlePassportClick(event, 'right')">
-            <div class="pp-side pp-paper pp-paper-right">
-              <div class="pp-paper-header">
-                <span class="pp-paper-title">VISAS / SELLOS</span>
-                <span class="pp-paper-title" id="pp-num-right">PAG. 2</span>
-              </div>
-              <div class="pp-stamps-grid" id="pp-grid-right"></div>
-            </div>
-          </div>
-
+          <div class="pp-page-info" id="pp-page-indicator">PÁGINAS 1 - 2</div>
         </div>
       </div>
 
-      <!-- Stats Flotantes (Más discretas) -->
+      <!-- PANE 2: MAPA -->
+      <div class="pp-style-pane" id="pane-map">
+        <div class="pp-map-container" id="pp-map-root">
+          <!-- SVG Mapa Sudamerica inyectado por JS -->
+        </div>
+      </div>
+
+      <!-- PANE 3: TROFEOS -->
+      <div class="pp-style-pane" id="pane-trophy">
+        <div class="pp-trophy-grid" id="pp-trophy-root"></div>
+      </div>
+
+      <!-- PANE 4: CARDS -->
+      <div class="pp-style-pane" id="pane-cards">
+        <div class="pp-cards-container" id="pp-cards-root"></div>
+      </div>
+
+      <!-- Stats Flotantes -->
       <div class="pp-floating-stats">
         <div class="pp-stat-pill">
           <div class="pp-stat-val" id="pp-total-sellos-card">0</div>
           <div class="pp-stat-lbl">Sellos</div>
         </div>
-        <div class="pp-stat-pill">
-          <div class="pp-stat-val" id="pp-level-text">SILVER</div>
-          <div class="pp-stat-lbl">Categoría</div>
-        </div>
-      </div>
-
-      <div class="pp-controls">
-        <div class="pp-page-info" id="pp-page-indicator">PÁGINAS 1 - 2</div>
       </div>
 
     </div>
@@ -4045,124 +4074,150 @@ function animateCount(el,target){
   document.addEventListener('DOMContentLoaded',observe);
 })();
 
-/* ===== PASAPORTE VIRTUAL PREMIUM LOGIC ===== */
+/* ===== PASAPORTE VIRTUAL LABORATORY LOGIC ===== */
 const PP_COUNTRIES = [
-  { id: 'argentina', name: 'Argentina', city: 'Buenos Aires', code: 'ARG', color: '#1a6cff', stamp: '../assets/sellos/sello-argentina.png' },
-  { id: 'brasil', name: 'Brasil', city: 'Río de Janeiro', code: 'BRA', color: '#22c55e', stamp: '../assets/sellos/sello-brasil.png' },
-  { id: 'uruguay', name: 'Uruguay', city: 'Montevideo', code: 'URY', color: '#3b82f6', stamp: '../assets/sellos/sello-uruguay.png' },
-  { id: 'chile', name: 'Chile', city: 'Santiago', code: 'CHL', color: '#ef4444', stamp: '../assets/sellos/sello-chile.png' },
-  { id: 'peru', name: 'Perú', city: 'Lima', code: 'PER', color: '#dc2626', stamp: '../assets/sellos/sello-peru.png' },
-  { id: 'bolivia', name: 'Bolivia', city: 'La Paz', code: 'BOL', color: '#16a34a', stamp: '../assets/sellos/sello-bolivia.png' },
-  { id: 'colombia', name: 'Colombia', city: 'Bogotá', code: 'COL', color: '#facc15', stamp: '../assets/sellos/sello-colombia.png' },
-  { id: 'venezuela', name: 'Venezuela', city: 'Caracas', code: 'VEN', color: '#f59e0b', stamp: '../assets/sellos/sello-venezuela.png' },
-  { id: 'paraguay', name: 'Paraguay', city: 'Asunción', code: 'PRY', color: '#ef4444', stamp: '../assets/sellos/sello-paraguay.png' },
+  { id: 'argentina', name: 'Argentina', city: 'Buenos Aires', code: 'ARG', color: '#1a6cff', stamp: '../assets/sellos/sello-argentina.png', icon: '🇦🇷' },
+  { id: 'brasil', name: 'Brasil', city: 'Río de Janeiro', code: 'BRA', color: '#22c55e', stamp: '../assets/sellos/sello-brasil.png', icon: '🇧🇷' },
+  { id: 'uruguay', name: 'Uruguay', city: 'Montevideo', code: 'URY', color: '#3b82f6', stamp: '../assets/sellos/sello-uruguay.png', icon: '🇺🇾' },
+  { id: 'chile', name: 'Chile', city: 'Santiago', code: 'CHL', color: '#ef4444', stamp: '../assets/sellos/sello-chile.png', icon: '🇨🇱' },
+  { id: 'peru', name: 'Perú', city: 'Lima', code: 'PER', color: '#dc2626', stamp: '../assets/sellos/sello-peru.png', icon: '🇵🇪' },
+  { id: 'bolivia', name: 'Bolivia', city: 'La Paz', code: 'BOL', color: '#16a34a', stamp: '../assets/sellos/sello-bolivia.png', icon: '🇧🇴' },
+  { id: 'colombia', name: 'Colombia', city: 'Bogotá', code: 'COL', color: '#facc15', stamp: '../assets/sellos/sello-colombia.png', icon: '🇨🇴' },
+  { id: 'venezuela', name: 'Venezuela', city: 'Caracas', code: 'VEN', color: '#f59e0b', stamp: '../assets/sellos/sello-venezuela.png', icon: '🇻🇪' },
+  { id: 'paraguay', name: 'Paraguay', city: 'Asunción', code: 'PRY', color: '#ef4444', stamp: '../assets/sellos/sello-paraguay.png', icon: '🇵🇾' },
 ];
 
 let _ppCurrentPage = 0;
 const _ppStampsPerPage = 4;
 let _ppIsOpen = false;
+let _ppActiveStyle = 'realistic';
+
+function switchPPStyle(style) {
+  _ppActiveStyle = style;
+  // UI Update
+  document.querySelectorAll('.pp-lab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[onclick="switchPPStyle('${style}')"]`).classList.add('active');
+  
+  document.querySelectorAll('.pp-style-pane').forEach(p => p.classList.remove('active'));
+  document.getElementById(`pane-${style}`).classList.add('active');
+  
+  initPassport();
+}
 
 function handlePassportClick(e, side) {
-  if (!_ppIsOpen) {
-    togglePassport();
-    return;
-  }
-  
-  if (side === 'left') {
-    if (_ppCurrentPage > 0) changePassportPage(-1);
-  } else {
-    const startIdx = (_ppCurrentPage + 1) * (_ppStampsPerPage * 2);
-    if (startIdx < PP_COUNTRIES.length) changePassportPage(1);
-  }
+  if (!_ppIsOpen) { togglePassport(); return; }
+  if (side === 'left') { if (_ppCurrentPage > 0) changePassportPage(-1); }
+  else { if ((_ppCurrentPage + 1) * (_ppStampsPerPage * 2) < PP_COUNTRIES.length) changePassportPage(1); }
 }
 
 function togglePassport() {
   const book = document.getElementById('pp-book-element');
   if (!book) return;
   _ppIsOpen = !_ppIsOpen;
-  if (_ppIsOpen) {
-    book.classList.add('is-open');
-  } else {
-    book.classList.remove('is-open');
-  }
+  book.classList.toggle('is-open', _ppIsOpen);
 }
 
 function initPassport() {
   const visited = new Set();
   _allTrips.filter(t => !t.activo).forEach(t => {
     const dest = t.destino.toLowerCase();
-    PP_COUNTRIES.forEach(c => {
-      if (dest.includes(c.id)) visited.add(c.id);
-    });
+    PP_COUNTRIES.forEach(c => { if (dest.includes(c.id)) visited.add(c.id); });
   });
 
   const totalSellos = visited.size;
-  const elTotalCard = document.getElementById('pp-total-sellos-card');
+  document.getElementById('pp-total-sellos-card').textContent = totalSellos;
+  
   const elLevelText = document.getElementById('pp-level-text');
-
-  if (elTotalCard) elTotalCard.textContent = totalSellos;
   if (elLevelText) {
-    if (totalSellos >= 8) elLevelText.textContent = 'DIAMOND MEMBER';
-    else if (totalSellos >= 5) elLevelText.textContent = 'PLATINUM MEMBER';
-    else if (totalSellos >= 2) elLevelText.textContent = 'GOLD MEMBER';
-    else elLevelText.textContent = 'SILVER MEMBER';
+    if (totalSellos >= 8) elLevelText.textContent = 'DIAMOND';
+    else if (totalSellos >= 5) elLevelText.textContent = 'PLATINUM';
+    else if (totalSellos >= 2) elLevelText.textContent = 'GOLD';
+    else elLevelText.textContent = 'SILVER';
   }
 
-  renderPassportPages(visited);
+  if (_ppActiveStyle === 'realistic') renderPassportPages(visited);
+  if (_ppActiveStyle === 'map') renderPassportMap(visited);
+  if (_ppActiveStyle === 'trophy') renderPassportTrophy(visited);
+  if (_ppActiveStyle === 'cards') renderPassportCards(visited);
 }
 
 function renderPassportPages(visited) {
-  const gridLeft = document.getElementById('pp-grid-left');
-  const gridRight = document.getElementById('pp-grid-right');
-  if (!gridLeft || !gridRight) return;
-
-  // Añadir efecto de "flipping"
-  gridLeft.classList.remove('flipping');
-  gridRight.classList.remove('flipping');
-  void gridLeft.offsetWidth; // Force reflow
-  gridLeft.classList.add('flipping');
-  gridRight.classList.add('flipping');
-
-  gridLeft.innerHTML = '';
-  gridRight.innerHTML = '';
-
-  const startIdx = _ppCurrentPage * (_ppStampsPerPage * 2);
-  
-  // Página Izquierda (Página 1, 3, 5...)
+  const gridL = document.getElementById('pp-grid-left');
+  const gridR = document.getElementById('pp-grid-right');
+  if (!gridL) return;
+  gridL.innerHTML = ''; gridR.innerHTML = '';
+  const start = _ppCurrentPage * (_ppStampsPerPage * 2);
   for (let i = 0; i < _ppStampsPerPage; i++) {
-    const country = PP_COUNTRIES[startIdx + i];
-    gridLeft.appendChild(createStampSlot(country, visited.has(country?.id), i));
+    const cL = PP_COUNTRIES[start + i];
+    const cR = PP_COUNTRIES[start + _ppStampsPerPage + i];
+    if (cL) gridL.appendChild(createStampSlot(cL, visited.has(cL.id)));
+    if (cR) gridR.appendChild(createStampSlot(cR, visited.has(cR.id)));
   }
-
-  // Página Derecha (Página 2, 4, 6...)
-  for (let i = 0; i < _ppStampsPerPage; i++) {
-    const country = PP_COUNTRIES[startIdx + _ppStampsPerPage + i];
-    gridRight.appendChild(createStampSlot(country, visited.has(country?.id), i + _ppStampsPerPage));
-  }
-
-  // Actualizar indicadores
   document.getElementById('pp-num-left').textContent = `PAG. ${(_ppCurrentPage * 2) + 1}`;
   document.getElementById('pp-num-right').textContent = `PAG. ${(_ppCurrentPage * 2) + 2}`;
   document.getElementById('pp-page-indicator').textContent = `PÁGINAS ${(_ppCurrentPage * 2) + 1} - ${(_ppCurrentPage * 2) + 2}`;
 }
 
-function createStampSlot(country, isVisited, idx) {
+function createStampSlot(country, isVisited) {
   const slot = document.createElement('div');
   slot.className = 'pp-stamp-slot';
-  
-  if (!country) return slot;
-
   if (isVisited) {
-    const randomRot = Math.floor(Math.random() * 30) - 15;
-    slot.innerHTML = `<img src="${country.stamp}" class="pp-stamp-img" style="transform: rotate(${randomRot}deg)" alt="${country.name}">`;
+    const rot = Math.floor(Math.random() * 30) - 15;
+    slot.innerHTML = `<img src="${country.stamp}" class="pp-stamp-img" style="transform: rotate(${rot}deg)" alt="${country.name}">`;
   } else {
-    slot.innerHTML = `
-      <div class="pp-stamp-locked">
-        <i class="fas fa-stamp"></i>
-        <span>${country.name}</span>
-      </div>`;
+    slot.innerHTML = `<div class="pp-stamp-locked"><i class="fas fa-stamp"></i><span>${country.name}</span></div>`;
   }
   return slot;
+}
+
+function renderPassportMap(visited) {
+  const root = document.getElementById('pp-map-root');
+  if (!root) return;
+  // Un mapa simplificado de Sudamérica (solo los nombres para esta demo)
+  root.innerHTML = `<div style="text-align:center; padding:40px">
+    <h2 style="color:#003B7A; margin-bottom:20px">Mapa de Sudamérica</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center; max-width:600px">
+      ${PP_COUNTRIES.map(c => `
+        <div class="pp-stat-pill" style="opacity: ${visited.has(c.id) ? 1 : 0.3}; background: ${visited.has(c.id) ? '#003B7A' : '#fff'}; color: ${visited.has(c.id) ? '#fff' : '#64748B'}">
+          ${c.icon} ${c.name}
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+function renderPassportTrophy(visited) {
+  const root = document.getElementById('pp-trophy-root');
+  if (!root) return;
+  root.innerHTML = PP_COUNTRIES.map(c => `
+    <div class="pp-trophy-item ${visited.has(c.id) ? 'visited' : 'locked'}">
+      <div class="pp-medal"><i class="fas fa-award"></i></div>
+      <div class="pp-trophy-name">${c.name}</div>
+      ${visited.has(c.id) ? `<div style="font-size:.6rem; color:#D4AF37; font-weight:700">DESTINO CONQUISTADO</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderPassportCards(visited) {
+  const root = document.getElementById('pp-cards-root');
+  if (!root) return;
+  root.innerHTML = PP_COUNTRIES.map(c => `
+    <div class="pp-card-item" onclick="this.classList.toggle('flipped')">
+      <div class="pp-card-inner">
+        <div class="pp-card-front">
+          <div style="font-size:4rem; margin-bottom:20px">${c.icon}</div>
+          <div class="pp-card-title">${c.name}</div>
+          <div class="pp-card-subtitle">${c.city}</div>
+          ${!visited.has(c.id) ? `<div style="margin-top:20px; font-size:.7rem; color:#94a3b8"><i class="fas fa-lock"></i> BLOQUEADA</div>` : ''}
+        </div>
+        <div class="pp-card-back">
+          <img src="${c.stamp}" style="width:120px; filter:brightness(0) invert(1); opacity:0.8" alt="Stamp">
+          <div style="margin-top:20px; font-weight:800; letter-spacing:2px">HISTORIAL</div>
+          <div style="font-size:.8rem; opacity:0.7">${visited.has(c.id) ? 'Visitado con Herse' : 'Pendiente de visita'}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
 }
 
 function changePassportPage(delta) {
