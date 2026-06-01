@@ -1858,39 +1858,81 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
   .bottom-nav{padding-bottom:max(env(safe-area-inset-bottom,4px),4px)}
   body{overscroll-behavior-y:contain;-webkit-user-select:none;user-select:text}
 }
-/* ── PASAPORTE VIRTUAL EXTRA STYLES ── */
-.vcontent{padding:20px;max-width:1200px;margin:0 auto}
-.al-hero{position:relative;height:300px;border-radius:24px;overflow:hidden;margin-bottom:24px;background:#003B7A;padding:40px;display:flex;flex-direction:column;justify-content:center;color:#fff}
-.al-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;mix-blend-mode:luminosity}
-.al-hero-stats-row{display:flex;gap:24px;margin-top:auto;position:relative;z-index:2}
-.al-stat-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);padding:10px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.1)}
-.al-stat-ico{font-size:1.2rem;color:#FBBF24}
-.al-stat-num{font-size:1.4rem;font-weight:900}
-.al-stat-lbl{font-size:.7rem;opacity:.8;text-transform:uppercase;letter-spacing:1px}
-.al-hero-eyebrow{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#FBBF24;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.al-hero-ttl{font-size:2.2rem;font-weight:900;margin:0 0 12px;line-height:1.1}
-.al-hero-sub{font-size:.9rem;opacity:.9;max-width:450px;line-height:1.6;margin:0}
-.pb-layout{display:flex;justify-content:center;padding:20px 0}
-.pb-main{width:100%;max-width:1000px;display:grid;grid-template-columns:280px 1fr;gap:32px;align-items:start}
-.pb-summary{background:#fff;border-radius:24px;padding:24px;border:1px solid var(--bd);box-shadow:0 4px 20px rgba(0,0,0,.05)}
-.ps-head{font-size:.9rem;font-weight:900;color:#0F172A;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.ps-level-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-.ps-level-ico{width:48px;height:48px;border-radius:12px;background:#F0F7FF;color:#003B7A;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
-.ps-level-name{font-size:.85rem;font-weight:800;color:#1E293B;margin-bottom:4px}
-.ps-xp-bar{height:6px;background:#E2E8F0;border-radius:99px;width:120px;overflow:hidden}
-.ps-xp-fill{height:100%;background:#003B7A;border-radius:99px;transition:width 1s ease}
-.ps-stat{display:flex;align-items:center;gap:12px;padding:12px;background:#F8FAFC;border-radius:16px;margin-bottom:10px}
-.ps-stat-ico{width:36px;height:36px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;color:#64748B;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.ps-val{font-size:1.1rem;font-weight:900;color:#0F172A;line-height:1}
-.ps-lbl{font-size:.65rem;color:#64748B;font-weight:600}
-.pb-close{width:100%;margin-top:12px;padding:12px;border-radius:12px;border:1.5px solid #E2E8F0;background:#fff;color:#64748B;font-weight:700;font-size:.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
-.pb-close:hover{background:#FEF2F2;color:#EF4444;border-color:#FEE2E2}
-.pb-book{background:#8B4513;padding:15px;border-radius:12px;display:grid;grid-template-columns:1fr 15px 1fr;box-shadow:0 12px 40px rgba(0,0,0,.3);position:relative;min-height:480px}
-.pb-spine{background:rgba(0,0,0,.2);height:100%;border-radius:2px}
-.pb-pg{background:#FDFCF0;padding:25px;position:relative;min-height:450px;display:flex;flex-direction:column;box-shadow:inset 0 0 40px rgba(0,0,0,.05)}
-.pb-pg-l{border-radius:4px 2px 2px 4px}
-.pb-pg-r{border-radius:2px 4px 4px 2px}
-@media(max-width:900px){.pb-main{grid-template-columns:1fr}}
+/* ── PASAPORTE VIRTUAL PREMIUM UI ── */
+.vcontent-pp{padding:40px 20px;max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:40px;min-height:calc(100vh - var(--hh))}
+.pp-header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.pp-title-area{flex:1}
+.pp-eyebrow{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:3px;color:#003B7A;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.pp-eyebrow::after{content:'';height:1px;width:60px;background:#003B7A;opacity:.2}
+.pp-title{font-size:2.6rem;font-weight:900;color:#0F172A;margin:0;letter-spacing:-1px}
+.pp-desc{font-size:1rem;color:#64748B;max-width:500px;line-height:1.6;margin-top:10px}
+
+/* Stats Card - Estilo Membresía Platinum */
+.pp-card-membership{background:linear-gradient(135deg,#1e293b 0%,#0f172a 100%);border-radius:24px;padding:32px;color:#fff;position:relative;overflow:hidden;width:380px;box-shadow:0 20px 50px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1)}
+.pp-card-membership::before{content:'';position:absolute;top:-50%;right:-20%;width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.05) 0%,transparent 70%);border-radius:50%}
+.pp-card-logo{font-size:1.4rem;font-weight:900;letter-spacing:2px;margin-bottom:40px;display:flex;align-items:center;gap:10px}
+.pp-card-logo i{color:#D4AF37}
+.pp-card-chip{width:45px;height:32px;background:linear-gradient(135deg,#e2e8f0 0%,#94a3b8 100%);border-radius:6px;margin-bottom:20px;position:relative}
+.pp-card-chip::after{content:'';position:absolute;inset:4px;border:1px solid rgba(0,0,0,.1);border-radius:3px}
+.pp-card-number{font-family:'Courier New',monospace;font-size:1.2rem;letter-spacing:4px;margin-bottom:20px;opacity:.9}
+.pp-card-footer{display:flex;justify-content:space-between;align-items:flex-end}
+.pp-card-name{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;opacity:.6}
+.pp-card-val{font-size:1rem;font-weight:700;margin-top:4px}
+
+/* El Pasaporte 3D */
+.pp-container{display:flex;justify-content:center;perspective:2000px;margin:40px 0}
+.pp-book-wrap{position:relative;width:700px;height:480px;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.4,0,.2,1)}
+.pp-book-wrap.is-open{transform:rotateX(10deg)}
+
+.pp-page{position:absolute;width:350px;height:480px;top:0;transform-origin:left center;transition:transform 1s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;cursor:pointer}
+.pp-page.front{left:350px;z-index:10;transform:rotateY(0deg)}
+.pp-page.back{left:350px;z-index:9}
+.is-open .pp-page.front{transform:rotateY(-160deg)}
+
+/* Caras de las páginas */
+.pp-side{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;padding:30px;box-shadow:inset 0 0 100px rgba(0,0,0,.05)}
+
+/* Portada (Cuero) */
+.pp-side.pp-cover{background:#1a365d;color:#D4AF37;border-radius:4px 12px 12px 4px;border-left:8px solid rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px;box-shadow:-10px 10px 30px rgba(0,0,0,.3)}
+.pp-cover-emblem{width:120px;height:120px;border:2px solid #D4AF37;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:4rem}
+.pp-cover-title{font-size:1.8rem;font-weight:900;letter-spacing:8px;text-transform:uppercase}
+.pp-cover-subtitle{font-size:.7rem;letter-spacing:4px;opacity:.8}
+
+/* Interior (Papel) */
+.pp-side.pp-paper{background:#fdfcf0;background-image:radial-gradient(#e5e7eb 1px,transparent 1px);background-size:20px 20px;color:#1e293b;border:1px solid rgba(0,0,0,.05)}
+.pp-side.pp-paper-left{border-radius:12px 2px 2px 12px;transform:rotateY(180deg)}
+.pp-side.pp-paper-right{border-radius:2px 12px 12px 2px;left:350px;box-shadow:10px 10px 30px rgba(0,0,0,.1)}
+
+.pp-paper-header{border-bottom:1px solid rgba(0,0,0,.1);padding-bottom:10px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.pp-paper-title{font-family:'Courier New',monospace;font-size:.8rem;font-weight:900;letter-spacing:2px;opacity:.4}
+
+/* Sellos Realistas */
+.pp-stamps-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;height:100%}
+.pp-stamp-slot{position:relative;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(0,0,0,.05);border-radius:12px}
+.pp-stamp-img{width:110px;height:110px;object-fit:contain;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.1));mix-blend-mode:multiply;opacity:.9;transition:transform .3s ease}
+.pp-stamp-img:hover{transform:scale(1.1) rotate(0deg)!important}
+
+.pp-stamp-locked{text-align:center;opacity:.15;filter:grayscale(1)}
+.pp-stamp-locked i{font-size:2rem;display:block;margin-bottom:5px}
+.pp-stamp-locked span{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+
+/* Navegación y Controles */
+.pp-controls{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:20px}
+.pp-nav-btn{background:#fff;border:1.5px solid #E2E8F0;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;color:#0f172a;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.pp-nav-btn:hover:not(:disabled){border-color:#003B7A;color:#003B7A;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+.pp-nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.pp-page-info{font-size:.9rem;font-weight:700;color:#64748B}
+
+.pp-btn-close{position:absolute;top:30px;right:30px;background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(0,0,0,.1);padding:10px 20px;border-radius:12px;font-weight:700;color:#0F172A;cursor:pointer;display:flex;align-items:center;gap:10px;transition:.2s;z-index:100}
+.pp-btn-close:hover{background:#fff;transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.1)}
+
+@media(max-width:900px){
+  .pp-header{flex-direction:column;align-items:flex-start}
+  .pp-card-membership{width:100%}
+  .pp-book-wrap{width:100%;height:auto;aspect-ratio:3/4}
+  .pp-page{width:100%;height:100%;left:0!important}
+  .pp-page.back{display:none}
+}
 </style>
 </head>
 <body>
@@ -2248,72 +2290,88 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    </div>
   </div>
 
-  <!-- VIEW: PASAPORTE VIRTUAL -->
+  <!-- VIEW: PASAPORTE VIRTUAL PREMIUM -->
   <div class="view" id="view-pasaporte-virtual">
-   <div class="vcontent">
-    <div class="al-hero">
-     <img src="../assets/album-hero.png" class="al-hero-bg" alt="Passport Hero">
-     <div class="al-hero-stats-row">
-      <div class="al-stat-item"><i class="fas fa-passport al-stat-ico"></i><div class="al-stat-num" id="pp-total-sellos">0</div><div class="al-stat-lbl">Sellos</div></div>
-      <div class="al-stat-item"><i class="fas fa-globe al-stat-ico"></i><div class="al-stat-num" id="pp-total-paises">0</div><div class="al-stat-lbl">Países</div></div>
-     </div>
-     <div style="position:absolute;top:32px;left:32px;z-index:2;max-width:400px">
-      <div class="al-hero-eyebrow"><i class="fas fa-star"></i> Colección personal</div>
-      <h2 class="al-hero-ttl">Tu Pasaporte Virtual</h2>
-      <p class="al-hero-sub">Coleccioná sellos de cada destino que visites con Herse. Tu historia viajera, en un solo lugar.</p>
-     </div>
+    <div style="background:#f8fafc; min-height:100vh; position:relative; overflow-x:hidden">
+      <button class="pp-btn-close" onclick="showView('mi-viaje')"><i class="fas fa-arrow-left"></i> Volver a Mi Viaje</button>
+      
+      <div class="vcontent-pp">
+        <header class="pp-header">
+          <div class="pp-title-area">
+            <div class="pp-eyebrow"><i class="fas fa-star"></i> Beneficio Exclusive</div>
+            <h1 class="pp-title">Pasaporte Virtual</h1>
+            <p class="pp-desc">Tu historia como viajero de Herse, inmortalizada en sellos. Cada destino es un nuevo logro en tu colección personal.</p>
+          </div>
+          
+          <!-- Membership Card -->
+          <div class="pp-card-membership">
+            <div class="pp-card-logo">HERSE <i class="fas fa-crown"></i></div>
+            <div class="pp-card-chip"></div>
+            <div class="pp-card-number">4512 8800 9921 4450</div>
+            <div class="pp-card-footer">
+              <div>
+                <div class="pp-card-name">VIAJERO CATEGORÍA</div>
+                <div class="pp-card-val" id="pp-level-text">PLATINUM MEMBER</div>
+              </div>
+              <div style="text-align:right">
+                <div class="pp-card-name">SELLOS</div>
+                <div class="pp-card-val" id="pp-total-sellos-card">0</div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- El Pasaporte Interactivo -->
+        <div class="pp-container">
+          <div class="pp-book-wrap" id="pp-book-element">
+            
+            <!-- Portada y Página 1 -->
+            <div class="pp-page front" id="pp-front-page" onclick="togglePassport()">
+              <!-- Cara Frontal (Portada de Cuero) -->
+              <div class="pp-side pp-cover">
+                <div class="pp-cover-subtitle">REPUBLICA HERSE</div>
+                <div class="pp-cover-emblem"><i class="fas fa-globe-americas"></i></div>
+                <div class="pp-cover-title">Pasaporte</div>
+                <div class="pp-cover-subtitle">VIRTUAL DE VIAJES</div>
+                <div style="margin-top:20px; font-size:.6rem; opacity:.5">CLICK PARA ABRIR</div>
+              </div>
+              <!-- Cara Trasera (Primera página de papel) -->
+              <div class="pp-side pp-paper pp-paper-left">
+                <div class="pp-paper-header">
+                  <span class="pp-paper-title">VISAS / SELLOS</span>
+                  <span class="pp-paper-title" id="pp-num-left">PAG. 1</span>
+                </div>
+                <div class="pp-stamps-grid" id="pp-grid-left">
+                  <!-- Sellos dinámicos -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Página 2 (Fija detrás) -->
+            <div class="pp-page back">
+              <div class="pp-side pp-paper pp-paper-right">
+                <div class="pp-paper-header">
+                  <span class="pp-paper-title">VISAS / SELLOS</span>
+                  <span class="pp-paper-title" id="pp-num-right">PAG. 2</span>
+                </div>
+                <div class="pp-stamps-grid" id="pp-grid-right">
+                  <!-- Sellos dinámicos -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Controles Premium -->
+        <div class="pp-controls">
+          <button class="pp-nav-btn" id="pp-prev" onclick="changePassportPage(-1)"><i class="fas fa-chevron-left"></i></button>
+          <div class="pp-page-info" id="pp-page-indicator">PÁGINAS 1 - 2</div>
+          <button class="pp-nav-btn" id="pp-next" onclick="changePassportPage(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+      </div>
     </div>
-
-    <div class="pb-layout">
-     <div class="pb-main">
-      <!-- Resumen rápido -->
-      <div class="pb-summary">
-       <div class="ps-head"><i class="fas fa-award"></i> Nivel Viajero</div>
-       <div class="ps-level-row">
-        <div class="ps-level-ico"><i class="fas fa-compass"></i></div>
-        <div>
-         <div class="ps-level-name" id="pp-level-name">Explorador</div>
-         <div class="ps-xp-bar"><div class="ps-xp-fill" id="pp-xp-fill" style="width:30%"></div></div>
-        </div>
-       </div>
-       <div class="ps-stat"><div class="ps-stat-ico"><i class="fas fa-map-marker-alt"></i></div><div><div class="ps-val" id="pp-stat-paises">0</div><div class="ps-lbl">Visitados</div></div></div>
-       <div class="ps-stat"><div class="ps-stat-ico"><i class="fas fa-stamp"></i></div><div><div class="ps-val" id="pp-stat-sellos">0</div><div class="ps-lbl">Sellos</div></div></div>
-       <button class="pb-close" onclick="showView('mi-viaje')"><i class="fas fa-times"></i> Salir</button>
-      </div>
-
-      <!-- El Libro -->
-      <div class="pb-book" id="passportBook">
-       <div class="pb-pg pb-pg-l">
-        <div class="pb-pg-hdr"><span class="pb-pg-title">PASAPORTE</span><span class="pb-pg-type">VISAS</span></div>
-        <div class="pb-pg-wm">HERSE</div>
-        <div class="pb-stamps-w" id="pp-page-left">
-         <!-- Sellos página izquierda -->
-        </div>
-        <div class="pb-pnum" id="pp-num-left">Pág. 1</div>
-       </div>
-       <div class="pb-spine"></div>
-       <div class="pb-pg pb-pg-r">
-        <div class="pb-pg-hdr"><span class="pb-pg-title">PASAPORTE</span><span class="pb-pg-type">VISAS</span></div>
-        <div class="pb-pg-wm">HERSE</div>
-        <div class="pb-stamps-w" id="pp-page-right">
-         <!-- Sellos página derecha -->
-        </div>
-        <div class="pb-pnum" id="pp-num-right">Pág. 2</div>
-       </div>
-      </div>
-
-      <!-- Navegación -->
-      <div class="pb-nav-row">
-       <button class="pb-nb" id="pp-prev" onclick="changePassportPage(-1)"><i class="fas fa-chevron-left"></i></button>
-       <div class="pb-nav-center">
-        <span class="pb-nav-lbl" id="pp-page-indicator">Páginas 1 - 2</span>
-        <span class="pb-nav-cap">Deslizá para pasar las hojas</span>
-       </div>
-       <button class="pb-nb" id="pp-next" onclick="changePassportPage(1)"><i class="fas fa-chevron-right"></i></button>
-      </div>
-     </div>
-    </div>
-   </div>
   </div>
 
   <!-- VIEW: PASAPORTE TRIBUNERO -->
@@ -4022,7 +4080,7 @@ function animateCount(el,target){
   document.addEventListener('DOMContentLoaded',observe);
 })();
 
-/* ===== PASAPORTE VIRTUAL LOGIC ===== */
+/* ===== PASAPORTE VIRTUAL PREMIUM LOGIC ===== */
 const PP_COUNTRIES = [
   { id: 'argentina', name: 'Argentina', city: 'Buenos Aires', code: 'ARG', color: '#1a6cff', stamp: '../assets/sellos/sello-argentina.png' },
   { id: 'brasil', name: 'Brasil', city: 'Río de Janeiro', code: 'BRA', color: '#22c55e', stamp: '../assets/sellos/sello-brasil.png' },
@@ -4037,6 +4095,18 @@ const PP_COUNTRIES = [
 
 let _ppCurrentPage = 0;
 const _ppStampsPerPage = 4;
+let _ppIsOpen = false;
+
+function togglePassport() {
+  const book = document.getElementById('pp-book-element');
+  if (!book) return;
+  _ppIsOpen = !_ppIsOpen;
+  if (_ppIsOpen) {
+    book.classList.add('is-open');
+  } else {
+    book.classList.remove('is-open');
+  }
+}
 
 function initPassport() {
   const visited = new Set();
@@ -4047,115 +4117,74 @@ function initPassport() {
     });
   });
 
-  const totalPaises = PP_COUNTRIES.length;
-  const visitados = visited.size;
-  const sellos = visitados; // En esta versión 1 sello por país
+  const totalSellos = visited.size;
+  const elTotalCard = document.getElementById('pp-total-sellos-card');
+  const elLevelText = document.getElementById('pp-level-text');
 
-  const elTotalSellos = document.getElementById('pp-total-sellos');
-  const elTotalPaises = document.getElementById('pp-total-paises');
-  const elStatPaises = document.getElementById('pp-stat-paises');
-  const elStatSellos = document.getElementById('pp-stat-sellos');
-
-  if (elTotalSellos) elTotalSellos.textContent = sellos;
-  if (elTotalPaises) elTotalPaises.textContent = totalPaises;
-  if (elStatPaises) elStatPaises.textContent = visitados;
-  if (elStatSellos) elStatSellos.textContent = sellos;
-
-  const elXp = document.getElementById('pp-xp-fill');
-  if (elXp) {
-    const pct = Math.round((visitados / totalPaises) * 100);
-    elXp.style.width = pct + '%';
+  if (elTotalCard) elTotalCard.textContent = totalSellos;
+  if (elLevelText) {
+    if (totalSellos >= 8) elLevelText.textContent = 'DIAMOND MEMBER';
+    else if (totalSellos >= 5) elLevelText.textContent = 'PLATINUM MEMBER';
+    else if (totalSellos >= 2) elLevelText.textContent = 'GOLD MEMBER';
+    else elLevelText.textContent = 'SILVER MEMBER';
   }
 
   renderPassportPages(visited);
 }
 
 function renderPassportPages(visited) {
-  const leftPage = document.getElementById('pp-page-left');
-  const rightPage = document.getElementById('pp-page-right');
-  if (!leftPage || !rightPage) return;
+  const gridLeft = document.getElementById('pp-grid-left');
+  const gridRight = document.getElementById('pp-grid-right');
+  if (!gridLeft || !gridRight) return;
 
-  leftPage.innerHTML = '';
-  rightPage.innerHTML = '';
+  gridLeft.innerHTML = '';
+  gridRight.innerHTML = '';
 
   const startIdx = _ppCurrentPage * (_ppStampsPerPage * 2);
   
-  // Render Left Page
+  // Página Izquierda (Página 1, 3, 5...)
   for (let i = 0; i < _ppStampsPerPage; i++) {
     const country = PP_COUNTRIES[startIdx + i];
-    if (country) {
-      leftPage.appendChild(createStampEl(country, visited.has(country.id), i));
-    }
+    gridLeft.appendChild(createStampSlot(country, visited.has(country?.id), i));
   }
 
-  // Render Right Page
+  // Página Derecha (Página 2, 4, 6...)
   for (let i = 0; i < _ppStampsPerPage; i++) {
     const country = PP_COUNTRIES[startIdx + _ppStampsPerPage + i];
-    if (country) {
-      rightPage.appendChild(createStampEl(country, visited.has(country.id), i + _ppStampsPerPage));
-    }
+    gridRight.appendChild(createStampSlot(country, visited.has(country?.id), i + _ppStampsPerPage));
   }
 
-  const elNumL = document.getElementById('pp-num-left');
-  const elNumR = document.getElementById('pp-num-right');
-  const elInd = document.getElementById('pp-page-indicator');
-  const elPrev = document.getElementById('pp-prev');
-  const elNext = document.getElementById('pp-next');
-
-  if (elNumL) elNumL.textContent = `Pág. ${(_ppCurrentPage * 2) + 1}`;
-  if (elNumR) elNumR.textContent = `Pág. ${(_ppCurrentPage * 2) + 2}`;
-  if (elInd) elInd.textContent = `Páginas ${(_ppCurrentPage * 2) + 1} - ${(_ppCurrentPage * 2) + 2}`;
-
-  if (elPrev) elPrev.disabled = _ppCurrentPage === 0;
-  if (elNext) elNext.disabled = (startIdx + _ppStampsPerPage * 2) >= PP_COUNTRIES.length;
+  // Actualizar indicadores
+  document.getElementById('pp-num-left').textContent = `PAG. ${(_ppCurrentPage * 2) + 1}`;
+  document.getElementById('pp-num-right').textContent = `PAG. ${(_ppCurrentPage * 2) + 2}`;
+  document.getElementById('pp-page-indicator').textContent = `PÁGINAS ${(_ppCurrentPage * 2) + 1} - ${(_ppCurrentPage * 2) + 2}`;
+  
+  document.getElementById('pp-prev').disabled = _ppCurrentPage === 0;
+  document.getElementById('pp-next').disabled = (startIdx + _ppStampsPerPage * 2) >= PP_COUNTRIES.length;
 }
 
-function createStampEl(country, isVisited, posIdx) {
-  const wrap = document.createElement('div');
-  wrap.className = 'pst-wrap';
+function createStampSlot(country, isVisited, idx) {
+  const slot = document.createElement('div');
+  slot.className = 'pp-stamp-slot';
   
-  // Posiciones predefinidas para que parezca un pasaporte real (un poco desordenado)
-  const positions = [
-    { top: '10%', left: '10%', rot: '-8deg' },
-    { top: '10%', left: '50%', rot: '5deg' },
-    { top: '50%', left: '10%', rot: '12deg' },
-    { top: '50%', left: '50%', rot: '-5deg' },
-  ];
-  
-  const pos = positions[posIdx % 4];
-  wrap.style.top = pos.top;
-  wrap.style.left = pos.left;
-  wrap.style.width = '140px';
-  wrap.style.height = '140px';
-  wrap.style.setProperty('--rtr', `rotate(${pos.rot})`);
-  wrap.style.transform = `rotate(${pos.rot})`;
+  if (!country) return slot;
 
   if (isVisited) {
-    wrap.innerHTML = `
-      <div class="pst-fb" style="--sc: ${country.color}">
-        <img src="${country.stamp}" class="pst-img pst-png" alt="${country.name}">
-      </div>`;
+    const randomRot = Math.floor(Math.random() * 30) - 15;
+    slot.innerHTML = `<img src="${country.stamp}" class="pp-stamp-img" style="transform: rotate(${randomRot}deg)" alt="${country.name}">`;
   } else {
-    wrap.innerHTML = `
-      <div class="pb-empty" style="margin-top: 55px; opacity: 0.15">
-        <i class="fas fa-stamp" style="font-size: 2.2rem; display: block; margin-bottom: 8px"></i>
-        <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px">${country.name}</div>
+    slot.innerHTML = `
+      <div class="pp-stamp-locked">
+        <i class="fas fa-stamp"></i>
+        <span>${country.name}</span>
       </div>`;
   }
-
-  return wrap;
+  return slot;
 }
 
 function changePassportPage(delta) {
   _ppCurrentPage += delta;
-  const visited = new Set();
-  _allTrips.filter(t => !t.activo).forEach(t => {
-    const dest = t.destino.toLowerCase();
-    PP_COUNTRIES.forEach(c => {
-      if (dest.includes(c.id)) visited.add(c.id);
-    });
-  });
-  renderPassportPages(visited);
+  initPassport();
 }
 </script></body>
 </html>
