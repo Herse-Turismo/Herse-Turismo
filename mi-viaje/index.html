@@ -118,16 +118,16 @@ img{display:block}
 .av-circle{width:28px;height:28px;border-radius:50%;background:var(--ac);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800}
 .av-name{font-size:.74rem;font-weight:700;color:var(--tx)}
 .av-sub{font-size:.6rem;color:var(--ac)}
-/* views — fade transition */
-.view{display:none;opacity:0;transform:translateY(12px) scale(0.98);filter:blur(5px);transition:none;}
+/* views — transition */
+.view{display:none}
 .view.active{display:block;animation:viewIn .4s cubic-bezier(0.4, 0, 0.2, 1) forwards}
 @keyframes viewIn{
+  from{opacity:0;transform:translateY(12px) scale(0.98);filter:blur(5px)}
   to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
 }
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 /* notification badge */
 .nb{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;background:#ef4444;color:#fff;border-radius:99px;font-size:.58rem;font-weight:900;padding:0 4px;margin-left:auto;animation:nbPop .2s ease}
 @keyframes nbPop{from{transform:scale(0)}to{transform:scale(1)}}
@@ -136,10 +136,6 @@ img{display:block}
 @keyframes skShim{0%{background-position:100% 0}100%{background-position:-100% 0}}
 /* subtle bg pattern */
 .view-wrap{background:var(--bg);background-image:radial-gradient(circle at 1px 1px,rgba(0,0,0,.018) 1px,transparent 0);background-size:28px 28px}
-/* micro-animations */
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 .anim-in{opacity:0;transform:translateY(18px);transition:opacity .45s ease,transform .45s ease}
 .anim-in.visible{opacity:1;transform:none}
 .anim-in:nth-child(2){transition-delay:.06s}
