@@ -120,10 +120,14 @@ img{display:block}
 .av-sub{font-size:.6rem;color:var(--ac)}
 /* views — fade transition */
 .view{display:none;}
-.view.active{display:block;animation:viewIn .3s cubic-bezier(0.4, 0, 0.2, 1) both}
+.view.active{display:block;animation:viewIn .4s cubic-bezier(0.4, 0, 0.2, 1) both}
 @keyframes viewIn{
-  from{opacity:0;transform:translateY(12px) scale(0.99);filter:blur(4px)}
+  from{opacity:0;transform:translateY(12px) scale(0.98);filter:blur(5px)}
   to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 /* notification badge */
 .nb{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;background:#ef4444;color:#fff;border-radius:99px;font-size:.58rem;font-weight:900;padding:0 4px;margin-left:auto;animation:nbPop .2s ease}
@@ -1427,17 +1431,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 [data-theme="dark"] .badge-cancel{background:rgba(100,116,139,.15);color:#94a3b8}
 /* Lg/logros dark */
 [data-theme="dark"] .lg-c{background:var(--card);border-color:var(--bd)}
-/* Pasaporte Virtual/Tribunero dark bg override */
-[data-theme="dark"] #view-pasaporte-virtual>div{background:linear-gradient(135deg,#0f1117 0%,#131825 60%,#1a2035 100%)!important}
-[data-theme="dark"] #view-pasaporte-virtual .fa-passport{color:#60a5fa!important}
-[data-theme="dark"] #view-pasaporte-virtual h2{color:var(--tx)!important}
-[data-theme="dark"] #view-pasaporte-virtual p{color:var(--tx2)!important}
-[data-theme="dark"] #view-pasaporte-virtual>div>div>div{background:var(--card)!important;border-color:var(--bd)!important}
-[data-theme="dark"] #view-pasaporte-virtual>div>div>div>div:last-child>div{border-color:var(--bd)!important}
-[data-theme="dark"] #view-pasaporte-tribunero>div{background:linear-gradient(135deg,#0f1117 0%,#131825 60%,#1a2035 100%)!important}
-[data-theme="dark"] #view-pasaporte-tribunero>div>div>div{background:var(--card)!important;border-color:var(--bd)!important}
-[data-theme="dark"] #view-pasaporte-tribunero h2{color:var(--tx)!important}
-[data-theme="dark"] #view-pasaporte-tribunero p{color:var(--tx2)!important}
+
 /* Pending/proximamente dark */
 [data-theme="dark"] #pendingState,
 [data-theme="dark"] #proximamente{color:var(--tx)}
@@ -1533,6 +1527,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 [data-theme="dark"] .oracle-msg{background:rgba(26,108,255,0.08);border-color:rgba(26,108,255,0.15)}
 [data-theme="dark"] .vault-item-ico{background:var(--card)}
 [data-theme="dark"] .v-tool{background:var(--card)}
+[data-theme="dark"] #view-vision{background:#0c111d}
 </style>
 </head>
 <body>
@@ -1771,10 +1766,12 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       </div>
      </div>
     </div>
+  </div>
+
   <!-- VIEW: HERSE VISION -->
   <div class="view" id="view-vision">
     <div class="vcontent">
-      <div id="visionRoot">
+      <div id="visionRoot" style="min-height: 400px; color: var(--tx);">
         <div style="text-align:center;padding:60px 20px;opacity:.4"><i class="fas fa-spinner fa-spin" style="font-size:1.5rem"></i><p style="margin-top:10px;font-size:.75rem">Iniciando Herse Vision...</p></div>
       </div>
     </div>
@@ -1917,54 +1914,6 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
    <div class="vcontent" id="clubHerseContent">
     <!-- Rendered dynamically by renderFidelizacion() -->
     <div style="text-align:center;padding:60px 20px;opacity:.4"><i class="fas fa-spinner fa-spin" style="font-size:1.5rem"></i><p style="margin-top:10px;font-size:.75rem">Cargando Club Herse...</p></div>
-   </div>
-  </div>
-
-  <!-- VIEW: PASAPORTE VIRTUAL -->
-  <div class="view" id="view-pasaporte-virtual">
-   <div style="position:relative;min-height:calc(100vh - var(--hh));background:linear-gradient(135deg,#f8fafc 0%,#f1f5f9 60%,#e2e8f0 100%);overflow:hidden">
-    <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));padding:40px 20px">
-     <div style="text-align:center;max-width:520px;background:#fff;border:1px solid var(--bd);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.08)">
-      <div style="width:110px;height:110px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(0,59,122,.12),rgba(0,59,122,.22));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,59,122,.15);border:2px solid rgba(0,59,122,.1)">
-       <i class="fas fa-passport" style="font-size:2.8rem;color:#003B7A;filter:drop-shadow(0 2px 6px rgba(0,59,122,.25))"></i>
-      </div>
-      <h2 style="font-size:1.7rem;font-weight:900;color:#0F172A;margin-bottom:8px;line-height:1.2;letter-spacing:-.02em">Pasaporte Virtual</h2>
-      <p style="font-size:.85rem;color:#475569;line-height:1.65;margin-bottom:28px">Tu colección digital de sellos está en camino.<br>Muy pronto vas a poder coleccionar los sellos de cada país que visites en tus aventuras con Herse.</p>
-      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.18)">
-       <i class="fas fa-clock" style="color:#D97706;font-size:1.1rem"></i>
-       <span style="font-size:.88rem;font-weight:800;color:#92400E">Próximamente</span>
-      </div>
-      <div style="margin-top:36px;display:flex;justify-content:center;gap:32px">
-       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(239,246,255,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(0,59,122,.1)"><i class="fas fa-globe-americas" style="color:#003B7A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Destinos</div><div style="font-size:.58rem;color:#64748B">por explorar</div></div>
-       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(240,253,244,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(22,163,74,.12)"><i class="fas fa-stamp" style="color:#16A34A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Sellos</div><div style="font-size:.58rem;color:#64748B">coleccionables</div></div>
-       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(254,243,199,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(217,119,6,.12)"><i class="fas fa-medal" style="color:#D97706;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Premios</div><div style="font-size:.58rem;color:#64748B">por tus viajes</div></div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </div>
-
-  <!-- VIEW: PASAPORTE TRIBUNERO -->
-  <div class="view" id="view-pasaporte-tribunero">
-   <div style="position:relative;min-height:calc(100vh - var(--hh));background:linear-gradient(135deg,#f8fafc 0%,#eff6ff 60%,#dbeafe 100%);overflow:hidden">
-    <div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--hh));padding:40px 20px">
-     <div style="text-align:center;max-width:520px;background:#fff;border:1px solid var(--bd);border-radius:28px;padding:48px 40px;box-shadow:0 12px 48px rgba(0,0,0,.08)">
-      <div style="width:110px;height:110px;margin:0 auto 24px;border-radius:50%;background:linear-gradient(135deg,rgba(0,59,122,.12),rgba(0,59,122,.22));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,59,122,.15);border:2px solid rgba(0,59,122,.1)">
-       <i class="fas fa-futbol" style="font-size:2.8rem;color:#003B7A;filter:drop-shadow(0 2px 6px rgba(0,59,122,.25))"></i>
-      </div>
-      <h2 style="font-size:1.7rem;font-weight:900;color:#0F172A;margin-bottom:8px;line-height:1.2;letter-spacing:-.02em">Pasaporte Tribunero</h2>
-      <p style="font-size:.85rem;color:#475569;line-height:1.65;margin-bottom:28px">Tu pasaporte futbolero está en desarrollo.<br>Pronto vas a poder coleccionar sellos de cada estadio que visites en tus viajes con Herse.</p>
-      <div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#FEF3C7,#FDE68A);padding:14px 28px;border-radius:99px;box-shadow:0 4px 16px rgba(217,119,6,.18)">
-       <i class="fas fa-clock" style="color:#D97706;font-size:1.1rem"></i>
-       <span style="font-size:.88rem;font-weight:800;color:#92400E">Próximamente</span>
-      </div>
-      <div style="margin-top:36px;display:flex;justify-content:center;gap:32px">
-       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(239,246,255,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(0,59,122,.1)"><i class="fas fa-futbol" style="color:#003B7A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Estadios</div><div style="font-size:.58rem;color:#64748B">de todo el mundo</div></div>
-       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(240,253,244,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(22,163,74,.12)"><i class="fas fa-ticket-alt" style="color:#16A34A;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Partidos</div><div style="font-size:.58rem;color:#64748B">en vivo</div></div>
-       <div style="text-align:center"><div style="width:50px;height:50px;border-radius:14px;background:rgba(254,243,199,.85);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;border:1px solid rgba(217,119,6,.12)"><i class="fas fa-medal" style="color:#D97706;font-size:1.1rem"></i></div><div style="font-size:.68rem;font-weight:700;color:#0F172A">Rankings</div><div style="font-size:.58rem;color:#64748B">y premios</div></div>
-      </div>
-     </div>
-    </div>
    </div>
   </div>
 
@@ -3614,110 +3563,121 @@ function animateCount(el,target){
 async function initVision(){
   const root = document.getElementById('visionRoot');
   if(!root) return;
-  
-  // Simulation of loading data
-  setTimeout(() => renderVision(), 300);
+  console.log("Iniciando Herse Vision...");
+  setTimeout(() => renderVision(), 100);
 }
 
 function renderVision(){
-  const root = document.getElementById('visionRoot');
-  if(!root) return;
+  try {
+    const root = document.getElementById('visionRoot');
+    if(!root) return;
 
-  const hasTrip = _hasTrip && _currentTrip;
-  const dest = hasTrip ? _currentTrip.destino : 'Próximo Destino';
-  const info = hasTrip ? getDestInfo(dest) : null;
-  
-  // Oracle Messages based on context
-  const messages = [];
-  if(!hasTrip) {
-    messages.push({tag: 'Inspiración', ico: '✨', txt: 'Aún no tienes un viaje activo. ¡Es el momento perfecto para explorar nuevos horizontes!'});
-    messages.push({tag: 'Tip', ico: '💡', txt: 'Los viajeros que planean con 3 meses de anticipación ahorran hasta un 20% en hoteles.'});
-  } else {
-    const days = Math.ceil((TRIP_DATE - new Date()) / (1000 * 60 * 60 * 24));
-    if(days > 0) {
-      messages.push({tag: 'Cuenta Regresiva', ico: '⏳', txt: `Faltan ${days} días para tu aventura en ${dest}. ¡Asegúrate de tener tu pasaporte al día!`});
+    const hasTrip = typeof _hasTrip !== 'undefined' && _hasTrip && typeof _currentTrip !== 'undefined' && _currentTrip;
+    const dest = hasTrip ? _currentTrip.destino : 'Próximo Destino';
+    const info = hasTrip ? (typeof getDestInfo === 'function' ? getDestInfo(dest) : null) : null;
+    
+    const messages = [];
+    if(!hasTrip) {
+      messages.push({tag: 'Inspiración', ico: '✨', txt: 'Aún no tienes un viaje activo. ¡Es el momento perfecto para explorar nuevos horizontes!'});
+      messages.push({tag: 'Tip', ico: '💡', txt: 'Los viajeros que planean con 3 meses de anticipación ahorran hasta un 20% en hoteles.'});
+    } else {
+      let daysText = '¡Tu viaje es hoy!';
+      if(typeof TRIP_DATE !== 'undefined' && TRIP_DATE) {
+        const diff = TRIP_DATE - new Date();
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        if(days > 0) daysText = `Faltan ${days} días para tu aventura en ${dest}. ¡Asegúrate de tener tu pasaporte al día!`;
+      }
+      messages.push({tag: 'Cuenta Regresiva', ico: '⏳', txt: daysText});
+      
+      if(info && info.curName) {
+        messages.push({tag: 'Herse Intelligence', ico: '🤖', txt: `En ${dest} se usa el ${info.curName}. El cambio actual está fluctuando, te recomendamos llevar algo de efectivo.`});
+      }
+      messages.push({tag: 'Clima', ico: '🌦️', txt: `Se espera un clima variado en ${dest}. No olvides empacar capas ligeras.`});
     }
-    messages.push({tag: 'Herse Intelligence', ico: '🤖', txt: `En ${dest} se usa el ${info?.curName}. El cambio actual está fluctuando, te recomendamos llevar algo de efectivo.`});
-    messages.push({tag: 'Clima', ico: '🌦️', txt: `Se espera un clima variado en ${dest}. No olvides empacar capas ligeras.`});
-  }
 
-  root.innerHTML = `
-    <div class="vision-grid">
-      <!-- Radar Oracle -->
-      <div class="vision-card">
-        <div class="vision-card-ttl"><i class="fas fa-satellite-dish"></i> Radar Oracle</div>
-        <div class="oracle-wrap">
-          ${messages.map(m => `
-            <div class="oracle-msg">
-              <div class="oracle-msg-ico">${m.ico}</div>
-              <div class="oracle-msg-info">
-                <span class="oracle-msg-tag">${m.tag}</span>
-                <div class="oracle-msg-txt">${m.txt}</div>
+    const localTime = new Date().toLocaleTimeString('es-AR', {
+      timeZone: (info && info.tz) ? info.tz : 'America/Argentina/Buenos_Aires', 
+      hour: '2-digit', 
+      minute: '2-digit'
+    });
+
+    root.innerHTML = `
+      <div class="vision-grid">
+        <div class="vision-card">
+          <div class="vision-card-ttl"><i class="fas fa-satellite-dish"></i> Radar Oracle</div>
+          <div class="oracle-wrap">
+            ${messages.map(m => `
+              <div class="oracle-msg">
+                <div class="oracle-msg-ico">${m.ico}</div>
+                <div class="oracle-msg-info">
+                  <span class="oracle-msg-tag">${m.tag}</span>
+                  <div class="oracle-msg-txt">${m.txt}</div>
+                </div>
               </div>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         </div>
-      </div>
 
-      <!-- Ventana al Destino -->
-      <div class="vision-card">
-        <div class="vision-card-ttl"><i class="fas fa-vr-cardboard"></i> Ventana al Destino</div>
-        <div class="window-frame">
-          <img src="${info?.bg || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800'}" class="window-img" alt="Destino">
-          <div class="window-live"><span style="width:6px;height:6px;background:#fff;border-radius:50%"></span> LIVE FEED</div>
-          <div class="window-overlay">
-            <div style="font-size:1.2rem;font-weight:950">${dest}</div>
-            <div style="font-size:0.7rem;opacity:0.8;margin-top:4px"><i class="fas fa-clock"></i> Hora local: ${new Date().toLocaleTimeString('es-AR', {timeZone: info?.tz || 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit'})}</div>
-          </div>
-        </div>
-        <p style="font-size:0.65rem;color:var(--tx2);margin-top:12px;line-height:1.4">
-          <i class="fas fa-info-circle"></i> Esta es una vista previa inmersiva de tu destino. Próximamente: Streaming en tiempo real.
-        </p>
-      </div>
-
-      <!-- Bóveda de Documentos -->
-      <div class="vision-card">
-        <div class="vision-card-ttl"><i class="fas fa-shield-halved"></i> Bóveda de Seguridad</div>
-        <div class="vault-list">
-          <div class="vault-item" onclick="showView('mi-viaje')">
-            <div class="vault-item-ico"><i class="fas fa-file-contract" style="color:#1a6cff"></i></div>
-            <div class="vault-item-info">
-              <div class="vault-item-name">Seguro de Viaje</div>
-              <div class="vault-item-meta">Acceso rápido 24/7</div>
+        <div class="vision-card">
+          <div class="vision-card-ttl"><i class="fas fa-vr-cardboard"></i> Ventana al Destino</div>
+          <div class="window-frame">
+            <img src="${(info && info.bg) ? info.bg : 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800'}" class="window-img" alt="Destino">
+            <div class="window-live"><span style="width:6px;height:6px;background:#fff;border-radius:50%"></span> LIVE FEED</div>
+            <div class="window-overlay">
+              <div style="font-size:1.2rem;font-weight:950">${dest}</div>
+              <div style="font-size:0.7rem;opacity:0.8;margin-top:4px"><i class="fas fa-clock"></i> Hora local: ${localTime}</div>
             </div>
-            <i class="fas fa-chevron-right" style="font-size:0.6rem;opacity:0.3"></i>
           </div>
-          <div class="vault-item" onclick="window.open('https://wa.me/5492215661704','_blank')">
-            <div class="vault-item-ico"><i class="fas fa-phone-alt" style="color:#22c55e"></i></div>
-            <div class="vault-item-info">
-              <div class="vault-item-name">Contacto de Emergencia</div>
-              <div class="vault-item-meta">Soporte Herse directo</div>
-            </div>
-            <i class="fas fa-chevron-right" style="font-size:0.6rem;opacity:0.3"></i>
-          </div>
+          <p style="font-size:0.65rem;color:var(--tx2);margin-top:12px;line-height:1.4">
+            <i class="fas fa-info-circle"></i> Esta es una vista previa inmersiva de tu destino. Próximamente: Streaming en tiempo real.
+          </p>
         </div>
-      </div>
 
-      <!-- Herramientas de Viaje -->
-      <div class="vision-card">
-        <div class="vision-card-ttl"><i class="fas fa-toolbox"></i> Kit de Supervivencia</div>
-        <div class="vision-tools">
-          <div class="v-tool" onclick="toast('Conversor de moneda activado', 'success')">
-            <div class="v-tool-ico"><i class="fas fa-comments-dollar"></i></div>
-            <div class="v-tool-lbl">Cambio</div>
+        <div class="vision-card">
+          <div class="vision-card-ttl"><i class="fas fa-shield-halved"></i> Bóveda de Seguridad</div>
+          <div class="vault-list">
+            <div class="vault-item" onclick="showView('mi-viaje')">
+              <div class="vault-item-ico"><i class="fas fa-file-contract" style="color:#1a6cff"></i></div>
+              <div class="vault-item-info">
+                <div class="vault-item-name">Seguro de Viaje</div>
+                <div class="vault-item-meta">Acceso rápido 24/7</div>
+              </div>
+              <i class="fas fa-chevron-right" style="font-size:0.6rem;opacity:0.3"></i>
+            </div>
+            <div class="vault-item" onclick="window.open('https://wa.me/5492215661704','_blank')">
+              <div class="vault-item-ico"><i class="fas fa-phone-alt" style="color:#22c55e"></i></div>
+              <div class="vault-item-info">
+                <div class="vault-item-name">Contacto de Emergencia</div>
+                <div class="vault-item-meta">Soporte Herse directo</div>
+              </div>
+              <i class="fas fa-chevron-right" style="font-size:0.6rem;opacity:0.3"></i>
+            </div>
           </div>
-          <div class="v-tool" onclick="toast('Guía de propinas cargada', 'success')">
-            <div class="v-tool-ico"><i class="fas fa-hand-holding-dollar"></i></div>
-            <div class="v-tool-lbl">Propinas</div>
-          </div>
-          <div class="v-tool" onclick="toast('Traductor rápido activado', 'success')">
-            <div class="v-tool-ico"><i class="fas fa-language"></i></div>
-            <div class="v-tool-lbl">Frases</div>
+        </div>
+
+        <div class="vision-card">
+          <div class="vision-card-ttl"><i class="fas fa-toolbox"></i> Kit de Supervivencia</div>
+          <div class="vision-tools">
+            <div class="v-tool" onclick="toast('Conversor de moneda activado', 'success')">
+              <div class="v-tool-ico"><i class="fas fa-comments-dollar"></i></div>
+              <div class="v-tool-lbl">Cambio</div>
+            </div>
+            <div class="v-tool" onclick="toast('Guía de propinas cargada', 'success')">
+              <div class="v-tool-ico"><i class="fas fa-hand-holding-dollar"></i></div>
+              <div class="v-tool-lbl">Propinas</div>
+            </div>
+            <div class="v-tool" onclick="toast('Traductor rápido activado', 'success')">
+              <div class="v-tool-ico"><i class="fas fa-language"></i></div>
+              <div class="v-tool-lbl">Frases</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  `;
+    `;
+  } catch (err) {
+    console.error("Error in renderVision:", err);
+    document.getElementById('visionRoot').innerHTML = `<div style="padding:20px; color:red;">Error al cargar Herse Vision: ${err.message}</div>`;
+  }
 }
 
 </script></body>
