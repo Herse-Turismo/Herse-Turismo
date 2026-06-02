@@ -120,8 +120,11 @@ img{display:block}
 .av-sub{font-size:.6rem;color:var(--ac)}
 /* views — fade transition */
 .view{display:none;}
-.view.active{display:block;animation:viewIn .18s ease both}
-@keyframes viewIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.view.active{display:block;animation:viewIn .3s cubic-bezier(0.4, 0, 0.2, 1) both}
+@keyframes viewIn{
+  from{opacity:0;transform:translateY(12px) scale(0.99);filter:blur(4px)}
+  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
 /* notification badge */
 .nb{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;background:#ef4444;color:#fff;border-radius:99px;font-size:.58rem;font-weight:900;padding:0 4px;margin-left:auto;animation:nbPop .2s ease}
 @keyframes nbPop{from{transform:scale(0)}to{transform:scale(1)}}
@@ -1506,6 +1509,30 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <div class="sb-sec">Más</div>
     <button class="ni" id="nav-perfil" data-view="perfil" onclick="showView('perfil')"><i class="fas fa-user"></i> Mi Perfil</button>
     <button class="ni" id="btnAdmin" style="display:none" onclick="window.location.href='/admin'"><i class="fas fa-tools"></i> Panel Admin</button>
+    
+    <div class="sb-fill"></div>
+
+    <!-- SB Pulse Widget -->
+    <div id="sbPulse" style="margin:14px;padding:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;display:none;backdrop-filter:blur(10px)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:0.58rem;font-weight:900;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px">Tu Actividad</span>
+        <span id="sbPulseLevel" style="font-size:0.6rem;font-weight:900;background:rgba(217,119,6,0.2);color:#fbbf24;padding:2px 8px;border-radius:99px">LEVEL 1</span>
+      </div>
+      <div style="height:5px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-bottom:12px">
+        <div id="sbPulseBar" style="height:100%;width:0%;background:linear-gradient(90deg,#1a6cff,#60a5fa);transition:width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)"></div>
+      </div>
+      <div style="display:flex;justify-content:space-around;gap:4px">
+        <div style="text-align:center">
+          <div id="sbPulseTrips" style="font-size:0.85rem;font-weight:950;color:#fff">0</div>
+          <div style="font-size:0.48rem;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:700">Viajes</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.1);height:20px;margin-top:4px"></div>
+        <div style="text-align:center">
+          <div id="sbPulsePts" style="font-size:0.85rem;font-weight:950;color:#fff">0</div>
+          <div style="font-size:0.48rem;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:700">Puntos</div>
+        </div>
+      </div>
+    </div>
   </nav>
   <div class="sb-info">
     <div class="sb-info-ttl"><i class="fas fa-headset"></i> ¿Necesitás ayuda?</div>
@@ -1570,7 +1597,10 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
          <div class="mj-cd-u"><div class="mj-cd-v" id="cd-m">--</div><div class="mj-cd-l">Min</div></div>
          <div class="mj-cd-u"><div class="mj-cd-v" id="cd-s">--</div><div class="mj-cd-l">Seg</div></div>
         </div>
-        <button class="mj-cta" onclick="toggleItinerario()"><i class="fas fa-route"></i> Ver detalles del viaje</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+         <button class="mj-cta" onclick="toggleItinerario()"><i class="fas fa-route"></i> Itinerario</button>
+         <button class="mj-cta" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3)" onclick="shareTrip()"><i class="fas fa-share-alt"></i> Compartir</button>
+        </div>
        </div>
       </div>
      </div>
@@ -1664,7 +1694,34 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
      </div><!-- end display:none -->
 
     </div>
-    <div id="pendingState" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">⏳</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Estamos preparando tu viaje</div><div style="font-size:.8rem;color:var(--tx2)">Pronto tendrás toda la info de tu próxima aventura.</div></div>
+    <!-- BLOQUE: ESTADO SIN VIAJE ACTIVO -->
+    <div id="pendingState" style="display:none;animation:viewIn 0.4s ease both;padding:20px 0">
+     <div style="background:var(--card);border-radius:24px;padding:48px 24px;text-align:center;border:1px solid var(--bd);box-shadow:var(--shl);position:relative;overflow:hidden;max-width:600px;margin:0 auto">
+      <!-- Background decoration -->
+      <div style="position:absolute;top:-20px;right:-20px;font-size:8rem;color:var(--ac);opacity:0.03;transform:rotate(15deg)"><i class="fas fa-map-marked-alt"></i></div>
+      
+      <div style="width:100px;height:100px;background:rgba(26,108,255,0.08);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;border:1.5px solid rgba(26,108,255,0.15)">
+       <i class="fas fa-passport" style="font-size:2.8rem;color:var(--ac)"></i>
+      </div>
+      <h2 style="font-size:1.6rem;font-weight:950;color:var(--tx);margin-bottom:12px;letter-spacing:-0.5px">¿A dónde vamos ahora?</h2>
+      <p style="font-size:0.88rem;color:var(--tx2);max-width:380px;margin:0 auto 32px;line-height:1.6">Todavía no tenés un viaje activo para hoy, pero el mundo es gigante y está esperando.</p>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:440px;margin:0 auto">
+       <button class="btn-a" onclick="window.open('https://herse.com.ar/destinos','_blank')" style="background:var(--ac);color:#fff;border:none;padding:14px;border-radius:14px;font-size:0.82rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 20px rgba(26,108,255,0.2)">
+        <i class="fas fa-search"></i> Explorar
+       </button>
+       <button class="btn-a" onclick="showView('mis-viajes')" style="background:var(--bg);color:var(--tx);border:1.5px solid var(--bd);padding:14px;border-radius:14px;font-size:0.82rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        <i class="fas fa-history"></i> Mis recuerdos
+       </button>
+      </div>
+
+      <div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--bd);display:flex;justify-content:center;gap:40px">
+       <div style="text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--tx)" id="emptyStatsViajes">0</div><div style="font-size:0.6rem;color:var(--tx2);text-transform:uppercase;font-weight:700;margin-top:2px">Viajes</div></div>
+       <div style="text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--tx)" id="emptyStatsSellos">0</div><div style="font-size:0.6rem;color:var(--tx2);text-transform:uppercase;font-weight:700;margin-top:2px">Sellos</div></div>
+       <div style="text-align:center"><div style="font-size:1.2rem;font-weight:900;color:var(--tx)" id="emptyStatsPts">0</div><div style="font-size:0.6rem;color:var(--tx2);text-transform:uppercase;font-weight:700;margin-top:2px">Puntos</div></div>
+      </div>
+     </div>
+    </div>
     <div id="proximamente" style="display:none;text-align:center;padding:60px 0"><div style="font-size:3rem;margin-bottom:12px">🔒</div><div style="font-size:1.1rem;font-weight:800;color:var(--tx);margin-bottom:8px">Acceso pendiente</div><div style="font-size:.8rem;color:var(--tx2)">Tu cuenta está siendo verificada.</div></div>
    </div>
   </div>
@@ -2448,6 +2505,60 @@ function renderStreak(){
 })();
 function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
 async function signOut(){await _db.auth.signOut();window.location.href='/login';}
+
+/* PREMIUM: SHARE TRIP */
+function shareTrip(){
+  if(!_currentTrip) return;
+  const dest = _currentTrip.destino;
+  const flag = getFlag(dest);
+  const text = `¡Estoy viajando a ${dest} ${flag} con Herse Turismo! ✈️🌍 #HerseTurismo #Travel`;
+  
+  if (navigator.share) {
+    navigator.share({
+      title: 'Mi Viaje con Herse',
+      text: text,
+      url: window.location.href
+    }).catch(() => {
+      copyToClipboard(text);
+    });
+  } else {
+    copyToClipboard(text);
+  }
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    if(typeof toast === 'function') toast('Copiado al portapapeles para compartir ✈️', 'success');
+    else alert('Copiado al portapapeles: ' + text);
+  });
+}
+
+/* SIDEBAR PULSE LOGIC */
+function updateSidebarPulse() {
+  const el = document.getElementById('sbPulse');
+  if(!el) return;
+  
+  const totalTrips = _allTrips.length;
+  const pts = _loyaltyData.lifetimePoints || 0;
+  const prog = getLevelProgress(pts);
+  
+  document.getElementById('sbPulseTrips').textContent = totalTrips;
+  document.getElementById('sbPulsePts').textContent = fmtPts(_loyaltyData.availablePoints || 0);
+  document.getElementById('sbPulseLevel').textContent = prog.current.name.toUpperCase();
+  
+  const bar = document.getElementById('sbPulseBar');
+  if(bar) bar.style.width = prog.pct + '%';
+  
+  el.style.display = 'block';
+
+  // Also update empty state stats if they exist
+  const eTrips = document.getElementById('emptyStatsViajes');
+  const eSellos = document.getElementById('emptyStatsSellos');
+  const ePts = document.getElementById('emptyStatsPts');
+  if(eTrips) animateCount(eTrips, totalTrips);
+  if(eSellos) animateCount(eSellos, new Set(_allTrips.map(t=>t.destino.split(',')[0].trim())).size);
+  if(ePts) animateCount(ePts, pts);
+}
 /* DATE HELPERS */
 function fmtDate(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'});}
 function fmtDateTime(d){return d.toLocaleDateString('es-AR',{day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});}
@@ -2700,6 +2811,22 @@ async function loadSmartWidgets(destino){
     document.getElementById('swEmerVal').textContent=info.emer;
     document.getElementById('swEmerSub').textContent=`Policía: ${info.emerPol} · Amb: ${info.emerAmb}`;
     
+    // Currency Reference (Mock for now, can be improved with real API)
+    if(info.cur !== 'ARS') {
+      const swCardCur = document.createElement('div');
+      swCardCur.className = 'sw-card';
+      swCardCur.id = 'swCardCurrency';
+      swCardCur.innerHTML = `<div class="sw-ico green" style="background:rgba(34,197,94,0.1);color:#16a34a"><i class="fas fa-money-bill-transfer"></i></div><div><div class="sw-label">Referencia cambio</div><div class="sw-val" id="swCurVal">1 USD ≈ ${info.cur === 'EUR' ? '0.92' : info.cur === 'BRL' ? '5.10' : '...'} ${info.cur}</div><div class="sw-sub">Valor aprox. mercado</div></div>`;
+      wrap.appendChild(swCardCur);
+    }
+
+    // Travel Tip
+    const tips = ["No olvides hidratarte durante el vuelo.", "Lleva siempre una copia de tu pasaporte en el móvil.", "Prueba la gastronomía local, ¡es parte del viaje!", "Usa protector solar, incluso si está nublado."];
+    const swCardTip = document.createElement('div');
+    swCardTip.className = 'sw-card';
+    swCardTip.innerHTML = `<div class="sw-ico gold" style="background:rgba(217,119,6,0.1);color:#d97706"><i class="fas fa-lightbulb"></i></div><div><div class="sw-label">Herse Tip</div><div class="sw-val" style="font-size:0.75rem;line-height:1.4">${tips[Math.floor(Math.random()*tips.length)]}</div></div>`;
+    wrap.appendChild(swCardTip);
+
     // Update timezone clock
     const updateClock=()=>{
       try{
@@ -2838,6 +2965,7 @@ async function loadHistorial(){
   const sp=document.getElementById('statProximos');if(sp)animateCount(sp,activo);
   const sc=document.getElementById('statCompletados');if(sc)animateCount(sc,completados);
   const sk=document.getElementById('statPaises');if(sk)animateCount(sk,paises);
+  updateSidebarPulse();
   if(!_hasTrip) updateNoTripNivelCard();
   if(typeof renderPerfil==='function') renderPerfil();
 }
@@ -3071,6 +3199,7 @@ function updateLoyalty(fid){
   _loyaltyData.availablePoints=fid.puntos_disponibles??pts;
   _loyaltyData.lifetimePoints=fid.puntos_historicos??pts;
   if(_hasTrip) updateFidDashCard(fid);
+  updateSidebarPulse();
 }
 async function renderFidelizacion(){
   const wrap=document.getElementById('clubHerseContent');
