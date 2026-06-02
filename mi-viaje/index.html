@@ -119,10 +119,9 @@ img{display:block}
 .av-name{font-size:.74rem;font-weight:700;color:var(--tx)}
 .av-sub{font-size:.6rem;color:var(--ac)}
 /* views — fade transition */
-.view{display:none;}
-.view.active{display:block;animation:viewIn .4s cubic-bezier(0.4, 0, 0.2, 1) both}
+.view{display:none;opacity:0;transform:translateY(12px) scale(0.98);filter:blur(5px);transition:none;}
+.view.active{display:block;animation:viewIn .4s cubic-bezier(0.4, 0, 0.2, 1) forwards}
 @keyframes viewIn{
-  from{opacity:0;transform:translateY(12px) scale(0.98);filter:blur(5px)}
   to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
 }
 @keyframes fadeUp{
@@ -2087,7 +2086,10 @@ function showView(id){
   if(id==='fidelizacion') renderFidelizacion();
   if(id==='mis-viajes') renderAllTrips();
   if(id==='perfil') renderPerfil();
-  if(id==='vision') initVision();
+  if(id==='vision') {
+    console.log("Cambiando a vista Vision");
+    initVision();
+  }
   if(vw)vw.scrollTo({top:0,behavior:'instant'});
 }
 function toggleItinerario(){
@@ -3562,8 +3564,12 @@ function animateCount(el,target){
 /* ── HERSE VISION LOGIC ── */
 async function initVision(){
   const root = document.getElementById('visionRoot');
-  if(!root) return;
+  if(!root) {
+    console.error("No se encontró visionRoot");
+    return;
+  }
   console.log("Iniciando Herse Vision...");
+  root.innerHTML = '<div style="text-align:center;padding:60px 20px;opacity:.4;color:var(--tx)"><i class="fas fa-spinner fa-spin" style="font-size:1.5rem"></i><p style="margin-top:10px;font-size:.75rem">Iniciando Herse Vision...</p></div>';
   setTimeout(() => renderVision(), 100);
 }
 
