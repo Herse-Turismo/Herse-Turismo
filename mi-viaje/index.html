@@ -119,11 +119,11 @@ img{display:block}
 .av-name{font-size:.74rem;font-weight:700;color:var(--tx)}
 .av-sub{font-size:.6rem;color:var(--ac)}
 /* views — transition */
-.view{display:none;opacity:1}
-.view.active{display:block!important;opacity:1!important}
+.view{display:none}
+.view.active{display:block;animation:viewIn .4s cubic-bezier(0.4, 0, 0.2, 1) forwards}
 @keyframes viewIn{
-  from{opacity:0;transform:translateY(12px) scale(0.98);filter:blur(5px)}
-  to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  from{opacity:0;transform:translateY(8px);filter:blur(4px)}
+  to{opacity:1;transform:none;filter:blur(0)}
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
@@ -136,7 +136,7 @@ img{display:block}
 @keyframes skShim{0%{background-position:100% 0}100%{background-position:-100% 0}}
 /* subtle bg pattern */
 .view-wrap{background:var(--bg);background-image:radial-gradient(circle at 1px 1px,rgba(0,0,0,.018) 1px,transparent 0);background-size:28px 28px}
-.anim-in{opacity:1;transform:none;transition:opacity .45s ease,transform .45s ease}
+.anim-in{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
 .anim-in.visible{opacity:1;transform:none}
 .anim-in:nth-child(2){transition-delay:.06s}
 .anim-in:nth-child(3){transition-delay:.12s}
@@ -1761,6 +1761,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
       </div>
      </div>
     </div>
+   </div>
   </div>
 
   <!-- VIEW: HERSE VISION -->
@@ -3584,8 +3585,6 @@ function animateCount(el,target){
     document.querySelectorAll('.card,.snap-c,.tli,.mi-card,.hv-card,.lg-c,.stat-card,.doc-c,.itin-day').forEach(el=>{
       if(!el.classList.contains('anim-in')&&!el.classList.contains('visible')){
         el.classList.add('anim-in');io.observe(el);
-        // Fallback: force visible if IO fails
-        setTimeout(()=>el.classList.add('visible'), 2500);
       }
     });
   }
