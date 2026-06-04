@@ -2036,7 +2036,12 @@ function showInstallIOSHint(){
 
 const SUPA_URL='https://yuukqdcjitxhaeevjxjb.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1dWtxZGNqaXR4aGFlZXZqeGpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY3OTE2NjQsImV4cCI6MjA5MjM2NzY2NH0.meXXmlipCt6w10S_XEOOBEXAPtA84LuURnT0V3JB-Mw';
-const {createClient}=supabase;
+const SUPA_LIB=window.supabase;
+if(!SUPA_LIB?.createClient){
+  document.body.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#f4f5f8;font-family:Inter,system-ui,sans-serif;color:#111827"><div style="max-width:420px;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:24px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.08)"><div style="font-size:2rem;margin-bottom:10px"><i class="fas fa-triangle-exclamation" style="color:#f59e0b"></i></div><h1 style="font-size:1.05rem;margin-bottom:8px">No pudimos cargar tu portal</h1><p style="font-size:.82rem;line-height:1.6;color:#6b7280">Falta cargar la libreria de conexion. Revisa tu internet y volve a intentar.</p></div></div>';
+  throw new Error('Supabase SDK no disponible');
+}
+const {createClient}=SUPA_LIB;
 const _db=createClient(SUPA_URL,SUPA_KEY);
 let TRIP_DATE=null;
 let _tickInterval,_isAdmin=false,_userName='',_userEmail='',_hasTrip=false;
@@ -2503,10 +2508,28 @@ function renderStreak(){
     showSinViajeHero();
   }
   _passportUserId=user.id;
-  loadHistorial();
-  const {data:fid}=await _db.from('fidelizacion').select('*').eq('cliente_id',user.id).maybeSingle();
-  if(fid) updateLoyalty(fid);
-})();
+  try{
+    await loadHistorial();
+  }catch(err){
+    console.error('Error inicializando historial:',err);
+    _allTrips=[];
+    renderAllTrips();
+  }
+  try{
+    const {data:fid,error:fidErr}=await _db.from('fidelizacion').select('*').eq('cliente_id',user.id).maybeSingle();
+    if(fidErr)throw fidErr;
+    if(fid) updateLoyalty(fid);
+  }catch(err){
+    console.error('Error inicializando Club Herse:',err);
+    if(typeof renderPerfil==='function') renderPerfil();
+  }
+})().catch(err=>{
+  console.error('Error inicializando Mi Viaje:',err);
+  const dash=document.getElementById('mainDashboard');
+  if(dash){
+    dash.innerHTML='<div class="card" style="text-align:center;padding:28px"><div style="font-size:1.8rem;color:#f59e0b;margin-bottom:10px"><i class="fas fa-triangle-exclamation"></i></div><div style="font-size:.95rem;font-weight:900;color:var(--tx);margin-bottom:6px">No pudimos cargar tus datos</div><div style="font-size:.74rem;color:var(--tx2);line-height:1.6">Actualiza la pagina o revisa tu conexion. El resto del portal sigue disponible.</div></div>';
+  }
+});
 function logout(){_db.auth.signOut().then(()=>{window.location.href='/login';});}
 async function signOut(){await _db.auth.signOut();window.location.href='/login';}
 
@@ -2964,15 +2987,21 @@ function updateFidDashCard(fid){
 /* HISTORIAL */
 let _allTrips=[];
 async function loadHistorial(){
-  const {data}=await _db.from('viajes').select('id,destino,fecha_salida,fecha_regreso,activo').order('fecha_salida',{ascending:false});
-  _allTrips=data||[];
+  try{
+    const {data,error}=await _db.from('viajes').select('id,destino,fecha_salida,fecha_regreso,activo').order('fecha_salida',{ascending:false});
+    if(error)throw error;
+    _allTrips=data||[];
+  }catch(err){
+    console.error('Error cargando historial:',err);
+    _allTrips=[];
+  }
   const _yf=document.getElementById('yearFilter');
   if(_yf){
     const _yrs=[...new Set(_allTrips.map(t=>new Date(t.fecha_salida).getFullYear()))].sort((a,b)=>b-a);
     _yf.innerHTML='<option value="">Todos los años</option>'+_yrs.map(y=>'<option value="'+y+'">'+y+'</option>').join('');
   }
   renderAllTrips();
-  _allTrips.filter(t=>!t.activo).forEach(t=>{if(t.id)loadTripPhotos(t.id);});
+  _allTrips.filter(t=>!t.activo).forEach(t=>{if(t.id)loadTripPhotos(t.id).catch(err=>console.warn('Error cargando fotos:',err));});
   const activo=_allTrips.filter(t=>t.activo).length;
   const completados=_allTrips.filter(t=>!t.activo).length;
   const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(',')[0].split(' ')[0])).size;
@@ -3222,8 +3251,14 @@ async function renderFidelizacion(){
   // Load transactions (filtradas por cliente)
   let trans=[];
   if(_passportUserId){
-    const {data}=await _db.from('fidelizacion_trans').select('*').eq('cliente_id',_passportUserId).order('created_at',{ascending:false}).limit(15);
-    trans=data||[];
+    try{
+      const {data,error}=await _db.from('fidelizacion_trans').select('*').eq('cliente_id',_passportUserId).order('created_at',{ascending:false}).limit(15);
+      if(error)throw error;
+      trans=data||[];
+    }catch(err){
+      console.error('Error cargando movimientos Club Herse:',err);
+      trans=[];
+    }
   }
   _loyaltyData.movements=trans;
   const avail=_loyaltyData.availablePoints;
