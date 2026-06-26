@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test - Herse Vision</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+      --tx: #1a1a1a;
+      --tx2: #666;
+      --tx3: #999;
+      --bg: #f9f9f9;
+      --card: #ffffff;
+      --bd: #e0e0e0;
+      --ac: #1a6cff;
+      --shl: 0 2px 8px rgba(0,0,0,.08);
+    }
+    [data-theme="dark"] {
+      --tx: #f0f0f0;
+      --tx2: #b0b0b0;
+      --tx3: #808080;
+      --bg: #1a1a1a;
+      --card: #242424;
+      --bd: #333;
+      --ac: #60a5fa;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shl);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--bd);
+    }
+    .header h1 {
+      font-size: 1.8rem;
+      color: var(--tx);
+    }
+    .dm-toggle {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: var(--tx);
+      transition: .2s;
+    }
+    .dm-toggle:hover {
+      transform: scale(1.1);
+    }
+    .vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .vision-card {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shl);
+      position: relative;
+      overflow: hidden;
+    }
+    .vision-card-ttl {
+      font-size: .9rem;
+      font-weight: 900;
+      color: var(--tx);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .vision-card-ttl i {
+      color: var(--ac);
+      font-size: 1.1rem;
+    }
+    .vision-tools {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .v-tool {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: center;
+      border: 1px solid var(--bd);
+      transition: 0.2s;
+      cursor: pointer;
+    }
+    .v-tool:hover {
+      background: var(--card);
+      border-color: var(--ac);
+      transform: translateY(-3px);
+    }
+    .v-tool-ico {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: var(--ac);
+    }
+    .v-tool-lbl {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: var(--tx2);
+      text-transform: uppercase;
+    }
+    .vision-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .46);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+    .vision-modal.active {
+      display: flex;
+    }
+    .vision-modal-content {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px 30px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, .22);
+      position: relative;
+      animation: slideUp 0.3s ease;
+    }
+    .vision-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      color: var(--tx2);
+      cursor: pointer;
+      transition: .2s;
+    }
+    .vision-modal-close:hover {
+      color: var(--tx);
+      transform: scale(1.1);
+    }
+    .vision-modal-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .vision-modal-title {
+      font-size: .98rem;
+      font-weight: 900;
+      color: var(--tx);
+    }
+    .vision-modal-title i {
+      color: var(--ac);
+    }
+    .vision-modal-desc {
+      font-size: .7rem;
+      color: var(--tx2);
+      margin-bottom: 22px;
+    }
+    .vision-form-group {
+      margin-bottom: 14px;
+    }
+    .vision-form-label {
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--tx2);
+      display: block;
+      margin-bottom: 5px;
+    }
+    .vision-form-input,
+    .vision-form-select {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--bd);
+      border-radius: 9px;
+      font-size: .88rem;
+      color: var(--tx);
+      background: var(--bg);
+      outline: none;
+      font-family: inherit;
+      transition: .2s;
+    }
+    .vision-form-input:focus,
+    .vision-form-select:focus {
+      border-color: var(--ac);
+    }
+    .vision-result {
+      background: var(--bg);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      animation: slideUp 0.3s ease;
+    }
+    .vision-result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .vision-result-row:last-child {
+      margin-bottom: 0;
+    }
+    .vision-result-label {
+      font-size: .75rem;
+      color: var(--tx2);
+      font-weight: 700;
+    }
+    .vision-result-value {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--ac);
+    }
+    .vision-list-item {
+      background: var(--bg);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      transition: .2s;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .vision-list-item:hover {
+      border-color: var(--ac);
+      transform: translateY(-2px);
+    }
+    .vision-list-item-name {
+      font-size: .8rem;
+      font-weight: 800;
+      color: var(--tx);
+    }
+    .vision-list-item-meta {
+      font-size: .65rem;
+      color: var(--tx2);
+      margin-top: 4px;
+    }
+    button.copy-btn {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      color: var(--ac);
+      transition: .2s;
+    }
+    button.copy-btn:hover {
+      transform: scale(1.2);
+    }
+    .vision-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: .88rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+      font-family: inherit;
+      margin-bottom: 10px;
+      background: var(--bg);
+      border: 1.5px solid var(--bd);
+      color: var(--tx);
+    }
+    .vision-btn:hover {
+      border-color: var(--ac);
+      background: var(--card);
+    }
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @media (max-width: 767px) {
+      .vision-grid {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 20px;
+      }
+    }
+    .test-info {
+      background: rgba(26, 108, 255, 0.1);
+      border: 1px solid rgba(26, 108, 255, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+      font-size: .85rem;
+      color: var(--tx);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧪 Test - Herse Vision</h1>
+      <button class="dm-toggle" onclick="toggleDarkMode()" title="Toggle dark mode"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <div class="test-info">
+      <i class="fas fa-info-circle"></i> Haz clic en los botones de abajo para probar el Conversor de Moneda, Guía de Propinas y Traductor.
+    </div>
+
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-card-ttl"><i class="fas fa-toolbox"></i> Kit de Supervivencia</div>
+        <div class="vision-tools">
+          <div class="v-tool" onclick="openCurrencyConverter()">
+            <div class="v-tool-ico"><i class="fas fa-comments-dollar"></i></div>
+            <div class="v-tool-lbl">Cambio</div>
+          </div>
+          <div class="v-tool" onclick="openTipsGuide()">
+            <div class="v-tool-ico"><i class="fas fa-hand-holding-dollar"></i></div>
+            <div class="v-tool-lbl">Propinas</div>
+          </div>
+          <div class="v-tool" onclick="openTranslator()">
+            <div class="v-tool-ico"><i class="fas fa-language"></i></div>
+            <div class="v-tool-lbl">Frases</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vision-card">
+        <div class="vision-card-ttl"><i class="fas fa-check-circle"></i> Estado</div>
+        <div style="font-size: .9rem; color: var(--tx2); line-height: 1.8;">
+          <p><strong>✅ Conversor:</strong> API en tiempo real + historial</p>
+          <p><strong>✅ Propinas:</strong> 14 países + autodetección</p>
+          <p><strong>✅ Frases:</strong> 8 idiomas + favoritas</p>
+          <p><strong>✅ Copiar:</strong> Al portapapeles</p>
+          <p><strong>✅ Storage:</strong> LocalStorage activado</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CONVERSOR DE MONEDA -->
+  <div id="visionModalCurrency" class="vision-modal" onclick="if(event.target===this)closeCurrencyConverter()">
+    <div class="vision-modal-content">
+      <button onclick="closeCurrencyConverter()" class="vision-modal-close"><i class="fas fa-times"></i></button>
+      <div class="vision-modal-header">
+        <i class="fas fa-comments-dollar"></i>
+        <div class="vision-modal-title">Conversor de Moneda</div>
+      </div>
+      <p class="vision-modal-desc">Convierte valores entre monedas en tiempo real con tasas actualizadas.</p>
+      
+      <div class="vision-form-group">
+        <label class="vision-form-label">Monto</label>
+        <input type="number" id="vc-amount" class="vision-form-input" placeholder="100" value="100" min="0" oninput="updateCurrencyResult()">
+      </div>
+      
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div class="vision-form-group" style="margin-bottom:0">
+          <label class="vision-form-label">De:</label>
+          <select id="vc-from" class="vision-form-select" onchange="updateCurrencyResult()">
+            <option value="ARS">ARS - Peso Argentino</option>
+            <option value="USD">USD - Dólar</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="GBP">GBP - Libra</option>
+            <option value="JPY">JPY - Yen</option>
+            <option value="AUD">AUD - Dólar AUS</option>
+            <option value="CAD">CAD - Dólar CAN</option>
+            <option value="CHF">CHF - Franco</option>
+            <option value="BRL">BRL - Real</option>
+            <option value="MXN">MXN - Peso MEX</option>
+            <option value="CLP">CLP - Peso CHL</option>
+            <option value="COP">COP - Peso COL</option>
+            <option value="PEN">PEN - Sol PER</option>
+            <option value="UYU">UYU - Peso URU</option>
+          </select>
+        </div>
+        <div class="vision-form-group" style="margin-bottom:0">
+          <label class="vision-form-label">A:</label>
+          <select id="vc-to" class="vision-form-select" onchange="updateCurrencyResult()">
+            <option value="USD">USD - Dólar</option>
+            <option value="ARS">ARS - Peso Argentino</option>
+            <option value="EUR">EUR - Euro</option>
+            <option value="GBP">GBP - Libra</option>
+            <option value="JPY">JPY - Yen</option>
+            <option value="AUD">AUD - Dólar AUS</option>
+            <option value="CAD">CAD - Dólar CAN</option>
+            <option value="CHF">CHF - Franco</option>
+            <option value="BRL">BRL - Real</option>
+            <option value="MXN">MXN - Peso MEX</option>
+            <option value="CLP">CLP - Peso CHL</option>
+            <option value="COP">COP - Peso COL</option>
+            <option value="PEN">PEN - Sol PER</option>
+            <option value="UYU">UYU - Peso URU</option>
+          </select>
+        </div>
+      </div>
+      
+      <div id="vc-result" class="vision-result"></div>
+      
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bd)">
+        <div style="font-size:.75rem;font-weight:700;color:var(--tx2);margin-bottom:10px"><i class="fas fa-history"></i> Historial</div>
+        <div id="vc-history"></div>
+      </div>
+      
+      <p style="font-size:.65rem;color:var(--tx3);text-align:center;margin-top:14px"><i class="fas fa-sync-alt"></i> Tasas actualizadas automáticamente</p>
+    </div>
+  </div>
+
+  <!-- MODAL: GUÍA DE PROPINAS -->
+  <div id="visionModalTips" class="vision-modal" onclick="if(event.target===this)closeTipsGuide()">
+    <div class="vision-modal-content">
+      <button onclick="closeTipsGuide()" class="vision-modal-close"><i class="fas fa-times"></i></button>
+      <div class="vision-modal-header">
+        <i class="fas fa-hand-holding-dollar"></i>
+        <div class="vision-modal-title">Guía de Propinas</div>
+      </div>
+      <p class="vision-modal-desc">Descubre cuánto propinar según tu destino y servicio.</p>
+      
+      <div class="vision-form-group">
+        <label class="vision-form-label">País</label>
+        <select id="vt-country" class="vision-form-select" onchange="updateTipsResult()">
+          <option value="Argentina">🇦🇷 Argentina</option>
+          <option value="USA">🇺🇸 Estados Unidos</option>
+          <option value="España">🇪🇸 España</option>
+          <option value="Francia">🇫🇷 Francia</option>
+          <option value="Italia">🇮🇹 Italia</option>
+          <option value="Japón">🇯🇵 Japón</option>
+          <option value="Brasil">🇧🇷 Brasil</option>
+          <option value="México">🇲🇽 México</option>
+          <option value="Tailandia">🇹🇭 Tailandia</option>
+          <option value="Perú">🇵🇪 Perú</option>
+          <option value="Chile">🇨🇱 Chile</option>
+          <option value="Colombia">🇨🇴 Colombia</option>
+          <option value="Uruguay">🇺🇾 Uruguay</option>
+          <option value="Australia">🇦🇺 Australia</option>
+        </select>
+      </div>
+      
+      <div class="vision-form-group">
+        <label class="vision-form-label">Tipo de servicio</label>
+        <select id="vt-service" class="vision-form-select" onchange="updateTipsResult()">
+          <option value="restaurant">Restaurante</option>
+          <option value="taxi">Taxi / Transporte</option>
+          <option value="hotel">Hotel</option>
+          <option value="tour">Tour / Actividad</option>
+          <option value="default">Otro servicio</option>
+        </select>
+      </div>
+      
+      <div class="vision-form-group">
+        <label class="vision-form-label">Monto base</label>
+        <input type="number" id="vt-amount" class="vision-form-input" placeholder="100" value="100" min="0" oninput="updateTipsResult()">
+      </div>
+      
+      <div id="vt-result" class="vision-result"></div>
+      
+      <p style="font-size:.65rem;color:var(--tx3);text-align:center;margin-top:14px"><i class="fas fa-lightbulb"></i> Las propinas varían por cultura y situación</p>
+    </div>
+  </div>
+
+  <!-- MODAL: TRADUCTOR -->
+  <div id="visionModalTranslator" class="vision-modal" onclick="if(event.target===this)closeTranslator()">
+    <div class="vision-modal-content">
+      <button onclick="closeTranslator()" class="vision-modal-close"><i class="fas fa-times"></i></button>
+      <div class="vision-modal-header">
+        <i class="fas fa-language"></i>
+        <div class="vision-modal-title">Frases de Viajero</div>
+      </div>
+      <p class="vision-modal-desc">Frases útiles en 8 idiomas. Haz clic en una estrella para favoritar. Toca una frase para ver traducciones.</p>
+      
+      <div id="vtr-phrases-list" style="margin-bottom:14px;max-height:400px;overflow-y:auto"></div>
+      
+      <div id="vtr-result"></div>
+      
+      <p style="font-size:.65rem;color:var(--tx3);text-align:center;margin-top:14px"><i class="fas fa-click"></i> Toca el texto traducido para copiar</p>
+    </div>
+  </div>
+
+  <script>
+    // Dark mode
+    (function(){
+      const saved = localStorage.getItem('herse_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+      if(saved === 'dark' || (saved === null && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+
+    function toggleDarkMode() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if(isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('herse_theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('herse_theme', 'dark');
+      }
+      document.querySelector('.dm-toggle i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    }
+
+    // Currency Converter
+    const visionCurrencyData = {
+      'ARS': {name: 'Peso Argentino', symbol: '$'},
+      'USD': {name: 'Dólar Estadounidense', symbol: '$'},
+      'EUR': {name: 'Euro', symbol: '€'},
+      'GBP': {name: 'Libra Esterlina', symbol: '£'},
+      'JPY': {name: 'Yen Japonés', symbol: '¥'},
+      'AUD': {name: 'Dólar Australiano', symbol: '$'},
+      'CAD': {name: 'Dólar Canadiense', symbol: '$'},
+      'CHF': {name: 'Franco Suizo', symbol: 'CHF'},
+      'BRL': {name: 'Real Brasileño', symbol: 'R$'},
+      'MXN': {name: 'Peso Mexicano', symbol: '$'},
+      'CLP': {name: 'Peso Chileno', symbol: '$'},
+      'COP': {name: 'Peso Colombiano', symbol: '$'},
+      'PEN': {name: 'Sol Peruano', symbol: 'S/'},
+      'UYU': {name: 'Peso Uruguayo', symbol: '$'}
+    };
+    let visionExchangeRates = {};
+
+    async function loadExchangeRates() {
+      try {
+        const cached = localStorage.getItem('herse_rates');
+        const cachedTime = localStorage.getItem('herse_rates_time');
+        const now = Date.now();
+        if(cached && cachedTime && (now - parseInt(cachedTime)) < 3600000) {
+          visionExchangeRates = JSON.parse(cached);
+          return;
+        }
+        const res = await fetch('https://api.exchangerate-api.com/v4/latest/ARS', {signal: AbortSignal.timeout(5000)});
+        if(!res.ok) throw new Error('API error');
+        const data = await res.json();
+        visionExchangeRates = data.rates || {};
+        localStorage.setItem('herse_rates', JSON.stringify(visionExchangeRates));
+        localStorage.setItem('herse_rates_time', now.toString());
+      } catch(e) {
+        console.warn('Exchange rates API failed, using defaults:', e);
+        visionExchangeRates = {'USD': 0.0058, 'EUR': 0.0054, 'GBP': 0.0046, 'JPY': 0.87, 'AUD': 0.0087, 'CAD': 0.0079, 'CHF': 0.0051, 'BRL': 0.029, 'MXN': 0.098, 'ARS': 1, 'CLP': 0.0048, 'COP': 0.023, 'PEN': 0.021, 'UYU': 0.023};
+      }
+    }
+
+    function openCurrencyConverter() {
+      const modal = document.getElementById('visionModalCurrency');
+      if(modal) modal.classList.add('active');
+      loadExchangeRates().then(() => updateCurrencyResult());
+      loadCurrencyHistory();
+    }
+
+    function closeCurrencyConverter() {
+      const modal = document.getElementById('visionModalCurrency');
+      if(modal) modal.classList.remove('active');
+    }
+
+    function updateCurrencyResult() {
+      const amount = parseFloat(document.getElementById('vc-amount').value) || 1;
+      const from = document.getElementById('vc-from').value;
+      const to = document.getElementById('vc-to').value;
+      
+      if(!visionExchangeRates[from] || !visionExchangeRates[to]) return;
+      
+      const result = (amount / visionExchangeRates[from]) * visionExchangeRates[to];
+      const rateVal = visionExchangeRates[to] / visionExchangeRates[from];
+      
+      const fromData = visionCurrencyData[from];
+      const toData = visionCurrencyData[to];
+      
+      const html = `
+        <div class="vision-result-row">
+          <span class="vision-result-label">De:</span>
+          <span class="vision-result-value">${amount.toFixed(2)} ${fromData.symbol}</span>
+        </div>
+        <div class="vision-result-row">
+          <span class="vision-result-label">A:</span>
+          <span class="vision-result-value">${result.toFixed(2)} ${toData.symbol}</span>
+        </div>
+        <div class="vision-result-row" style="border-top:1px solid var(--bd);padding-top:10px;margin-top:10px">
+          <span class="vision-result-label">Tipo de cambio:</span>
+          <span class="vision-result-value" style="font-size:.9rem">1 ${fromData.symbol} = ${rateVal.toFixed(4)} ${toData.symbol}</span>
+        </div>
+        <button onclick="copiarResultado('${result.toFixed(2)} ${toData.symbol}')" style="width:100%;margin-top:12px;padding:10px;background:var(--bg);border:1.5px solid var(--bd);border-radius:10px;font-size:.8rem;font-weight:700;color:var(--tx);cursor:pointer;transition:.2s"><i class="fas fa-copy"></i> Copiar resultado</button>
+      `;
+      document.getElementById('vc-result').innerHTML = html;
+      saveCurrencyHistory(amount, from, to, result);
+    }
+
+    function saveCurrencyHistory(amount, from, to, result) {
+      let history = JSON.parse(localStorage.getItem('herse_currency_history') || '[]');
+      history.unshift({amount, from, to, result, time: new Date().toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'})});
+      history = history.slice(0, 10);
+      localStorage.setItem('herse_currency_history', JSON.stringify(history));
+    }
+
+    function loadCurrencyHistory() {
+      const history = JSON.parse(localStorage.getItem('herse_currency_history') || '[]');
+      const histDiv = document.getElementById('vc-history');
+      if(!histDiv) return;
+      if(history.length === 0) {
+        histDiv.innerHTML = '<p style="font-size:.7rem;color:var(--tx3);text-align:center;padding:10px 0">Sin historial aún</p>';
+        return;
+      }
+      histDiv.innerHTML = history.map(h => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--bg);border-radius:8px;margin-bottom:8px;font-size:.75rem">
+          <div><span style="color:var(--tx2)">${h.time}</span></div>
+          <div style="font-weight:700">${h.amount} ${visionCurrencyData[h.from].symbol} → ${h.result.toFixed(2)} ${visionCurrencyData[h.to].symbol}</div>
+          <button onclick="copiarResultado('${h.result.toFixed(2)}')" style="background:none;border:none;color:var(--ac);cursor:pointer;font-size:.8rem"><i class="fas fa-copy"></i></button>
+        </div>
+      `).join('');
+    }
+
+    // Tips Guide
+    const visionTipsData = {
+      'Argentina': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10},
+      'USA': {default: 18, restaurant: 15, taxi: 15, hotel: 2, tour: 15},
+      'España': {default: 5, restaurant: 5, taxi: 5, hotel: 5, tour: 5},
+      'Francia': {default: 5, restaurant: 5, taxi: 5, hotel: 5, tour: 5},
+      'Italia': {default: 5, restaurant: 5, taxi: 5, hotel: 5, tour: 5},
+      'Japón': {default: 0, restaurant: 0, taxi: 0, hotel: 0, tour: 0},
+      'Brasil': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10},
+      'México': {default: 15, restaurant: 15, taxi: 10, hotel: 10, tour: 15},
+      'Tailandia': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10},
+      'Perú': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10},
+      'Chile': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10},
+      'Colombia': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10},
+      'Uruguay': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10},
+      'Australia': {default: 10, restaurant: 10, taxi: 10, hotel: 10, tour: 10}
+    };
+
+    function openTipsGuide() {
+      const modal = document.getElementById('visionModalTips');
+      if(modal) modal.classList.add('active');
+      updateTipsResult();
+    }
+
+    function closeTipsGuide() {
+      const modal = document.getElementById('visionModalTips');
+      if(modal) modal.classList.remove('active');
+    }
+
+    function updateTipsResult() {
+      const country = document.getElementById('vt-country').value;
+      const service = document.getElementById('vt-service').value;
+      const amount = parseFloat(document.getElementById('vt-amount').value) || 100;
+      
+      const tipsData = visionTipsData[country] || visionTipsData['Argentina'];
+      const percentage = tipsData[service] || tipsData.default;
+      const tipAmount = (amount * percentage) / 100;
+      const total = amount + tipAmount;
+      
+      document.getElementById('vt-result').innerHTML = `
+        <div class="vision-result-row">
+          <span class="vision-result-label">Monto base:</span>
+          <span class="vision-result-value">$${amount.toFixed(2)}</span>
+        </div>
+        <div class="vision-result-row">
+          <span class="vision-result-label">Propina (${percentage}%):</span>
+          <span class="vision-result-value" style="color:#22c55e">+$${tipAmount.toFixed(2)}</span>
+        </div>
+        <div class="vision-result-row" style="border-top:1px solid var(--bd);padding-top:10px;margin-top:10px">
+          <span class="vision-result-label">Total:</span>
+          <span class="vision-result-value">$${total.toFixed(2)}</span>
+        </div>
+        <button onclick="copiarResultado('Total: $${total.toFixed(2)}')" style="width:100%;margin-top:12px;padding:10px;background:var(--bg);border:1.5px solid var(--bd);border-radius:10px;font-size:.8rem;font-weight:700;color:var(--tx);cursor:pointer;transition:.2s"><i class="fas fa-copy"></i> Copiar total</button>
+      `;
+    }
+
+    // Translator
+    const visionPhrasesData = {
+      'Hola': {'Inglés': 'Hello', 'Francés': 'Bonjour', 'Italiano': 'Ciao', 'Japonés': 'こんにちは\n(Konnichiwa)', 'Alemán': 'Hallo', 'Portugués': 'Olá', 'Chino': '你好\n(Nǐ hǎo)', 'Árabe': 'مرحبا\n(Marhaba)'},
+      '¿Dónde está el baño?': {'Inglés': 'Where is the bathroom?', 'Francés': 'Où sont les toilettes?', 'Italiano': 'Dov\'è il bagno?', 'Japonés': 'トイレはどこですか?\n(Toire wa doko desu ka?)', 'Alemán': 'Wo ist die Toilette?', 'Portugués': 'Onde fica o banheiro?', 'Chino': '浴室在哪里?\n(Yùshì zài nǎlǐ?)', 'Árabe': 'أين الحمام؟\n(Ayna al-hammam?)'},
+      'Necesito ayuda': {'Inglés': 'I need help', 'Francés': 'J\'ai besoin d\'aide', 'Italiano': 'Ho bisogno di aiuto', 'Japonés': '助けが必要です\n(Tasuke ga hitsuyou desu)', 'Alemán': 'Ich brauche Hilfe', 'Portugués': 'Preciso de ajuda', 'Chino': '我需要帮助\n(Wǒ xūyào bāngzhù)', 'Árabe': 'أنا بحاجة للمساعدة\n(Ana bi-haja li-l-musa\'ada)'},
+      'Gracias': {'Inglés': 'Thank you', 'Francés': 'Merci', 'Italiano': 'Grazie', 'Japonés': 'ありがとう\n(Arigatou)', 'Alemán': 'Danke', 'Portugués': 'Obrigado', 'Chino': '谢谢\n(Xièxiè)', 'Árabe': 'شكراً\n(Shukran)'},
+      '¿Cuánto cuesta?': {'Inglés': 'How much does it cost?', 'Francés': 'Combien ça coûte?', 'Italiano': 'Quanto costa?', 'Japonés': 'いくらですか?\n(Ikura desu ka?)', 'Alemán': 'Wie viel kostet es?', 'Portugués': 'Quanto custa?', 'Chino': '多少钱?\n(Duōshao qián?)', 'Árabe': 'كم السعر؟\n(Kam al-si\'r?)'},
+      'Habla más lentamente': {'Inglés': 'Speak more slowly', 'Francés': 'Parlez plus lentement', 'Italiano': 'Parla più lentamente', 'Japonés': 'もっとゆっくり話してください\n(Motto yukkuri hanashite kudasai)', 'Alemán': 'Sprich langsamer', 'Portugués': 'Fale mais devagar', 'Chino': '请说慢一点\n(Qǐng shuō man yīdiǎn)', 'Árabe': 'تحدث ببطء من فضلك\n(Tahadath bi-butu\' min fadlak)'},
+      'Salud (por la bebida)': {'Inglés': 'Cheers!', 'Francés': 'Santé!', 'Italiano': 'Salute!', 'Japonés': '乾杯!\n(Kanpai!)', 'Alemán': 'Prost!', 'Portugués': 'Saúde!', 'Chino': '干杯!\n(Gānbēi!)', 'Árabe': 'صحتك!\n(Sihhatok!)'},
+      'De nada': {'Inglés': 'You\'re welcome', 'Francés': 'De rien', 'Italiano': 'Prego', 'Japonés': 'どういたしまして\n(Dou itashimashite)', 'Alemán': 'Gerne', 'Portugués': 'De nada', 'Chino': '不谢\n(Bu xièxie)', 'Árabe': 'على الرحب\n(Ala al-rahb)'},
+      'Me gustaría...': {'Inglés': 'I would like...', 'Francés': 'J\'aimerais...', 'Italiano': 'Mi piacerebbe...', 'Japonés': 'I would like...', 'Alemán': 'Ich hätte gerne...', 'Portugués': 'Eu gostaria...', 'Chino': '我想要...\n(Wǒ xiǎng yào...)', 'Árabe': 'أود أن...\n(Awadu an...)'},
+      'Perdón / Disculpa': {'Inglés': 'Sorry / Excuse me', 'Francés': 'Désolé / Excusez-moi', 'Italiano': 'Mi dispiace / Mi scusi', 'Japonés': '申し訳ありません\n(Moushiwake arimasen)', 'Alemán': 'Entschuldigung', 'Portugués': 'Desculpa', 'Chino': '对不起\n(Duìbù qǐ)', 'Árabe': 'آسف / معذرة\n(Asif / Mua\'adhira)'},
+      '¿Hablas inglés?': {'Inglés': 'Do you speak English?', 'Francés': 'Parlez-vous anglais?', 'Italiano': 'Parli inglese?', 'Japonés': '英語を話しますか?\n(Eigo wo hanashimasu ka?)', 'Alemán': 'Sprichst du Englisch?', 'Portugués': 'Você fala inglês?', 'Chino': '你说英语吗?\n(Nǐ shuō yīngyǔ ma?)', 'Árabe': 'هل تتحدث الإنجليزية؟\n(Hal tatahaddath al-injiliziyyah?)'},
+      'La cuenta, por favor': {'Inglés': 'The bill, please', 'Francés': 'L\'addition, s\'il vous plaît', 'Italiano': 'Il conto, per favore', 'Japonés': 'お会計をお願いします\n(O-kaikei wo onegai shimasu)', 'Alemán': 'Die Rechnung, bitte', 'Portugués': 'A conta, por favor', 'Chino': '请结账\n(Qǐng jiézhang)', 'Árabe': 'الفاتورة من فضلك\n(Al-fatura min fadlak)'}
+    };
+
+    function openTranslator() {
+      const modal = document.getElementById('visionModalTranslator');
+      if(modal) modal.classList.add('active');
+      renderPhrases();
+    }
+
+    function closeTranslator() {
+      const modal = document.getElementById('visionModalTranslator');
+      if(modal) modal.classList.remove('active');
+    }
+
+    function renderPhrases() {
+      const list = document.getElementById('vtr-phrases-list');
+      if(!list) return;
+      const favorites = JSON.parse(localStorage.getItem('herse_favorite_phrases') || '[]');
+      list.innerHTML = Object.keys(visionPhrasesData).map(phrase => {
+        const isFav = favorites.includes(phrase);
+        return `
+        <div class="vision-list-item" style="display:flex;justify-content:space-between;align-items:center" onclick="showPhraseTranslations('${phrase.replace(/'/g, "\\'")}')" >
+          <div style="flex:1">
+            <div class="vision-list-item-name">${phrase}</div>
+            <div class="vision-list-item-meta">Toca para ver traducciones</div>
+          </div>
+          <button onclick="event.stopPropagation();toggleFavoritePhrase('${phrase.replace(/'/g, "\\'")}')" style="background:none;border:none;font-size:1rem;cursor:pointer;color:${isFav ? 'var(--ac)' : 'var(--tx3)'};transition:.2s"><i class="fas fa-star"></i></button>
+        </div>
+      `}).join('');
+    }
+
+    function toggleFavoritePhrase(phrase) {
+      let favorites = JSON.parse(localStorage.getItem('herse_favorite_phrases') || '[]');
+      if(favorites.includes(phrase)) {
+        favorites = favorites.filter(p => p !== phrase);
+      } else {
+        favorites.push(phrase);
+      }
+      localStorage.setItem('herse_favorite_phrases', JSON.stringify(favorites));
+      renderPhrases();
+    }
+
+    function showPhraseTranslations(phrase) {
+      const trans = visionPhrasesData[phrase];
+      if(!trans) return;
+      const html = Object.keys(trans).map(lang => `
+        <div class="vision-result-row">
+          <span class="vision-result-label">${lang}:</span>
+          <span style="font-size:.85rem;font-weight:700;color:var(--tx);cursor:pointer;user-select:none" onclick="copiarResultado('${trans[lang].replace(/'/g, "\\'")}')">${trans[lang]} <i class="fas fa-copy" style="font-size:.65rem;opacity:.5;margin-left:5px"></i></span>
+        </div>
+      `).join('');
+      document.getElementById('vtr-result').innerHTML = `<div class="vision-result">${html}</div>`;
+    }
+
+    function copiarResultado(texto) {
+      navigator.clipboard.writeText(texto).then(() => {
+        alert('✓ Copiado al portapapeles: ' + texto);
+      }).catch(() => {
+        alert('Error al copiar');
+      });
+    }
+  </script>
+</body>
+</html>
