@@ -1,0 +1,312 @@
+/* =====================================================
+   BASE.CSS - RESET Y ESTILOS BASE GLOBALES
+   Normalizaciones y estilos base para todo el proyecto
+   ===================================================== */
+
+/* ─────────────────────────────────────────────────
+   RESET GLOBAL
+   ───────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ─────────────────────────────────────────────────
+   HTML Y BODY
+   ───────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text);
+  background-color: var(--white);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─────────────────────────────────────────────────
+   TIPOGRAFÍA
+   ───────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-md);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+small {
+  font-size: var(--font-size-sm);
+}
+
+strong, b {
+  font-weight: var(--font-weight-bold);
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* ─────────────────────────────────────────────────
+   ENLACES
+   ───────────────────────────────────────────────── */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─────────────────────────────────────────────────
+   LISTAS
+   ───────────────────────────────────────────────── */
+ul, ol {
+  list-style-position: inside;
+}
+
+li {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ─────────────────────────────────────────────────
+   IMÁGENES
+   ───────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-style: none;
+}
+
+picture {
+  display: contents;
+}
+
+/* ─────────────────────────────────────────────────
+   FORMULARIOS
+   ───────────────────────────────────────────────── */
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-family);
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--white);
+  transition: border-color var(--transition-base);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 74, 143, 0.1);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--light-bg);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─────────────────────────────────────────────────
+   TABLAS
+   ───────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: var(--spacing-lg);
+}
+
+thead {
+  background-color: var(--light-bg);
+  font-weight: var(--font-weight-bold);
+}
+
+th, td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:hover {
+  background-color: var(--light-bg);
+}
+
+/* ─────────────────────────────────────────────────
+   CÓDIGOS Y PREFORMATEADOS
+   ───────────────────────────────────────────────── */
+code,
+pre {
+  font-family: var(--font-mono);
+  background-color: var(--light-bg);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm);
+}
+
+pre {
+  overflow-x: auto;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ─────────────────────────────────────────────────
+   UTILIDADES COMUNES
+   ───────────────────────────────────────────────── */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-orange {
+  color: var(--secondary);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─────────────────────────────────────────────────
+   SCROLL BEHAVIOR
+   ───────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ─────────────────────────────────────────────────
+   SELECCIÓN DE TEXTO
+   ───────────────────────────────────────────────── */
+::selection {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+::-moz-selection {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+/* ─────────────────────────────────────────────────
+   PRINT STYLES
+   ───────────────────────────────────────────────── */
+@media print {
+  body {
+    background: var(--white);
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  @page {
+    margin: 2cm;
+  }
+}

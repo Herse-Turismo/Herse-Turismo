@@ -1,0 +1,234 @@
+/* =====================================================
+   INFO PAGES - Privacidad, Términos, Puntos
+   Estilos compartidos para páginas estáticas
+   ===================================================== */
+
+/* ───────────────────────────────────────────────── */
+/* SITE HEADER */
+/* ───────────────────────────────────────────────── */
+
+.site-header {
+  background: var(--primary);
+  padding: var(--spacing-lg) 0;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.site-header .inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header img {
+  height: 38px;
+}
+
+.site-header a.back {
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  transition: opacity var(--transition-base);
+}
+
+.site-header a.back:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* ───────────────────────────────────────────────── */
+/* HERO SECTION */
+/* ───────────────────────────────────────────────── */
+
+.info-hero {
+  background: linear-gradient(135deg, #7c3f00, #b45309, var(--secondary));
+  color: var(--white);
+  text-align: center;
+  padding: var(--spacing-3xl) var(--spacing-xl);
+}
+
+.info-hero h1 {
+  font-size: 2.2rem;
+  font-weight: var(--font-weight-black);
+  margin-bottom: var(--spacing-md);
+}
+
+.info-hero p {
+  font-size: var(--font-size-base);
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ───────────────────────────────────────────────── */
+/* CONTENT AREA */
+/* ───────────────────────────────────────────────── */
+
+.content-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  background: var(--white);
+}
+
+.info-section {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.info-section h2 {
+  font-size: 1.6rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--primary);
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 3px solid var(--secondary);
+  padding-bottom: var(--spacing-md);
+}
+
+.info-section h3 {
+  font-size: 1.2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+  margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.info-section p {
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-lg);
+}
+
+.info-section ul,
+.info-section ol {
+  margin-left: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+.info-section li {
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  margin-bottom: var(--spacing-md);
+}
+
+.info-section strong {
+  color: var(--text);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ───────────────────────────────────────────────── */
+/* CONTACT BOX */
+/* ───────────────────────────────────────────────── */
+
+.contact-box {
+  background: var(--light-bg);
+  border-left: 4px solid var(--secondary);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.contact-box h4 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.contact-box p {
+  margin-bottom: var(--spacing-md);
+}
+
+.contact-box a {
+  color: var(--secondary);
+  font-weight: var(--font-weight-bold);
+  transition: color var(--transition-base);
+}
+
+.contact-box a:hover {
+  color: var(--secondary-dark);
+  text-decoration: underline;
+}
+
+/* ───────────────────────────────────────────────── */
+/* FOOTER */
+/* ───────────────────────────────────────────────── */
+
+.info-footer {
+  background: var(--primary);
+  color: var(--white);
+  padding: var(--spacing-xl) 0;
+  text-align: center;
+  margin-top: var(--spacing-3xl);
+  opacity: 0.9;
+  font-size: var(--font-size-sm);
+}
+
+/* ───────────────────────────────────────────────── */
+/* RESPONSIVE */
+/* ───────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .site-header .inner {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .info-hero {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .info-hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .content-wrap {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
+
+  .info-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .info-section h3 {
+    font-size: 1rem;
+  }
+
+  .info-section ul,
+  .info-section ol {
+    margin-left: var(--spacing-lg);
+  }
+
+  .contact-box {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .info-hero h1 {
+    font-size: 1.4rem;
+  }
+
+  .content-wrap {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .info-section h2 {
+    font-size: 1.1rem;
+  }
+
+  .info-section p,
+  .info-section li {
+    font-size: var(--font-size-sm);
+  }
+}

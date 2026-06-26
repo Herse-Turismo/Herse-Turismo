@@ -1,301 +1,16 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Admin · Herse Turismo</title>
-    <script src="https://js-de.sentry-cdn.com/d9f8b1eee56daacb0b9864323d164d4f.min.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/pages/admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-:root {
-    --blue: #004A8F; --blue-dark: #003366; --orange: #F7941D;
-    --text: #1a2035; --muted: #6b7280; --light: #f0f4f8; --white: #fff;
-    --success: #10b981; --danger: #ef4444; --radius: 14px;
-    --shadow: 0 2px 16px rgba(0,0,0,0.08);
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; font-family: 'Nunito', sans-serif; color: var(--text); }
-a { text-decoration: none; color: inherit; }
-button { font-family: 'Nunito', sans-serif; cursor: pointer; }
-input, select, textarea { font-family: 'Nunito', sans-serif; }
-
-/* ===== LAYOUT ===== */
-body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
-.admin-header {
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    color: white; display: flex; align-items: center;
-    justify-content: space-between; padding: 0 24px;
-    box-shadow: 0 2px 12px rgba(0,51,102,0.3);
-}
-.admin-header-left { display: flex; align-items: center; gap: 14px; }
-.admin-header-left img { height: 36px; filter: brightness(0) invert(1); }
-.admin-header-left span { font-weight: 900; font-size: 1rem; opacity: 0.9; }
-.admin-badge {
-    background: rgba(247,148,29,0.2); border: 1px solid rgba(247,148,29,0.4);
-    color: #fbbf24; padding: 3px 12px; border-radius: 50px;
-    font-size: 0.72rem; font-weight: 800;
-}
-.btn-logout {
-    display: flex; align-items: center; gap: 7px;
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-    color: white; padding: 7px 16px; border-radius: 50px;
-    font-size: 0.82rem; font-weight: 700; transition: 0.2s;
-}
-.btn-logout:hover { background: rgba(255,255,255,0.2); }
-
-.admin-body { display: grid; grid-template-columns: 300px 1fr; overflow: hidden; height: 100%; }
-
-/* ===== SIDEBAR ===== */
-.sidebar { background: white; border-right: 1px solid #e5eaf0; display: flex; flex-direction: column; overflow: hidden; }
-.sidebar-hdr { padding: 16px 18px 12px; border-bottom: 1px solid #f0f4f8; display: flex; align-items: center; justify-content: space-between; }
-.sidebar-hdr h3 { font-size: 0.88rem; font-weight: 900; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; }
-.btn-refresh { background: none; border: none; color: var(--muted); font-size: 1rem; padding: 4px 8px; border-radius: 8px; transition: 0.2s; }
-.btn-refresh:hover { background: var(--light); color: var(--blue); }
-.search-wrap { padding: 12px 14px; border-bottom: 1px solid #f0f4f8; }
-.search-wrap input {
-    width: 100%; padding: 9px 14px 9px 36px; border: 1.5px solid #e0e8f0;
-    border-radius: 10px; font-size: 0.88rem; outline: none;
-    background: var(--light) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 12px center;
-    transition: 0.2s;
-}
-.search-wrap input:focus { border-color: var(--blue); background-color: white; }
-.client-list { flex: 1; overflow-y: auto; padding: 8px 10px; }
-.client-card {
-    display: flex; align-items: center; gap: 12px; padding: 11px 12px;
-    border-radius: 12px; cursor: pointer; transition: 0.2s; margin-bottom: 4px;
-}
-.client-card:hover { background: var(--light); }
-.client-card.active { background: rgba(0,74,143,0.08); }
-.cc-avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    color: white; display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 1rem; flex-shrink: 0;
-}
-.cc-name { font-weight: 800; font-size: 0.9rem; color: var(--text); }
-.cc-email { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
-.no-data { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 32px 16px; font-weight: 600; }
-
-/* ===== MAIN ===== */
-.main-area { overflow-y: auto; padding: 28px; }
-.empty-state {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    height: 100%; color: var(--muted); font-weight: 700; font-size: 0.95rem; gap: 12px;
-}
-.empty-state i { font-size: 3rem; opacity: 0.2; }
-
-/* ===== CLIENT DETAIL ===== */
-.client-hdr {
-    display: flex; align-items: center; gap: 18px;
-    background: white; border-radius: var(--radius); padding: 20px 24px;
-    box-shadow: var(--shadow); margin-bottom: 20px;
-}
-.client-hdr-avatar {
-    width: 56px; height: 56px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    color: white; display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 1.4rem; flex-shrink: 0;
-}
-.client-hdr-name { font-size: 1.2rem; font-weight: 900; color: var(--text); }
-.client-hdr-email { font-size: 0.84rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
-.admin-badge-sm { background: rgba(16,185,129,0.1); color: #065f46; border: 1px solid rgba(16,185,129,0.25); padding: 2px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 800; }
-
-/* ===== TABS ===== */
-.tabs { display: flex; gap: 4px; background: white; padding: 8px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 20px; }
-.tab-btn {
-    flex: 1; padding: 10px; border: none; background: none; border-radius: 10px;
-    font-weight: 700; font-size: 0.88rem; color: var(--muted); transition: 0.2s;
-    display: flex; align-items: center; justify-content: center; gap: 7px;
-}
-.tab-btn:hover { background: var(--light); color: var(--text); }
-.tab-btn.active { background: var(--blue); color: white; }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-/* ===== CARD ===== */
-.card { background: white; border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 16px; }
-.card-title { font-size: 0.82rem; font-weight: 900; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
-.card-title i { color: var(--orange); }
-
-/* ===== FORM ===== */
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group.full { grid-column: 1 / -1; }
-.form-group label { font-size: 0.75rem; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: 0.5px; }
-.form-group input, .form-group select, .form-group textarea {
-    padding: 10px 14px; border: 1.5px solid #e0e8f0; border-radius: 10px;
-    font-size: 0.9rem; color: var(--text); background: var(--light); outline: none; transition: 0.2s;
-}
-.form-group input:focus, .form-group select:focus { border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(0,74,143,0.08); }
-.form-group textarea { resize: vertical; min-height: 70px; }
-.check-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
-.check-row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--blue); cursor: pointer; }
-.check-row label { font-weight: 700; font-size: 0.9rem; cursor: pointer; }
-
-/* ===== BUTTONS ===== */
-.btn-save {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--blue); color: white; border: none;
-    padding: 12px 28px; border-radius: 10px; font-weight: 800; font-size: 0.9rem;
-    transition: 0.2s; margin-top: 6px;
-}
-.btn-save:hover { background: var(--blue-dark); transform: translateY(-1px); }
-.btn-add {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--success); color: white; border: none;
-    padding: 10px 22px; border-radius: 10px; font-weight: 800; font-size: 0.88rem; transition: 0.2s;
-}
-.btn-add:hover { background: #059669; }
-.btn-delete {
-    background: none; border: 1.5px solid #fecaca; color: var(--danger);
-    padding: 6px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; transition: 0.2s;
-}
-.btn-delete:hover { background: var(--danger); color: white; }
-
-/* ===== DOCUMENTS ===== */
-.doc-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 16px; background: var(--light); border-radius: 10px; margin-bottom: 8px;
-}
-.doc-item-name { font-weight: 800; font-size: 0.9rem; }
-.doc-item-meta { font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
-.doc-sep { height: 1px; background: #e5eaf0; margin: 16px 0; }
-.doc-form-title { font-size: 0.82rem; font-weight: 900; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
-
-/* ===== FIDELIZACIÓN ===== */
-.fid-level { display: flex; gap: 12px; margin-bottom: 20px; }
-.fid-level-card {
-    flex: 1; padding: 16px; border-radius: 12px; border: 2px solid #e5eaf0;
-    text-align: center; transition: 0.2s;
-}
-.fid-level-card.active { border-color: var(--orange); background: rgba(247,148,29,0.06); }
-.fid-level-card i { font-size: 1.4rem; color: var(--muted); margin-bottom: 6px; }
-.fid-level-card.active i { color: var(--orange); }
-.fid-level-card h4 { font-size: 0.88rem; font-weight: 900; color: var(--text); }
-.fid-level-card p { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
-
-/* ===== STATS DASHBOARD ===== */
-.stats-dashboard { padding-bottom: 8px; }
-.stats-dashboard-title { font-size: 1.1rem; font-weight: 900; color: var(--text); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
-.stats-dashboard-title i { color: var(--orange); }
-.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 24px; }
-.st-card { background: white; border-radius: var(--radius); padding: 20px 16px; box-shadow: var(--shadow); text-align: center; border-top: 3px solid var(--blue); }
-.st-card:nth-child(2) { border-top-color: #10b981; }
-.st-card:nth-child(3) { border-top-color: var(--orange); }
-.st-card:nth-child(4) { border-top-color: #8b5cf6; }
-.st-num { font-size: 2rem; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 5px; }
-.st-lbl { font-size: 0.76rem; color: var(--muted); font-weight: 700; }
-.prox-card { background: white; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); }
-.prox-title { font-size: 0.8rem; font-weight: 900; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-.prox-item { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #f0f4f8; font-size: 0.88rem; }
-.prox-item:last-child { border-bottom: none; }
-.prox-name { font-weight: 800; color: var(--text); }
-.prox-dest { font-size: 0.76rem; color: var(--muted); font-weight: 600; margin-top: 2px; }
-.prox-date { font-weight: 800; color: var(--orange); font-size: 0.82rem; white-space: nowrap; }
-.prox-empty { color: var(--muted); font-size: 0.88rem; font-weight: 600; padding: 12px 0; }
-/* ===== ALERTS ===== */
-.alert-card { background: white; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); margin-top: 20px; }
-.alert-title { font-size: 0.8rem; font-weight: 900; color: #92400e; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-.alert-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px; margin-bottom: 7px; font-size: 0.86rem; cursor: pointer; transition: 0.2s; }
-.alert-item:last-child { margin-bottom: 0; }
-.alert-item:hover { filter: brightness(.97); }
-.alert-urgent { background: #fff1f2; border-left: 3px solid #ef4444; }
-.alert-warn { background: #fffbeb; border-left: 3px solid var(--orange); }
-.alert-ico { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; }
-.alert-ico-red { background: #fecaca; color: #dc2626; }
-.alert-ico-orange { background: #fed7aa; color: #c2700a; }
-.alert-info { flex: 1; }
-.alert-name { font-weight: 800; color: var(--text); font-size: 0.86rem; }
-.alert-sub { font-size: 0.73rem; color: var(--muted); font-weight: 600; margin-top: 1px; }
-.alert-tag { font-size: 0.7rem; font-weight: 800; padding: 2px 9px; border-radius: 50px; white-space: nowrap; flex-shrink: 0; }
-.alert-tag-red { background: #fee2e2; color: #dc2626; }
-.alert-tag-orange { background: #fff3e0; color: #c2700a; }
-/* ===== ALL TRIPS TABLE ===== */
-.all-trips-card { background: white; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); margin-top: 20px; }
-.all-trips-header { font-size: 0.8rem; font-weight: 900; color: var(--blue); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
-.all-trips-header i { color: var(--orange); }
-.trips-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
-.trips-table th { background: var(--light); padding: 9px 13px; text-align: left; font-weight: 800; font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-.trips-table th:first-child { border-radius: 8px 0 0 8px; }
-.trips-table th:last-child { border-radius: 0 8px 8px 0; }
-.trips-table td { padding: 11px 13px; border-bottom: 1px solid #f0f4f8; color: var(--text); }
-.trips-table tr:last-child td { border-bottom: none; }
-.trips-table tbody tr:hover td { background: #f5f8ff; cursor: pointer; }
-.tbadge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; }
-.tbadge-green { background: #dcfce7; color: #15803d; }
-.tbadge-gray { background: #f0f4f8; color: var(--muted); }
-.tbadge-orange { background: #fff3e0; color: #c2700a; }
-.btn-notify { display: inline-flex; align-items: center; gap: 8px; background: #059669; color: white; border: none; padding: 12px 22px; border-radius: 10px; font-weight: 800; font-size: 0.88rem; transition: 0.2s; margin-top: 6px; margin-left: 10px; }
-.btn-notify:hover:not(:disabled) { background: #047857; transform: translateY(-1px); }
-.btn-notify:disabled { background: #d1fae5; color: #6ee7b7; cursor: default; }
-
-/* ===== TIMELINE CHECKS ===== */
-.tl-check{display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--light);border-radius:8px;font-size:.78rem;font-weight:600;color:var(--text);cursor:pointer;transition:.15s;border:1.5px solid transparent}
-.tl-check:hover{background:#e8efff;border-color:#c5d4f0}
-.tl-check input{width:16px;height:16px;accent-color:var(--blue);cursor:pointer}
-/* ===== PASAPORTE ADMIN (ÁLBUM) ===== */
-.ppa-header{display:flex;align-items:center;gap:16px;padding:16px;background:linear-gradient(135deg,#f0f5ff,#e8efff);border-radius:12px;margin-bottom:18px}
-.ppa-hstat{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:70px}
-.ppa-hnum{font-size:2rem;font-weight:900;color:var(--blue);line-height:1}
-.ppa-hlbl{font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.ppa-hbar{flex:1;height:10px;background:#e0e8f0;border-radius:99px;overflow:hidden}
-.ppa-hfill{height:100%;background:linear-gradient(90deg,var(--blue),#10b981);border-radius:99px;transition:width .3s}
-.ppa-hnote{font-size:.75rem;color:var(--muted);font-weight:600}
-.ppa-empty{text-align:center;padding:40px 20px;color:var(--muted);font-weight:600}
-.ppa-empty i{font-size:2.5rem;margin-bottom:12px;opacity:.25}
-.ppa-empty p{font-size:.85rem;line-height:1.5}
-.ppa-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-.ppa-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:white;border:1.5px solid #e5eaf0;border-radius:10px;transition:.15s}
-.ppa-row:hover{border-color:#c5d4f0;background:#fafcff}
-.ppa-row.ppa-hidden{opacity:.6;background:#f8f9fb;border-style:dashed}
-.ppa-flag{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:linear-gradient(135deg,#f0f4f8,#e0e8f0);flex-shrink:0}
-.ppa-info{flex:1;min-width:0}
-.ppa-name{font-size:.88rem;font-weight:800;color:var(--text);margin-bottom:1px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.ppa-region{font-size:.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;background:#f0f4f8;padding:2px 8px;border-radius:99px}
-.ppa-meta{font-size:.72rem;color:var(--muted);font-weight:600}
-.ppa-actions{display:flex;gap:6px;flex-shrink:0}
-.ppa-btn-toggle,.ppa-btn-del{padding:7px 10px;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;transition:.15s;border:none;display:flex;align-items:center;gap:5px}
-.ppa-btn-toggle{background:#dcfce7;color:#15803d}
-.ppa-btn-toggle:hover{background:#bbf7d0}
-.ppa-btn-toggle.ppa-off{background:#fef3c7;color:#d97706}
-.ppa-btn-del{background:#fee2e2;color:#dc2626}
-.ppa-btn-del:hover{background:#fecaca}
-.ppa-form{background:#fff;border:2px dashed #e0e8f0;border-radius:14px;padding:18px;margin-top:10px}
-.ppa-ftitle{font-size:.85rem;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.ppa-ftitle i{color:var(--orange)}
-.ppa-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
-@media(max-width:768px){.ppa-fgrid{grid-template-columns:1fr}}
-.ppa-fgroup{display:flex;flex-direction:column;gap:6px}
-.ppa-fgroup.full{grid-column:1 / -1}
-.ppa-fgroup label{font-size:.72rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.5px}
-.ppa-select,.ppa-input{padding:10px 12px;border:1.5px solid #e0e8f0;border-radius:10px;font-size:.88rem;background:var(--light);outline:none;transition:.2s}
-.ppa-select:focus,.ppa-input:focus{border-color:var(--blue);background:white;box-shadow:0 0 0 3px rgba(0,74,143,.08)}
-.ppa-select option:disabled{color:#9ca3af;font-style:italic}
-.ppa-check{display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:700;color:var(--text);cursor:pointer}
-.ppa-check input{width:18px;height:18px;accent-color:var(--blue);cursor:pointer}
-.ppa-btn-add{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:white;border:none;padding:12px 24px;border-radius:10px;font-weight:800;font-size:.9rem;cursor:pointer;transition:.15s}
-.ppa-btn-add:hover{background:var(--blue-dark);transform:translateY(-1px)}
-/* ===== TOAST ===== */
-.toast {
-    position: fixed; bottom: 28px; right: 28px;
-    background: var(--text); color: white; padding: 14px 22px;
-    border-radius: 12px; font-weight: 700; font-size: 0.9rem;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.25); opacity: 0;
-    transform: translateY(10px); transition: all 0.3s; pointer-events: none; z-index: 9999;
-}
-.toast.show { opacity: 1; transform: translateY(0); }
-.toast.success { background: #064e3b; border-left: 4px solid var(--success); }
-.toast.error { background: #7f1d1d; border-left: 4px solid var(--danger); }
-
-@media (max-width: 768px) {
-    .admin-body { grid-template-columns: 1fr; }
-    .sidebar { max-height: 260px; }
-    .form-grid { grid-template-columns: 1fr; }
-    .fid-level { flex-direction: column; }
-}
-    </style>
 </head>
 <body>
 
@@ -307,7 +22,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             <div class="admin-badge">ADMINISTRADOR</div>
         </div>
         <button class="btn-logout" onclick="logout()">
-            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesiÃ³n
         </button>
     </header>
 
@@ -336,17 +51,17 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 <div class="stats-dashboard">
                     <div class="stats-dashboard-title"><i class="fas fa-chart-bar"></i> Resumen del Panel</div>
                     <div class="stats-row">
-                        <div class="st-card"><div class="st-num" id="st-total">—</div><div class="st-lbl">Total clientes</div></div>
-                        <div class="st-card"><div class="st-num" id="st-activos">—</div><div class="st-lbl">Viajes activos</div></div>
-                        <div class="st-card"><div class="st-num" id="st-proximos">—</div><div class="st-lbl">Salen esta semana</div></div>
-                        <div class="st-card"><div class="st-num" id="st-sinviaje">—</div><div class="st-lbl">Sin viaje cargado</div></div>
+                        <div class="st-card"><div class="st-num" id="st-total">â€”</div><div class="st-lbl">Total clientes</div></div>
+                        <div class="st-card"><div class="st-num" id="st-activos">â€”</div><div class="st-lbl">Viajes activos</div></div>
+                        <div class="st-card"><div class="st-num" id="st-proximos">â€”</div><div class="st-lbl">Salen esta semana</div></div>
+                        <div class="st-card"><div class="st-num" id="st-sinviaje">â€”</div><div class="st-lbl">Sin viaje cargado</div></div>
                     </div>
                     <div class="prox-card">
-                        <div class="prox-title"><i class="fas fa-plane-departure"></i> Próximas salidas (7 días)</div>
+                        <div class="prox-title"><i class="fas fa-plane-departure"></i> PrÃ³ximas salidas (7 dÃ­as)</div>
                         <div id="proxList"><p class="prox-empty">Cargando...</p></div>
                     </div>
                     <div class="alert-card" id="alertsCard" style="display:none">
-                        <div class="alert-title"><i class="fas fa-bell"></i> Alertas que requieren atención</div>
+                        <div class="alert-title"><i class="fas fa-bell"></i> Alertas que requieren atenciÃ³n</div>
                         <div id="alertsList"></div>
                     </div>
                     <div class="all-trips-card">
@@ -366,8 +81,8 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 <div class="client-hdr">
                     <div class="client-hdr-avatar" id="clientAvatar">?</div>
                     <div>
-                        <div class="client-hdr-name" id="clientName">—</div>
-                        <div class="client-hdr-email" id="clientEmail">—</div>
+                        <div class="client-hdr-name" id="clientName">â€”</div>
+                        <div class="client-hdr-email" id="clientEmail">â€”</div>
                     </div>
                 </div>
 
@@ -406,17 +121,17 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                             <div class="form-grid">
                                 <div class="form-group full">
                                     <label>Destino</label>
-                                    <input type="text" id="v-destino" placeholder="Ej: Cancún, México">
+                                    <input type="text" id="v-destino" placeholder="Ej: CancÃºn, MÃ©xico">
                                 </div>
                                 <div class="form-group full">
                                     <label>Nombre del circuito (opcional)</label>
-                                    <input type="text" id="v-circuito" placeholder="Ej: Circuito Sur Patagónico, Europa Clásica...">
-                                    <small style="font-size:.7rem;color:var(--muted)">Se muestra al cliente como subtítulo del viaje</small>
+                                    <input type="text" id="v-circuito" placeholder="Ej: Circuito Sur PatagÃ³nico, Europa ClÃ¡sica...">
+                                    <small style="font-size:.7rem;color:var(--muted)">Se muestra al cliente como subtÃ­tulo del viaje</small>
                                 </div>
                                 <div class="form-group full">
                                     <label>URL Imagen del viaje (hero)</label>
                                     <input type="url" id="v-imagen" placeholder="https://images.unsplash.com/... (opcional)">
-                                    <small style="font-size:.7rem;color:var(--muted)">Deja vacío para usar imagen por defecto</small>
+                                    <small style="font-size:.7rem;color:var(--muted)">Deja vacÃ­o para usar imagen por defecto</small>
                                 </div>
                                 <div class="form-group">
                                     <label>Fecha y hora de salida</label>
@@ -432,14 +147,14 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 </div>
                                 <div class="form-group">
                                     <label>Hotel</label>
-                                    <input type="text" id="v-hotel" placeholder="Ej: Riu Cancún">
+                                    <input type="text" id="v-hotel" placeholder="Ej: Riu CancÃºn">
                                 </div>
                                 <div class="form-group">
-                                    <label>Vuelo de ida (código)</label>
+                                    <label>Vuelo de ida (cÃ³digo)</label>
                                     <input type="text" id="v-vuelo-ida" placeholder="Ej: EZE-CUN">
                                 </div>
                                 <div class="form-group">
-                                    <label>Vuelo de vuelta (código)</label>
+                                    <label>Vuelo de vuelta (cÃ³digo)</label>
                                     <input type="text" id="v-vuelo-vuelta" placeholder="Ej: CUN-EZE">
                                 </div>
                                 <div class="form-group">
@@ -452,16 +167,16 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 </div>
                                 <div class="form-group full">
                                     <label>Itinerario / Notas del viaje</label>
-                                    <textarea id="v-itinerario" placeholder="Describí los días del viaje, actividades incluidas, horarios, etc." style="min-height:120px"></textarea>
+                                    <textarea id="v-itinerario" placeholder="DescribÃ­ los dÃ­as del viaje, actividades incluidas, horarios, etc." style="min-height:120px"></textarea>
                                 </div>
                                 <div class="form-group full">
                                     <label style="margin-bottom:10px;font-size:.75rem;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.5px">Estado del viaje (timeline)</label>
                                     <div style="display:flex;gap:8px;flex-wrap:wrap">
                                         <label class="tl-check"><input type="checkbox" id="v-tl-reserva" checked> Reserva confirmada</label>
                                         <label class="tl-check"><input type="checkbox" id="v-tl-pago"> Pago recibido</label>
-                                        <label class="tl-check"><input type="checkbox" id="v-tl-docs"> Documentación</label>
+                                        <label class="tl-check"><input type="checkbox" id="v-tl-docs"> DocumentaciÃ³n</label>
                                         <label class="tl-check"><input type="checkbox" id="v-tl-checkin"> Check-in</label>
-                                        <label class="tl-check"><input type="checkbox" id="v-tl-disfrutar"> ¡A disfrutar!</label>
+                                        <label class="tl-check"><input type="checkbox" id="v-tl-disfrutar"> Â¡A disfrutar!</label>
                                     </div>
                                 </div>
                                 <div class="form-group full">
@@ -520,7 +235,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 <div class="form-group full">
                                     <label>Adjuntar archivo (PDF, imagen, etc.)</label>
                                     <input type="file" id="d-file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="padding:8px;border:1.5px solid #e0e8f0;border-radius:10px;background:var(--light);">
-                                    <small style="font-size:.7rem;color:var(--muted)">Tamaño máximo: 10MB</small>
+                                    <small style="font-size:.7rem;color:var(--muted)">TamaÃ±o mÃ¡ximo: 10MB</small>
                                 </div>
                             </div>
                             <button type="submit" class="btn-add" style="margin-top:12px">
@@ -533,26 +248,26 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 <!-- TAB: CLUB HERSE -->
                 <div class="tab-content" id="tab-fid">
                     <div class="card">
-                        <div class="card-title"><i class="fas fa-crown"></i> Club Herse — Sistema de puntos</div>
+                        <div class="card-title"><i class="fas fa-crown"></i> Club Herse â€” Sistema de puntos</div>
                         <div class="fid-level" id="fidLevels" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
                             <div class="fid-level-card" id="lvl-aventurero" style="flex:1;min-width:100px;text-align:center;padding:10px 8px;border-radius:10px;border:2px solid #e2e8f0;transition:.2s">
-                                <div style="font-size:1.2rem">🎒</div>
-                                <h4 style="font-size:.7rem;margin:4px 0 2px">Aventurero</h4><p style="font-size:.6rem;color:var(--muted)">0 – 99.999 pts</p>
+                                <div style="font-size:1.2rem">ðŸŽ’</div>
+                                <h4 style="font-size:.7rem;margin:4px 0 2px">Aventurero</h4><p style="font-size:.6rem;color:var(--muted)">0 â€“ 99.999 pts</p>
                             </div>
                             <div class="fid-level-card" id="lvl-explorador" style="flex:1;min-width:100px;text-align:center;padding:10px 8px;border-radius:10px;border:2px solid #e2e8f0;transition:.2s">
-                                <div style="font-size:1.2rem">✈️</div>
-                                <h4 style="font-size:.7rem;margin:4px 0 2px">Explorador</h4><p style="font-size:.6rem;color:var(--muted)">100.000 – 299.999</p>
+                                <div style="font-size:1.2rem">âœˆï¸</div>
+                                <h4 style="font-size:.7rem;margin:4px 0 2px">Explorador</h4><p style="font-size:.6rem;color:var(--muted)">100.000 â€“ 299.999</p>
                             </div>
                             <div class="fid-level-card" id="lvl-viajero" style="flex:1;min-width:100px;text-align:center;padding:10px 8px;border-radius:10px;border:2px solid #e2e8f0;transition:.2s">
-                                <div style="font-size:1.2rem">🧭</div>
-                                <h4 style="font-size:.7rem;margin:4px 0 2px">V. Frecuente</h4><p style="font-size:.6rem;color:var(--muted)">300.000 – 799.999</p>
+                                <div style="font-size:1.2rem">ðŸ§­</div>
+                                <h4 style="font-size:.7rem;margin:4px 0 2px">V. Frecuente</h4><p style="font-size:.6rem;color:var(--muted)">300.000 â€“ 799.999</p>
                             </div>
                             <div class="fid-level-card" id="lvl-globetrotter" style="flex:1;min-width:100px;text-align:center;padding:10px 8px;border-radius:10px;border:2px solid #e2e8f0;transition:.2s">
-                                <div style="font-size:1.2rem">🌍</div>
-                                <h4 style="font-size:.7rem;margin:4px 0 2px">Globetrotter</h4><p style="font-size:.6rem;color:var(--muted)">800.000 – 1.499.999</p>
+                                <div style="font-size:1.2rem">ðŸŒ</div>
+                                <h4 style="font-size:.7rem;margin:4px 0 2px">Globetrotter</h4><p style="font-size:.6rem;color:var(--muted)">800.000 â€“ 1.499.999</p>
                             </div>
                             <div class="fid-level-card" id="lvl-leyenda" style="flex:1;min-width:100px;text-align:center;padding:10px 8px;border-radius:10px;border:2px solid #e2e8f0;transition:.2s">
-                                <div style="font-size:1.2rem">🌟</div>
+                                <div style="font-size:1.2rem">ðŸŒŸ</div>
                                 <h4 style="font-size:.7rem;margin:4px 0 2px">Leyenda Herse</h4><p style="font-size:.6rem;color:var(--muted)">1.500.000+</p>
                             </div>
                         </div>
@@ -562,7 +277,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                 <div style="font-size:1.3rem;font-weight:900;color:#15803d" id="f-avail-display">0</div>
                             </div>
                             <div style="flex:1;min-width:140px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:12px;text-align:center">
-                                <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:#2563eb;font-weight:700">Pts históricos (nivel)</div>
+                                <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.5px;color:#2563eb;font-weight:700">Pts histÃ³ricos (nivel)</div>
                                 <div style="font-size:1.3rem;font-weight:900;color:#1d4ed8" id="f-hist-display">0</div>
                             </div>
                             <div style="flex:1;min-width:140px;background:#fefce8;border:1.5px solid #fde68a;border-radius:10px;padding:12px;text-align:center">
@@ -582,7 +297,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <small style="font-size:.7rem;color:var(--muted)">Se descuentan al canjear beneficios</small>
                                 </div>
                                 <div class="form-group">
-                                    <label>Puntos históricos (para nivel)</label>
+                                    <label>Puntos histÃ³ricos (para nivel)</label>
                                     <input type="number" id="f-puntos-hist" min="0" value="0">
                                     <small style="font-size:.7rem;color:var(--muted)">Solo suben, nunca bajan. Determinan el nivel.</small>
                                 </div>
@@ -609,7 +324,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <option value="cruise">Crucero (130 pts/USD)</option>
                                     <option value="hotel">Hotel (80 pts/USD)</option>
                                     <option value="flight">Vuelo (60 pts/USD)</option>
-                                    <option value="excursion">Excursión (100 pts/USD)</option>
+                                    <option value="excursion">ExcursiÃ³n (100 pts/USD)</option>
                                     <option value="transfer">Transfer (70 pts/USD)</option>
                                 </select>
                             </div>
@@ -622,8 +337,8 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <option value="40000">Viaje internacional (+40.000)</option>
                                     <option value="30000">Primer viaje (+30.000)</option>
                                     <option value="50000">Referido (+50.000)</option>
-                                    <option value="10000">Reseña aprobada (+10.000)</option>
-                                    <option value="15000">Cumpleaños (+15.000)</option>
+                                    <option value="10000">ReseÃ±a aprobada (+10.000)</option>
+                                    <option value="15000">CumpleaÃ±os (+15.000)</option>
                                     <option value="20000">Viaje grupal (+20.000)</option>
                                     <option value="5000">Perfil completo (+5.000)</option>
                                     <option value="5000">Docs. a tiempo (+5.000)</option>
@@ -650,10 +365,10 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                             <div class="form-group">
                                 <label>Tipo de movimiento</label>
                                 <select id="f-trans-tipo" style="padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:.82rem;background:var(--white);color:var(--text)">
-                                    <option value="ganancia">✅ Ganancia (compra, bonus)</option>
-                                    <option value="canje">🎁 Canje de beneficio</option>
-                                    <option value="correccion">⚠️ Corrección por error</option>
-                                    <option value="bonus">🎉 Bonus especial</option>
+                                    <option value="ganancia">âœ… Ganancia (compra, bonus)</option>
+                                    <option value="canje">ðŸŽ Canje de beneficio</option>
+                                    <option value="correccion">âš ï¸ CorrecciÃ³n por error</option>
+                                    <option value="bonus">ðŸŽ‰ Bonus especial</option>
                                 </select>
                             </div>
                         </div>
@@ -671,15 +386,15 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 <div class="tab-content" id="tab-misiones">
                     <div class="card">
                         <div class="card-title"><i class="fas fa-bullseye"></i> Misiones del cliente</div>
-                        <div id="adminMisionesWrap"><p class="no-data">Seleccioná un cliente para ver sus misiones.</p></div>
+                        <div id="adminMisionesWrap"><p class="no-data">SeleccionÃ¡ un cliente para ver sus misiones.</p></div>
                     </div>
                 </div>
 
                 <!-- TAB: PASAPORTE -->
                 <div class="tab-content" id="tab-passport">
                     <div class="card">
-                        <div class="card-title"><i class="fas fa-stamp"></i> Álbum de Países del cliente</div>
-                        <div id="passportAdminWrap"><p class="no-data">Seleccioná un cliente primero.</p></div>
+                        <div class="card-title"><i class="fas fa-stamp"></i> Ãlbum de PaÃ­ses del cliente</div>
+                        <div id="passportAdminWrap"><p class="no-data">SeleccionÃ¡ un cliente primero.</p></div>
                     </div>
                 </div>
 
@@ -691,7 +406,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label>Nombre completo</label>
-                                    <input type="text" id="p-nombre" placeholder="Ej: Juan Pérez">
+                                    <input type="text" id="p-nombre" placeholder="Ej: Juan PÃ©rez">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
@@ -699,7 +414,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <small style="font-size:.7rem;color:var(--muted)">El email no se puede cambiar</small>
                                 </div>
                                 <div class="form-group">
-                                    <label>Teléfono</label>
+                                    <label>TelÃ©fono</label>
                                     <input type="tel" id="p-telefono" placeholder="Ej: +54 9 11 1234-5678">
                                 </div>
                                 <div class="form-group">
@@ -707,7 +422,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                                     <input type="text" id="p-ciudad" placeholder="Ej: Buenos Aires">
                                 </div>
                                 <div class="form-group">
-                                    <label>País</label>
+                                    <label>PaÃ­s</label>
                                     <input type="text" id="p-pais" placeholder="Ej: Argentina">
                                 </div>
                                 <div class="form-group full">
@@ -721,19 +436,19 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                         </form>
                     </div>
                     <div class="card" style="margin-top:16px">
-                        <div class="card-title"><i class="fas fa-info-circle"></i> Información de cuenta</div>
+                        <div class="card-title"><i class="fas fa-info-circle"></i> InformaciÃ³n de cuenta</div>
                         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
                             <div style="padding:12px;background:var(--light);border-radius:10px">
                                 <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">ID de usuario</div>
-                                <div style="font-size:.8rem;font-weight:700;color:var(--text);font-family:monospace" id="p-userid">—</div>
+                                <div style="font-size:.8rem;font-weight:700;color:var(--text);font-family:monospace" id="p-userid">â€”</div>
                             </div>
                             <div style="padding:12px;background:var(--light);border-radius:10px">
                                 <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Miembro desde</div>
-                                <div style="font-size:.8rem;font-weight:700;color:var(--text)" id="p-miembro">—</div>
+                                <div style="font-size:.8rem;font-weight:700;color:var(--text)" id="p-miembro">â€”</div>
                             </div>
                             <div style="padding:12px;background:var(--light);border-radius:10px">
                                 <div style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Total de viajes</div>
-                                <div style="font-size:.8rem;font-weight:700;color:var(--text)" id="p-totalviajes">—</div>
+                                <div style="font-size:.8rem;font-weight:700;color:var(--text)" id="p-totalviajes">â€”</div>
                             </div>
                         </div>
                     </div>
@@ -769,8 +484,8 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:16px;font-family:Nunito,sans-serif">
                         <i class="fas fa-lock" style="font-size:3rem;color:#6b7280"></i>
                         <h2 style="color:#1a2035">Acceso denegado</h2>
-                        <p style="color:#6b7280">No tenés permisos de administrador.</p>
-                        <a href="/" style="color:#004A8F;font-weight:700">← Volver al sitio</a>
+                        <p style="color:#6b7280">No tenÃ©s permisos de administrador.</p>
+                        <a href="/" style="color:#004A8F;font-weight:700">â† Volver al sitio</a>
                     </div>`;
                 return;
             }
@@ -794,18 +509,18 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             const { data: conViaje } = await _db.from('viajes').select('cliente_id').in('cliente_id', totalIds.length ? totalIds : ['none']);
             const conViajeIds = new Set((conViaje || []).map(v => v.cliente_id));
             const sinViaje = totalIds.filter(id => !conViajeIds.has(id)).length;
-            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val ?? '—'; };
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val ?? 'â€”'; };
             set('st-total',    clientes?.length ?? 0);
             set('st-activos',  activos?.length ?? 0);
             set('st-proximos', proximos?.length ?? 0);
             set('st-sinviaje', sinViaje);
             const proxList = document.getElementById('proxList');
             if (proxList) {
-                if (!proximos?.length) { proxList.innerHTML = '<p class="prox-empty">No hay salidas en los próximos 7 días.</p>'; }
+                if (!proximos?.length) { proxList.innerHTML = '<p class="prox-empty">No hay salidas en los prÃ³ximos 7 dÃ­as.</p>'; }
                 else proxList.innerHTML = proximos.map(v => {
                     const d = new Date(v.fecha_salida);
-                    const lbl = d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
-                    return `<div class="prox-item" onclick="selectClientById('${escapeHtml(v.cliente_id)}')" style="cursor:pointer"><div><div class="prox-name">${escapeHtml(v.perfiles?.nombre || '—')}</div><div class="prox-dest">${escapeHtml(v.destino || '')}</div></div><div class="prox-date">${lbl}</div></div>`;
+                    const lbl = d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' Â· ' + d.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+                    return `<div class="prox-item" onclick="selectClientById('${escapeHtml(v.cliente_id)}')" style="cursor:pointer"><div><div class="prox-name">${escapeHtml(v.perfiles?.nombre || 'â€”')}</div><div class="prox-dest">${escapeHtml(v.destino || '')}</div></div><div class="prox-date">${lbl}</div></div>`;
                 }).join('');
             }
             // Alertas
@@ -813,7 +528,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             (checkin48 || []).forEach(v => {
                 const d = new Date(v.fecha_salida);
                 const horasRestantes = Math.round((d - now) / 36e5);
-                alerts.push({ type: 'urgent', ico: 'fa-plane-departure', clientId: v.cliente_id, name: escapeHtml(v.perfiles?.nombre || '—'), sub: `${escapeHtml(v.destino)} · ${d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})} · ${v.vuelo_ida||'vuelo s/n'}`, tag: `Check-in en ${horasRestantes}h`, tagCls: 'alert-tag-red', itemCls: 'alert-urgent', icoCls: 'alert-ico-red' });
+                alerts.push({ type: 'urgent', ico: 'fa-plane-departure', clientId: v.cliente_id, name: escapeHtml(v.perfiles?.nombre || 'â€”'), sub: `${escapeHtml(v.destino)} Â· ${d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'})} Â· ${v.vuelo_ida||'vuelo s/n'}`, tag: `Check-in en ${horasRestantes}h`, tagCls: 'alert-tag-red', itemCls: 'alert-urgent', icoCls: 'alert-ico-red' });
             });
             const alertsCard = document.getElementById('alertsCard');
             const alertsList = document.getElementById('alertsList');
@@ -837,7 +552,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     const isPast = ed ? ed < now : sd < now;
                     const isActive = v.activo && !isPast;
                     const badge = isPast ? '<span class="tbadge tbadge-gray">Finalizado</span>' : isActive ? '<span class="tbadge tbadge-green"><i class="fas fa-circle" style="font-size:.4rem"></i> Activo</span>' : '<span class="tbadge tbadge-orange">Inactivo</span>';
-                    return `<tr onclick="selectClientById('${escapeHtml(v.cliente_id)}')"><td style="font-weight:800">${escapeHtml(v.perfiles?.nombre||'—')}</td><td>${escapeHtml(v.destino||'—')}</td><td>${sd.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'})}</td><td>${ed?ed.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'—'}</td><td>${badge}</td></tr>`;
+                    return `<tr onclick="selectClientById('${escapeHtml(v.cliente_id)}')"><td style="font-weight:800">${escapeHtml(v.perfiles?.nombre||'â€”')}</td><td>${escapeHtml(v.destino||'â€”')}</td><td>${sd.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'})}</td><td>${ed?ed.toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'â€”'}</td><td>${badge}</td></tr>`;
                 }).join('')
             }</tbody></table>`;
         }
@@ -852,7 +567,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             const { data, error } = await _db.from('perfiles').select('*').order('nombre');
             const list = document.getElementById('clientList');
             if (error || !data?.length) {
-                list.innerHTML = '<div class="no-data">No hay clientes registrados aún.</div>';
+                list.innerHTML = '<div class="no-data">No hay clientes registrados aÃºn.</div>';
                 return;
             }
             list.innerHTML = data.map(c => `
@@ -896,8 +611,8 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     selectorBar.style.display = 'flex';
                     tripSel.innerHTML = viajes.map(v => {
                         const d = v.fecha_salida ? new Date(v.fecha_salida).toLocaleDateString('es-AR', { day:'numeric', month:'short', year:'numeric' }) : 'sin fecha';
-                        const tag = v.activo ? ' ✓' : '';
-                        return `<option value="${escapeHtml(v.id)}">${escapeHtml(v.destino || 'Sin destino')} · ${d}${tag}</option>`;
+                        const tag = v.activo ? ' âœ“' : '';
+                        return `<option value="${escapeHtml(v.id)}">${escapeHtml(v.destino || 'Sin destino')} Â· ${d}${tag}</option>`;
                     }).join('');
                     tripSel._viajesCache = viajes;
                 } else if (selectorBar) {
@@ -940,7 +655,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             const sel = document.getElementById('tripSelector');
             if (sel) sel.value = '';
             document.getElementById('v-destino')?.focus();
-            toast('Completá los datos y guardá para crear un nuevo viaje', 'success');
+            toast('CompletÃ¡ los datos y guardÃ¡ para crear un nuevo viaje', 'success');
         }
 
         // ===== VIAJE =====
@@ -1006,7 +721,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             if (error) {
                 toast('Error: ' + error.message, 'error');
             } else {
-                toast('Viaje guardado ✅', 'success');
+                toast('Viaje guardado âœ…', 'success');
                 document.getElementById('btnNotificar').disabled = false;
                 fillViajeForm(currentViaje);
                 loadStats();
@@ -1020,10 +735,10 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 ? new Date(currentViaje.fecha_salida).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })
                 : '';
             const nombre = currentClient.nombre || 'viajero/a';
-            const msg = `Hola ${nombre}! 🎉\n\n` +
-                `Tu portal de viaje en Herse Turismo ya está listo con toda la información de tu viaje a *${destino}*${fecha ? ` (salida el ${fecha})` : ''}.\n\n` +
-                `Entrá acá para ver tus documentos, countdown y más: https://herseturismo.com.ar/mi-viaje\n\n` +
-                `Cualquier consulta estamos acá. ¡Que lo disfrutes! ✈️`;
+            const msg = `Hola ${nombre}! ðŸŽ‰\n\n` +
+                `Tu portal de viaje en Herse Turismo ya estÃ¡ listo con toda la informaciÃ³n de tu viaje a *${destino}*${fecha ? ` (salida el ${fecha})` : ''}.\n\n` +
+                `EntrÃ¡ acÃ¡ para ver tus documentos, countdown y mÃ¡s: https://herseturismo.com.ar/mi-viaje\n\n` +
+                `Cualquier consulta estamos acÃ¡. Â¡Que lo disfrutes! âœˆï¸`;
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
@@ -1031,18 +746,18 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         async function loadDocs() {
             const list = document.getElementById('docsList');
             if (!currentViaje?.id) {
-                list.innerHTML = '<p class="no-data" style="padding:0">Guardá el viaje primero para agregar documentos.</p>';
+                list.innerHTML = '<p class="no-data" style="padding:0">GuardÃ¡ el viaje primero para agregar documentos.</p>';
                 return;
             }
             const { data } = await _db.from('documentos').select('*').eq('viaje_id', currentViaje.id).order('created_at');
-            if (!data?.length) { list.innerHTML = '<p class="no-data" style="padding:0">Sin documentos aún.</p>'; return; }
+            if (!data?.length) { list.innerHTML = '<p class="no-data" style="padding:0">Sin documentos aÃºn.</p>'; return; }
             list.innerHTML = data.map(d => {
                 const u = safeUrl(d.url);
                 return `
                 <div class="doc-item">
                     <div>
                         <div class="doc-item-name">${escapeHtml(d.nombre)}</div>
-                        <div class="doc-item-meta">${escapeHtml(d.tipo)} · ${escapeHtml(d.estado)}${u ? ' · <a href="'+u+'" target="_blank" rel="noopener noreferrer">Ver archivo</a>' : ''}</div>
+                        <div class="doc-item-meta">${escapeHtml(d.tipo)} Â· ${escapeHtml(d.estado)}${u ? ' Â· <a href="'+u+'" target="_blank" rel="noopener noreferrer">Ver archivo</a>' : ''}</div>
                     </div>
                     <button class="btn-delete" onclick="deleteDoc('${escapeHtml(d.id)}')"><i class="fas fa-trash"></i> Eliminar</button>
                 </div>`;
@@ -1051,7 +766,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 
         async function addDoc(e) {
             e.preventDefault();
-            if (!currentViaje?.id) { toast('Guardá el viaje primero', 'error'); return; }
+            if (!currentViaje?.id) { toast('GuardÃ¡ el viaje primero', 'error'); return; }
             
             const fileInput = document.getElementById('d-file');
             const file = fileInput?.files?.[0];
@@ -1060,7 +775,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             // Upload file if selected
             if (file) {
                 if (file.size > 10 * 1024 * 1024) {
-                    toast('El archivo es muy grande (máx 10MB)', 'error');
+                    toast('El archivo es muy grande (mÃ¡x 10MB)', 'error');
                     return;
                 }
                 const fileExt = file.name.split('.').pop();
@@ -1088,18 +803,18 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 estado:   document.getElementById('d-estado').value
             });
             if (error) { toast('Error: ' + error.message, 'error'); return; }
-            toast('Documento agregado ✅', 'success');
+            toast('Documento agregado âœ…', 'success');
             document.getElementById('docForm').reset();
             await loadDocs();
         }
 
         async function deleteDoc(id) {
-            if (!confirm('¿Eliminar este documento?')) return;
+            if (!confirm('Â¿Eliminar este documento?')) return;
             const { error } = await _db.from('documentos').delete().eq('id', id);
             error ? toast('Error al eliminar', 'error') : (toast('Eliminado', 'success'), await loadDocs());
         }
 
-        // ===== CLUB HERSE — LOYALTY =====
+        // ===== CLUB HERSE â€” LOYALTY =====
         const LOYALTY_RATES = {general:100,flight:60,hotel:80,package:100,football:130,insurance:150,excursion:100,cruise:130,transfer:70};
         const LOYALTY_LEVELS = [
             {id:'aventurero',name:'Aventurero',min:0,max:99999},
@@ -1152,16 +867,16 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             const res = document.getElementById('f-calc-result');
             if (usd > 0) {
                 res.style.display = 'block';
-                res.innerHTML = `💰 ${usd} USD × ${rate} pts/USD = <strong>${base.toLocaleString('es-AR')} pts</strong>${bonus > 0 ? ` + bonus ${bonus.toLocaleString('es-AR')} pts` : ''} = <strong style="font-size:1rem;color:#15803d">${total.toLocaleString('es-AR')} puntos</strong>`;
+                res.innerHTML = `ðŸ’° ${usd} USD Ã— ${rate} pts/USD = <strong>${base.toLocaleString('es-AR')} pts</strong>${bonus > 0 ? ` + bonus ${bonus.toLocaleString('es-AR')} pts` : ''} = <strong style="font-size:1rem;color:#15803d">${total.toLocaleString('es-AR')} puntos</strong>`;
             } else {
                 res.style.display = 'none';
             }
         }
 
         async function applyCalcPoints() {
-            if (!currentClient) { toast('Seleccioná un cliente primero', 'error'); return; }
+            if (!currentClient) { toast('SeleccionÃ¡ un cliente primero', 'error'); return; }
             const usd = parseInt(document.getElementById('f-calc-usd').value) || 0;
-            if (usd <= 0) { toast('Ingresá un monto válido', 'error'); return; }
+            if (usd <= 0) { toast('IngresÃ¡ un monto vÃ¡lido', 'error'); return; }
             const type = document.getElementById('f-calc-type').value;
             const bonus = parseInt(document.getElementById('f-calc-bonus').value) || 0;
             const rate = LOYALTY_RATES[type] || 100;
@@ -1184,7 +899,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 
             document.getElementById('f-calc-usd').value = '';
             document.getElementById('f-calc-result').style.display = 'none';
-            toast(`+${total.toLocaleString('es-AR')} pts aplicados ✅`, 'success');
+            toast(`+${total.toLocaleString('es-AR')} pts aplicados âœ…`, 'success');
             loadFidTransactions();
         }
 
@@ -1200,7 +915,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 { onConflict: 'cliente_id' }
             );
             if (error) { toast('Error: ' + error.message, 'error'); return; }
-            toast('Club Herse guardado ✅', 'success');
+            toast('Club Herse guardado âœ…', 'success');
             updateFidLevels(hist);
             const ad = document.getElementById('f-avail-display'); if (ad) ad.textContent = avail.toLocaleString('es-AR');
             const hd = document.getElementById('f-hist-display'); if (hd) hd.textContent = hist.toLocaleString('es-AR');
@@ -1210,7 +925,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             if (!currentClient) return;
             const concepto = document.getElementById('f-concepto').value;
             const pts = parseInt(document.getElementById('f-trans-pts').value) || 0;
-            if (!concepto || pts === 0) { toast('Completá concepto y puntos', 'error'); return; }
+            if (!concepto || pts === 0) { toast('CompletÃ¡ concepto y puntos', 'error'); return; }
 
             const tipo = document.getElementById('f-trans-tipo').value || (pts > 0 ? 'ganancia' : 'canje');
             const { error } = await _db.from('fidelizacion_trans').insert({
@@ -1229,7 +944,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 
             document.getElementById('f-concepto').value = '';
             document.getElementById('f-trans-pts').value = '';
-            toast('Movimiento agregado ✅', 'success');
+            toast('Movimiento agregado âœ…', 'success');
             loadFidTransactions();
         }
 
@@ -1243,7 +958,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--light);border-radius:8px;margin-bottom:6px">
                     <div style="flex:1;min-width:0">
                         <div style="font-size:.8rem;font-weight:700;color:var(--text)">${escapeHtml(t.concepto)}</div>
-                        <div style="font-size:.65rem;color:var(--muted)">${new Date(t.created_at).toLocaleDateString('es-AR')} · ${escapeHtml(t.tipo||'')}</div>
+                        <div style="font-size:.65rem;color:var(--muted)">${new Date(t.created_at).toLocaleDateString('es-AR')} Â· ${escapeHtml(t.tipo||'')}</div>
                     </div>
                     <div style="font-size:.9rem;font-weight:800;color:${t.puntos > 0 ? '#16a34a' : '#dc2626'};white-space:nowrap;margin:0 10px">${t.puntos > 0 ? '+' : ''}${t.puntos.toLocaleString('es-AR')} pts</div>
                     <button onclick="revertFidTransaction('${t.id}',${t.puntos},'${escapeHtml(t.concepto).replace(/'/g,"\\'")}')"
@@ -1256,7 +971,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
 
         async function revertFidTransaction(transId, puntos, concepto) {
             if (!currentClient) return;
-            if (!confirm('¿Revertir movimiento "' + concepto + '" (' + (puntos > 0 ? '+' : '') + puntos.toLocaleString('es-AR') + ' pts)?\n\nEsto elimina el movimiento y ajusta los puntos.')) return;
+            if (!confirm('Â¿Revertir movimiento "' + concepto + '" (' + (puntos > 0 ? '+' : '') + puntos.toLocaleString('es-AR') + ' pts)?\n\nEsto elimina el movimiento y ajusta los puntos.')) return;
 
             // 1. Delete the transaction
             const { error: e1 } = await _db.from('fidelizacion_trans').delete().eq('id', transId);
@@ -1269,7 +984,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             if (puntos > 0) document.getElementById('f-puntos-hist').value = Math.max(0, curHist - puntos);
             await saveFid({ preventDefault: () => {} });
 
-            toast('Movimiento revertido ✅', 'success');
+            toast('Movimiento revertido âœ…', 'success');
             loadFidTransactions();
         }
 
@@ -1283,8 +998,8 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             f('p-ciudad', perfil.ciudad);
             f('p-pais', perfil.pais);
             f('p-notas', perfil.notas);
-            document.getElementById('p-userid').textContent = perfil.id?.substring(0, 8) + '...' ?? '—';
-            const desde = perfil.created_at ? new Date(perfil.created_at).toLocaleDateString('es-AR') : '—';
+            document.getElementById('p-userid').textContent = perfil.id?.substring(0, 8) + '...' ?? 'â€”';
+            const desde = perfil.created_at ? new Date(perfil.created_at).toLocaleDateString('es-AR') : 'â€”';
             document.getElementById('p-miembro').textContent = desde;
         }
 
@@ -1306,57 +1021,57 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             currentClient = { ...currentClient, ...payload };
             document.getElementById('clientName').textContent = payload.nombre || 'Sin nombre';
             document.getElementById('clientAvatar').textContent = (payload.nombre || currentClient.email || '?').charAt(0).toUpperCase();
-            toast('Perfil guardado ✅', 'success');
+            toast('Perfil guardado âœ…', 'success');
         }
 
-        // ===== ÁLBUM DE PAÍSES ADMIN =====
+        // ===== ÃLBUM DE PAÃSES ADMIN =====
         const ALBUM_COUNTRIES=[
-          {id:'arg',name:'Argentina',region:'Sudamérica',flag:'�🇷'},
-          {id:'bra',name:'Brasil',region:'Sudamérica',flag:'🇧🇷'},
-          {id:'chi',name:'Chile',region:'Sudamérica',flag:'🇨🇱'},
-          {id:'col',name:'Colombia',region:'Sudamérica',flag:'🇨🇴'},
-          {id:'per',name:'Perú',region:'Sudamérica',flag:'🇵🇪'},
-          {id:'uru',name:'Uruguay',region:'Sudamérica',flag:'🇺🇾'},
-          {id:'bol',name:'Bolivia',region:'Sudamérica',flag:'🇧🇴'},
-          {id:'ecu',name:'Ecuador',region:'Sudamérica',flag:'🇪🇨'},
-          {id:'par',name:'Paraguay',region:'Sudamérica',flag:'🇵🇾'},
-          {id:'ven',name:'Venezuela',region:'Sudamérica',flag:'🇻🇪'},
-          {id:'mex',name:'México',region:'Norteamérica',flag:'��'},
-          {id:'cub',name:'Cuba',region:'Caribe',flag:'🇨🇺'},
-          {id:'cri',name:'Costa Rica',region:'Centroamérica',flag:'🇨🇷'},
-          {id:'pan',name:'Panamá',region:'Centroamérica',flag:'🇵🇦'},
-          {id:'dom',name:'Rep. Dominicana',region:'Caribe',flag:'🇩🇴'},
-          {id:'gua',name:'Guatemala',region:'Centroamérica',flag:'🇬🇹'},
-          {id:'jam',name:'Jamaica',region:'Caribe',flag:'🇯🇲'},
-          {id:'usa',name:'EE.UU.',region:'Norteamérica',flag:'🇺🇸'},
-          {id:'can',name:'Canadá',region:'Norteamérica',flag:'��'},
-          {id:'esp',name:'España',region:'Europa',flag:'🇪🇸'},
-          {id:'ita',name:'Italia',region:'Europa',flag:'🇮🇹'},
-          {id:'fra',name:'Francia',region:'Europa',flag:'🇫🇷'},
-          {id:'ale',name:'Alemania',region:'Europa',flag:'🇩🇪'},
-          {id:'por',name:'Portugal',region:'Europa',flag:'🇵🇹'},
-          {id:'ing',name:'Inglaterra',region:'Europa',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿'},
-          {id:'gre',name:'Grecia',region:'Europa',flag:'��'},
-          {id:'hol',name:'Holanda',region:'Europa',flag:'🇳🇱'},
-          {id:'bel',name:'Bélgica',region:'Europa',flag:'🇧🇪'},
-          {id:'sui',name:'Suiza',region:'Europa',flag:'🇨🇭'},
-          {id:'irl',name:'Irlanda',region:'Europa',flag:'🇮🇪'},
-          {id:'cro',name:'Croacia',region:'Europa',flag:'🇭🇷'},
-          {id:'jpn',name:'Japón',region:'Asia',flag:'🇯🇵'},
-          {id:'tai',name:'Tailandia',region:'Asia',flag:'��'},
-          {id:'dub',name:'Dubai',region:'Asia',flag:'🇦🇪'},
-          {id:'tur',name:'Turquía',region:'Asia',flag:'🇹🇷'},
-          {id:'chn',name:'China',region:'Asia',flag:'🇨🇳'},
-          {id:'ind',name:'India',region:'Asia',flag:'🇮🇳'},
-          {id:'vie',name:'Vietnam',region:'Asia',flag:'🇻🇳'},
-          {id:'idn',name:'Indonesia',region:'Asia',flag:'🇮🇩'},
-          {id:'aus',name:'Australia',region:'Oceanía',flag:'🇦🇺'},
-          {id:'nzl',name:'Nueva Zelanda',region:'Oceanía',flag:'��'},
-          {id:'egy',name:'Egipto',region:'África',flag:'🇪🇬'},
-          {id:'mar',name:'Marruecos',region:'África',flag:'🇲🇦'},
-          {id:'zaf',name:'Sudáfrica',region:'África',flag:'🇿🇦'},
-          {id:'tan',name:'Tanzania',region:'África',flag:'🇹🇿'},
-          {id:'ken',name:'Kenia',region:'África',flag:'🇰🇪'}
+          {id:'arg',name:'Argentina',region:'SudamÃ©rica',flag:'ï¿½ðŸ‡·'},
+          {id:'bra',name:'Brasil',region:'SudamÃ©rica',flag:'ðŸ‡§ðŸ‡·'},
+          {id:'chi',name:'Chile',region:'SudamÃ©rica',flag:'ðŸ‡¨ðŸ‡±'},
+          {id:'col',name:'Colombia',region:'SudamÃ©rica',flag:'ðŸ‡¨ðŸ‡´'},
+          {id:'per',name:'PerÃº',region:'SudamÃ©rica',flag:'ðŸ‡µðŸ‡ª'},
+          {id:'uru',name:'Uruguay',region:'SudamÃ©rica',flag:'ðŸ‡ºðŸ‡¾'},
+          {id:'bol',name:'Bolivia',region:'SudamÃ©rica',flag:'ðŸ‡§ðŸ‡´'},
+          {id:'ecu',name:'Ecuador',region:'SudamÃ©rica',flag:'ðŸ‡ªðŸ‡¨'},
+          {id:'par',name:'Paraguay',region:'SudamÃ©rica',flag:'ðŸ‡µðŸ‡¾'},
+          {id:'ven',name:'Venezuela',region:'SudamÃ©rica',flag:'ðŸ‡»ðŸ‡ª'},
+          {id:'mex',name:'MÃ©xico',region:'NorteamÃ©rica',flag:'ï¿½ï¿½'},
+          {id:'cub',name:'Cuba',region:'Caribe',flag:'ðŸ‡¨ðŸ‡º'},
+          {id:'cri',name:'Costa Rica',region:'CentroamÃ©rica',flag:'ðŸ‡¨ðŸ‡·'},
+          {id:'pan',name:'PanamÃ¡',region:'CentroamÃ©rica',flag:'ðŸ‡µðŸ‡¦'},
+          {id:'dom',name:'Rep. Dominicana',region:'Caribe',flag:'ðŸ‡©ðŸ‡´'},
+          {id:'gua',name:'Guatemala',region:'CentroamÃ©rica',flag:'ðŸ‡¬ðŸ‡¹'},
+          {id:'jam',name:'Jamaica',region:'Caribe',flag:'ðŸ‡¯ðŸ‡²'},
+          {id:'usa',name:'EE.UU.',region:'NorteamÃ©rica',flag:'ðŸ‡ºðŸ‡¸'},
+          {id:'can',name:'CanadÃ¡',region:'NorteamÃ©rica',flag:'ï¿½ï¿½'},
+          {id:'esp',name:'EspaÃ±a',region:'Europa',flag:'ðŸ‡ªðŸ‡¸'},
+          {id:'ita',name:'Italia',region:'Europa',flag:'ðŸ‡®ðŸ‡¹'},
+          {id:'fra',name:'Francia',region:'Europa',flag:'ðŸ‡«ðŸ‡·'},
+          {id:'ale',name:'Alemania',region:'Europa',flag:'ðŸ‡©ðŸ‡ª'},
+          {id:'por',name:'Portugal',region:'Europa',flag:'ðŸ‡µðŸ‡¹'},
+          {id:'ing',name:'Inglaterra',region:'Europa',flag:'ðŸ´ó §ó ¢ó ¥ó ®ó §ó ¿'},
+          {id:'gre',name:'Grecia',region:'Europa',flag:'ï¿½ï¿½'},
+          {id:'hol',name:'Holanda',region:'Europa',flag:'ðŸ‡³ðŸ‡±'},
+          {id:'bel',name:'BÃ©lgica',region:'Europa',flag:'ðŸ‡§ðŸ‡ª'},
+          {id:'sui',name:'Suiza',region:'Europa',flag:'ðŸ‡¨ðŸ‡­'},
+          {id:'irl',name:'Irlanda',region:'Europa',flag:'ðŸ‡®ðŸ‡ª'},
+          {id:'cro',name:'Croacia',region:'Europa',flag:'ðŸ‡­ðŸ‡·'},
+          {id:'jpn',name:'JapÃ³n',region:'Asia',flag:'ðŸ‡¯ðŸ‡µ'},
+          {id:'tai',name:'Tailandia',region:'Asia',flag:'ï¿½ï¿½'},
+          {id:'dub',name:'Dubai',region:'Asia',flag:'ðŸ‡¦ðŸ‡ª'},
+          {id:'tur',name:'TurquÃ­a',region:'Asia',flag:'ðŸ‡¹ðŸ‡·'},
+          {id:'chn',name:'China',region:'Asia',flag:'ðŸ‡¨ðŸ‡³'},
+          {id:'ind',name:'India',region:'Asia',flag:'ðŸ‡®ðŸ‡³'},
+          {id:'vie',name:'Vietnam',region:'Asia',flag:'ðŸ‡»ðŸ‡³'},
+          {id:'idn',name:'Indonesia',region:'Asia',flag:'ðŸ‡®ðŸ‡©'},
+          {id:'aus',name:'Australia',region:'OceanÃ­a',flag:'ðŸ‡¦ðŸ‡º'},
+          {id:'nzl',name:'Nueva Zelanda',region:'OceanÃ­a',flag:'ï¿½ï¿½'},
+          {id:'egy',name:'Egipto',region:'Ãfrica',flag:'ðŸ‡ªðŸ‡¬'},
+          {id:'mar',name:'Marruecos',region:'Ãfrica',flag:'ðŸ‡²ðŸ‡¦'},
+          {id:'zaf',name:'SudÃ¡frica',region:'Ãfrica',flag:'ðŸ‡¿ðŸ‡¦'},
+          {id:'tan',name:'Tanzania',region:'Ãfrica',flag:'ðŸ‡¹ðŸ‡¿'},
+          {id:'ken',name:'Kenia',region:'Ãfrica',flag:'ðŸ‡°ðŸ‡ª'}
         ];
 
         let _adminStamps=[];
@@ -1372,18 +1087,18 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
           const totalCountries=ALBUM_COUNTRIES.length;
           const visitedCount=_adminStamps.filter(s=>s.visible!==false).length;
           let html='';
-          html+=`<div class="ppa-header"><div class="ppa-hstat"><div class="ppa-hnum">${visitedCount}</div><div class="ppa-hlbl">países visitados</div></div><div class="ppa-hbar"><div class="ppa-hfill" style="width:${Math.round((visitedCount/totalCountries)*100)}%"></div></div><div class="ppa-hnote">de ${totalCountries} disponibles</div></div>`;
+          html+=`<div class="ppa-header"><div class="ppa-hstat"><div class="ppa-hnum">${visitedCount}</div><div class="ppa-hlbl">paÃ­ses visitados</div></div><div class="ppa-hbar"><div class="ppa-hfill" style="width:${Math.round((visitedCount/totalCountries)*100)}%"></div></div><div class="ppa-hnote">de ${totalCountries} disponibles</div></div>`;
           if(_adminStamps.length===0){
-            html+=`<div class="ppa-empty"><i class="fas fa-passport"></i><p>Este cliente aún no tiene sellos en su pasaporte.<br>Agregá países desde el formulario de abajo.</p></div>`;
+            html+=`<div class="ppa-empty"><i class="fas fa-passport"></i><p>Este cliente aÃºn no tiene sellos en su pasaporte.<br>AgregÃ¡ paÃ­ses desde el formulario de abajo.</p></div>`;
           }else{
             html+=`<div class="ppa-list">`;
             for(const s of _adminStamps){
-              const c=ALBUM_COUNTRIES.find(x=>x.id===s.country_code)||{name:s.country_name,region:s.region||'-',flag:'🌍'};
+              const c=ALBUM_COUNTRIES.find(x=>x.id===s.country_code)||{name:s.country_name,region:s.region||'-',flag:'ðŸŒ'};
               const tripLabel=s.trip_id?'Viaje #'+s.trip_id.substring(0,6):'Sin viaje asociado';
               const dateStr=s.visited_at?new Date(s.visited_at).toLocaleDateString('es-AR'):'Sin fecha';
               html+=`<div class="ppa-row${s.visible===false?' ppa-hidden':''}">`;
               html+=`<div class="ppa-flag">${c.flag}</div>`;
-              html+=`<div class="ppa-info"><div class="ppa-name">${c.name} <span class="ppa-region">${c.region}</span></div><div class="ppa-meta">${dateStr} · ${tripLabel}${s.notes?' · '+s.notes:''}</div></div>`;
+              html+=`<div class="ppa-info"><div class="ppa-name">${c.name} <span class="ppa-region">${c.region}</span></div><div class="ppa-meta">${dateStr} Â· ${tripLabel}${s.notes?' Â· '+s.notes:''}</div></div>`;
               html+=`<div class="ppa-actions">`;
               html+=`<button class="ppa-btn-toggle${s.visible===false?' ppa-off':''}" onclick="toggleStampVisibility('${s.id}',${s.visible!==false})" title="${s.visible===false?'Mostrar':'Ocultar'} sello">${s.visible===false?'<i class="fas fa-eye-slash"></i>':'<i class="fas fa-eye"></i>'}</button>`;
               html+=`<button class="ppa-btn-del" onclick="removeStamp('${s.id}')" title="Eliminar sello"><i class="fas fa-trash"></i></button>`;
@@ -1392,20 +1107,20 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             html+=`</div>`;
           }
           html+=`<div class="ppa-form">`;
-          html+=`<div class="ppa-ftitle"><i class="fas fa-plus-circle"></i> Agregar país visitado</div>`;
+          html+=`<div class="ppa-ftitle"><i class="fas fa-plus-circle"></i> Agregar paÃ­s visitado</div>`;
           html+=`<div class="ppa-fgrid">`;
-          html+=`<div class="ppa-fgroup"><label>País</label><select id="ppa-country" class="ppa-select" onchange="onCountryChange()">`;
-          html+=`<option value="">Seleccionar país...</option>`;
+          html+=`<div class="ppa-fgroup"><label>PaÃ­s</label><select id="ppa-country" class="ppa-select" onchange="onCountryChange()">`;
+          html+=`<option value="">Seleccionar paÃ­s...</option>`;
           for(const c of ALBUM_COUNTRIES){
             const disabled=existingIds.has(c.id)?' disabled':'';
             const label=existingIds.has(c.id)?' (ya sellado)':'';
             html+=`<option value="${c.id}" data-name="${c.name}" data-region="${c.region}"${disabled}>${c.flag} ${c.name}${label}</option>`;
           }
           html+=`</select></div>`;
-          html+=`<div class="ppa-fgroup"><label>Continente/Región</label><input type="text" id="ppa-region" class="ppa-input" placeholder="Autocompletado" readonly></div>`;
+          html+=`<div class="ppa-fgroup"><label>Continente/RegiÃ³n</label><input type="text" id="ppa-region" class="ppa-input" placeholder="Autocompletado" readonly></div>`;
           html+=`<div class="ppa-fgroup"><label>Fecha de visita (opcional)</label><input type="date" id="ppa-date" class="ppa-input"></div>`;
           html+=`<div class="ppa-fgroup"><label>Viaje asociado (opcional)</label><select id="ppa-trip" class="ppa-select"><option value="">Ninguno</option></select></div>`;
-          html+=`<div class="ppa-fgroup full"><label>Nota interna (opcional)</label><input type="text" id="ppa-notes" class="ppa-input" placeholder="Ej: Crucero por el Caribe, Escala de 2 días..."></div>`;
+          html+=`<div class="ppa-fgroup full"><label>Nota interna (opcional)</label><input type="text" id="ppa-notes" class="ppa-input" placeholder="Ej: Crucero por el Caribe, Escala de 2 dÃ­as..."></div>`;
           html+=`<div class="ppa-fgroup full"><label class="ppa-check"><input type="checkbox" id="ppa-visible" checked> Mostrar sello en pasaporte del cliente</label></div>`;
           html+=`</div>`;
           html+=`<button class="ppa-btn-add" onclick="addStamp()"><i class="fas fa-stamp"></i> Confirmar y agregar sello</button>`;
@@ -1430,19 +1145,19 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
           if(data){
             for(const t of data){
               const d=t.fecha_salida?new Date(t.fecha_salida).toLocaleDateString('es-AR'):'';
-              html+=`<option value="${escapeHtml(t.id)}">${escapeHtml(t.destino||'Viaje')} ${d?'· '+d:''}</option>`;
+              html+=`<option value="${escapeHtml(t.id)}">${escapeHtml(t.destino||'Viaje')} ${d?'Â· '+d:''}</option>`;
             }
           }
           sel.innerHTML=html;
         }
 
         async function addStamp(){
-          if(!currentClient){toast('Seleccioná un cliente primero','error');return;}
+          if(!currentClient){toast('SeleccionÃ¡ un cliente primero','error');return;}
           const countrySel=document.getElementById('ppa-country');
           const countryId=countrySel?.value;
-          if(!countryId){toast('Seleccioná un país','error');return;}
+          if(!countryId){toast('SeleccionÃ¡ un paÃ­s','error');return;}
           const existing=_adminStamps.find(s=>s.country_code===countryId);
-          if(existing){toast('Este país ya está sellado para este cliente','error');return;}
+          if(existing){toast('Este paÃ­s ya estÃ¡ sellado para este cliente','error');return;}
           const opt=countrySel.options[countrySel.selectedIndex];
           const countryName=opt?.dataset?.name||'';
           const region=document.getElementById('ppa-region')?.value||opt?.dataset?.region||'';
@@ -1453,12 +1168,12 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
           const payload={user_id:currentClient.id,country_code:countryId,country_name:countryName,region,visited_at:visitedAt,trip_id:tripId,notes,visible,created_at:new Date().toISOString()};
           const {error}=await _db.from('passport_stamps').insert(payload);
           if(error){toast('Error al guardar: '+error.message,'error');return;}
-          toast('Sello agregado ✅','success');
+          toast('Sello agregado âœ…','success');
           await loadPassportAdmin();
         }
 
         async function removeStamp(stampId){
-          if(!confirm('¿Eliminar este sello del pasaporte del cliente?')) return;
+          if(!confirm('Â¿Eliminar este sello del pasaporte del cliente?')) return;
           const {error}=await _db.from('passport_stamps').delete().eq('id',stampId);
           if(error){toast('Error al eliminar: '+error.message,'error');return;}
           toast('Sello eliminado','success');
@@ -1468,13 +1183,13 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         async function toggleStampVisibility(stampId,currentlyVisible){
           const {error}=await _db.from('passport_stamps').update({visible:!currentlyVisible}).eq('id',stampId);
           if(error){toast('Error al actualizar: '+error.message,'error');return;}
-          toast(currentlyVisible?'Sello oculto':'Sello visible ✅','success');
+          toast(currentlyVisible?'Sello oculto':'Sello visible âœ…','success');
           await loadPassportAdmin();
         }
 
         async function eliminarViaje() {
             if (!currentViaje?.id) return;
-            if (!confirm('¿Eliminars este viaje? Esta acción no se puede deshacer.')) return;
+            if (!confirm('Â¿Eliminars este viaje? Esta acciÃ³n no se puede deshacer.')) return;
             const { error } = await _db.from('viajes').delete().eq('id', currentViaje.id);
             if (error) { toast('Error: ' + error.message, 'error'); return; }
             toast('Viaje eliminado', 'success');
@@ -1511,7 +1226,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
         // ===== MISIONES ADMIN =====
         async function loadMisionesAdmin() {
             const wrap = document.getElementById('adminMisionesWrap');
-            if (!wrap || !currentClient) { if(wrap) wrap.innerHTML='<p class="no-data">Seleccioná un cliente primero.</p>'; return; }
+            if (!wrap || !currentClient) { if(wrap) wrap.innerHTML='<p class="no-data">SeleccionÃ¡ un cliente primero.</p>'; return; }
             wrap.innerHTML = '<p class="no-data"><i class="fas fa-spinner fa-spin"></i> Cargando...</p>';
 
             const { data: misiones } = await _db.from('cliente_misiones')
@@ -1520,7 +1235,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 .order('reclamada_at', { ascending: false });
 
             if (!misiones?.length) {
-                wrap.innerHTML = '<p class="no-data">Este cliente no tiene misiones reclamadas todavía.</p>';
+                wrap.innerHTML = '<p class="no-data">Este cliente no tiene misiones reclamadas todavÃ­a.</p>';
                 return;
             }
 
@@ -1541,26 +1256,26 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                     <div style="display:flex;gap:8px;margin-top:10px">
                         <button onclick="approveMision('${m.id}', ${mi.puntos})" style="flex:1;padding:8px;background:#10b981;color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer"><i class="fas fa-check"></i> Aprobar (+${mi.puntos.toLocaleString('es-AR')} pts)</button>
                         <button onclick="rejectMision('${m.id}')" style="flex:1;padding:8px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer"><i class="fas fa-times"></i> Rechazar</button>
-                    </div>` : (m.estado === 'aprobada' ? '<div style="margin-top:8px;font-size:.7rem;color:#10b981;font-weight:700"><i class="fas fa-check-circle"></i> Aprobada — puntos acreditados</div>' : `<div style="margin-top:8px;font-size:.7rem;color:#ef4444;font-weight:700"><i class="fas fa-times-circle"></i> Rechazada${m.comentario_admin ? ' — ' + escapeHtml(m.comentario_admin) : ''}</div>`);
+                    </div>` : (m.estado === 'aprobada' ? '<div style="margin-top:8px;font-size:.7rem;color:#10b981;font-weight:700"><i class="fas fa-check-circle"></i> Aprobada â€” puntos acreditados</div>' : `<div style="margin-top:8px;font-size:.7rem;color:#ef4444;font-weight:700"><i class="fas fa-times-circle"></i> Rechazada${m.comentario_admin ? ' â€” ' + escapeHtml(m.comentario_admin) : ''}</div>`);
                 return `<div style="padding:14px;background:white;border:1.5px solid ${m.estado==='pendiente'?'#fcd34d':'#e0e8f0'};border-radius:12px;margin-bottom:10px${m.estado==='pendiente'?';box-shadow:0 0 0 3px rgba(252,211,77,.2)':''}">
                     <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
                         <div style="width:36px;height:36px;border-radius:9px;background:${mi.color}22;display:flex;align-items:center;justify-content:center;font-size:1.2rem">${mi.ico}</div>
                         <div style="flex:1">
                             <div style="font-size:.82rem;font-weight:800">${escapeHtml(mi.nombre)}</div>
-                            <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">${mi.categoria} · ${mi.dificultad}</div>
+                            <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">${mi.categoria} Â· ${mi.dificultad}</div>
                         </div>
                         <span style="font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:99px;background:${estadoColor}20;color:${estadoColor}"><i class="fas ${estadoIco}"></i> ${m.estado}</span>
                     </div>
                     ${mediaHtml}
                     ${m.comentario_cliente ? '<div style="font-size:.72rem;color:var(--text);background:var(--light);padding:8px 10px;border-radius:8px;margin-bottom:6px"><strong>Cliente dice:</strong> ' + escapeHtml(m.comentario_cliente) + '</div>' : ''}
-                    <div style="font-size:.6rem;color:var(--muted)">${m.reclamada_at ? new Date(m.reclamada_at).toLocaleString('es-AR') : '—'}</div>
+                    <div style="font-size:.6rem;color:var(--muted)">${m.reclamada_at ? new Date(m.reclamada_at).toLocaleString('es-AR') : 'â€”'}</div>
                     ${actionsHtml}
                 </div>`;
             }).join('');
         }
 
         async function approveMision(cmId, puntos) {
-            if (!confirm('¿Aprobar esta misión y sumar ' + puntos.toLocaleString('es-AR') + ' pts al cliente?')) return;
+            if (!confirm('Â¿Aprobar esta misiÃ³n y sumar ' + puntos.toLocaleString('es-AR') + ' pts al cliente?')) return;
             const { error: e1 } = await _db.from('cliente_misiones').update({
                 estado: 'aprobada',
                 resuelta_at: new Date().toISOString()
@@ -1570,7 +1285,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             // Sumar puntos
             await _db.from('fidelizacion_trans').insert({
                 cliente_id: currentClient.id,
-                concepto: 'Misión completada',
+                concepto: 'MisiÃ³n completada',
                 puntos: puntos,
                 tipo: 'bonus',
                 created_at: new Date().toISOString()
@@ -1580,7 +1295,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
             if (document.getElementById('f-puntos')) document.getElementById('f-puntos').value = curAvail + puntos;
             if (document.getElementById('f-puntos-hist')) document.getElementById('f-puntos-hist').value = curHist + puntos;
             await saveFid({ preventDefault: () => {} });
-            toast('Misión aprobada ✅ +' + puntos.toLocaleString('es-AR') + ' pts', 'success');
+            toast('MisiÃ³n aprobada âœ… +' + puntos.toLocaleString('es-AR') + ' pts', 'success');
             loadMisionesAdmin();
         }
 
@@ -1592,7 +1307,7 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
                 resuelta_at: new Date().toISOString()
             }).eq('id', cmId);
             if (error) { toast('Error: ' + error.message, 'error'); return; }
-            toast('Misión rechazada', 'error');
+            toast('MisiÃ³n rechazada', 'error');
             loadMisionesAdmin();
         }
 
@@ -1605,9 +1320,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
               const { data: p } = await _db.from('perfiles').select('nombre,email').eq('id', row.cliente_id).single();
               if (p) clienteName = p.nombre || p.email;
             } catch(_){}
-            toast(`🎯 ¡${clienteName} envió evidencia de misión! Revisala en su pestaña Misiones.`, 'success');
+            toast(`ðŸŽ¯ Â¡${clienteName} enviÃ³ evidencia de misiÃ³n! Revisala en su pestaÃ±a Misiones.`, 'success');
             if (Notification.permission === 'granted') {
-              new Notification('Nueva evidencia de misión', { body: `${clienteName} quiere reclamar una misión.`, icon: '/assets/logo-web.png' });
+              new Notification('Nueva evidencia de misiÃ³n', { body: `${clienteName} quiere reclamar una misiÃ³n.`, icon: '/assets/logo-web.png' });
             }
           })
           .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'cliente_misiones', filter: 'estado=eq.pendiente' }, async (payload) => {
@@ -1617,9 +1332,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
               const { data: p } = await _db.from('perfiles').select('nombre,email').eq('id', row.cliente_id).single();
               if (p) clienteName = p.nombre || p.email;
             } catch(_){}
-            toast(`🎯 ¡${clienteName} envió evidencia de misión! Revisala en su pestaña Misiones.`, 'success');
+            toast(`ðŸŽ¯ Â¡${clienteName} enviÃ³ evidencia de misiÃ³n! Revisala en su pestaÃ±a Misiones.`, 'success');
             if (Notification.permission === 'granted') {
-              new Notification('Nueva evidencia de misión', { body: `${clienteName} quiere reclamar una misión.`, icon: '/assets/logo-web.png' });
+              new Notification('Nueva evidencia de misiÃ³n', { body: `${clienteName} quiere reclamar una misiÃ³n.`, icon: '/assets/logo-web.png' });
             }
           })
           .subscribe();
@@ -1632,9 +1347,9 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
               const { data: p } = await _db.from('perfiles').select('nombre,email').eq('id', row.cliente_id).single();
               if (p) clienteName = p.nombre || p.email;
             } catch(_){}
-            toast(`🎁 ¡${clienteName} canjeó ${Math.abs(row.puntos).toLocaleString('es-AR')} pts! → ${row.concepto}`, 'success');
+            toast(`ðŸŽ Â¡${clienteName} canjeÃ³ ${Math.abs(row.puntos).toLocaleString('es-AR')} pts! â†’ ${row.concepto}`, 'success');
             if (Notification.permission === 'granted') {
-              new Notification('Canje de puntos', { body: `${clienteName} canjeó: ${row.concepto}`, icon: '/assets/logo-web.png' });
+              new Notification('Canje de puntos', { body: `${clienteName} canjeÃ³: ${row.concepto}`, icon: '/assets/logo-web.png' });
             }
           })
           .subscribe();
@@ -1650,3 +1365,4 @@ body { display: grid; grid-template-rows: 60px 1fr; background: var(--light); }
     </script>
 </body>
 </html>
+

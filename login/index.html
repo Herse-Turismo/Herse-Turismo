@@ -1,371 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceder · Portal Herse Turismo</title>
-    <meta name="description" content="Accedé al portal exclusivo de clientes de Herse Turismo.">
+    <title>Acceder Â· Portal Herse Turismo</title>
+    <meta name="description" content="AccedÃ© al portal exclusivo de clientes de Herse Turismo.">
     <meta name="robots" content="noindex, nofollow">
     <meta property="og:title" content="Portal Herse Turismo">
-    <meta property="og:description" content="Accedé al portal exclusivo de clientes de Herse Turismo.">
+    <meta property="og:description" content="AccedÃ© al portal exclusivo de clientes de Herse Turismo.">
     <meta property="og:image" content="https://herseturismo.com.ar/assets/og-cover.png">
     <meta property="og:url" content="https://herseturismo.com.ar/login/">
     <meta property="og:site_name" content="Herse Turismo">
     <meta name="theme-color" content="#003366">
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23004A8F'/><text y='72' x='12' font-size='70'>✈️</text></svg>">
-    <script src="https://js-de.sentry-cdn.com/d9f8b1eee56daacb0b9864323d164d4f.min.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/pages/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-:root {
-    --blue: #004A8F;
-    --blue-dark: #003366;
-    --orange: #F7941D;
-    --text: #1a2035;
-    --muted: #6b7280;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
-body { font-family: 'Nunito', sans-serif; display: flex; min-height: 100vh; }
-a { text-decoration: none; color: inherit; }
-
-/* ===== LEFT PANEL ===== */
-.l-panel {
-    flex: 1;
-    background:
-        linear-gradient(145deg, rgba(0,20,60,0.87) 0%, rgba(0,40,90,0.82) 45%, rgba(0,70,140,0.78) 100%),
-        url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1400&q=80') center/cover no-repeat;
-    color: white;
-    padding: 56px 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-}
-.l-panel::before {
-    content: '';
-    position: absolute;
-    top: -100px; right: -100px;
-    width: 420px; height: 420px;
-    background: radial-gradient(circle, rgba(247,148,29,0.14), transparent 70%);
-    pointer-events: none;
-}
-.l-panel::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; left: -80px;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
-    pointer-events: none;
-}
-.l-logo img { height: 54px; filter: brightness(0) invert(1); }
-.l-content { position: relative; z-index: 1; }
-.l-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(247,148,29,0.18);
-    border: 1px solid rgba(247,148,29,0.32);
-    color: #fbbf24;
-    padding: 7px 18px;
-    border-radius: 50px;
-    font-size: 0.78rem;
-    font-weight: 800;
-    margin-bottom: 22px;
-}
-.l-content h1 {
-    font-size: 2.6rem;
-    font-weight: 900;
-    line-height: 1.15;
-    margin-bottom: 16px;
-}
-.l-content h1 span { color: var(--orange); }
-.l-content > p {
-    opacity: 0.8;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    margin-bottom: 40px;
-    max-width: 360px;
-}
-.l-features { display: flex; flex-direction: column; gap: 16px; }
-.l-feature {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 0.92rem;
-    font-weight: 700;
-    opacity: 0.9;
-}
-.l-ico {
-    width: 38px; height: 38px;
-    border-radius: 11px;
-    background: rgba(255,255,255,0.1);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--orange);
-    font-size: 0.9rem;
-    flex-shrink: 0;
-}
-.l-footer { font-size: 0.76rem; opacity: 0.4; position: relative; z-index: 1; }
-
-/* ===== RIGHT PANEL ===== */
-.r-panel {
-    width: 500px;
-    min-height: 100vh;
-    background: white;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 60px 52px;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-.form-box {
-    width: 100%;
-    max-width: 380px;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-.r-panel::before {
-    content: '\f072';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    bottom: -30px;
-    right: -20px;
-    font-size: 13rem;
-    color: var(--blue);
-    opacity: 0.04;
-    transform: rotate(-35deg);
-    pointer-events: none;
-    line-height: 1;
-}
-.r-deco {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    margin-top: 22px;
-    padding-top: 18px;
-    border-top: 1px solid #f0f4f8;
-}
-.r-deco-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #e0e8f0;
-}
-.r-deco-plane {
-    font-size: 0.75rem;
-    color: var(--blue);
-    opacity: 0.4;
-    margin: 0 2px;
-}
-.r-deco-dot.fill { background: var(--blue); opacity: 0.25; }
-/* .form-box definido arriba con centrado vertical automático */
-.mobile-logo { display: none; margin-bottom: 32px; text-align: center; }
-.mobile-logo img { height: 42px; margin: 0 auto; }
-
-.form-icon {
-    width: 66px; height: 66px;
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    border-radius: 20px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.55rem;
-    margin-bottom: 24px;
-    box-shadow: 0 8px 24px rgba(0,74,143,0.25);
-    color: #fff;
-}
-.form-box h2 { font-size: 1.85rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
-.form-box > p { color: var(--muted); font-size: 0.92rem; font-weight: 600; margin-bottom: 32px; line-height: 1.6; }
-
-.field { margin-bottom: 18px; position: relative; }
-.field label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 800;
-    color: var(--blue);
-    margin-bottom: 7px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.field input {
-    width: 100%;
-    padding: 14px 18px;
-    border: 1.5px solid #e0e8f0;
-    border-radius: 12px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.95rem;
-    color: var(--text);
-    background: #f8fafc;
-    outline: none;
-    transition: all 0.25s;
-}
-.field input:focus { border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(0,74,143,0.09); }
-.field input.shake { animation: shake 0.4s ease; border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
-@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-.field.has-toggle input { padding-right: 50px; }
-.toggle-btn {
-    position: absolute; right: 14px; bottom: 14px;
-    background: none; border: none;
-    color: var(--muted); cursor: pointer; font-size: 1rem;
-    padding: 2px; transition: color 0.2s;
-}
-.toggle-btn:hover { color: var(--blue); }
-
-.error-box {
-    display: none;
-    align-items: center;
-    gap: 9px;
-    background: rgba(239,68,68,0.07);
-    border: 1px solid rgba(239,68,68,0.2);
-    color: #dc2626;
-    padding: 12px 16px;
-    border-radius: 11px;
-    font-size: 0.84rem;
-    font-weight: 700;
-    margin-bottom: 18px;
-}
-.error-box.show { display: flex; }
-
-.btn-login {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.3s;
-    box-shadow: 0 4px 18px rgba(0,74,143,0.28);
-    margin-bottom: 24px;
-}
-.btn-login:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(0,74,143,0.38); }
-.btn-login:disabled { opacity: 0.72; cursor: not-allowed; transform: none; }
-
-.login-help {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #f0f4f8;
-}
-.login-help p { font-size: 0.84rem; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
-.login-help a.wsp { color: #25D366; font-weight: 800; }
-.login-help a.wsp:hover { text-decoration: underline; }
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 0.82rem;
-    color: var(--muted);
-    font-weight: 700;
-    transition: color 0.2s;
-}
-.back-link:hover { color: var(--blue); }
-.switch-link {
-    display: block; text-align: center; margin-top: 18px;
-    font-size: 0.84rem; color: var(--muted); font-weight: 600;
-}
-.switch-link a { color: var(--blue); font-weight: 800; cursor: pointer; }
-.switch-link a:hover { text-decoration: underline; }
-.success-box {
-    display: none; align-items: flex-start; gap: 9px;
-    background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25);
-    color: #065f46; padding: 14px 16px; border-radius: 11px;
-    font-size: 0.85rem; font-weight: 700; margin-bottom: 18px; line-height: 1.5;
-}
-.success-box.show { display: flex; }
-
-/* ===== RESPONSIVE ===== */
-
-/* TABLET GRANDE — hasta 1199px */
-@media (max-width: 1199px) {
-    .l-panel { padding: 44px 44px; }
-    .l-content h1 { font-size: 2.2rem; }
-    .r-panel { width: 440px; padding: 52px 44px; }
-}
-
-/* NOTEBOOK / TABLET — hasta 1024px */
-@media (max-width: 1024px) {
-    .l-panel { padding: 38px 36px; }
-    .l-content h1 { font-size: 2rem; }
-    .l-content > p { font-size: 0.9rem; margin-bottom: 30px; }
-    .r-panel { width: 400px; padding: 48px 36px; }
-}
-
-/* TABLET PEQUEÑO — hasta 900px */
-@media (max-width: 900px) {
-    .l-panel { display: none; }
-    .r-panel { width: 100%; min-height: 100vh; padding: 52px 40px; }
-    .mobile-logo { display: block; }
-    .form-box { max-width: 420px; margin: 0 auto; width: 100%; }
-}
-
-/* MÓVIL — hasta 640px */
-@media (max-width: 640px) {
-    .r-panel { padding: 40px 24px; align-items: flex-start; padding-top: 44px; }
-    .form-box { max-width: 100%; }
-    .form-box h2 { font-size: 1.6rem; }
-    .form-box > p { font-size: 0.88rem; margin-bottom: 24px; }
-    .field input { padding: 13px 16px; font-size: 0.93rem; }
-    .btn-login { padding: 14px; font-size: 0.96rem; }
-    .form-icon { width: 58px; height: 58px; font-size: 1.4rem; margin-bottom: 20px; }
-    .login-help p { font-size: 0.82rem; }
-}
-
-/* ALTURA REDUCIDA — notebooks 768px alto (14") */
-@media (max-height: 800px) {
-    /* Panel izquierdo */
-    .l-panel { padding: 36px 44px; }
-    .l-content h1 { font-size: 2.1rem; margin-bottom: 12px; }
-    .l-content > p { margin-bottom: 26px; font-size: 0.92rem; }
-    .l-features { gap: 11px; }
-    .l-chip { margin-bottom: 16px; }
-    /* Panel derecho */
-    .r-panel { padding-top: 36px; padding-bottom: 36px; }
-    .form-icon { width: 56px; height: 56px; font-size: 1.35rem; margin-bottom: 16px; }
-    .form-box > p { margin-bottom: 22px; }
-    .field { margin-bottom: 14px; }
-    .btn-login { margin-bottom: 18px; }
-    .login-help { padding-top: 14px; }
-}
-@media (max-height: 700px) {
-    /* Panel izquierdo */
-    .l-panel { padding: 26px 36px; }
-    .l-content h1 { font-size: 1.8rem; margin-bottom: 10px; }
-    .l-content > p { font-size: 0.87rem; margin-bottom: 18px; }
-    .l-features { gap: 9px; }
-    .l-feature { font-size: 0.86rem; }
-    .l-ico { width: 32px; height: 32px; font-size: 0.8rem; border-radius: 9px; }
-    .l-chip { padding: 5px 14px; font-size: 0.73rem; margin-bottom: 14px; }
-    /* Panel derecho */
-    .r-panel { padding-top: 24px; padding-bottom: 24px; }
-    .form-icon { width: 48px; height: 48px; font-size: 1.1rem; margin-bottom: 12px; }
-    .form-box h2 { font-size: 1.55rem; margin-bottom: 4px; }
-    .form-box > p { margin-bottom: 16px; font-size: 0.87rem; }
-    .field { margin-bottom: 12px; }
-    .field input { padding: 11px 16px; }
-    .btn-login { padding: 13px; margin-bottom: 14px; }
-}
-/* EXTRA PEQUEÑO — hasta 400px */
-@media (max-width: 400px) {
-    .r-panel { padding: 32px 18px 40px; }
-    .form-box h2 { font-size: 1.42rem; }
-    .form-icon { width: 52px; height: 52px; font-size: 1.25rem; margin-bottom: 16px; }
-    .field input { padding: 12px 14px; font-size: 0.9rem; }
-    .btn-login { padding: 13px; font-size: 0.92rem; }
-    .mobile-logo img { height: 36px; }
-    .switch-link { font-size: 0.8rem; }
-}
-    </style>
 </head>
 <body>
 
@@ -379,7 +33,7 @@ a { text-decoration: none; color: inherit; }
                 <i class="fas fa-lock"></i> Portal exclusivo para viajeros
             </div>
             <h1>Tu viaje en<br>la palma de<br>tu <span>mano</span></h1>
-            <p>Accedé a toda la información de tu viaje en un solo lugar, sin papeles y desde cualquier dispositivo.</p>
+            <p>AccedÃ© a toda la informaciÃ³n de tu viaje en un solo lugar, sin papeles y desde cualquier dispositivo.</p>
             <div class="l-features">
                 <div class="l-feature">
                     <div class="l-ico"><i class="fas fa-folder-open"></i></div>
@@ -391,7 +45,7 @@ a { text-decoration: none; color: inherit; }
                 </div>
                 <div class="l-feature">
                     <div class="l-ico"><i class="fas fa-crown"></i></div>
-                    Club Herse · beneficios y puntos
+                    Club Herse Â· beneficios y puntos
                 </div>
                 <div class="l-feature">
                     <div class="l-ico"><i class="fas fa-hourglass-half"></i></div>
@@ -399,7 +53,7 @@ a { text-decoration: none; color: inherit; }
                 </div>
             </div>
         </div>
-        <div class="l-footer">© 2026 Herse Turismo · La Plata, Buenos Aires</div>
+        <div class="l-footer">Â© 2026 Herse Turismo Â· La Plata, Buenos Aires</div>
     </div>
 
     <!-- RIGHT PANEL -->
@@ -409,10 +63,10 @@ a { text-decoration: none; color: inherit; }
                 <img src="/assets/logo-web.png" alt="Herse Turismo">
             </div>
 
-            <!-- HEADER DINÁMICO -->
+            <!-- HEADER DINÃMICO -->
             <div class="form-icon" id="formIcon"><i class="fas fa-paper-plane"></i></div>
             <h2 id="formTitle">Bienvenido de vuelta</h2>
-            <p id="formSubtitle">Ingresá con tu email y contraseña para ver tu viaje.</p>
+            <p id="formSubtitle">IngresÃ¡ con tu email y contraseÃ±a para ver tu viaje.</p>
 
             <!-- LOGIN FORM -->
             <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
@@ -421,8 +75,8 @@ a { text-decoration: none; color: inherit; }
                     <input type="email" id="email" placeholder="tu@email.com" autocomplete="email" required>
                 </div>
                 <div class="field has-toggle">
-                    <label for="pass">Contraseña</label>
-                    <input type="password" id="pass" placeholder="••••••••" autocomplete="current-password" required>
+                    <label for="pass">ContraseÃ±a</label>
+                    <input type="password" id="pass" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autocomplete="current-password" required>
                     <button type="button" class="toggle-btn" onclick="togglePass()" tabindex="-1">
                         <i class="fas fa-eye" id="eyeIcon"></i>
                     </button>
@@ -441,22 +95,22 @@ a { text-decoration: none; color: inherit; }
             <form id="registerForm" onsubmit="handleRegister(event)" novalidate style="display:none">
                 <div class="field">
                     <label for="reg-nombre">Nombre completo</label>
-                    <input type="text" id="reg-nombre" placeholder="Ej: María González" required>
+                    <input type="text" id="reg-nombre" placeholder="Ej: MarÃ­a GonzÃ¡lez" required>
                 </div>
                 <div class="field">
                     <label for="reg-email">Email</label>
                     <input type="email" id="reg-email" placeholder="tu@email.com" autocomplete="email" required>
                 </div>
                 <div class="field has-toggle">
-                    <label for="reg-pass">Contraseña</label>
-                    <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" required>
+                    <label for="reg-pass">ContraseÃ±a</label>
+                    <input type="password" id="reg-pass" placeholder="MÃ­nimo 6 caracteres" required>
                     <button type="button" class="toggle-btn" onclick="toggleRegPass()" tabindex="-1">
                         <i class="fas fa-eye" id="regEyeIcon"></i>
                     </button>
                 </div>
                 <div class="field">
-                    <label for="reg-pass2">Confirmá la contraseña</label>
-                    <input type="password" id="reg-pass2" placeholder="Repetí tu contraseña" required>
+                    <label for="reg-pass2">ConfirmÃ¡ la contraseÃ±a</label>
+                    <input type="password" id="reg-pass2" placeholder="RepetÃ­ tu contraseÃ±a" required>
                 </div>
                 <div class="error-box" id="regErrorBox">
                     <i class="fas fa-exclamation-circle"></i>
@@ -464,7 +118,7 @@ a { text-decoration: none; color: inherit; }
                 </div>
                 <div class="success-box" id="regSuccessBox">
                     <i class="fas fa-check-circle" style="font-size:1.1rem;margin-top:2px;flex-shrink:0"></i>
-                    <span>¡Cuenta creada! Revisá tu email para confirmar tu cuenta y después podés ingresar.</span>
+                    <span>Â¡Cuenta creada! RevisÃ¡ tu email para confirmar tu cuenta y despuÃ©s podÃ©s ingresar.</span>
                 </div>
                 <button type="submit" class="btn-login" id="regBtn">
                     <span>Crear mi cuenta</span>
@@ -473,13 +127,13 @@ a { text-decoration: none; color: inherit; }
             </form>
 
             <div class="login-help">
-                <p>¿Problemas para ingresar? <a href="https://wa.me/5492215661704?text=Hola!%20Necesito%20ayuda%20para%20acceder%20a%20mi%20portal." target="_blank" class="wsp"><i class="fab fa-whatsapp"></i> Contactanos</a></p>
+                <p>Â¿Problemas para ingresar? <a href="https://wa.me/5492215661704?text=Hola!%20Necesito%20ayuda%20para%20acceder%20a%20mi%20portal." target="_blank" class="wsp"><i class="fab fa-whatsapp"></i> Contactanos</a></p>
                 <a href="/" class="back-link">
                     <i class="fas fa-arrow-left"></i> Volver al sitio
                 </a>
             </div>
             <p class="switch-link" id="switchText">
-                ¿No tenés cuenta? <a onclick="showRegister()">Registrarte</a>
+                Â¿No tenÃ©s cuenta? <a onclick="showRegister()">Registrarte</a>
             </p>
             <div class="r-deco">
                 <div class="r-deco-dot"></div>
@@ -501,7 +155,7 @@ a { text-decoration: none; color: inherit; }
         const { createClient } = supabase;
         const _db = createClient(SUPA_URL, SUPA_KEY);
 
-        // Si ya tiene sesión activa, redirige directo
+        // Si ya tiene sesiÃ³n activa, redirige directo
         _db.auth.getSession().then(({ data: { session } }) => {
             if (session) window.location.href = '/mi-viaje';
         });
@@ -511,17 +165,17 @@ a { text-decoration: none; color: inherit; }
             document.getElementById('loginForm').style.display = 'none';
             document.getElementById('registerForm').style.display = 'block';
             document.getElementById('formTitle').textContent = 'Crear cuenta';
-            document.getElementById('formSubtitle').textContent = 'Completá tus datos para acceder al portal de viaje.';
+            document.getElementById('formSubtitle').textContent = 'CompletÃ¡ tus datos para acceder al portal de viaje.';
             document.getElementById('formIcon').innerHTML = '<i class="fas fa-user-plus"></i>';
-            document.getElementById('switchText').innerHTML = '¿Ya tenés cuenta? <a onclick="showLogin()">Iniciar sesión</a>';
+            document.getElementById('switchText').innerHTML = 'Â¿Ya tenÃ©s cuenta? <a onclick="showLogin()">Iniciar sesiÃ³n</a>';
         }
         function showLogin() {
             document.getElementById('loginForm').style.display = 'block';
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('formTitle').textContent = 'Bienvenido de vuelta';
-            document.getElementById('formSubtitle').textContent = 'Ingresá con tu email y contraseña para ver tu viaje.';
+            document.getElementById('formSubtitle').textContent = 'IngresÃ¡ con tu email y contraseÃ±a para ver tu viaje.';
             document.getElementById('formIcon').innerHTML = '<i class="fas fa-paper-plane"></i>';
-            document.getElementById('switchText').innerHTML = '¿No tenés cuenta? <a onclick="showRegister()">Registrarte</a>';
+            document.getElementById('switchText').innerHTML = 'Â¿No tenÃ©s cuenta? <a onclick="showRegister()">Registrarte</a>';
         }
 
         function togglePass() {
@@ -553,15 +207,15 @@ a { text-decoration: none; color: inherit; }
             okBox.classList.remove('show');
 
             if (!nombre || !email || !pass || !pass2) {
-                errTxt.textContent = 'Por favor completá todos los campos.';
+                errTxt.textContent = 'Por favor completÃ¡ todos los campos.';
                 errBox.classList.add('show'); return;
             }
             if (pass.length < 6) {
-                errTxt.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+                errTxt.textContent = 'La contraseÃ±a debe tener al menos 6 caracteres.';
                 errBox.classList.add('show'); return;
             }
             if (pass !== pass2) {
-                errTxt.textContent = 'Las contraseñas no coinciden.';
+                errTxt.textContent = 'Las contraseÃ±as no coinciden.';
                 errBox.classList.add('show'); return;
             }
 
@@ -576,8 +230,8 @@ a { text-decoration: none; color: inherit; }
 
             if (error) {
                 errTxt.textContent = error.message.includes('already registered')
-                    ? 'Este email ya tiene una cuenta. Iniciá sesión.'
-                    : 'Error al crear la cuenta. Intentá de nuevo.';
+                    ? 'Este email ya tiene una cuenta. IniciÃ¡ sesiÃ³n.'
+                    : 'Error al crear la cuenta. IntentÃ¡ de nuevo.';
                 errBox.classList.add('show');
                 btn.disabled = false;
                 btn.innerHTML = '<span>Crear mi cuenta</span><i class="fas fa-user-plus"></i>';
@@ -604,7 +258,7 @@ a { text-decoration: none; color: inherit; }
             passEl.classList.remove('shake');
 
             if (!email || !pass) {
-                errTxt.textContent = 'Por favor completá todos los campos.';
+                errTxt.textContent = 'Por favor completÃ¡ todos los campos.';
                 errBox.classList.add('show');
                 return;
             }
@@ -616,7 +270,7 @@ a { text-decoration: none; color: inherit; }
 
             if (error) {
                 passEl.classList.add('shake');
-                errTxt.textContent = 'Credenciales incorrectas. Si no podés acceder, escribinos por WhatsApp.';
+                errTxt.textContent = 'Credenciales incorrectas. Si no podÃ©s acceder, escribinos por WhatsApp.';
                 errBox.classList.add('show');
                 btn.disabled = false;
                 btn.innerHTML = '<span>Acceder a mi portal</span><i class="fas fa-arrow-right"></i>';
@@ -627,3 +281,4 @@ a { text-decoration: none; color: inherit; }
     </script>
 </body>
 </html>
+

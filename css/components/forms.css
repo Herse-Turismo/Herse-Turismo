@@ -1,0 +1,181 @@
+/* =====================================================
+   FORMULARIOS - Componente Reutilizable
+   ===================================================== */
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ───────────────────────────────────────────────── */
+/* Labels */
+/* ───────────────────────────────────────────────── */
+
+.form-group label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.form-group label.required::after {
+  content: '*';
+  color: var(--danger);
+  margin-left: 4px;
+}
+
+/* ───────────────────────────────────────────────── */
+/* Inputs, Select, Textarea */
+/* ───────────────────────────────────────────────── */
+
+.form-control {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text);
+  transition: all var(--transition-base);
+  background: #fafafa;
+}
+
+.form-control:hover {
+  border-color: var(--border);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(0, 74, 143, 0.1);
+}
+
+.form-control:disabled {
+  background: var(--light-bg);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-control::placeholder {
+  color: var(--text-muted-2);
+}
+
+/* ───────────────────────────────────────────────── */
+/* Textarea */
+/* ───────────────────────────────────────────────── */
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+  font-family: var(--font-family);
+}
+
+/* ───────────────────────────────────────────────── */
+/* Select */
+/* ───────────────────────────────────────────────── */
+
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23333' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-lg) center;
+  padding-right: var(--spacing-3xl);
+}
+
+/* ───────────────────────────────────────────────── */
+/* Form Row (múltiples inputs lado a lado) */
+/* ───────────────────────────────────────────────── */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+}
+
+.form-row-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ───────────────────────────────────────────────── */
+/* Mensajes de ayuda y error */
+/* ───────────────────────────────────────────────── */
+
+.form-text {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-xs);
+  display: none;
+}
+
+.form-group.error .form-control {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-group.error .form-error {
+  display: block;
+}
+
+.form-success {
+  color: var(--success);
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-xs);
+  display: none;
+}
+
+.form-group.success .form-control {
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-group.success .form-success {
+  display: block;
+}
+
+/* ───────────────────────────────────────────────── */
+/* Checkboxes y Radios */
+/* ───────────────────────────────────────────────── */
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.form-check input[type="checkbox"],
+.form-check input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.form-check label {
+  margin-bottom: 0;
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ───────────────────────────────────────────────── */
+/* Responsive */
+/* ───────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .form-row,
+  .form-row-3 {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .form-control {
+    padding: var(--spacing-md) var(--spacing-md);
+  }
+}

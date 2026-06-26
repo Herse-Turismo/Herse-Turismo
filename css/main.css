@@ -1,0 +1,107 @@
+/* =====================================================
+   MAIN.CSS - ARCHIVO PRINCIPAL
+   Centraliza todas las importaciones de CSS
+   ===================================================== */
+
+/* ───────────────────────────────────────────────── */
+/* BASE */
+/* ───────────────────────────────────────────────── */
+
+@import url('variables.css');
+@import url('base.css');
+
+/* ───────────────────────────────────────────────── */
+/* COMPONENTES REUTILIZABLES */
+/* ───────────────────────────────────────────────── */
+
+@import url('components/buttons.css');
+@import url('components/navbar.css');
+@import url('components/cards.css');
+@import url('components/forms.css');
+@import url('components/sidebar.css');
+@import url('components/modal.css');
+
+/* ───────────────────────────────────────────────── */
+/* PÁGINAS ESPECÍFICAS */
+/* ───────────────────────────────────────────────── */
+
+@import url('pages/landing.css');
+@import url('pages/login.css');
+@import url('pages/admin.css');
+@import url('pages/info-pages.css');
+@import url('pages/miviaje-layout.css');
+/* @import url('pages/miviaje-dashboard.css'); */
+/* @import url('pages/miviaje-trips.css'); */
+/* @import url('pages/miviaje-club.css'); */
+/* @import url('pages/miviaje-passport.css'); */
+/* @import url('pages/miviaje-events.css'); */
+/* @import url('pages/miviaje-profile.css'); */
+
+/* ───────────────────────────────────────────────── */
+/* LAYOUTS */
+/* ───────────────────────────────────────────────── */
+
+/* @import url('layouts/sidebar.css'); */
+/* @import url('layouts/header.css'); */
+/* @import url('layouts/footer.css'); */
+
+/* ───────────────────────────────────────────────── */
+/* UTILIDADES */
+/* ───────────────────────────────────────────────── */
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-orange {
+  color: var(--secondary);
+}
+
+.mt-md {
+  margin-top: var(--spacing-lg);
+}
+
+.mb-lg {
+  margin-bottom: var(--spacing-xl);
+}
+
+.py-3xl {
+  padding-top: var(--spacing-3xl);
+  padding-bottom: var(--spacing-3xl);
+}
+
+.gap-lg {
+  gap: var(--spacing-xl);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl);
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}

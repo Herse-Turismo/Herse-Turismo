@@ -1,0 +1,157 @@
+/* =====================================================
+   VARIABLES CSS GLOBALES - HERSE TURISMO
+   Centralización de colores, tipografía y espaciado
+   ===================================================== */
+
+:root {
+  /* ─────────────────────────────────────────────────
+     COLORES PRIMARIOS
+     ───────────────────────────────────────────────── */
+  --primary: #004A8F;
+  --primary-dark: #003366;
+  --primary-light: #1a6cff;
+  --secondary: #F7941D;
+  --secondary-dark: #e0800b;
+  --secondary-light: #fbbf24;
+  
+  /* ─────────────────────────────────────────────────
+     COLORES NEUTRALES
+     ───────────────────────────────────────────────── */
+  --text: #333333;
+  --text-secondary: #1a2035;
+  --text-muted: #666666;
+  --text-muted-2: #6b7280;
+  --text-light: #111827;
+  --text-lighter: #9ca3af;
+  
+  --white: #ffffff;
+  --light-bg: #f4f7fa;
+  --light-bg-2: #f4f5f8;
+  --light-bg-3: #f0f4f8;
+  --border: #e5eaf0;
+  --border-light: #e5e7eb;
+  
+  /* ─────────────────────────────────────────────────
+     COLORES SEMÁNTICOS
+     ───────────────────────────────────────────────── */
+  --success: #10b981;
+  --success-light: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  
+  /* ─────────────────────────────────────────────────
+     COLORES ACENTOS (para vista Mi Viaje)
+     ───────────────────────────────────────────────── */
+  --accent-blue: #1a6cff;
+  --accent-blue-light: #60a5fa;
+  --accent-blue-lighter: #93c5fd;
+  --accent-blue-bg: #ebf1ff;
+  --accent-green: #22c55e;
+  --accent-green-light: #4ade80;
+  --accent-green-lighter: #86efac;
+  --accent-green-bg: #dcfce7;
+  --accent-gold: #f59e0b;
+  --accent-gold-light: #fbbf24;
+  --accent-gold-lighter: #fcd34d;
+  --accent-gold-bg: #fef9c3;
+  --accent-purple: #9333ea;
+  --accent-purple-light: #a78bfa;
+  --accent-purple-lighter: #d8b4fe;
+  --accent-purple-bg: #f3e8ff;
+  --accent-orange: #fb923c;
+  --accent-orange-light: #fdba74;
+  --accent-orange-bg: #fed7aa;
+  --accent-teal: #34d399;
+  --accent-teal-light: #6ee7b7;
+  --accent-teal-bg: #d1fae5;
+  
+  /* ─────────────────────────────────────────────────
+     TIPOGRAFÍA
+     ───────────────────────────────────────────────── */
+  --font-family: 'Nunito', sans-serif;
+  --font-mono: 'Courier New', monospace;
+  
+  --font-size-xs: 0.65rem;
+  --font-size-sm: 0.78rem;
+  --font-size-base: 0.95rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.05rem;
+  --font-size-xl: 1.2rem;
+  --font-size-2xl: 1.6rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.6rem;
+  
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+  
+  /* ─────────────────────────────────────────────────
+     ESPACIADO
+     ───────────────────────────────────────────────── */
+  --spacing-unit: 8px;
+  --spacing-xs: calc(var(--spacing-unit) * 0.5);
+  --spacing-sm: var(--spacing-unit);
+  --spacing-md: calc(var(--spacing-unit) * 1.5);
+  --spacing-lg: calc(var(--spacing-unit) * 2);
+  --spacing-xl: calc(var(--spacing-unit) * 3);
+  --spacing-2xl: calc(var(--spacing-unit) * 4);
+  --spacing-3xl: calc(var(--spacing-unit) * 5);
+  
+  /* ─────────────────────────────────────────────────
+     RADIOS
+     ───────────────────────────────────────────────── */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+  --radius-2xl: 16px;
+  --radius-full: 50px;
+  
+  /* ─────────────────────────────────────────────────
+     SOMBRAS
+     ───────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+  
+  --shadow-orange: 0 6px 20px rgba(247, 148, 29, 0.4);
+  --shadow-blue: 0 4px 14px rgba(0, 74, 143, 0.2);
+  --shadow-admin-header: 0 2px 12px rgba(0, 51, 102, 0.3);
+  
+  /* ─────────────────────────────────────────────────
+     TRANSICIONES
+     ───────────────────────────────────────────────── */
+  --transition-fast: 0.15s;
+  --transition-base: 0.3s;
+  --transition-slow: 0.4s;
+  --easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* ─────────────────────────────────────────────────
+     LAYOUT - Mi Viaje
+     ───────────────────────────────────────────────── */
+  --sidebar-width: 220px;
+  --header-height: 64px;
+  
+  /* ─────────────────────────────────────────────────
+     Z-INDEX
+     ───────────────────────────────────────────────── */
+  --z-modal: 1000;
+  --z-sticky: 50;
+  --z-navbar: 1000;
+  --z-sidebar: 100;
+}
+
+/* Tema oscuro para Mi Viaje */
+[data-theme="dark"] {
+  --bg: #1a1d27;
+  --card: #2a2f3f;
+  --bd: rgba(255, 255, 255, 0.06);
+  --tx: #fff;
+  --tx2: rgba(255, 255, 255, 0.6);
+  --tx3: rgba(255, 255, 255, 0.28);
+}

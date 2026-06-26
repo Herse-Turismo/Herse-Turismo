@@ -1,0 +1,254 @@
+/* =====================================================
+   LOGIN PAGE - Estilos Específicos
+   ===================================================== */
+
+/* ───────────────────────────────────────────────── */
+/* LAYOUT - Two Column */
+/* ───────────────────────────────────────────────── */
+
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--white);
+}
+
+/* ───────────────────────────────────────────────── */
+/* LEFT PANEL - Decorativo */
+/* ───────────────────────────────────────────────── */
+
+.left-panel {
+  flex: 1;
+  background: linear-gradient(145deg, rgba(0, 20, 60, 0.87) 0%, rgba(0, 40, 90, 0.82) 45%, rgba(0, 70, 140, 0.78) 100%),
+    url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1400&q=80') center / cover no-repeat;
+  color: var(--white);
+  padding: var(--spacing-2xl) var(--spacing-3xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.left-panel::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(247, 148, 29, 0.14), transparent 70%);
+  pointer-events: none;
+}
+
+.left-panel::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 70%);
+  pointer-events: none;
+}
+
+.left-logo img {
+  height: 54px;
+  filter: brightness(0) invert(1);
+}
+
+.left-content {
+  position: relative;
+  z-index: 1;
+}
+
+.left-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background: rgba(247, 148, 29, 0.18);
+  border: 1px solid rgba(247, 148, 29, 0.32);
+  color: #fbbf24;
+  padding: var(--spacing-xs) var(--spacing-lg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.left-content h1 {
+  font-size: 2.6rem;
+  font-weight: var(--font-weight-black);
+  line-height: 1.15;
+  margin-bottom: var(--spacing-lg);
+}
+
+.left-content h1 span {
+  color: var(--secondary);
+}
+
+.left-content > p {
+  opacity: 0.8;
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  margin-bottom: var(--spacing-2xl);
+  max-width: 360px;
+}
+
+.left-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.left-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  opacity: 0.9;
+}
+
+.left-feature i {
+  font-size: 1.4rem;
+  color: var(--secondary);
+  flex-shrink: 0;
+}
+
+/* ───────────────────────────────────────────────── */
+/* RIGHT PANEL - Formulario */
+/* ───────────────────────────────────────────────── */
+
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--spacing-3xl) var(--spacing-2xl);
+}
+
+.login-form-wrap {
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.login-form h2 {
+  font-size: 1.8rem;
+  font-weight: var(--font-weight-black);
+  color: var(--primary);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.login-form-hint {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.login-tabs {
+  display: flex;
+  margin-bottom: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1.5px solid var(--border-light);
+}
+
+.login-tab-btn {
+  flex: 1;
+  padding: var(--spacing-md) var(--spacing-sm);
+  border: none;
+  background: #f8f8f8;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.login-tab-btn:first-child {
+  border-right: 1.5px solid var(--border-light);
+}
+
+.login-tab-btn.active {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.login-tab-btn:hover:not(.active) {
+  background: #efefef;
+  color: var(--text);
+}
+
+.login-tab-panel {
+  display: none;
+}
+
+.login-tab-panel.active {
+  display: block;
+}
+
+/* ───────────────────────────────────────────────── */
+/* Footer */
+/* ───────────────────────────────────────────────── */
+
+.left-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  opacity: 0.7;
+  font-size: var(--font-size-xs);
+}
+
+/* ───────────────────────────────────────────────── */
+/* RESPONSIVE */
+/* ───────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .left-panel {
+    padding: var(--spacing-xl) var(--spacing-2xl);
+  }
+
+  .left-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .right-panel {
+    padding: var(--spacing-xl) var(--spacing-xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    min-height: 250px;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .right-panel {
+    flex: 1;
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .left-content h1 {
+    font-size: 1.4rem;
+  }
+
+  .left-features {
+    display: none;
+  }
+
+  .login-form h2 {
+    font-size: 1.4rem;
+  }
+}
