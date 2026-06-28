@@ -1,13 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herse Turismo - Tu prÃ³xima aventura te espera</title>
+    <title>Herse Turismo - Tu próxima aventura te espera</title>
 
     <meta name="description" content="Herse Turismo - Agencia de viajes en La Plata. Viajes a medida, multidestinos y soporte 24/7.">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Herse Turismo - Tu prÃ³xima aventura te espera">
+    <meta property="og:title" content="Herse Turismo - Tu próxima aventura te espera">
     <meta property="og:description" content="Agencia de viajes en La Plata. Paquetes a medida, multidestinos y soporte personalizado.">
     <meta property="og:image" content="https://herseturismo.com.ar/assets/og-cover.png">
     <meta property="og:url" content="https://herseturismo.com.ar/">
@@ -15,36 +15,70 @@
     <meta property="og:locale" content="es_AR">
     <meta property="og:site_name" content="Herse Turismo">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Herse Turismo - Tu prÃ³xima aventura te espera">
+    <meta name="twitter:title" content="Herse Turismo - Tu próxima aventura te espera">
     <meta name="twitter:description" content="Agencia de viajes en La Plata. Paquetes a medida, multidestinos y soporte personalizado.">
     <meta name="twitter:image" content="https://herseturismo.com.ar/assets/og-cover.png">
 
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-    <link rel="stylesheet" href="/css/variables.css">
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/components/buttons.css">
-    <link rel="stylesheet" href="/css/components/navbar.css">
-    <link rel="stylesheet" href="/css/pages/landing.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23004A8F'/><text y='72' x='12' font-size='70'>✈️</text></svg>">
+    <script src="https://js-de.sentry-cdn.com/d9f8b1eee56daacb0b9864323d164d4f.min.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+/* =============================================
+   VARIABLES & RESET
+============================================= */
+:root {
+    --blue: #004A8F;
+    --blue-dark: #003366;
+    --orange: #F7941D;
+    --orange-dark: #e0800b;
+    --text: #333333;
+    --muted: #666;
+    --light-bg: #f4f7fa;
+    --white: #ffffff;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+    --shadow-hover: 0 10px 30px rgba(0,0,0,0.15);
+    --radius: 14px;
+}
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; color: var(--text); line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
 
-
-
-
-
-
-
-
-
-
-
-
+.container { width: 90%; max-width: 1200px; margin: 0 auto; }
+.text-orange { color: var(--orange); }
 
 /* =============================================
-   LANDING PAGE STYLES
+   BOTONES
+============================================= */
+.btn-primary {
+    background-color: var(--orange); color: var(--white);
+    padding: 11px 28px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.3s; border: none; cursor: pointer; font-family: 'Nunito', sans-serif;
+}
+.btn-primary:hover { background-color: var(--orange-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(247,148,29,0.4); }
+.btn-large { padding: 14px 34px; font-size: 1.05rem; }
+.btn-ghost {
+    background: transparent; color: white; border: 2px solid rgba(255,255,255,0.7);
+    padding: 11px 28px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;
+    display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.15); border-color: white; }
+.btn-miviaje {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,74,143,0.07); border: 1.5px solid var(--blue); color: var(--blue);
+    padding: 9px 22px; border-radius: 50px; font-weight: 800; font-size: 0.88rem;
+    transition: 0.3s; white-space: nowrap;
+}
+.btn-miviaje:hover { background: var(--blue); color: white; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,74,143,0.2); }
+
+/* =============================================
+   NAVBAR
 ============================================= */
 .navbar { background: var(--white); padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-bottom: 3px solid var(--orange); transition: box-shadow 0.3s; }
 .nav-container { display: flex; justify-content: space-between; align-items: center; }
@@ -146,7 +180,7 @@
 .feature-item i { font-size: 1.1rem; flex-shrink: 0; }
 
 /* =============================================
-   POR QUÃ‰ ELEGIRNOS
+   POR QUÉ ELEGIRNOS
 ============================================= */
 .porque-section { padding: 90px 0; background: var(--light-bg); }
 .section-header-centered { text-align: center; margin-bottom: 50px; }
@@ -346,7 +380,7 @@ a.contact-val:hover { color: var(--orange); }
                     </ul>
                 </nav>
             </div>
-            <button class="hamburger" id="hamburgerBtn" aria-label="MenÃº">
+            <button class="hamburger" id="hamburgerBtn" aria-label="Menú">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -364,12 +398,12 @@ a.contact-val:hover { color: var(--orange); }
     <section id="inicio" class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p class="hero-eyebrow">Agencia de viajes Â· La Plata, Buenos Aires</p>
-            <h1>DescubrÃ­ el mundo con <span class="text-orange">Herse</span></h1>
-            <p class="hero-sub">DiseÃ±amos el viaje de tus sueÃ±os con atenciÃ³n personalizada, multidestinos y soporte en todo momento.</p>
+            <p class="hero-eyebrow">Agencia de viajes · La Plata, Buenos Aires</p>
+            <h1>Descubrí el mundo con <span class="text-orange">Herse</span></h1>
+            <p class="hero-sub">Diseñamos el viaje de tus sueños con atención personalizada, multidestinos y soporte en todo momento.</p>
             <div class="hero-buttons">
-                <a href="#consulta" class="btn-primary btn-large">CotizÃ¡ tu viaje</a>
-                <a href="#nosotros" class="btn-ghost">ConocÃ© mÃ¡s</a>
+                <a href="#consulta" class="btn-primary btn-large">Cotizá tu viaje</a>
+                <a href="#nosotros" class="btn-ghost">Conocé más</a>
             </div>
             <div class="hero-destinos">
                 <span>Destinos populares:</span>
@@ -396,7 +430,7 @@ a.contact-val:hover { color: var(--orange); }
             <div class="stat-item reveal reveal-d1">
                 <span class="stat-icon"><i class="fas fa-headset"></i></span>
                 <span class="stat-number">24/7</span>
-                <span class="stat-label">Soporte vÃ­a WhatsApp</span>
+                <span class="stat-label">Soporte vía WhatsApp</span>
             </div>
             <div class="stat-item reveal reveal-d2">
                 <span class="stat-icon"><i class="fas fa-star"></i></span>
@@ -422,10 +456,10 @@ a.contact-val:hover { color: var(--orange); }
                 </div>
             </div>
             <div class="nosotros-text reveal reveal-d1">
-                <p class="section-eyebrow">Â¿QuiÃ©nes somos?</p>
+                <p class="section-eyebrow">¿Quiénes somos?</p>
                 <h2 class="section-title-plain">Somos Herse Turismo</h2>
-                <p>Somos una agencia de viajes de La Plata, Buenos Aires. Nacimos con la misiÃ³n de acercar el mundo a cada persona, ofreciendo paquetes a medida y un servicio cercano y de confianza.</p>
-                <p style="margin-top: 12px;">Cada viaje que organizamos es Ãºnico. Nos tomamos el tiempo de entender quÃ© buscÃ¡s â€” aventura, relax, cultura, familia â€” y construimos la experiencia perfecta para vos.</p>
+                <p>Somos una agencia de viajes de La Plata, Buenos Aires. Nacimos con la misión de acercar el mundo a cada persona, ofreciendo paquetes a medida y un servicio cercano y de confianza.</p>
+                <p style="margin-top: 12px;">Cada viaje que organizamos es único. Nos tomamos el tiempo de entender qué buscás — aventura, relax, cultura, familia — y construimos la experiencia perfecta para vos.</p>
                 <div class="nosotros-features">
                     <div class="feature-item">
                         <i class="fas fa-check-circle text-orange"></i>
@@ -437,7 +471,7 @@ a.contact-val:hover { color: var(--orange); }
                     </div>
                     <div class="feature-item">
                         <i class="fas fa-check-circle text-orange"></i>
-                        <span>AcompaÃ±amiento antes, durante y despuÃ©s</span>
+                        <span>Acompañamiento antes, durante y después</span>
                     </div>
                     <div class="feature-item">
                         <i class="fas fa-check-circle text-orange"></i>
@@ -449,12 +483,12 @@ a.contact-val:hover { color: var(--orange); }
         </div>
     </section>
 
-    <!-- POR QUÃ‰ ELEGIRNOS -->
+    <!-- POR QUÉ ELEGIRNOS -->
     <section class="porque-section">
         <div class="container">
             <div class="section-header-centered">
                 <p class="section-eyebrow">Nuestras ventajas</p>
-                <h2 class="section-title-plain">Â¿Por quÃ© elegir Herse?</h2>
+                <h2 class="section-title-plain">¿Por qué elegir Herse?</h2>
             </div>
             <div class="porque-grid">
                 <div class="porque-card reveal">
@@ -462,21 +496,21 @@ a.contact-val:hover { color: var(--orange); }
                         <i class="fas fa-headset"></i>
                     </div>
                     <h3>Soporte 24/7</h3>
-                    <p>ViajÃ¡ tranquilo. Estamos conectados con vos en todo momento vÃ­a WhatsApp, desde que reservÃ¡s hasta que volvÃ©s a casa.</p>
+                    <p>Viajá tranquilo. Estamos conectados con vos en todo momento vía WhatsApp, desde que reservás hasta que volvés a casa.</p>
                 </div>
                 <div class="porque-card reveal reveal-d1">
                     <div class="porque-icon-wrap blue">
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3>Multidestinos</h3>
-                    <p>Argentina, Caribe, Europa, Brasil y mucho mÃ¡s. Armamos tu viaje a cualquier destino del mundo con las mejores tarifas.</p>
+                    <p>Argentina, Caribe, Europa, Brasil y mucho más. Armamos tu viaje a cualquier destino del mundo con las mejores tarifas.</p>
                 </div>
                 <div class="porque-card reveal reveal-d2">
                     <div class="porque-icon-wrap orange">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Seguridad Total</h3>
-                    <p>Agencia habilitada. Tu dinero y tu viaje estÃ¡n protegidos en todo momento con respaldo legal.</p>
+                    <p>Agencia habilitada. Tu dinero y tu viaje están protegidos en todo momento con respaldo legal.</p>
                 </div>
             </div>
         </div>
@@ -487,12 +521,12 @@ a.contact-val:hover { color: var(--orange); }
         <div class="consulta-overlay"></div>
         <div class="container consulta-inner">
             <div class="consulta-text">
-                <p class="section-eyebrow light">Â¿Listo para viajar?</p>
-                <h2>Contanos tu sueÃ±o,<br>nosotros lo hacemos realidad</h2>
-                <p>CompletÃ¡ el formulario y te respondemos en menos de 24 horas con las mejores opciones para vos.</p>
+                <p class="section-eyebrow light">¿Listo para viajar?</p>
+                <h2>Contanos tu sueño,<br>nosotros lo hacemos realidad</h2>
+                <p>Completá el formulario y te respondemos en menos de 24 horas con las mejores opciones para vos.</p>
                 <div class="consulta-trust">
                     <div><i class="fas fa-lock"></i> Sin compromiso</div>
-                    <div><i class="fas fa-bolt"></i> Respuesta rÃ¡pida</div>
+                    <div><i class="fas fa-bolt"></i> Respuesta rápida</div>
                     <div><i class="fas fa-smile"></i> 100% gratis</div>
                 </div>
             </div>
@@ -509,10 +543,10 @@ a.contact-val:hover { color: var(--orange); }
                     <div class="tab-panel active" id="tab-cotizar">
                         <div class="form-group">
                             <label for="nombre">Tu nombre</label>
-                            <input type="text" id="nombre" placeholder="Ej: MarÃ­a GonzÃ¡lez">
+                            <input type="text" id="nombre" placeholder="Ej: María González">
                         </div>
                         <div class="form-group">
-                            <label for="destino">Â¿CuÃ¡l es tu prÃ³ximo destino soÃ±ado?</label>
+                            <label for="destino">¿Cuál es tu próximo destino soñado?</label>
                             <input type="text" id="destino" placeholder="Ej: Caribe, Europa, Disney...">
                         </div>
                         <div class="form-row">
@@ -522,7 +556,7 @@ a.contact-val:hover { color: var(--orange); }
                                     <option>1 persona</option>
                                     <option>2 personas</option>
                                     <option>3-4 personas</option>
-                                    <option>5 o mÃ¡s</option>
+                                    <option>5 o más</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -531,7 +565,7 @@ a.contact-val:hover { color: var(--orange); }
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="mensaje">Â¿Algo mÃ¡s? (opcional)</label>
+                            <label for="mensaje">¿Algo más? (opcional)</label>
                             <textarea id="mensaje" placeholder="Ej: viaje de luna de miel, quiero all inclusive, presupuesto aproximado..."></textarea>
                         </div>
                         <button class="btn-submit" onclick="enviarConsulta()">
@@ -545,7 +579,7 @@ a.contact-val:hover { color: var(--orange); }
                         <div class="contacto-item-info">
                             <div class="contacto-item-icon"><i class="fas fa-phone"></i></div>
                             <div>
-                                <span class="contacto-item-label">TelÃ©fono</span>
+                                <span class="contacto-item-label">Teléfono</span>
                                 <a href="tel:+5492215661704" class="contact-val">+54 9 221 566 1704</a>
                             </div>
                         </div>
@@ -559,7 +593,7 @@ a.contact-val:hover { color: var(--orange); }
                         <div class="contacto-item-info">
                             <div class="contacto-item-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div>
-                                <span class="contacto-item-label">UbicaciÃ³n</span>
+                                <span class="contacto-item-label">Ubicación</span>
                                 <span class="contact-val">La Plata, Buenos Aires</span>
                             </div>
                         </div>
@@ -581,7 +615,7 @@ a.contact-val:hover { color: var(--orange); }
         <div class="container footer-content">
             <div class="footer-col">
                 <img src="assets/logo-web.png" alt="Herse Turismo" class="footer-logo">
-                <p>La Plata, Buenos Aires.<br>Hacemos realidad el viaje de tus sueÃ±os.</p>
+                <p>La Plata, Buenos Aires.<br>Hacemos realidad el viaje de tus sueños.</p>
             </div>
             <div class="footer-col">
                 <h4>Contacto</h4>
@@ -595,7 +629,7 @@ a.contact-val:hover { color: var(--orange); }
                 </div>
             </div>
             <div class="footer-col">
-                <h4>NavegaciÃ³n</h4>
+                <h4>Navegación</h4>
                 <ul class="footer-nav">
                     <li><a href="#inicio"><i class="fas fa-chevron-right"></i> Inicio</a></li>
                     <li><a href="#nosotros"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
@@ -605,7 +639,7 @@ a.contact-val:hover { color: var(--orange); }
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Herse Turismo. Todos los derechos reservados. &nbsp;|&nbsp; <a href="/privacidad/" style="color:rgba(255,255,255,.7);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Privacidad</a> &nbsp;|&nbsp; <a href="/terminos/" style="color:rgba(255,255,255,.7);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">TÃ©rminos y Condiciones</a></p>
+            <p>&copy; 2026 Herse Turismo. Todos los derechos reservados. &nbsp;|&nbsp; <a href="/privacidad/" style="color:rgba(255,255,255,.7);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Privacidad</a> &nbsp;|&nbsp; <a href="/terminos/" style="color:rgba(255,255,255,.7);text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.7)'">Términos y Condiciones</a></p>
         </div>
     </footer>
 
@@ -617,7 +651,7 @@ a.contact-val:hover { color: var(--orange); }
 
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        const miWhatsapp = "5492215661704"; // REEMPLAZÃ CON TU NÃšMERO REAL
+        const miWhatsapp = "5492215661704"; // REEMPLAZÁ CON TU NÚMERO REAL
 
         // Hamburger
         const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -655,7 +689,7 @@ a.contact-val:hover { color: var(--orange); }
             navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
         });
 
-        // Formulario â†’ WhatsApp
+        // Formulario → WhatsApp
         function enviarConsulta() {
             const nombre   = document.getElementById('nombre').value.trim();
             const destino  = document.getElementById('destino').value;
@@ -664,16 +698,16 @@ a.contact-val:hover { color: var(--orange); }
             const mensaje  = document.getElementById('mensaje').value.trim();
 
             if (!nombre || !destino || !mes) {
-                alert('Por favor completÃ¡ tu nombre, destino y fecha aproximada.');
+                alert('Por favor completá tu nombre, destino y fecha aproximada.');
                 return;
             }
 
-            const texto = `Hola! Quiero cotizar un viaje ðŸŒ\n\n` +
-                          `ðŸ‘¤ Nombre: ${nombre}\n` +
-                          `âœˆï¸ Destino: ${destino}\n` +
-                          `ðŸ‘¥ Personas: ${personas}\n` +
-                          `ðŸ“… Fecha aproximada: ${mes}\n` +
-                          (mensaje ? `ðŸ’¬ Comentario: ${mensaje}` : '');
+            const texto = `Hola! Quiero cotizar un viaje 🌍\n\n` +
+                          `👤 Nombre: ${nombre}\n` +
+                          `✈️ Destino: ${destino}\n` +
+                          `👥 Personas: ${personas}\n` +
+                          `📅 Fecha aproximada: ${mes}\n` +
+                          (mensaje ? `💬 Comentario: ${mensaje}` : '');
 
             window.open(`https://wa.me/${miWhatsapp}?text=${encodeURIComponent(texto)}`, '_blank');
         }
