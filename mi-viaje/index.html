@@ -60,31 +60,20 @@ img{display:block}
 .ni i{width:18px;text-align:center;font-size:.88rem}
 .ni:hover{background:var(--bg);color:var(--tx);transform:translateX(2px)}
 .ni.active{background:#ebf1ff;color:var(--ac);font-weight:700;border-left:3px solid var(--ac);padding-left:8px}
+.ni[data-view="mi-viaje"].active{background:#ebf1ff;color:var(--ac);border-left-color:var(--ac)}
+.ni[data-view="mis-viajes"].active{background:#dcfce7;color:#16a34a;border-left-color:#16a34a}
+.ni[data-view="fidelizacion"].active{background:#fef9c3;color:#d97706;border-left-color:#d97706}
+.ni[data-view="vision"].active{background:#ebf1ff;color:var(--ac);border-left-color:var(--ac)}
+.ni[data-view="perfil"].active{background:#f3e8ff;color:#9333ea;border-left-color:#9333ea}
+.sb-logout{margin:0 10px 14px;padding:9px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx2);font-size:.76rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:.18s;font-family:inherit;width:calc(100% - 20px)}
+.sb-logout:hover{color:#ef4444;background:#fef2f2;border-color:#fecaca}
 .sb-promo{margin:10px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,#0f2d5e,#1a6cff)}
 .sb-promo img{width:100%;height:80px;object-fit:cover;opacity:.65}
 .sb-promo-body{padding:10px}
 .sb-promo-body h4{font-size:.74rem;font-weight:800;color:#fff;margin-bottom:3px}
 .sb-promo-body p{font-size:.63rem;color:rgba(255,255,255,.7);margin-bottom:8px;line-height:1.4}
 .btn-promo{display:block;text-align:center;background:#fff;color:#1a6cff;font-size:.7rem;font-weight:800;padding:6px;border-radius:7px}
-/* â”€â”€ SIDEBAR: DARK NAVY + COLORED SECTIONS â”€â”€ */
-.sidebar{background:linear-gradient(180deg,#0c1929 0%,#132f4c 100%)!important;border-right:1px solid rgba(255,255,255,.06)!important}
-.sb-logo{border-bottom:1px solid rgba(255,255,255,.08)!important}
-.ni{color:rgba(255,255,255,.6)!important}
-.ni:hover{background:rgba(255,255,255,.06)!important;color:#fff!important}
-.ni.active{font-weight:700!important;border-left:3px solid!important;padding-left:8px!important}
-.ni[data-view="mi-viaje"].active{background:rgba(37,99,235,.15)!important;color:#93c5fd!important;border-left-color:#60a5fa!important}
-.ni[data-view="mis-viajes"].active{background:rgba(34,197,94,.1)!important;color:#86efac!important;border-left-color:#4ade80!important}
-.ni[data-view="fidelizacion"].active{background:rgba(245,158,11,.1)!important;color:#fcd34d!important;border-left-color:#fbbf24!important}
-.ni[data-view="pasaporte"].active{background:rgba(249,115,22,.1)!important;color:#fdba74!important;border-left-color:#fb923c!important}
-.ni[data-view="pasaporte-tribunero"].active{background:rgba(16,185,129,.1)!important;color:#6ee7b7!important;border-left-color:#34d399!important}
-.ni[data-view="perfil"].active{background:rgba(168,85,247,.1)!important;color:#d8b4fe!important;border-left-color:#a78bfa!important}
-.sb-sec{color:rgba(255,255,255,.28)!important}
-.sb-info{background:rgba(255,255,255,.04)!important;border-color:rgba(255,255,255,.08)!important}
-.sb-info-ttl{color:#fff!important}
-.sb-info-sub{color:rgba(255,255,255,.5)!important}
-.sb-info-link{color:#60a5fa!important}
-.sb-logout{color:rgba(255,255,255,.5)!important;background:rgba(255,255,255,.05)!important;border-color:rgba(255,255,255,.1)!important}
-.sb-logout:hover{color:#f87171!important;background:rgba(239,68,68,.1)!important;border-color:rgba(239,68,68,.25)!important}
+.hdr-ico,.hdr-ttl{display:none!important}
 /* â”€â”€ SECTION IDENTITY: color accent per view â”€â”€ */
 .view-wrap{transition:background .4s ease}
 .view-wrap[data-accent="blue"]{background:linear-gradient(180deg,#f0f5ff 0%,var(--bg) 18%)!important}
@@ -1304,8 +1293,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 [data-theme="dark"] .hdr-ico.green{background:rgba(22,163,74,.15)}
 [data-theme="dark"] .hdr-ico.purple{background:rgba(147,51,234,.15)}
 [data-theme="dark"] .hdr-ico.gold{background:rgba(217,119,6,.15)}
-[data-theme="dark"] .sidebar{background:linear-gradient(180deg,#0c1929 0%,#132f4c 100%)!important}
-[data-theme="dark"] .sb-logo img{filter:brightness(1.8) contrast(.9)}
+[data-theme="dark"] .sidebar{background:linear-gradient(180deg,var(--card) 0%,var(--bg) 100%)!important;border-right-color:var(--bd)!important}
+[data-theme="dark"] .sb-logo img{filter:none}
 [data-theme="dark"] .ni.active{background:rgba(26,108,255,.15)}
 [data-theme="dark"] .sb-info{background:var(--card);border-color:var(--bd)}
 [data-theme="dark"] .sb-promo{background:linear-gradient(180deg,#0a1a33,#0f2952)}
