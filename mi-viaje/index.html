@@ -51,6 +51,16 @@ img{display:block}
 .sb-sec{font-size:.56rem;font-weight:800;color:var(--tx3);text-transform:uppercase;letter-spacing:1.4px;padding:14px 12px 6px;margin-top:2px}
 .sb-fill{flex:1;min-height:12px}
 .sb-info{margin:0 10px 10px;padding:14px;background:var(--card);border:1px solid var(--bd);border-radius:12px}
+.sb-pulse{margin:14px;padding:16px;background:rgba(0,0,0,.03);border:1px solid var(--bd);border-radius:16px;backdrop-filter:blur(10px)}
+.sb-pulse-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sb-pulse-lbl{font-size:.58rem;font-weight:900;color:var(--tx3);text-transform:uppercase;letter-spacing:1px}
+.sb-pulse-level{font-size:.6rem;font-weight:900;background:rgba(217,119,6,.15);color:#b45309;padding:2px 8px;border-radius:99px}
+.sb-pulse-track{height:5px;background:var(--bd);border-radius:99px;overflow:hidden;margin-bottom:12px}
+.sb-pulse-bar{height:100%;width:0%;background:linear-gradient(90deg,#1a6cff,#60a5fa);transition:width 1.5s cubic-bezier(.34,1.56,.64,1)}
+.sb-pulse-stats{display:flex;justify-content:space-around;gap:4px}
+.sb-pulse-num{font-size:.85rem;font-weight:950;color:var(--tx)}
+.sb-pulse-lbl2{font-size:.48rem;color:var(--tx3);text-transform:uppercase;font-weight:700}
+.sb-pulse-div{width:1px;background:var(--bd);height:20px;margin-top:4px}
 .sb-info-ttl{font-size:.68rem;font-weight:800;color:var(--tx);margin-bottom:4px;display:flex;align-items:center;gap:6px}
 .sb-info-ttl i{color:var(--ac);font-size:.7rem}
 .sb-info-sub{font-size:.6rem;color:var(--tx2);line-height:1.6}
@@ -1297,6 +1307,8 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 [data-theme="dark"] .sb-logo img{filter:none}
 [data-theme="dark"] .ni.active{background:rgba(26,108,255,.15)}
 [data-theme="dark"] .sb-info{background:var(--card);border-color:var(--bd)}
+[data-theme="dark"] .sb-pulse{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
+[data-theme="dark"] .sb-pulse-level{background:rgba(217,119,6,.2);color:#fbbf24}
 [data-theme="dark"] .sb-promo{background:linear-gradient(180deg,#0a1a33,#0f2952)}
 [data-theme="dark"] .btn-promo{background:var(--card);color:var(--ac)}
 [data-theme="dark"] .ayuda{background:linear-gradient(135deg,#111827,#1e293b);border-color:#334155}
@@ -1585,23 +1597,23 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
     <div class="sb-fill"></div>
 
     <!-- SB Pulse Widget -->
-    <div id="sbPulse" style="margin:14px;padding:16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;display:none;backdrop-filter:blur(10px)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <span style="font-size:0.58rem;font-weight:900;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px">Tu Actividad</span>
-        <span id="sbPulseLevel" style="font-size:0.6rem;font-weight:900;background:rgba(217,119,6,0.2);color:#fbbf24;padding:2px 8px;border-radius:99px">LEVEL 1</span>
+    <div id="sbPulse" class="sb-pulse" style="display:none">
+      <div class="sb-pulse-hdr">
+        <span class="sb-pulse-lbl">Tu Actividad</span>
+        <span id="sbPulseLevel" class="sb-pulse-level">LEVEL 1</span>
       </div>
-      <div style="height:5px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;margin-bottom:12px">
-        <div id="sbPulseBar" style="height:100%;width:0%;background:linear-gradient(90deg,#1a6cff,#60a5fa);transition:width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1)"></div>
+      <div class="sb-pulse-track">
+        <div id="sbPulseBar" class="sb-pulse-bar"></div>
       </div>
-      <div style="display:flex;justify-content:space-around;gap:4px">
+      <div class="sb-pulse-stats">
         <div style="text-align:center">
-          <div id="sbPulseTrips" style="font-size:0.85rem;font-weight:950;color:#fff">0</div>
-          <div style="font-size:0.48rem;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:700">Viajes</div>
+          <div id="sbPulseTrips" class="sb-pulse-num">0</div>
+          <div class="sb-pulse-lbl2">Viajes</div>
         </div>
-        <div style="width:1px;background:rgba(255,255,255,0.1);height:20px;margin-top:4px"></div>
+        <div class="sb-pulse-div"></div>
         <div style="text-align:center">
-          <div id="sbPulsePts" style="font-size:0.85rem;font-weight:950;color:#fff">0</div>
-          <div style="font-size:0.48rem;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:700">Puntos</div>
+          <div id="sbPulsePts" class="sb-pulse-num">0</div>
+          <div class="sb-pulse-lbl2">Puntos</div>
         </div>
       </div>
     </div>
