@@ -902,12 +902,36 @@ a.contact-val:hover { color: var(--orange); }
             return '';
         }
 
+        const CORS_PROXIES = [
+            url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+            url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+            url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+        ];
+
+        async function fetchViaProxy(feedUrl) {
+            for (const buildUrl of CORS_PROXIES) {
+                try {
+                    const proxyUrl = buildUrl(feedUrl);
+                    const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(8000) });
+                    if (!res.ok) continue;
+                    const contentType = res.headers.get('content-type') || '';
+                    let text;
+                    if (contentType.includes('json')) {
+                        const data = await res.json();
+                        text = data.contents;
+                    } else {
+                        text = await res.text();
+                    }
+                    if (text && text.includes('<item')) return text;
+                } catch(_) { /* try next proxy */ }
+            }
+            throw new Error('All proxies failed');
+        }
+
         async function parseFeed(feedUrl, nombre) {
-            const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
-            const res = await fetch(proxy);
-            const data = await res.json();
+            const xmlText = await fetchViaProxy(feedUrl);
             const parser = new DOMParser();
-            const xml = parser.parseFromString(data.contents, 'text/xml');
+            const xml = parser.parseFromString(xmlText, 'text/xml');
             const items = Array.from(xml.querySelectorAll('item')).slice(0, 3);
             return items.map(item => ({
                 titulo: item.querySelector('title')?.textContent?.trim() || '',
