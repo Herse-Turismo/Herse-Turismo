@@ -780,6 +780,35 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
 .hv-chip{font-size:.59rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--bd);color:var(--tx2)}
 .hv-cta{width:100%;margin-top:11px;padding:8px;background:var(--bg);color:var(--ac);border:1.5px solid var(--bd);border-radius:8px;font-size:.73rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
 .hv-cta:hover{background:var(--ac);color:#fff;border-color:var(--ac)}
+/* ── TRIP RATING ── */
+.hv-rating{margin-top:12px;padding:11px 13px;background:var(--bg);border:1.5px solid var(--bd);border-radius:10px}
+.hv-rating-ttl{font-size:.66rem;font-weight:700;color:var(--tx2);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.hv-stars{display:flex;gap:4px;margin-bottom:6px}
+.hv-star{background:none;border:none;cursor:pointer;padding:3px;font-size:1rem;color:#d1d5db;transition:.15s;line-height:1}
+.hv-star.filled{color:#f59e0b}
+.hv-star:hover,.hv-star:focus{color:#f59e0b;transform:scale(1.15)}
+.hv-rating-comment{width:100%;padding:8px 10px;border:1.5px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);font-size:.73rem;font-family:inherit;resize:vertical;min-height:56px;outline:none;margin-top:6px;box-sizing:border-box}
+.hv-rating-comment:focus{border-color:var(--ac)}
+.hv-rating-save{margin-top:7px;padding:7px 14px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:6px;transition:.15s}
+.hv-rating-save:hover{filter:brightness(1.1)}
+/* ── KEY DATES ── */
+.kd-card{background:var(--card);border:1.5px solid var(--bd);border-radius:14px;padding:14px 16px;margin-bottom:14px;animation:fadeUp .3s ease both}
+.kd-hdr{font-size:.72rem;font-weight:800;color:var(--tx);margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.kd-list{display:flex;flex-direction:column;gap:8px}
+.kd-item{display:flex;align-items:center;gap:12px;padding:9px 11px;border-radius:10px;background:var(--bg);border:1px solid var(--bd);cursor:default;transition:.15s}
+.kd-item.kd-urgent{border-color:#f59e0b;background:#fffbeb}
+.kd-ico{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.kd-info{flex:1;min-width:0}
+.kd-label{font-size:.66rem;font-weight:700;color:var(--tx2)}
+.kd-value{font-size:.8rem;font-weight:800;color:var(--tx);margin-top:1px}
+.kd-badge{width:20px;height:20px;background:#f59e0b;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;flex-shrink:0}
+/* ── LEVEL PERKS ── */
+.niv-it{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd);font-size:.72rem;color:var(--tx2)}
+.niv-it:last-child{border-bottom:none}
+.niv-it.active-n{color:var(--tx)}
+.niv-perks{margin:6px 0 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.niv-perks li{font-size:.64rem;color:var(--tx2);display:flex;align-items:center;gap:5px}
+.niv-perks li i{color:#22c55e;font-size:.58rem;flex-shrink:0}
 .hv-empty{text-align:center;padding:48px 0;color:var(--tx2);font-size:.82rem}
 /* HISTORIAL — mejoras */
 .hvs-sub{font-size:.58rem;color:var(--tx3);margin-top:2px;line-height:1.3}
@@ -1683,7 +1712,7 @@ hr.hr{border:none;border-top:1px solid var(--bd);margin:12px 0}
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
          <button class="mj-cta" onclick="toggleItinerario()"><i class="fas fa-route"></i> Itinerario</button>
-         <button class="mj-cta" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3)" onclick="shareTrip()"><i class="fas fa-share-alt"></i> Compartir</button>
+         <button class="mj-cta" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.3)" onclick="shareTripMenu()"><i class="fas fa-share-alt"></i> Compartir</button>
         </div>
        </div>
       </div>
@@ -2904,7 +2933,10 @@ function updateTripUI(v){
           </div>
         </div>
       </div>
-      <button class="trip-det-btn" onclick="toggleItinerario()"><i class="fas fa-route"></i> Ver detalles del viaje <i class="fas fa-chevron-right"></i></button>
+      <div style="position:absolute;bottom:18px;right:20px;display:flex;gap:8px">
+        <button class="trip-det-btn" style="position:static" onclick="toggleItinerario()"><i class="fas fa-route"></i> Ver detalles <i class="fas fa-chevron-right"></i></button>
+        <button class="trip-det-btn" style="position:static;background:rgba(255,255,255,.12)" onclick="shareTripMenu()"><i class="fas fa-share-alt"></i> Compartir</button>
+      </div>
     </div>
     <div class="smart-widgets" id="smartWidgets"></div>
     <div class="dest-map-card" id="destMapCard" style="display:none"><div class="dest-map-hdr"><i class="fas fa-map-marked-alt"></i> Tu destino en el mapa</div><div id="destMap"></div></div>
@@ -2949,6 +2981,7 @@ function updateTripUI(v){
         <div id="fidDashCard"><div style="opacity:.3;font-size:.7rem;text-align:center;padding:20px 0"><i class="fas fa-spinner fa-spin"></i></div></div>
       </div>
     </div>
+    <div id="keyDatesWrap"></div>
     <div class="ck-wrap" id="checklistWrap"></div>
     <div class="tw-wrap" id="travelWalletWrap"></div>
     <div class="trip-cta-banner">
@@ -2962,6 +2995,7 @@ function updateTripUI(v){
   loadChecklist(v.id);
   renderTravelWallet(v.documentos||[]);
   loadSmartWidgets(v.destino);
+  renderKeyDates(v);
 }
 
 /* ===== SMART WIDGETS: Clima, Zona Horaria, Emergencia ===== */
@@ -3348,7 +3382,7 @@ function renderAllTrips(){
           <div class="hv-chips" style="margin-bottom:8px"><span class="hv-chip"><i class="fas fa-users"></i> ${t.pasajeros||t.pax||2} pax</span>${hotelChip}${vueloChip}${t.codigo?`<span class="hv-chip">${escapeHtml(t.codigo)}</span>`:''}</div>
           ${ppBadge}
           <button class="hv-cta" onclick="window.open('https://wa.me/5492215661704','_blank')"><i class="fas fa-eye"></i> Ver detalles</button>
-          ${isPast?`<div class="tp-album" id="album-${t.id}"><div class="tp-album-hdr"><div class="tp-album-ttl"><i class="fas fa-images"></i> Mis fotos</div><button class="tp-upload-btn" onclick="event.stopPropagation();triggerPhotoUpload('${t.id}')"><i class="fas fa-plus"></i> Subir</button></div><div class="tp-photos" id="photos-${t.id}"><div class="tp-empty"><i class="fas fa-camera"></i>Subí fotos de tu viaje</div></div><input type="file" id="photoInput-${t.id}" accept="image/*" multiple style="display:none" onchange="uploadTripPhotos('${t.id}',this.files)"></div>`:''}
+          ${isPast?renderTripRating(t):''}          ${isPast?`<div class="tp-album" id="album-${t.id}"><div class="tp-album-hdr"><div class="tp-album-ttl"><i class="fas fa-images"></i> Mis fotos</div><button class="tp-upload-btn" onclick="event.stopPropagation();triggerPhotoUpload('${t.id}')"><i class="fas fa-plus"></i> Subir</button></div><div class="tp-photos" id="photos-${t.id}"><div class="tp-empty"><i class="fas fa-camera"></i>Subí fotos de tu viaje</div></div><input type="file" id="photoInput-${t.id}" accept="image/*" multiple style="display:none" onchange="uploadTripPhotos('${t.id}',this.files)"></div>`:''}
         </div>
       </div>`;
     }).join('');
@@ -3473,10 +3507,19 @@ async function renderFidelizacion(){
     return `<div class="act-i"><div class="act-ico" style="background:${isEarn?'#dcfce7':'#fee2e2'};color:${isEarn?'#16a34a':'#dc2626'}"><i class="fas ${ico}"></i></div><div><div class="act-name">${m.concepto||'Movimiento'}</div><div class="act-date">${dateStr}</div></div><span class="act-pts" style="color:${isEarn?'#16a34a':'#dc2626'}">${isEarn?'+':''}${fmtPts(m.puntos)} pts</span></div>`;
   }).join(''):'<div style="text-align:center;padding:20px;opacity:.4;font-size:.72rem">Sin movimientos recientes</div>';
   // Levels sidebar HTML
+  const LEVEL_PERKS={
+    aventurero:['Acceso al portal Mi Viaje','Checklist pre-viaje personalizado','Travel Wallet con tus documentos'],
+    explorador:['Todo lo de Aventurero','x1.1 puntos en cada compra','Descuento 15% en asistencia al viajero'],
+    viajero:['Todo lo de Explorador','x1.25 puntos en cada compra','Transfer privado al aeropuerto','Acceso a precios exclusivos'],
+    globetrotter:['Todo lo de Viajero Frecuente','x1.5 puntos en cada compra','Upgrade de habitación garantizado','Late checkout incluido','Excursión premium para 2'],
+    leyenda:['Todo lo anterior','x2 puntos en cada compra','20% OFF en viaje a elección','Asesor personal dedicado','Acceso VIP a lanzamientos']
+  };
   const levelsHtml=LOYALTY_CONFIG.levels.map(l=>{
     const isActive=l.id===prog.current.id;
     const maxStr=l.max?fmtPts(l.max):'+';
-    return `<div class="niv-it ${isActive?'active-n':''}"><div class="niv-dot" style="background:${l.color}"></div>${isActive?'<strong>':''} ${l.emoji} ${l.name}${isActive?'</strong>':''}<span class="niv-range">${fmtPts(l.min)} - ${maxStr} pts</span></div>`;
+    const perks=LEVEL_PERKS[l.id]||[];
+    const perksHtml=isActive?`<ul class="niv-perks">${perks.map(p=>'<li><i class="fas fa-check"></i> '+p+'</li>').join('')}</ul>`:'';
+    return `<div class="niv-it ${isActive?'active-n':''}"><div class="niv-dot" style="background:${l.color}"></div><div style="flex:1"><div>${isActive?'<strong>':''} ${l.emoji} ${l.name}${isActive?'</strong>':''}<span class="niv-range">${fmtPts(l.min)} - ${maxStr} pts</span></div>${perksHtml}</div></div>`;
   }).join('');
   // Stats
   const viajes=_allTrips.filter(t=>!t.activo).length;
@@ -3613,6 +3656,164 @@ async function canjearBeneficio(benefitId){
   _loyaltyData.availablePoints=newAvail;
   renderFidelizacion();
 }
+/* ===== TRIP RATING ===== */
+const _tripRatings={};
+function renderTripRating(t){
+  const saved=_tripRatings[t.id]||0;
+  const stars=Array.from({length:5},(_,i)=>{
+    const filled=i<saved;
+    return `<button class="hv-star ${filled?'filled':''}" onclick="setTripRating('${t.id}',${i+1})" title="${i+1} estrella${i?'s':''}" aria-label="${i+1} estrella${i?'s':''}"><i class="fas fa-star"></i></button>`;
+  }).join('');
+  const comment=document.getElementById(`rating-comment-${t.id}`)?.value||'';
+  return `<div class="hv-rating" id="rating-wrap-${t.id}">
+    <div class="hv-rating-ttl"><i class="fas fa-star" style="color:#f59e0b"></i> Calificá este viaje</div>
+    <div class="hv-stars">${stars}</div>
+    ${saved>0?`<textarea id="rating-comment-${t.id}" class="hv-rating-comment" placeholder="¿Qué fue lo mejor del viaje?" maxlength="280"></textarea><button class="hv-rating-save" onclick="saveTripRating('${t.id}')"><i class="fas fa-paper-plane"></i> Enviar reseña</button>`:'<div style="font-size:.6rem;color:var(--tx3);margin-top:4px">Seleccioná una estrella para calificar</div>'}
+  </div>`;
+}
+function setTripRating(tripId,stars){
+  _tripRatings[tripId]=stars;
+  const wrap=document.getElementById('rating-wrap-'+tripId);
+  if(!wrap)return;
+  const t=_allTrips.find(x=>x.id===tripId)||{id:tripId};
+  wrap.outerHTML=renderTripRating(t);
+}
+async function saveTripRating(tripId){
+  const stars=_tripRatings[tripId];
+  const comment=(document.getElementById('rating-comment-'+tripId)?.value||'').trim();
+  if(!stars)return;
+  const wrap=document.getElementById('rating-wrap-'+tripId);
+  if(wrap)wrap.innerHTML='<div style="text-align:center;padding:10px;font-size:.75rem;color:#16a34a"><i class="fas fa-check-circle"></i> ¡Gracias por tu reseña! (+10.000 pts)</div>';
+  if(!_passportUserId)return;
+  try{
+    await _db.from('viaje_ratings').upsert({viaje_id:tripId,cliente_id:_passportUserId,estrellas:stars,comentario:comment,created_at:new Date().toISOString()},{onConflict:'viaje_id,cliente_id'});
+    await _db.from('fidelizacion_trans').insert({cliente_id:_passportUserId,concepto:'Reseña aprobada',puntos:10000,tipo:'bonus',created_at:new Date().toISOString()});
+    await _db.from('fidelizacion').upsert({cliente_id:_passportUserId,puntos_disponibles:(_loyaltyData.availablePoints||0)+10000,puntos_historicos:(_loyaltyData.lifetimePoints||0)+10000,updated_at:new Date().toISOString()},{onConflict:'cliente_id'});
+    _loyaltyData.availablePoints=(_loyaltyData.availablePoints||0)+10000;
+    _loyaltyData.lifetimePoints=(_loyaltyData.lifetimePoints||0)+10000;
+  }catch(e){console.warn('Error saving rating:',e);}
+}
+
+/* ===== KEY DATES REMINDERS ===== */
+function renderKeyDates(v){
+  const wrap=document.getElementById('keyDatesWrap');
+  if(!wrap)return;
+  const now=new Date();
+  const sd=new Date(v.fecha_salida);
+  const ed=new Date(v.fecha_regreso);
+  const daysToTrip=Math.ceil((sd-now)/864e5);
+  const items=[];
+  if(daysToTrip>0&&daysToTrip<=14){
+    items.push({ico:'fa-plane-departure',color:'#1a6cff',bg:'#ebf1ff',label:'Día de salida',value:sd.toLocaleDateString('es-AR',{weekday:'short',day:'numeric',month:'short'}),urgent:daysToTrip<=3});
+  }
+  if(daysToTrip>0&&daysToTrip<=3){
+    items.push({ico:'fa-check-circle',color:'#d97706',bg:'#fef9c3',label:'Check-in online disponible',value:'¡Hacelo ahora!',urgent:true,action:()=>toast('Recordá hacer el check-in 24-48hs antes del vuelo','success')});
+  }
+  if(daysToTrip>0&&daysToTrip<=7){
+    items.push({ico:'fa-suitcase',color:'#16a34a',bg:'#dcfce7',label:'Preparar equipaje',value:`${daysToTrip} día${daysToTrip!==1?'s':''} para el viaje`,urgent:daysToTrip<=2});
+  }
+  if(daysToTrip>0&&daysToTrip<=30){
+    items.push({ico:'fa-shield-alt',color:'#7c3aed',bg:'#f5f3ff',label:'Verificar seguro de viaje',value:'Revisá tu cobertura',urgent:false});
+  }
+  const regreso=ed;
+  const daysBack=Math.ceil((regreso-now)/864e5);
+  if(daysBack>0&&daysBack<=3){
+    items.push({ico:'fa-plane-arrival',color:'#ec4899',bg:'#fdf2f8',label:'Regreso',value:ed.toLocaleDateString('es-AR',{weekday:'short',day:'numeric',month:'short'}),urgent:true});
+  }
+  if(!items.length)return;
+  wrap.innerHTML=`<div class="kd-card">
+    <div class="kd-hdr"><i class="fas fa-bell"></i> Fechas importantes</div>
+    <div class="kd-list">${items.map(it=>`<div class="kd-item${it.urgent?' kd-urgent':''}"${it.action?` onclick="(${it.action.toString()})()"`:''}>
+      <div class="kd-ico" style="background:${it.bg};color:${it.color}"><i class="fas ${it.ico}"></i></div>
+      <div class="kd-info"><div class="kd-label">${it.label}</div><div class="kd-value">${it.value}</div></div>
+      ${it.urgent?'<span class="kd-badge">!</span>':''}
+    </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+/* ===== SHARE TRIP MENU ===== */
+function shareTripMenu(){
+  if(!_currentTrip)return;
+  let m=document.getElementById('shareTripModal');
+  if(!m){
+    document.body.insertAdjacentHTML('beforeend',`<div id="shareTripModal" onclick="if(event.target===this)this.remove()" style="position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:0">
+      <div style="background:var(--card);border-radius:20px 20px 0 0;padding:24px 20px 32px;width:100%;max-width:480px;box-shadow:0 -8px 32px rgba(0,0,0,.15)">
+        <div style="width:36px;height:4px;background:var(--bd);border-radius:99px;margin:0 auto 20px"></div>
+        <div style="font-size:.9rem;font-weight:800;color:var(--tx);margin-bottom:16px"><i class="fas fa-share-alt" style="color:var(--ac);margin-right:8px"></i>Compartir viaje</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button onclick="shareTripWhatsApp();document.getElementById('shareTripModal').remove()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);font-size:.82rem;font-weight:700;cursor:pointer;width:100%;text-align:left">
+            <div style="width:38px;height:38px;background:#dcfce7;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#16a34a;font-size:1.1rem"><i class="fab fa-whatsapp"></i></div>
+            <div><div>Compartir por WhatsApp</div><div style="font-size:.7rem;font-weight:400;color:var(--tx2)">Enviá un mensaje con los detalles</div></div>
+          </button>
+          <button onclick="exportTripPDF();document.getElementById('shareTripModal').remove()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);font-size:.82rem;font-weight:700;cursor:pointer;width:100%;text-align:left">
+            <div style="width:38px;height:38px;background:#ebf1ff;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--ac);font-size:1.1rem"><i class="fas fa-file-pdf"></i></div>
+            <div><div>Descargar resumen PDF</div><div style="font-size:.7rem;font-weight:400;color:var(--tx2)">Itinerario completo en tu dispositivo</div></div>
+          </button>
+          <button onclick="copyTripLink();document.getElementById('shareTripModal').remove()" style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--bd);border-radius:12px;background:var(--bg);color:var(--tx);font-size:.82rem;font-weight:700;cursor:pointer;width:100%;text-align:left">
+            <div style="width:38px;height:38px;background:#fef9c3;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#d97706;font-size:1.1rem"><i class="fas fa-link"></i></div>
+            <div><div>Copiar link del portal</div><div style="font-size:.7rem;font-weight:400;color:var(--tx2)">Link para mostrar desde acá</div></div>
+          </button>
+        </div>
+      </div>
+    </div>`);
+  } else m.style.display='flex';
+}
+function shareTripWhatsApp(){
+  if(!_currentTrip)return;
+  const v=_currentTrip;
+  const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
+  const flag=getFlag(v.destino);
+  const text=`✈️ *Mi viaje con Herse Turismo*\n\n${flag} *Destino:* ${v.destino}\n📅 *Salida:* ${fmtDate(sd)}\n🏁 *Regreso:* ${fmtDate(ed)}\n${v.hotel?'🏨 *Hotel:* '+v.hotel+'\n':''}${v.vuelo_ida?'🛫 *Vuelo:* '+v.vuelo_ida+'\n':''}\n🌍 _Organizado por Herse Turismo · herseturismo.com.ar_`;
+  window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
+}
+function copyTripLink(){
+  navigator.clipboard.writeText(window.location.href).then(()=>toast('Link copiado al portapapeles','success'));
+}
+async function exportTripPDF(){
+  if(!_currentTrip){toast('No hay viaje activo','error');return;}
+  toast('Generando PDF...','');
+  const v=_currentTrip;
+  const sd=new Date(v.fecha_salida),ed=new Date(v.fecha_regreso);
+  const flag=getFlag(v.destino);
+  const dur=Math.round((ed-sd)/864e5);
+  const content=[
+    '╔══════════════════════════════════════╗',
+    '║         HERSE TURISMO — Mi Viaje     ║',
+    '╚══════════════════════════════════════╝',
+    '',
+    `Hola, ${_userName}!`,
+    '',
+    `DESTINO: ${v.destino} ${flag}`,
+    `SALIDA:  ${sd.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}`,
+    `REGRESO: ${ed.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}`,
+    `DURACIÓN: ${dur} noches`,
+    v.hotel?`HOTEL:   ${v.hotel}`:'',
+    v.vuelo_ida?`VUELO IDA: ${v.vuelo_ida}`:'',
+    v.vuelo_vuelta?`VUELO VUELTA: ${v.vuelo_vuelta}`:'',
+    v.pasajeros?`PASAJEROS: ${v.pasajeros}`:'',
+    '',
+    '──────────────────────────────────────',
+    v.itinerario?('ITINERARIO:\n'+v.itinerario):'',
+    '',
+    '──────────────────────────────────────',
+    'Checklist pre-viaje:',
+    ..._ckItems.map(i=>`  [${i.completado?'✓':' '}] ${i.texto}`),
+    '',
+    '──────────────────────────────────────',
+    'Herse Turismo · La Plata, Buenos Aires',
+    'herseturismo.com.ar · info@herseturismo.com.ar',
+    '+54 221 566 1704',
+  ].filter(l=>l!==undefined&&l!==null).join('\n');
+  const blob=new Blob([content],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`Herse-Viaje-${v.destino.replace(/[^a-z0-9]/gi,'-')}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Resumen descargado','success');
+}
+
 /* COUNTDOWN */
 function pad(n){return String(n).padStart(2,'0');}
 function tick(){
