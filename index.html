@@ -321,6 +321,73 @@ img { max-width: 100%; display: block; }
 a.contact-val:hover { color: var(--orange); }
 
 /* =============================================
+   CLIMA EN DESTINOS
+============================================= */
+.clima-section { padding: 90px 0; background: var(--white); }
+.clima-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 50px; }
+.clima-card {
+    border-radius: var(--radius); overflow: hidden; position: relative;
+    height: 220px; cursor: default; box-shadow: var(--shadow); transition: 0.35s;
+}
+.clima-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+.clima-card-bg {
+    position: absolute; inset: 0; background-size: cover; background-position: center;
+    transition: transform 0.5s;
+}
+.clima-card:hover .clima-card-bg { transform: scale(1.05); }
+.clima-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,20,60,0.85) 0%, rgba(0,20,60,0.3) 60%, transparent 100%);
+}
+.clima-card-body {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 20px;
+}
+.clima-destino { color: white; font-size: 1.1rem; font-weight: 900; margin-bottom: 2px; }
+.clima-pais { color: rgba(255,255,255,0.7); font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px; text-transform: uppercase; }
+.clima-temp-row { display: flex; align-items: center; gap: 10px; }
+.clima-temp { color: var(--orange); font-size: 2rem; font-weight: 900; line-height: 1; }
+.clima-desc { color: rgba(255,255,255,0.85); font-size: 0.82rem; font-weight: 700; line-height: 1.3; }
+.clima-icon { font-size: 1.6rem; }
+.clima-loading { opacity: 0.5; font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+.clima-extra { display: flex; gap: 12px; margin-top: 8px; }
+.clima-extra span { color: rgba(255,255,255,0.7); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+
+/* =============================================
+   NOTICIAS DE VIAJES
+============================================= */
+.noticias-section { padding: 90px 0; background: var(--light-bg); }
+.noticias-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 50px; }
+.noticia-card {
+    background: white; border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid #eee; transition: 0.3s; display: flex; flex-direction: column;
+}
+.noticia-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+.noticia-img-wrap { position: relative; height: 180px; overflow: hidden; background: var(--light-bg); }
+.noticia-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.noticia-card:hover .noticia-img-wrap img { transform: scale(1.06); }
+.noticia-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; opacity: 0.3; }
+.noticia-source-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--orange); color: white; font-size: 0.7rem; font-weight: 800;
+    padding: 3px 10px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.noticia-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.noticia-fecha { font-size: 0.75rem; color: var(--muted); font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.noticia-titulo { font-size: 1rem; font-weight: 800; color: var(--text); line-height: 1.4; margin-bottom: 10px; flex: 1; }
+.noticia-titulo a { color: inherit; }
+.noticia-titulo a:hover { color: var(--blue); }
+.noticia-leer {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 800;
+    color: var(--blue); transition: 0.3s; margin-top: auto; padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+.noticia-leer:hover { color: var(--orange); gap: 10px; }
+.noticias-footer { text-align: center; margin-top: 36px; }
+.noticias-skeleton { background: #e8e8e8; border-radius: var(--radius); height: 320px; animation: skeleton-pulse 1.5s infinite; }
+@keyframes skeleton-pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+/* =============================================
    RESPONSIVE
 ============================================= */
 @media (max-width: 992px) {
@@ -328,6 +395,8 @@ a.contact-val:hover { color: var(--orange); }
     .nosotros-img-wrap img { height: 340px; }
     .consulta-inner { grid-template-columns: 1fr; gap: 40px; }
     .porque-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+    .clima-grid { grid-template-columns: repeat(2, 1fr); }
+    .noticias-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -344,6 +413,8 @@ a.contact-val:hover { color: var(--orange); }
     .form-row { grid-template-columns: 1fr; }
     .nosotros-section, .porque-section { padding: 60px 0; }
     .footer-content { grid-template-columns: 1fr; gap: 25px; }
+    .clima-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .noticias-grid { grid-template-columns: 1fr; }
     .whatsapp-float { width: 52px; height: 52px; font-size: 1.5rem; bottom: 90px; right: 20px; }
     .whatsapp-float::before { display: none; }
 }
@@ -376,6 +447,7 @@ a.contact-val:hover { color: var(--orange); }
                     <ul class="nav-links">
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#noticias">Noticias</a></li>
                         <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </nav>
@@ -387,6 +459,7 @@ a.contact-val:hover { color: var(--orange); }
         <div class="mobile-menu" id="mobileMenu">
             <a href="#inicio" onclick="closeMobileMenu()">Inicio</a>
             <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
+            <a href="#noticias" onclick="closeMobileMenu()">Noticias</a>
             <a href="#contacto" onclick="closeMobileMenu()">Contacto</a>
             <a href="/mi-viaje" class="btn-miviaje" style="justify-content:center;margin-top:4px">
                 <i class="fas fa-user-circle"></i> Mi Viaje
@@ -516,6 +589,43 @@ a.contact-val:hover { color: var(--orange); }
         </div>
     </section>
 
+    <!-- CLIMA EN DESTINOS -->
+    <section id="clima" class="clima-section">
+        <div class="container">
+            <div class="section-header-centered">
+                <p class="section-eyebrow">Planificá tu viaje</p>
+                <h2 class="section-title-plain">Clima en destinos populares</h2>
+                <p style="color:var(--muted);max-width:520px;margin:0 auto;font-size:0.95rem;">Temperatura actual en los destinos más elegidos por nuestros viajeros.</p>
+            </div>
+            <div class="clima-grid" id="climaGrid">
+                <!-- JS rellena esto -->
+                <div class="noticias-skeleton"></div>
+                <div class="noticias-skeleton"></div>
+                <div class="noticias-skeleton"></div>
+                <div class="noticias-skeleton"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOTICIAS DE VIAJES -->
+    <section id="noticias" class="noticias-section">
+        <div class="container">
+            <div class="section-header-centered">
+                <p class="section-eyebrow">Inspirate</p>
+                <h2 class="section-title-plain">Noticias del mundo viajero</h2>
+                <p style="color:var(--muted);max-width:520px;margin:0 auto;font-size:0.95rem;">Las últimas novedades de destinos, tendencias y consejos de viaje.</p>
+            </div>
+            <div class="noticias-grid" id="noticiasGrid">
+                <div class="noticias-skeleton"></div>
+                <div class="noticias-skeleton"></div>
+                <div class="noticias-skeleton"></div>
+            </div>
+            <div class="noticias-footer">
+                <p style="color:var(--muted);font-size:0.82rem;margin-top:10px;">Fuente: Lonely Planet &amp; National Geographic Viajes</p>
+            </div>
+        </div>
+    </section>
+
     <!-- FORMULARIO DE CONSULTA -->
     <section id="consulta" class="consulta-section">
         <div class="consulta-overlay"></div>
@@ -633,6 +743,7 @@ a.contact-val:hover { color: var(--orange); }
                 <ul class="footer-nav">
                     <li><a href="#inicio"><i class="fas fa-chevron-right"></i> Inicio</a></li>
                     <li><a href="#nosotros"><i class="fas fa-chevron-right"></i> Nosotros</a></li>
+                    <li><a href="#noticias"><i class="fas fa-chevron-right"></i> Noticias</a></li>
                     <li><a href="#consulta"><i class="fas fa-chevron-right"></i> Cotizar viaje</a></li>
                     <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Contacto</a></li>
                 </ul>
@@ -688,6 +799,152 @@ a.contact-val:hover { color: var(--orange); }
             sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
             navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
         });
+
+        /* =============================================
+           CLIMA EN DESTINOS — Open-Meteo (sin API key)
+        ============================================= */
+        const DESTINOS_CLIMA = [
+            { nombre: 'Cancún',      pais: 'México',        lat: 21.17,  lon: -86.85, img: 'https://images.unsplash.com/photo-1552074284-5e88ef1aef18?auto=format&fit=crop&w=600&q=70' },
+            { nombre: 'Río de Janeiro', pais: 'Brasil',     lat: -22.90, lon: -43.17, img: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=600&q=70' },
+            { nombre: 'París',       pais: 'Francia',       lat: 48.85,  lon: 2.35,   img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=600&q=70' },
+            { nombre: 'Orlando',     pais: 'Estados Unidos',lat: 28.54,  lon: -81.38, img: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=600&q=70' },
+        ];
+
+        const WMO_DESC = {
+            0:'Despejado', 1:'Mayormente despejado', 2:'Parcialmente nublado', 3:'Nublado',
+            45:'Neblina', 48:'Neblina helada', 51:'Llovizna leve', 53:'Llovizna moderada',
+            55:'Llovizna intensa', 61:'Lluvia leve', 63:'Lluvia moderada', 65:'Lluvia fuerte',
+            71:'Nieve leve', 73:'Nieve moderada', 75:'Nieve fuerte', 80:'Chubascos leves',
+            81:'Chubascos moderados', 82:'Chubascos fuertes', 95:'Tormenta', 99:'Tormenta con granizo'
+        };
+        const WMO_ICON = {
+            0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️', 45:'🌫️', 48:'🌫️',
+            51:'🌦️', 53:'🌦️', 55:'🌧️', 61:'🌧️', 63:'🌧️', 65:'🌧️',
+            71:'❄️', 73:'❄️', 75:'❄️', 80:'🌦️', 81:'🌦️', 82:'⛈️',
+            95:'⛈️', 99:'⛈️'
+        };
+
+        async function cargarClima() {
+            const grid = document.getElementById('climaGrid');
+            const coords = DESTINOS_CLIMA.map(d => `latitude=${d.lat}&longitude=${d.lon}`).join('&');
+            const url = `https://api.open-meteo.com/v1/forecast?${DESTINOS_CLIMA.map(d =>
+                `latitude=${d.lat}&longitude=${d.lon}`).join('&')}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`;
+
+            try {
+                const promises = DESTINOS_CLIMA.map(d =>
+                    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${d.lat}&longitude=${d.lon}&current_weather=true&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`)
+                    .then(r => r.json())
+                );
+                const resultados = await Promise.all(promises);
+
+                grid.innerHTML = DESTINOS_CLIMA.map((d, i) => {
+                    const cw   = resultados[i].current_weather;
+                    const daily = resultados[i].daily;
+                    const temp  = Math.round(cw.temperature);
+                    const code  = cw.weathercode;
+                    const desc  = WMO_DESC[code] || 'Variable';
+                    const icon  = WMO_ICON[code] || '🌡️';
+                    const tmax  = Math.round(daily.temperature_2m_max[0]);
+                    const tmin  = Math.round(daily.temperature_2m_min[0]);
+                    return `
+                    <div class="clima-card reveal">
+                        <div class="clima-card-bg" style="background-image:url('${d.img}')"></div>
+                        <div class="clima-card-overlay"></div>
+                        <div class="clima-card-body">
+                            <div class="clima-destino">${d.nombre}</div>
+                            <div class="clima-pais">${d.pais}</div>
+                            <div class="clima-temp-row">
+                                <span class="clima-icon">${icon}</span>
+                                <span class="clima-temp">${temp}°C</span>
+                                <span class="clima-desc">${desc}</span>
+                            </div>
+                            <div class="clima-extra">
+                                <span>↑ ${tmax}°</span>
+                                <span>↓ ${tmin}°</span>
+                            </div>
+                        </div>
+                    </div>`;
+                }).join('');
+
+                // Aplicar scroll reveal a las nuevas cards
+                grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+            } catch(e) {
+                grid.innerHTML = '<p style="color:var(--muted);text-align:center;grid-column:1/-1">No se pudo cargar el clima. Intentá de nuevo más tarde.</p>';
+            }
+        }
+
+        /* =============================================
+           NOTICIAS DE VIAJES — RSS via rss2json
+        ============================================= */
+        const RSS_FEEDS = [
+            { url: 'https://www.lonelyplanet.com/news/feed', nombre: 'Lonely Planet' },
+            { url: 'https://feeds.nationalgeographic.com/ng/travel/travel', nombre: 'Nat Geo' },
+        ];
+
+        function formatFecha(dateStr) {
+            const d = new Date(dateStr);
+            if (isNaN(d)) return '';
+            return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        function stripHtml(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        async function cargarNoticias() {
+            const grid = document.getElementById('noticiasGrid');
+            const apiBase = 'https://api.rss2json.com/v1/api.json?rss_url=';
+            let articulos = [];
+
+            for (const feed of RSS_FEEDS) {
+                try {
+                    const res = await fetch(`${apiBase}${encodeURIComponent(feed.url)}&count=4`);
+                    const data = await res.json();
+                    if (data.status === 'ok' && data.items) {
+                        articulos = articulos.concat(data.items.slice(0, 3).map(item => ({
+                            titulo: item.title,
+                            link: item.link,
+                            fecha: item.pubDate,
+                            imagen: item.thumbnail || item.enclosure?.link || '',
+                            fuente: feed.nombre
+                        })));
+                    }
+                } catch(e) {}
+            }
+
+            if (articulos.length === 0) {
+                grid.innerHTML = '<p style="color:var(--muted);text-align:center;grid-column:1/-1">No se pudieron cargar las noticias.</p>';
+                return;
+            }
+
+            articulos = articulos.slice(0, 6);
+
+            grid.innerHTML = articulos.map(a => `
+            <div class="noticia-card reveal">
+                <div class="noticia-img-wrap">
+                    ${a.imagen
+                        ? `<img src="${a.imagen}" alt="${a.titulo}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=noticia-img-placeholder>✈️</div>'">`
+                        : `<div class="noticia-img-placeholder">✈️</div>`}
+                    <span class="noticia-source-badge">${a.fuente}</span>
+                </div>
+                <div class="noticia-body">
+                    <div class="noticia-fecha"><i class="fas fa-calendar-alt"></i> ${formatFecha(a.fecha)}</div>
+                    <div class="noticia-titulo"><a href="${a.link}" target="_blank" rel="noopener noreferrer">${a.titulo}</a></div>
+                    <a href="${a.link}" target="_blank" rel="noopener noreferrer" class="noticia-leer">
+                        Leer nota <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>`).join('');
+
+            grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        }
+
+        // Iniciar ambas cargas
+        cargarClima();
+        cargarNoticias();
 
         // Formulario → WhatsApp
         function enviarConsulta() {
