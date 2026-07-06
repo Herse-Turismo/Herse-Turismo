@@ -621,7 +621,7 @@ a.contact-val:hover { color: var(--orange); }
                 <div class="noticias-skeleton"></div>
             </div>
             <div class="noticias-footer">
-                <p style="color:var(--muted);font-size:0.82rem;margin-top:10px;">Fuente: Lonely Planet &amp; National Geographic Viajes</p>
+                <p style="color:var(--muted);font-size:0.82rem;margin-top:10px;">Fuente: Infobae Viajes &amp; National Geographic Viajes</p>
             </div>
         </div>
     </section>
@@ -875,11 +875,11 @@ a.contact-val:hover { color: var(--orange); }
         }
 
         /* =============================================
-           NOTICIAS DE VIAJES — RSS via rss2json
+           NOTICIAS DE VIAJES — RSS via AllOrigins proxy
         ============================================= */
         const RSS_FEEDS = [
-            { url: 'https://www.lonelyplanet.com/news/feed', nombre: 'Lonely Planet' },
-            { url: 'https://feeds.nationalgeographic.com/ng/travel/travel', nombre: 'Nat Geo' },
+            { url: 'https://www.infobae.com/feeds/rss/seccion/viajes/', nombre: 'Infobae Viajes' },
+            { url: 'https://viajes.nationalgeographic.com.es/feed', nombre: 'Nat Geo' },
         ];
 
         function formatFecha(dateStr) {
@@ -888,35 +888,49 @@ a.contact-val:hover { color: var(--orange); }
             return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' });
         }
 
-        function stripHtml(html) {
-            const tmp = document.createElement('div');
-            tmp.innerHTML = html;
-            return tmp.textContent || tmp.innerText || '';
+        function getImgFromItem(item) {
+            // 1) media:content
+            const media = item.querySelector('content');
+            if (media && media.getAttribute('url')) return media.getAttribute('url');
+            // 2) enclosure
+            const encl = item.querySelector('enclosure');
+            if (encl && encl.getAttribute('url')) return encl.getAttribute('url');
+            // 3) img dentro de description
+            const desc = item.querySelector('description,encoded')?.textContent || '';
+            const match = desc.match(/<img[^>]+src=["']([^"']+)["']/i);
+            if (match) return match[1];
+            return '';
+        }
+
+        async function parseFeed(feedUrl, nombre) {
+            const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
+            const res = await fetch(proxy);
+            const data = await res.json();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(data.contents, 'text/xml');
+            const items = Array.from(xml.querySelectorAll('item')).slice(0, 3);
+            return items.map(item => ({
+                titulo: item.querySelector('title')?.textContent?.trim() || '',
+                link:   item.querySelector('link')?.textContent?.trim() || '',
+                fecha:  item.querySelector('pubDate')?.textContent || '',
+                imagen: getImgFromItem(item),
+                fuente: nombre
+            })).filter(a => a.titulo && a.link);
         }
 
         async function cargarNoticias() {
             const grid = document.getElementById('noticiasGrid');
-            const apiBase = 'https://api.rss2json.com/v1/api.json?rss_url=';
             let articulos = [];
 
-            for (const feed of RSS_FEEDS) {
-                try {
-                    const res = await fetch(`${apiBase}${encodeURIComponent(feed.url)}&count=4`);
-                    const data = await res.json();
-                    if (data.status === 'ok' && data.items) {
-                        articulos = articulos.concat(data.items.slice(0, 3).map(item => ({
-                            titulo: item.title,
-                            link: item.link,
-                            fecha: item.pubDate,
-                            imagen: item.thumbnail || item.enclosure?.link || '',
-                            fuente: feed.nombre
-                        })));
-                    }
-                } catch(e) {}
-            }
+            const resultados = await Promise.allSettled(
+                RSS_FEEDS.map(f => parseFeed(f.url, f.nombre))
+            );
+            resultados.forEach(r => {
+                if (r.status === 'fulfilled') articulos = articulos.concat(r.value);
+            });
 
             if (articulos.length === 0) {
-                grid.innerHTML = '<p style="color:var(--muted);text-align:center;grid-column:1/-1">No se pudieron cargar las noticias.</p>';
+                grid.innerHTML = '<p style="color:var(--muted);text-align:center;grid-column:1/-1">No se pudieron cargar las noticias en este momento.</p>';
                 return;
             }
 
