@@ -3063,8 +3063,14 @@ async function loadSmartWidgets(destino){
       const swCardCur = document.createElement('div');
       swCardCur.className = 'sw-card';
       swCardCur.id = 'swCardCurrency';
-      swCardCur.innerHTML = `<div class="sw-ico green" style="background:rgba(34,197,94,0.1);color:#16a34a"><i class="fas fa-money-bill-transfer"></i></div><div><div class="sw-label">Referencia cambio</div><div class="sw-val" id="swCurVal">1 USD ≈ ${info.cur === 'EUR' ? '0.92' : info.cur === 'BRL' ? '5.10' : '...'} ${info.cur}</div><div class="sw-sub">Valor aprox. mercado</div></div>`;
+      swCardCur.innerHTML = `<div class="sw-ico green" style="background:rgba(34,197,94,0.1);color:#16a34a"><i class="fas fa-money-bill-transfer"></i></div><div><div class="sw-label">Referencia cambio</div><div class="sw-val" id="swCurVal">1 USD ≈ ... ${info.cur}</div><div class="sw-sub">Valor aprox. mercado</div></div>`;
       wrap.appendChild(swCardCur);
+      try{
+        const rates=await loadExchangeRates();
+        const rate=rateForUsdTo(rates,info.cur);
+        const el=document.getElementById('swCurVal');
+        if(el&&rate) el.textContent=`1 USD ≈ ${rate.toFixed(2)} ${info.cur}`;
+      }catch(_){}
     }
 
     // Travel Tip
@@ -3206,7 +3212,7 @@ function updateFidDashCard(fid){
 let _allTrips=[];
 async function loadHistorial(){
   try{
-    const {data,error}=await _db.from('viajes').select('id,destino,fecha_salida,fecha_regreso,activo,hotel,vuelo_ida,pasajeros,codigo').order('fecha_salida',{ascending:false});
+    const {data,error}=await _db.from('viajes').select('id,destino,pais,fecha_salida,fecha_regreso,activo,hotel,vuelo_ida,pasajeros,codigo').order('fecha_salida',{ascending:false});
     if(error)throw error;
     _allTrips=data||[];
     try{
@@ -3226,7 +3232,7 @@ async function loadHistorial(){
   _allTrips.filter(t=>!t.activo).forEach(t=>{if(t.id)loadTripPhotos(t.id).catch(err=>console.warn('Error cargando fotos:',err));});
   const activo=_allTrips.filter(t=>t.activo).length;
   const completados=_allTrips.filter(t=>!t.activo).length;
-  const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(',')[0].split(' ')[0])).size;
+  const paises=new Set(_allTrips.map(t=>(t.pais||t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(',')[0].split(' ')[0]).trim())).size;
   const st=document.getElementById('statTotal');if(st)animateCount(st,_allTrips.length);
   const sp=document.getElementById('statProximos');if(sp)animateCount(sp,activo);
   const sc=document.getElementById('statCompletados');if(sc)animateCount(sc,completados);
@@ -3242,7 +3248,7 @@ function updateNoTripNivelCard(){
   const avail=_loyaltyData.availablePoints;
   const prog=getLevelProgress(lifetime);
   const comp=_allTrips.filter(t=>!t.activo).length;
-  const paises=new Set(_allTrips.map(t=>t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(' ')[0])).size;
+  const paises=new Set(_allTrips.map(t=>(t.pais||t.destino.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').split(' ')[0]).trim())).size;
   body.innerHTML=`
     <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
       <div style="flex:1">
@@ -3653,12 +3659,16 @@ async function canjearBeneficio(benefitId){
   if(!b||!_passportUserId)return;
   if(_loyaltyData.availablePoints<b.cost){alert('No tenés suficientes puntos para este beneficio.');return;}
   if(!confirm('¿Querés canjear "'+b.name+'" por '+fmtPts(b.cost)+' puntos?'))return;
-  const newAvail=_loyaltyData.availablePoints-b.cost;
-  const {error:e1}=await _db.from('fidelizacion_trans').insert({cliente_id:_passportUserId,concepto:'Canje: '+b.name,puntos:-b.cost,tipo:'canje',created_at:new Date().toISOString()});
-  if(e1){alert('Error al canjear: '+e1.message);return;}
-  const {error:e2}=await _db.from('fidelizacion').upsert({cliente_id:_passportUserId,puntos_disponibles:newAvail,puntos:newAvail,puntos_historicos:_loyaltyData.lifetimePoints,updated_at:new Date().toISOString()},{onConflict:'cliente_id'});
-  _loyaltyData.availablePoints=newAvail;
-  renderFidelizacion();
+  try{
+    const {data,error}=await _db.rpc('canjear_beneficio',{p_concepto:b.name,p_costo:b.cost});
+    if(error||!data?.ok) throw new Error(error?.message||data?.error||'Error al canjear');
+    _loyaltyData.availablePoints=data.disponibles;
+    toast('Canje exitoso: '+b.name,'success');
+    renderFidelizacion();
+  }catch(e){
+    console.warn('Canje fallido:',e);
+    alert('Error al canjear: '+e.message);
+  }
 }
 /* ===== TRIP RATING ===== */
 const _tripRatings={};
@@ -3698,13 +3708,7 @@ async function saveTripRating(tripId){
     _ratedTrips.add(tripId);
     const wrap=document.getElementById('rating-wrap-'+tripId);
     if(wrap)wrap.innerHTML='<div style="text-align:center;padding:10px;font-size:.75rem;color:#16a34a"><i class="fas fa-check-circle"></i> ¡Gracias por tu reseña! (+10.000 pts)</div>';
-    const newAvail=(_loyaltyData.availablePoints||0)+10000;
-    const newLifetime=(_loyaltyData.lifetimePoints||0)+10000;
-    await _db.from('fidelizacion_trans').insert({cliente_id:_passportUserId,concepto:'Reseña aprobada',puntos:10000,tipo:'bonus',created_at:new Date().toISOString()});
-    await _db.from('fidelizacion').upsert({cliente_id:_passportUserId,puntos:newAvail,puntos_disponibles:newAvail,puntos_historicos:newLifetime,updated_at:new Date().toISOString()},{onConflict:'cliente_id'});
-    _loyaltyData.availablePoints=newAvail;
-    _loyaltyData.lifetimePoints=newLifetime;
-    updateSidebarPulse();
+    // Los puntos se acreditan automáticamente desde un trigger de Postgres
   }catch(e){
     console.warn('Error saving rating:',e);
     toast('No se pudo guardar la reseña. Intentá de nuevo.','error');
@@ -4147,7 +4151,7 @@ async function loadExchangeRates() {
     const now = Date.now();
     if(cached && cachedTime && (now - parseInt(cachedTime)) < 3600000) {
       visionExchangeRates = JSON.parse(cached);
-      return;
+      return visionExchangeRates;
     }
     const res = await fetch('https://api.exchangerate-api.com/v4/latest/ARS', {signal: AbortSignal.timeout(5000)});
     if(!res.ok) throw new Error('API error');
@@ -4155,10 +4159,20 @@ async function loadExchangeRates() {
     visionExchangeRates = data.rates || {};
     localStorage.setItem('herse_rates', JSON.stringify(visionExchangeRates));
     localStorage.setItem('herse_rates_time', now.toString());
+    return visionExchangeRates;
   } catch(e) {
     console.warn('Exchange rates API failed, using defaults:', e);
     visionExchangeRates = {'USD': 0.0058, 'EUR': 0.0054, 'GBP': 0.0046, 'JPY': 0.87, 'AUD': 0.0087, 'CAD': 0.0079, 'CHF': 0.0051, 'BRL': 0.029, 'MXN': 0.098, 'ARS': 1};
+    return visionExchangeRates;
   }
+}
+function rateForUsdTo(rates,cur){
+  if(!rates||!rates['USD']||!rates['ARS'])return null;
+  // API es ARS-based: rate X = ARS/X. Queremos USD -> cur
+  // USD -> ARS -> cur
+  const arsPerUsd=rates['ARS']/rates['USD'];     // ARS per 1 USD
+  const arsPerCur=rates['ARS']/rates[cur];       // ARS per 1 destino
+  return arsPerUsd/arsPerCur;
 }
 
 function openCurrencyConverter() {

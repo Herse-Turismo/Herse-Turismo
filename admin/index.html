@@ -94,6 +94,9 @@
                     <button class="tab-btn" onclick="switchTab('docs', this)">
                         <i class="fas fa-folder-open"></i> Documentos
                     </button>
+                    <button class="tab-btn" onclick="switchTab('reviews', this)">
+                        <i class="fas fa-star"></i> Reseñas
+                    </button>
                     <button class="tab-btn" onclick="switchTab('fid', this)">
                         <i class="fas fa-crown"></i> Club Herse
                     </button>
@@ -122,6 +125,11 @@
                                 <div class="form-group full">
                                     <label>Destino</label>
                                     <input type="text" id="v-destino" placeholder="Ej: Cancún, México">
+                                </div>
+                                <div class="form-group full">
+                                    <label>País (para estadísticas)</label>
+                                    <input type="text" id="v-pais" placeholder="Ej: México">
+                                    <small style="font-size:.7rem;color:var(--muted)">Usado en el contador de países del cliente</small>
                                 </div>
                                 <div class="form-group full">
                                     <label>Nombre del circuito (opcional)</label>
@@ -379,6 +387,14 @@
                             <div class="card-title" style="font-size:.75rem;margin-bottom:10px"><i class="fas fa-history"></i> Movimientos recientes</div>
                             <div id="f-trans-list"><p class="no-data">Cargando...</p></div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- TAB: RESEÑAS -->
+                <div class="tab-content" id="tab-reviews">
+                    <div class="card">
+                        <div class="card-title"><i class="fas fa-star" style="color:#f59e0b"></i> Reseñas de viajes</div>
+                        <div id="adminReviewsWrap"><p class="no-data">Seleccioná un cliente primero.</p></div>
                     </div>
                 </div>
 
@@ -662,6 +678,7 @@
         function fillViajeForm(v) {
             const f = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
             f('v-destino', v?.destino);
+            f('v-pais', v?.pais);
             f('v-circuito', v?.circuito);
             f('v-imagen', v?.imagen_url);
             f('v-salida',  v?.fecha_salida  ? v.fecha_salida.replace('Z','').substring(0,16) : '');
@@ -690,6 +707,7 @@
             const payload = {
                 cliente_id:   currentClient.id,
                 destino:      document.getElementById('v-destino').value,
+                pais:         (document.getElementById('v-pais')?.value||'').trim() || null,
                 circuito:     document.getElementById('v-circuito').value || null,
                 imagen_url:   document.getElementById('v-imagen').value || null,
                 fecha_salida: document.getElementById('v-salida').value || null,
@@ -1207,6 +1225,7 @@
             document.getElementById('tab-' + name).classList.add('active');
             if (name === 'passport') loadPassportAdmin();
             if (name === 'misiones') loadMisionesAdmin();
+            if (name === 'reviews') loadReviewsAdmin();
             if (name === 'fid') loadFidTransactions();
             if (name === 'perfil') {
                 fillPerfilForm(currentClient);
@@ -1216,6 +1235,40 @@
                     });
                 }
             }
+        }
+
+        // ===== RESEÑAS ADMIN =====
+        async function loadReviewsAdmin() {
+            const wrap = document.getElementById('adminReviewsWrap');
+            if (!wrap || !currentClient) { if(wrap) wrap.innerHTML='<p class="no-data">Seleccioná un cliente primero.</p>'; return; }
+            wrap.innerHTML = '<p class="no-data"><i class="fas fa-spinner fa-spin"></i> Cargando...</p>';
+
+            const { data: ratings } = await _db.from('viaje_ratings')
+                .select('id,estrellas,comentario,created_at,viajes(destino,pais)')
+                .eq('cliente_id', currentClient.id)
+                .order('created_at', { ascending: false });
+
+            if (!ratings?.length) {
+                wrap.innerHTML = '<p class="no-data">Este cliente todavía no calificó ningún viaje.</p>';
+                return;
+            }
+
+            wrap.innerHTML = ratings.map(r => {
+                const v = r.viajes || {};
+                const stars = Array.from({length:5},(_,i)=>`<i class="fas fa-star" style="color:${i<r.estrellas?'#f59e0b':'#e2e8f0'};font-size:.7rem"></i>`).join('');
+                const fecha = r.created_at ? new Date(r.created_at).toLocaleDateString('es-AR', {day:'numeric', month:'short', year:'numeric'}) : '—';
+                return `<div style="padding:14px;background:white;border:1.5px solid #e0e8f0;border-radius:12px;margin-bottom:10px">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                        <div style="width:36px;height:36px;border-radius:9px;background:#fffbeb;display:flex;align-items:center;justify-content:center;font-size:1.2rem">⭐</div>
+                        <div style="flex:1">
+                            <div style="font-size:.82rem;font-weight:800">${escapeHtml(v.destino || 'Viaje')}</div>
+                            <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">${fecha} ${v.pais ? '· ' + escapeHtml(v.pais) : ''}</div>
+                        </div>
+                        <div style="display:flex;gap:2px">${stars}</div>
+                    </div>
+                    ${r.comentario ? '<div style="font-size:.72rem;color:var(--text);background:var(--light);padding:8px 10px;border-radius:8px;margin-bottom:6px">' + escapeHtml(r.comentario) + '</div>' : ''}
+                </div>`;
+            }).join('');
         }
 
         // ===== LOGOUT =====
