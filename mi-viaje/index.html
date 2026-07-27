@@ -2921,7 +2921,7 @@ function updateTripUI(v){
         <div class="trip-tag">TU PRÓXIMA AVENTURA</div>
         <h1 class="trip-title">${escapeHtml(v.destino)} te espera ${flag}</h1>
         <div class="trip-meta-row">
-          <div class="trip-date-pill"><i class="fas fa-calendar-alt"></i> ${fmtDate(sd)} â†’ ${fmtDate(ed)}</div>
+          <div class="trip-date-pill"><i class="fas fa-calendar-alt"></i> ${fmtDate(sd)} → ${fmtDate(ed)}</div>
           <div class="trip-cd-row">
             <div class="trip-cd-u"><span class="trip-cd-v" id="cd-d">--</span><span class="trip-cd-l">días</span></div>
             <span class="trip-cd-sep">·</span>
@@ -3063,7 +3063,7 @@ async function loadSmartWidgets(destino){
       const swCardCur = document.createElement('div');
       swCardCur.className = 'sw-card';
       swCardCur.id = 'swCardCurrency';
-      swCardCur.innerHTML = `<div class="sw-ico green" style="background:rgba(34,197,94,0.1);color:#16a34a"><i class="fas fa-money-bill-transfer"></i></div><div><div class="sw-label">Referencia cambio</div><div class="sw-val" id="swCurVal">1 USD â‰ˆ ${info.cur === 'EUR' ? '0.92' : info.cur === 'BRL' ? '5.10' : '...'} ${info.cur}</div><div class="sw-sub">Valor aprox. mercado</div></div>`;
+      swCardCur.innerHTML = `<div class="sw-ico green" style="background:rgba(34,197,94,0.1);color:#16a34a"><i class="fas fa-money-bill-transfer"></i></div><div><div class="sw-label">Referencia cambio</div><div class="sw-val" id="swCurVal">1 USD ≈ ${info.cur === 'EUR' ? '0.92' : info.cur === 'BRL' ? '5.10' : '...'} ${info.cur}</div><div class="sw-sub">Valor aprox. mercado</div></div>`;
       wrap.appendChild(swCardCur);
     }
 
@@ -3416,7 +3416,7 @@ const LOYALTY_CONFIG={
     {ico:'✈️',name:'Compra general',desc:'100 pts por cada USD 1'},
     {ico:'📦',name:'Paquete vuelo + hotel',desc:'100 pts/USD + bonus 25.000 pts'},
     {ico:'🌍',name:'Viaje internacional',desc:'100 pts/USD + bonus 40.000 pts'},
-    {ico:'âš½',name:'Viaje futbolero',desc:'130 pts por cada USD 1'},
+    {ico:'⚽',name:'Viaje futbolero',desc:'130 pts por cada USD 1'},
     {ico:'🛡️',name:'Asistencia al viajero',desc:'150 pts por cada USD 1'},
     {ico:'🏨',name:'Hoteles',desc:'80 pts por cada USD 1'},
     {ico:'🚢',name:'Cruceros',desc:'130 pts por cada USD 1'},
